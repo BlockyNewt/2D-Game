@@ -2,6 +2,7 @@
 #define ENGINE_H
 
 #include "State.h"
+#include "StateMainMenu.h"
 
 class Engine
 {

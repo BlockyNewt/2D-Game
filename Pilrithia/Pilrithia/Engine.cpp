@@ -10,11 +10,17 @@ Engine::Engine()
 	this->window_->setKeyRepeatEnabled(false);
 
 	//PUSH NEW STATE HERE
+	this->states_.push(new StateMainMenu(&this->states_, this->window_));
 }
 
 Engine::~Engine()
 {
 	delete this->window_;
+
+	while (!this->states_.empty())
+	{
+		delete this->states_.top();
+	}
 }
 
 void Engine::Run()
@@ -35,9 +41,14 @@ void Engine::UpdatePollEvent()
 		{
 			this->window_->close();
 		}
-		else if (!this->states_.empty())
+		
+		if (!this->states_.empty())
 		{
 			this->states_.top()->UpdatePollEvent(this->ev_);
+		}
+		else
+		{
+			this->window_->close();
 		}
 	}
 }
@@ -48,12 +59,24 @@ void Engine::Update()
 	{
 		this->states_.top()->Update();
 	}
+	else
+	{
+		this->window_->close();
+	}
 }
 
 void Engine::Render()
 {
+	this->window_->clear();
+
 	if (!this->states_.empty())
 	{
 		this->states_.top()->Render(*this->window_);
 	}
+	else
+	{
+		this->window_->close();
+	}
+
+	this->window_->display();
 }

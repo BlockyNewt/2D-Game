@@ -9,11 +9,10 @@ Button::~Button()
 {
 }
 
-void Button::SetSettings(float sizeX, float sizeY, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor)
+void Button::SetSettings(float sizeX, float sizeY, float posX, float posY, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor)
 {
-	//WILL HAVE TO ALSO ADD POSITION SETTERS 
-
 	this->button_.setSize(sf::Vector2f(sizeX, sizeY));
+	this->button_.setPosition(sf::Vector2f(posX, posY));
 	this->button_.setFillColor(fillColor);
 	this->button_.setOutlineThickness(outlineThickness);
 	this->button_.setOutlineColor(outlineColor);
@@ -55,4 +54,26 @@ void Button::UpdateBoundaries(const sf::Vector2i& mousePositionWindow)
 void Button::Render(sf::RenderTarget& target)
 {
 	target.draw(this->button_);
+}
+
+const sf::Vector2f& Button::setPositionOfText(sf::Text& text)
+{
+	text.setPosition(sf::Vector2f(this->button_.getGlobalBounds().left + 10.f, this->button_.getGlobalBounds().top + 10.f));
+
+	return text.getPosition();
+}
+
+const sf::Vector2f& Button::getPosition() const
+{
+	return this->button_.getPosition();
+}
+
+const float& Button::getLeftPosition(int offset) const
+{
+	return this->button_.getGlobalBounds().left + offset;
+}
+
+const float& Button::getBottomPosition(int offset) const
+{
+	return this->button_.getGlobalBounds().top + this->button_.getGlobalBounds().height + offset;
 }

@@ -2,6 +2,8 @@
 
 Engine::Engine()
 {
+	std::cout << "DEBUG::ENGINE::ENGINE() -> HAS STARTED." << std::endl;
+
 	this->vm_.width = 1280;
 	this->vm_.height = 720;
 

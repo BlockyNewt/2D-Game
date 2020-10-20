@@ -12,9 +12,11 @@ public:
 	Text();
 	~Text();
 
-	void SetSettings(std::string fontFilePath, std::string text);
+	void SetSettings(std::string fontFilePath, unsigned int characterSize, std::string text, sf::Vector2f position);
 
 	void Render(sf::RenderTarget& target);
+
+	sf::Text& setText();
 
 private:
 

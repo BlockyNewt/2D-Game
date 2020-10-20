@@ -17,9 +17,12 @@ public:
 private:
 
 private:
-	Button b_1_;
-	Text t_1_;
+	Button b_B_, b_C_;
+	std::vector<Button> buttons_;
 
+	Text t_A_;
+	Text t_B_, t_C_;
+	std::vector<Text> texts_;
 };
 
 #endif

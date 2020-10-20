@@ -5,6 +5,7 @@
 #include "Text.h"
 
 #include <stack>
+#include <vector>
 
 class State
 {

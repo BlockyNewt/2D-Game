@@ -145,17 +145,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Box.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MenuPause.cpp" />
     <ClCompile Include="State.cpp" />
+    <ClCompile Include="StateEditor.cpp" />
     <ClCompile Include="StateMainMenu.cpp" />
     <ClCompile Include="Text.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Box.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Engine.h" />
+    <ClInclude Include="MenuPause.h" />
     <ClInclude Include="State.h" />
+    <ClInclude Include="StateEditor.h" />
     <ClInclude Include="StateMainMenu.h" />
     <ClInclude Include="Text.h" />
   </ItemGroup>

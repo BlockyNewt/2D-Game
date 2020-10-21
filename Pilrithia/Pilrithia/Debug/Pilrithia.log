@@ -1,27 +1,2 @@
-﻿  Button.cpp
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Button.cpp(39,102): warning C4244: 'argument': conversion from 'const T' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-          and
-          [
-              T=float
-          ]
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Button.cpp(39,79): warning C4244: 'argument': conversion from 'const T' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-          and
-          [
-              T=float
-          ]
-  Engine.cpp
-  State.cpp
-  StateMainMenu.cpp
-  main.cpp
-  Generating Code...
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Button.cpp(73): warning C4172: returning address of local variable or temporary
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Button.cpp(78): warning C4172: returning address of local variable or temporary
+﻿  Text.cpp
   Pilrithia.vcxproj -> C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Debug\Pilrithia.exe

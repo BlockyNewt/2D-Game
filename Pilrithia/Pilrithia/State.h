@@ -1,9 +1,14 @@
 #ifndef STATE_H
 #define STATE_H
 
+#include "SFML/Graphics.hpp"
+
 #include "Button.h"
 #include "Text.h"
+#include "Box.h"
 
+#include <iostream>
+#include <string>
 #include <stack>
 #include <vector>
 
@@ -22,9 +27,9 @@ public:
 protected:
 	std::stack<State*>* states_;
 	sf::Vector2i mouse_Position_Window_;
+	sf::RenderWindow* window_;
 
 private:
-	sf::RenderWindow* window_;
 
 private:
 };

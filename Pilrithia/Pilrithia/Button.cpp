@@ -3,13 +3,15 @@
 Button::Button()
 {
 	this->is_Hovering_ = false;
+
+	this->is_Visible_ = true;
 }
 
 Button::~Button()
 {
 }
 
-void Button::SetSettings(float sizeX, float sizeY, float posX, float posY, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor)
+void Button::SetSettings(float sizeX, float sizeY, float posX, float posY, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, bool isVisible)
 {
 	this->button_.setSize(sf::Vector2f(sizeX, sizeY));
 	this->button_.setPosition(sf::Vector2f(posX, posY));
@@ -18,9 +20,11 @@ void Button::SetSettings(float sizeX, float sizeY, float posX, float posY, const
 	this->button_.setOutlineColor(outlineColor);
 
 	this->fill_Color_ = fillColor;
+
+	this->is_Visible_ = isVisible;
 }
 
-void Button::UpdatePollEvent(sf::Event& ev)
+bool Button::UpdatePollEvent(sf::Event& ev)
 {
 	if (this->is_Hovering_)
 	{
@@ -29,8 +33,18 @@ void Button::UpdatePollEvent(sf::Event& ev)
 			if (ev.key.code == sf::Mouse::Left)
 			{
 				std::cout << "Left mouse button is being pressed" << std::endl;
+
+				return true;
 			}
 		}
+		else
+		{
+			return false;
+		}
+	}
+	else
+	{
+		return false;
 	}
 }
 
@@ -53,7 +67,10 @@ void Button::UpdateBoundaries(const sf::Vector2i& mousePositionWindow)
 
 void Button::Render(sf::RenderTarget& target)
 {
-	target.draw(this->button_);
+	if (this->is_Visible_)
+	{
+		target.draw(this->button_);
+	}
 }
 
 const sf::Vector2f& Button::setPositionOfText(sf::Text& text)
@@ -63,17 +80,65 @@ const sf::Vector2f& Button::setPositionOfText(sf::Text& text)
 	return text.getPosition();
 }
 
+void Button::setIsVisible(bool isVisible)
+{
+	this->is_Visible_ = isVisible;
+}
+
 const sf::Vector2f& Button::getPosition() const
 {
 	return this->button_.getPosition();
 }
 
-const float& Button::getLeftPosition(int offset) const
+const float& Button::getLeftPosition(bool pOrM, float offset) const
 {
-	return this->button_.getGlobalBounds().left + offset;
+	if (pOrM)
+	{
+		return this->button_.getGlobalBounds().left + offset;
+	}
+	else
+	{
+		return this->button_.getGlobalBounds().left - offset;
+	}
 }
 
-const float& Button::getBottomPosition(int offset) const
+const float& Button::getRightPosition(bool pOrM, float offset) const
 {
-	return this->button_.getGlobalBounds().top + this->button_.getGlobalBounds().height + offset;
+	if (pOrM)
+	{
+		return this->button_.getGlobalBounds().left + this->button_.getGlobalBounds().width + offset;
+	}
+	else
+	{
+		return this->button_.getGlobalBounds().left + this->button_.getGlobalBounds().width - offset;
+	}
+}
+
+const float& Button::getTopPosition(bool pOrM, float offset) const
+{
+	if (pOrM)
+	{
+		return this->button_.getGlobalBounds().top + offset;
+	}
+	else
+	{
+		return this->button_.getGlobalBounds().top - offset;
+	}
+}
+
+const float& Button::getBottomPosition(bool pOrM, float offset) const
+{
+	if (pOrM)
+	{
+		return this->button_.getGlobalBounds().top + this->button_.getGlobalBounds().height + offset;
+	}
+	else
+	{
+		return this->button_.getGlobalBounds().top + this->button_.getGlobalBounds().height - offset;
+	}
+}
+
+const bool& Button::getIsVisible() const
+{
+	return this->is_Visible_;
 }

@@ -1,2 +1,8 @@
-﻿  Text.cpp
+﻿  Engine.cpp
+  main.cpp
+  MenuSetting.cpp
+  State.cpp
+  StateEditor.cpp
+  StateMainMenu.cpp
+  Generating Code...
   Pilrithia.vcxproj -> C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Debug\Pilrithia.exe

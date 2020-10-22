@@ -1,15 +1,22 @@
 #ifndef MENUPAUSE_H
 #define MENUPAUSE_H
 
-#include "State.h"
+#include "Button.h"
+#include "Text.h"
+#include "Box.h"
+
+#include <iostream>
+#include <string>
+#include <stack>
+#include <vector>
 
 class MenuPause
 {
 public:
-	MenuPause();
+	MenuPause(sf::RenderWindow* window);
 	~MenuPause();
 
-	void UpdatePollEvent(sf::Event& ev, std::stack<State*>* states);
+	bool UpdatePollEvent(sf::Event& ev);
 	void Update(const sf::Vector2i& mousePositionWindow);
 	void Render(sf::RenderTarget& target);
 

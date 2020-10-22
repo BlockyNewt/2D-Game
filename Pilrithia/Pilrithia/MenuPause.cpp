@@ -1,10 +1,10 @@
 #include "MenuPause.h"
 
-MenuPause::MenuPause()
+MenuPause::MenuPause(sf::RenderWindow* window)
 {
 	this->is_Paused_ = false;
 
-	this->x_A_.SetSettings(1280.f, 720.f, 0.f, 0.f, sf::Color(255, 255, 255, 50), 1.f, sf::Color::Red, true);
+	this->x_A_.SetSettings(window->getSize().x, window->getSize().y, 0.f, 0.f, sf::Color(255, 255, 255, 70), 1.f, sf::Color::Red, true);
 
 	this->t_A_.SetSettings("C:/Users/thoma/source/repos/BlockyNewt/Pilrithia/Pilrithia/Pilrithia/Font/arial.ttf", 50, "Pause Menu", sf::Vector2f(400.f, 10.f), true);
 
@@ -25,7 +25,7 @@ MenuPause::~MenuPause()
 {
 }
 
-void MenuPause::UpdatePollEvent(sf::Event& ev, std::stack<State*>* states)
+bool MenuPause::UpdatePollEvent(sf::Event& ev)
 {
 	if (ev.type == sf::Event::KeyPressed)
 	{
@@ -33,11 +33,15 @@ void MenuPause::UpdatePollEvent(sf::Event& ev, std::stack<State*>* states)
 			!this->is_Paused_)
 		{
 			this->is_Paused_ = true;
+
+			return false;
 		}
 		else if (ev.key.code == sf::Keyboard::Escape &&
 			this->is_Paused_)
 		{
 			this->is_Paused_ = false;
+
+			return false;
 		}
 	}
 
@@ -46,13 +50,23 @@ void MenuPause::UpdatePollEvent(sf::Event& ev, std::stack<State*>* states)
 		if (this->buttons_[0].UpdatePollEvent(ev))
 		{
 			this->is_Paused_ = false;
+
+			return false;
 		}
 		else if (this->buttons_[1].UpdatePollEvent(ev))
 		{
 			this->is_Paused_ = false;
 
-			states->pop();
+			return true;
 		}
+		else
+		{
+			return false;
+		}
+	}
+	else
+	{
+		return false;
 	}
 }
 

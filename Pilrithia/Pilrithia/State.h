@@ -3,19 +3,13 @@
 
 #include "SFML/Graphics.hpp"
 
-#include "Button.h"
-#include "Text.h"
-#include "Box.h"
-
-#include <iostream>
-#include <string>
-#include <stack>
-#include <vector>
+#include "MenuPause.h"
+#include "MenuSetting.h"
 
 class State
 {
 public:
-	State(std::stack<State*>* states, sf::RenderWindow* window);
+	State(std::stack<State*>* states, sf::RenderWindow* window, MenuSetting* menuSetting = nullptr, MenuPause* menuPause = nullptr);
 	virtual ~State();
 
 	virtual void UpdatePollEvent(sf::Event& ev) = 0;
@@ -29,6 +23,8 @@ protected:
 	sf::Vector2i mouse_Position_Window_;
 	sf::RenderWindow* window_;
 
+	MenuPause* menu_Pause_;
+	MenuSetting* menu_Setting_;
 private:
 
 private:

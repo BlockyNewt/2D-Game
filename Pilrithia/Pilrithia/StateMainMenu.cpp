@@ -1,7 +1,7 @@
 #include "StateMainMenu.h"
 
-StateMainMenu::StateMainMenu(std::stack<State*>* states, sf::RenderWindow* window)
-	: State(states, window)
+StateMainMenu::StateMainMenu(std::stack<State*>* states, sf::RenderWindow* window, MenuSetting* menuSetting, MenuPause* menuPause)
+	: State(states, window, menuSetting, menuPause)
 {
 	std::cout << "DEBUG::STATEMAINMENU::STATEMAINMENU() -> HAS STARTED." << std::endl;
 

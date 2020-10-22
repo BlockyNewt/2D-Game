@@ -7,7 +7,7 @@ class StateMainMenu
 	: public State
 {
 public:
-	StateMainMenu(std::stack<State*>* states, sf::RenderWindow* window);
+	StateMainMenu(std::stack<State*>* states, sf::RenderWindow* window, MenuSetting* menuSetting = nullptr, MenuPause* menuPause = nullptr);
 	virtual ~StateMainMenu();
 
 	void UpdatePollEvent(sf::Event& ev) override;

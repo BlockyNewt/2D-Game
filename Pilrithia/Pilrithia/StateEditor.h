@@ -3,6 +3,9 @@
 
 #include "State.h"
 
+#include "Camera.h"
+#include "Tilemap.h"
+
 class StateEditor 
 	: public State
 {
@@ -22,12 +25,21 @@ private:
 	Box x_B_;
 
 	Text t_A_;
+	Text t_B_;
 
 	Button b_A_;
 	Button b_B_;
 	Button b_C_;
 	Button b_D_;
 	std::vector<Button> buttons_;
+
+	//TESTING ONLY
+	Camera* cam;
+	Tilemap* aaa;
+	Text window_Position_;
+	Text grid_Position_;
+	Box tile_Box_;
+
 };
 
 

@@ -16,11 +16,15 @@ public:
 	virtual void Update() = 0;
 	virtual void Render(sf::RenderTarget& target) = 0;
 
-	void UpdateMousePosition();
+	void UpdateMousePosition(const sf::View* view);
 
 protected:
 	std::stack<State*>* states_;
+	
 	sf::Vector2i mouse_Position_Window_;
+	sf::Vector2f mouse_Position_View_;
+	sf::Vector2u mouse_Position_Grid_;
+
 	sf::RenderWindow* window_;
 
 	MenuPause* menu_Pause_;

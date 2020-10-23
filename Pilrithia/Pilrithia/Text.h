@@ -19,6 +19,11 @@ public:
 	sf::Text& setText();
 	void setIsVisible(bool isVisible);
 
+	const sf::Vector2f& getPosition() const;
+	const float& getLeftPosition(bool pOrM = true, float offset = 0) const;
+	const float& getRightPosition(bool pOrM = true, float offset = 0) const;
+	const float& getTopPosition(bool pOrM = true, float offset = 0) const;
+	const float& getBottomPosition(bool pOrM = true, float offset = 0) const;
 	const bool& getIsVisible() const;
 
 private:

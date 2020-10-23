@@ -43,8 +43,6 @@ StateMainMenu::~StateMainMenu()
 
 void StateMainMenu::UpdatePollEvent(sf::Event& ev)
 {
-	this->UpdateMousePosition();
-
 	if (this->buttons_[0].UpdatePollEvent(ev))
 	{
 		//NOTHING FOR NOW
@@ -69,6 +67,8 @@ void StateMainMenu::UpdatePollEvent(sf::Event& ev)
 
 void StateMainMenu::Update()
 {
+	this->UpdateMousePosition(&this->window_->getDefaultView());
+
 	for (auto& b : this->buttons_)
 	{
 		b.UpdateBoundaries(this->mouse_Position_Window_);

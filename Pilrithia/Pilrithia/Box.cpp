@@ -33,6 +33,11 @@ void Box::setIsVisible(bool isVisible)
 	this->is_Visible_ = isVisible;
 }
 
+void Box::SetPosition(float x, float y)
+{
+	this->box_.setPosition(sf::Vector2f(x, y));
+}
+
 const sf::Vector2f& Box::getPosition() const
 {
 	return this->box_.getPosition();

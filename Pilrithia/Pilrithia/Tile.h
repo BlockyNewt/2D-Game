@@ -15,6 +15,8 @@ public:
 
 	void Render(sf::RenderTarget& target);
 
+	void SetColor(const sf::Color& fillColor);
+
 private:
 
 private:

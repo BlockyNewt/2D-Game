@@ -18,3 +18,8 @@ void Tile::Render(sf::RenderTarget& target)
 {
 	target.draw(this->tile_);
 }
+
+void Tile::SetColor(const sf::Color& fillColor)
+{
+	this->tile_.setFillColor(fillColor);
+}

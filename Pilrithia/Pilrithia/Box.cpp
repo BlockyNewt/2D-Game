@@ -43,6 +43,11 @@ const sf::Vector2f& Box::getPosition() const
 	return this->box_.getPosition();
 }
 
+const sf::FloatRect& Box::getGlobalBounds() const
+{
+	return this->box_.getGlobalBounds();
+}
+
 const float& Box::getLeftPosition(bool pOrM, float offset) const
 {
 	if (pOrM)

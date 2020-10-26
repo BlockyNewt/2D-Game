@@ -13,9 +13,19 @@ public:
 
 	void Render(sf::RenderTarget& target);
 
+	void AddTile(float gridPosX, float gridPosY);
+	void RemoveTile(float gridPosX, float gridPosY);
+
+	void ClearGrid();
+
 private:
 
 private:
+	unsigned grid_Max_Size_X_;
+	unsigned grid_Max_Size_Y_;
+
+	float tile_Size_X_Y_;
+
 	std::vector<std::vector<Tile*> > grid_;
 };
 

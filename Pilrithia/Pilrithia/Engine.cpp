@@ -19,7 +19,7 @@ Engine::~Engine()
 {
 	delete this->window_;
 
-	while (!this->states_.empty())
+	if (!this->states_.empty())
 	{
 		delete this->states_.top();
 	}

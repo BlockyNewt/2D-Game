@@ -11,7 +11,7 @@ Button::~Button()
 {
 }
 
-void Button::SetSettings(float sizeX, float sizeY, float posX, float posY, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, bool isVisible)
+void Button::setSettings(float sizeX, float sizeY, float posX, float posY, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, bool isVisible)
 {
 	this->button_.setSize(sf::Vector2f(sizeX, sizeY));
 	this->button_.setPosition(sf::Vector2f(posX, posY));
@@ -24,7 +24,7 @@ void Button::SetSettings(float sizeX, float sizeY, float posX, float posY, const
 	this->is_Visible_ = isVisible;
 }
 
-bool Button::UpdatePollEvent(sf::Event& ev)
+bool Button::updatePollEvent(sf::Event& ev)
 {
 	if (this->is_Hovering_)
 	{
@@ -33,6 +33,8 @@ bool Button::UpdatePollEvent(sf::Event& ev)
 			if (ev.key.code == sf::Mouse::Left)
 			{
 				std::cout << "Left mouse button is being pressed" << std::endl;
+
+				this->is_Hovering_ = false;
 
 				return true;
 			}
@@ -48,7 +50,7 @@ bool Button::UpdatePollEvent(sf::Event& ev)
 	}
 }
 
-void Button::UpdateBoundaries(const sf::Vector2i& mousePositionWindow)
+void Button::updateBoundaries(const sf::Vector2i& mousePositionWindow)
 {
 	if (this->button_.getGlobalBounds().contains(sf::Vector2f(mousePositionWindow.x, mousePositionWindow.y)))
 	{
@@ -65,7 +67,7 @@ void Button::UpdateBoundaries(const sf::Vector2i& mousePositionWindow)
 	}
 }
 
-void Button::Render(sf::RenderTarget& target)
+void Button::render(sf::RenderTarget& target)
 {
 	if (this->is_Visible_)
 	{
@@ -90,7 +92,7 @@ const sf::Vector2f& Button::getPosition() const
 	return this->button_.getPosition();
 }
 
-const float& Button::getLeftPosition(bool pOrM, float offset) const
+const float Button::getLeftPosition(bool pOrM, float offset) const
 {
 	if (pOrM)
 	{
@@ -102,7 +104,7 @@ const float& Button::getLeftPosition(bool pOrM, float offset) const
 	}
 }
 
-const float& Button::getRightPosition(bool pOrM, float offset) const
+const float Button::getRightPosition(bool pOrM, float offset) const
 {
 	if (pOrM)
 	{
@@ -114,7 +116,7 @@ const float& Button::getRightPosition(bool pOrM, float offset) const
 	}
 }
 
-const float& Button::getTopPosition(bool pOrM, float offset) const
+const float Button::getTopPosition(bool pOrM, float offset) const
 {
 	if (pOrM)
 	{
@@ -126,7 +128,7 @@ const float& Button::getTopPosition(bool pOrM, float offset) const
 	}
 }
 
-const float& Button::getBottomPosition(bool pOrM, float offset) const
+const float Button::getBottomPosition(bool pOrM, float offset) const
 {
 	if (pOrM)
 	{

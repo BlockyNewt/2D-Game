@@ -8,15 +8,15 @@ MenuSetting::~MenuSetting()
 {
 }
 
-bool MenuSetting::UpdatePollEvent(sf::Event& ev)
+bool MenuSetting::updatePollEvent(sf::Event& ev)
 {
 	return false;
 }
 
-void MenuSetting::Update(const sf::Vector2i& mousePositionWindow)
+void MenuSetting::update(const sf::Vector2i& mousePositionWindow)
 {
 }
 
-void MenuSetting::Render(sf::RenderTarget& target)
+void MenuSetting::render(sf::RenderTarget& target)
 {
 }

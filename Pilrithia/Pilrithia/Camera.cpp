@@ -11,7 +11,7 @@ Camera::~Camera()
 {
 }
 
-void Camera::UpdatePollEvent(sf::Event& ev)
+void Camera::updatePollEvent(sf::Event& ev)
 {
 	if (ev.type == sf::Event::KeyPressed)
 	{
@@ -37,7 +37,7 @@ void Camera::UpdatePollEvent(sf::Event& ev)
 	}
 }
 
-const sf::View& Camera::GetView() const
+const sf::View& Camera::getView() const
 {
 	return this->camera_;
 }

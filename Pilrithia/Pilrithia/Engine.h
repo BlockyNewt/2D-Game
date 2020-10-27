@@ -10,12 +10,12 @@ public:
 	Engine();
 	~Engine();
 
-	void Run();
+	void run();
 
 private:
-	void UpdatePollEvent();
-	void Update();
-	void Render();
+	void updatePollEvent();
+	void update();
+	void render();
 
 private:
 	sf::VideoMode vm_;

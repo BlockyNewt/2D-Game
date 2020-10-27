@@ -16,9 +16,9 @@ public:
 	MenuSetting(sf::RenderWindow* window);
 	~MenuSetting();
 
-	bool UpdatePollEvent(sf::Event& ev);
-	void Update(const sf::Vector2i& mousePositionWindow);
-	void Render(sf::RenderTarget& target);
+	bool updatePollEvent(sf::Event& ev);
+	void update(const sf::Vector2i& mousePositionWindow);
+	void render(sf::RenderTarget& target);
 
 private:
 

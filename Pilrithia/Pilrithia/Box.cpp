@@ -9,7 +9,7 @@ Box::~Box()
 {
 }
 
-void Box::SetSettings(float sizeX, float sizeY, float posX, float posY, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, bool isVisible)
+void Box::setSettings(float sizeX, float sizeY, float posX, float posY, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, bool isVisible)
 {
 	this->box_.setSize(sf::Vector2f(sizeX, sizeY));
 	this->box_.setPosition(sf::Vector2f(posX, posY));
@@ -20,7 +20,7 @@ void Box::SetSettings(float sizeX, float sizeY, float posX, float posY, const sf
 	this->is_Visible_ = isVisible;
 }
 
-void Box::Render(sf::RenderTarget& target)
+void Box::render(sf::RenderTarget& target)
 {
 	if (this->is_Visible_)
 	{
@@ -48,7 +48,7 @@ const sf::FloatRect& Box::getGlobalBounds() const
 	return this->box_.getGlobalBounds();
 }
 
-const float& Box::getLeftPosition(bool pOrM, float offset) const
+const float Box::getLeftPosition(bool pOrM, float offset) const
 {
 	if (pOrM)
 	{
@@ -60,7 +60,7 @@ const float& Box::getLeftPosition(bool pOrM, float offset) const
 	}
 }
 
-const float& Box::getRightPosition(bool pOrM, float offset) const
+const float Box::getRightPosition(bool pOrM, float offset) const
 {
 	if (pOrM)
 	{
@@ -72,7 +72,7 @@ const float& Box::getRightPosition(bool pOrM, float offset) const
 	}
 }
 
-const float& Box::getTopPosition(bool pOrM, float offset) const
+const float Box::getTopPosition(bool pOrM, float offset) const
 {
 	if (pOrM)
 	{
@@ -84,7 +84,7 @@ const float& Box::getTopPosition(bool pOrM, float offset) const
 	}
 }
 
-const float& Box::getBottomPosition(bool pOrM, float offset) const
+const float Box::getBottomPosition(bool pOrM, float offset) const
 {
 	if (pOrM)
 	{

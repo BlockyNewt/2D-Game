@@ -12,11 +12,11 @@ public:
 	State(std::stack<State*>* states, sf::RenderWindow* window, MenuSetting* menuSetting = nullptr, MenuPause* menuPause = nullptr);
 	virtual ~State();
 
-	virtual void UpdatePollEvent(sf::Event& ev) = 0;
-	virtual void Update() = 0;
-	virtual void Render(sf::RenderTarget& target) = 0;
+	virtual void updatePollEvent(sf::Event& ev) = 0;
+	virtual void update() = 0;
+	virtual void render(sf::RenderTarget& target) = 0;
 
-	void UpdateMousePosition(const sf::View* view);
+	void updateMousePosition(const sf::View* view);
 
 protected:
 	std::stack<State*>* states_;

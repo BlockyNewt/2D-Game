@@ -25,17 +25,17 @@ Engine::~Engine()
 	}
 }
 
-void Engine::Run()
+void Engine::run()
 {
 	while (this->window_->isOpen())
 	{
-		this->UpdatePollEvent();
-		this->Update();
-		this->Render();
+		this->updatePollEvent();
+		this->update();
+		this->render();
 	}
 }
 
-void Engine::UpdatePollEvent()
+void Engine::updatePollEvent()
 {
 	while (this->window_->pollEvent(this->ev_))
 	{
@@ -46,7 +46,7 @@ void Engine::UpdatePollEvent()
 		
 		if (!this->states_.empty())
 		{
-			this->states_.top()->UpdatePollEvent(this->ev_);
+			this->states_.top()->updatePollEvent(this->ev_);
 		}
 		else
 		{
@@ -55,11 +55,11 @@ void Engine::UpdatePollEvent()
 	}
 }
 
-void Engine::Update()
+void Engine::update()
 {
 	if (!this->states_.empty())
 	{
-		this->states_.top()->Update();
+		this->states_.top()->update();
 	}
 	else
 	{
@@ -67,13 +67,13 @@ void Engine::Update()
 	}
 }
 
-void Engine::Render()
+void Engine::render()
 {
 	this->window_->clear();
 
 	if (!this->states_.empty())
 	{
-		this->states_.top()->Render(*this->window_);
+		this->states_.top()->render(*this->window_);
 	}
 	else
 	{

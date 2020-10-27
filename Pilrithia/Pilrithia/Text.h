@@ -12,18 +12,18 @@ public:
 	Text();
 	~Text();
 
-	void SetSettings(std::string fontFilePath, unsigned int characterSize, std::string text, sf::Vector2f position, bool isVisible);
+	void setSettings(std::string fontFilePath, unsigned int characterSize, std::string text, sf::Vector2f position, bool isVisible);
 
-	void Render(sf::RenderTarget& target);
+	void render(sf::RenderTarget& target);
 
 	sf::Text& setText();
 	void setIsVisible(bool isVisible);
 
 	const sf::Vector2f& getPosition() const;
-	const float& getLeftPosition(bool pOrM = true, float offset = 0) const;
-	const float& getRightPosition(bool pOrM = true, float offset = 0) const;
-	const float& getTopPosition(bool pOrM = true, float offset = 0) const;
-	const float& getBottomPosition(bool pOrM = true, float offset = 0) const;
+	const float getLeftPosition(bool pOrM = true, float offset = 0) const;
+	const float getRightPosition(bool pOrM = true, float offset = 0) const;
+	const float getTopPosition(bool pOrM = true, float offset = 0) const;
+	const float getBottomPosition(bool pOrM = true, float offset = 0) const;
 	const bool& getIsVisible() const;
 
 private:

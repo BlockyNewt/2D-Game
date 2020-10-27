@@ -4,6 +4,7 @@
 #include "Button.h"
 #include "Text.h"
 #include "Box.h"
+#include "InputBox.h"
 
 #include <iostream>
 #include <string>
@@ -16,9 +17,9 @@ public:
 	MenuPause(sf::RenderWindow* window);
 	~MenuPause();
 
-	bool UpdatePollEvent(sf::Event& ev);
-	void Update(const sf::Vector2i& mousePositionWindow);
-	void Render(sf::RenderTarget& target);
+	bool updatePollEvent(sf::Event& ev);
+	void update(const sf::Vector2i& mousePositionWindow);
+	void render(sf::RenderTarget& target);
 
 	const bool& getIsPaused() const;
 

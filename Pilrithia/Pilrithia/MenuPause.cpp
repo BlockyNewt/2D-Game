@@ -4,15 +4,15 @@ MenuPause::MenuPause(sf::RenderWindow* window)
 {
 	this->is_Paused_ = false;
 
-	this->x_A_.SetSettings(window->getSize().x, window->getSize().y, 0.f, 0.f, sf::Color(255, 255, 255, 70), 1.f, sf::Color::Red, true);
+	this->x_A_.setSettings(window->getSize().x, window->getSize().y, 0.f, 0.f, sf::Color(255, 255, 255, 70), 1.f, sf::Color::Red, true);
 
-	this->t_A_.SetSettings("C:/Users/thoma/source/repos/BlockyNewt/Pilrithia/Pilrithia/Pilrithia/Font/arial.ttf", 50, "Pause Menu", sf::Vector2f(400.f, 10.f), true);
+	this->t_A_.setSettings("C:/Users/thoma/source/repos/BlockyNewt/Pilrithia/Pilrithia/Pilrithia/Font/arial.ttf", 50, "Pause Menu", sf::Vector2f(400.f, 10.f), true);
 
-	this->b_B_.SetSettings(100.f, 50.f, 10.f, 50.f, sf::Color::Red, 1, sf::Color::Red, true);
-	this->t_B_.SetSettings("C:/Users/thoma/source/repos/BlockyNewt/Pilrithia/Pilrithia/Pilrithia/Font/arial.ttf", 18, "Continue", this->b_B_.setPositionOfText(this->t_B_.setText()), true);
+	this->b_B_.setSettings(100.f, 50.f, 10.f, 50.f, sf::Color::Red, 1, sf::Color::Red, true);
+	this->t_B_.setSettings("C:/Users/thoma/source/repos/BlockyNewt/Pilrithia/Pilrithia/Pilrithia/Font/arial.ttf", 18, "Continue", this->b_B_.setPositionOfText(this->t_B_.setText()), true);
 
-	this->b_C_.SetSettings(100.f, 50.f, this->b_B_.getLeftPosition(), this->b_B_.getBottomPosition(true, 10.f), sf::Color::Red, 1, sf::Color::Red, true);
-	this->t_C_.SetSettings("C:/Users/thoma/source/repos/BlockyNewt/Pilrithia/Pilrithia/Pilrithia/Font/arial.ttf", 18, "Exit", this->b_C_.setPositionOfText(this->t_C_.setText()), true);
+	this->b_C_.setSettings(100.f, 50.f, this->b_B_.getLeftPosition(), this->b_B_.getBottomPosition(true, 10.f), sf::Color::Red, 1, sf::Color::Red, true);
+	this->t_C_.setSettings("C:/Users/thoma/source/repos/BlockyNewt/Pilrithia/Pilrithia/Pilrithia/Font/arial.ttf", 18, "Exit", this->b_C_.setPositionOfText(this->t_C_.setText()), true);
 
 	this->buttons_.push_back(this->b_B_);
 	this->buttons_.push_back(this->b_C_);
@@ -25,7 +25,7 @@ MenuPause::~MenuPause()
 {
 }
 
-bool MenuPause::UpdatePollEvent(sf::Event& ev)
+bool MenuPause::updatePollEvent(sf::Event& ev)
 {
 	if (ev.type == sf::Event::KeyPressed)
 	{
@@ -47,13 +47,13 @@ bool MenuPause::UpdatePollEvent(sf::Event& ev)
 
 	if (this->is_Paused_)
 	{
-		if (this->buttons_[0].UpdatePollEvent(ev))
+		if (this->buttons_[0].updatePollEvent(ev))
 		{
 			this->is_Paused_ = false;
 
 			return false;
 		}
-		else if (this->buttons_[1].UpdatePollEvent(ev))
+		else if (this->buttons_[1].updatePollEvent(ev))
 		{
 			this->is_Paused_ = false;
 
@@ -70,33 +70,33 @@ bool MenuPause::UpdatePollEvent(sf::Event& ev)
 	}
 }
 
-void MenuPause::Update(const sf::Vector2i& mousePositionWindow)
+void MenuPause::update(const sf::Vector2i& mousePositionWindow)
 {
 	if (this->is_Paused_)
 	{
 		for (auto& b : this->buttons_)
 		{
-			b.UpdateBoundaries(mousePositionWindow);
+			b.updateBoundaries(mousePositionWindow);
 		}
 	}
 }
 
-void MenuPause::Render(sf::RenderTarget& target)
+void MenuPause::render(sf::RenderTarget& target)
 {
 	if (this->is_Paused_)
 	{
-		this->x_A_.Render(target);
+		this->x_A_.render(target);
 
-		this->t_A_.Render(target);
+		this->t_A_.render(target);
 
 		for (auto& b : this->buttons_)
 		{
-			b.Render(target);
+			b.render(target);
 		}
 
 		for (auto& t : this->texts_)
 		{
-			t.Render(target);
+			t.render(target);
 		}
 	}
 }

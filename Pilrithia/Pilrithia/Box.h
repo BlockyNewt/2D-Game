@@ -11,19 +11,19 @@ public:
 	Box();
 	~Box();
 
-	void SetSettings(float sizeX, float sizeY, float posX, float posY, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, bool isVisible);
+	void setSettings(float sizeX, float sizeY, float posX, float posY, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, bool isVisible);
 
-	void Render(sf::RenderTarget& target);
+	void render(sf::RenderTarget& target);
 
 	void setIsVisible(bool isVisible);
 	void SetPosition(float x, float y);
 
 	const sf::Vector2f& getPosition() const;
 	const sf::FloatRect& getGlobalBounds() const;
-	const float& getLeftPosition(bool pOrM = true, float offset = 0) const;
-	const float& getRightPosition(bool pOrM = true, float offset = 0) const;
-	const float& getTopPosition(bool pOrM = true, float offset = 0) const;
-	const float& getBottomPosition(bool pOrM = true, float offset = 0) const;
+	const float getLeftPosition(bool pOrM = true, float offset = 0) const;
+	const float getRightPosition(bool pOrM = true, float offset = 0) const;
+	const float getTopPosition(bool pOrM = true, float offset = 0) const;
+	const float getBottomPosition(bool pOrM = true, float offset = 0) const;
 	const bool& getIsVisible() const;
 
 private:

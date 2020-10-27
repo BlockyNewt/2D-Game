@@ -10,17 +10,22 @@
 class Tile
 {
 public:
-	Tile(float positionX, float positionY, const float tileSizeXY);
+	Tile(float positionX, float positionY, const float tileSizeXY, bool hasColor);
 	~Tile();
 
-	void Render(sf::RenderTarget& target);
+	void render(sf::RenderTarget& target);
 
-	void SetColor(const sf::Color& fillColor);
+	void setColor(const sf::Color& fillColor);
+	void setHasColor(bool hasColor);
+
+	const bool& getHasColor() const;
 
 private:
 
 private:
 	sf::RectangleShape tile_;
+
+	bool has_Color_;
 
 };
 

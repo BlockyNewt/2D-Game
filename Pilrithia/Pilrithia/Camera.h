@@ -12,9 +12,9 @@ public:
 	Camera(const unsigned sizeX, const unsigned sizeY);
 	~Camera();
 
-	void UpdatePollEvent(sf::Event& ev);
+	void updatePollEvent(sf::Event& ev);
 
-	const sf::View& GetView() const;
+	const sf::View& getView() const;
 
 private:
 

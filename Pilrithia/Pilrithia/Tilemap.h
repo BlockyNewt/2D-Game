@@ -3,20 +3,28 @@
 
 #include "Tile.h"
 
+#include <iostream>
+#include <fstream>
+
 class Tilemap
 {
 public:
 	Tilemap(const unsigned gridSizeX, const unsigned gridSizeY, float tileSizeXY);
 	~Tilemap();
 
-	void Update();
+	void update();
 
-	void Render(sf::RenderTarget& target);
+	void render(sf::RenderTarget& target);
 
-	void AddTile(float gridPosX, float gridPosY);
-	void RemoveTile(float gridPosX, float gridPosY);
+	void addTile(float gridPosX, float gridPosY);
+	void removeTile(float gridPosX, float gridPosY);
+	void save(const std::string fileName);
+	void load(const std::string fileName);
 
-	void ClearGrid();
+	void clearGrid();
+
+	void resizeTilemap(const unsigned gridSizeX, const unsigned gridSizeY);
+	void resizeTileSize(float tileSizeXY);
 
 private:
 

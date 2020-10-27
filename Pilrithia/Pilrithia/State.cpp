@@ -27,7 +27,7 @@ State::~State()
 	delete this->menu_Pause_;
 }
 
-void State::UpdateMousePosition(const sf::View* view)
+void State::updateMousePosition(const sf::View* view)
 {
 	this->window_->setView(*view);
 

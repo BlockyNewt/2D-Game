@@ -10,9 +10,9 @@ public:
 	StateMainMenu(std::stack<State*>* states, sf::RenderWindow* window, MenuSetting* menuSetting = nullptr, MenuPause* menuPause = nullptr);
 	virtual ~StateMainMenu();
 
-	void UpdatePollEvent(sf::Event& ev) override;
-	void Update() override;
-	void Render(sf::RenderTarget& target) override;
+	void updatePollEvent(sf::Event& ev) override;
+	void update() override;
+	void render(sf::RenderTarget& target) override;
 
 private:
 

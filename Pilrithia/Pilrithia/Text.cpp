@@ -9,7 +9,7 @@ Text::~Text()
 {
 }
 
-void Text::SetSettings(std::string fontFilePath, unsigned int characterSize, std::string text, sf::Vector2f position, bool isVisible)
+void Text::setSettings(std::string fontFilePath, unsigned int characterSize, std::string text, sf::Vector2f position, bool isVisible)
 {
 	if (!this->font_.loadFromFile(fontFilePath))
 	{
@@ -24,7 +24,7 @@ void Text::SetSettings(std::string fontFilePath, unsigned int characterSize, std
 	this->is_Visible_ = isVisible;
 }
 
-void Text::Render(sf::RenderTarget& target)
+void Text::render(sf::RenderTarget& target)
 {
 	if (this->is_Visible_)
 	{
@@ -47,7 +47,7 @@ const sf::Vector2f& Text::getPosition() const
 	return this->text_.getPosition();
 }
 
-const float& Text::getLeftPosition(bool pOrM, float offset) const
+const float Text::getLeftPosition(bool pOrM, float offset) const
 {
 	if (pOrM)
 	{
@@ -61,7 +61,7 @@ const float& Text::getLeftPosition(bool pOrM, float offset) const
 	}
 }
 
-const float& Text::getRightPosition(bool pOrM, float offset) const
+const float Text::getRightPosition(bool pOrM, float offset) const
 {
 	if (pOrM)
 	{
@@ -75,7 +75,7 @@ const float& Text::getRightPosition(bool pOrM, float offset) const
 	}
 }
 
-const float& Text::getTopPosition(bool pOrM, float offset) const
+const float Text::getTopPosition(bool pOrM, float offset) const
 {
 	if (pOrM)
 	{
@@ -89,7 +89,7 @@ const float& Text::getTopPosition(bool pOrM, float offset) const
 	}
 }
 
-const float& Text::getBottomPosition(bool pOrM, float offset) const
+const float Text::getBottomPosition(bool pOrM, float offset) const
 {
 	if (pOrM)
 	{

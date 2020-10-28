@@ -24,7 +24,7 @@ void InputBox::setSettings(float sizeX, float sizeY, float posX, float posY, con
 	this->is_Visible_ = isVisible;
 	this->is_Inputting_ = isInputting;
 
-	this->input_Text_.setSettings("C:/Users/thoma/source/repos/BlockyNewt/Pilrithia/Pilrithia/Pilrithia/Font/arial.ttf", 25, "Editor Instructions", sf::Vector2f(this->getLeftPosition(true, 5.f), this->getTopPosition(true, 5.f)), true);
+	this->input_Text_.setSettings("Font/arial.ttf", 25, "Editor Instructions", sf::Vector2f(this->getLeftPosition(true, 5.f), this->getTopPosition(true, 5.f)), true);
 }
 
 void InputBox::updateEnablePollEvent(sf::Event& ev)

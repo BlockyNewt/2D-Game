@@ -6,8 +6,8 @@ void StateEditor::initializeInstructionsPanel()
 
 	std::string instructionsStr = "1.) Press 'Tab' to hide this window. \n\n2.) Press 'Esc' to open pause window \n\n3.) Left click to add tile \n\n4.) Right click to remove tile \n\n5.) nothing for now";
 
-	this->t_A_.setSettings("C:/Users/thoma/source/repos/BlockyNewt/Pilrithia/Pilrithia/Pilrithia/Font/arial.ttf", 25, "Editor Instructions", sf::Vector2f(this->instruction_Panel_X_A_.getLeftPosition(true, 100.f), this->instruction_Panel_X_A_.getTopPosition(true, 10.f)), true);
-	this->t_B_.setSettings("C:/Users/thoma/source/repos/BlockyNewt/Pilrithia/Pilrithia/Pilrithia/Font/arial.ttf", 18, instructionsStr, sf::Vector2f(this->instruction_Panel_X_A_.getLeftPosition(true, 10.f), this->t_A_.getBottomPosition(true, 50.f)), true);
+	this->t_A_.setSettings("Font/arial.ttf", 25, "Editor Instructions", sf::Vector2f(this->instruction_Panel_X_A_.getLeftPosition(true, 100.f), this->instruction_Panel_X_A_.getTopPosition(true, 10.f)), true);
+	this->t_B_.setSettings("Font/arial.ttf", 18, instructionsStr, sf::Vector2f(this->instruction_Panel_X_A_.getLeftPosition(true, 10.f), this->t_A_.getBottomPosition(true, 50.f)), true);
 }
 
 void StateEditor::initializeRightSidePanel()
@@ -19,10 +19,10 @@ void StateEditor::initializeRightSidePanel()
 	this->right_Side_Panel_B_C_.setSettings(40.f, 40.f, this->right_Side_Panel_X_A_.getLeftPosition(true, 5), this->right_Side_Panel_B_B_.getBottomPosition(true, 5), sf::Color::Blue, 1, sf::Color::Red, true);
 	this->right_Side_Panel_B_D_.setSettings(40.f, 40.f, this->right_Side_Panel_X_A_.getLeftPosition(true, 5), this->right_Side_Panel_B_C_.getBottomPosition(true, 5), sf::Color::Blue, 1, sf::Color::Red, true);
 
-	this->right_Side_Panel_T_A_.setSettings("C:/Users/thoma/source/repos/BlockyNewt/Pilrithia/Pilrithia/Pilrithia/Font/arial.ttf", 12, "Clear", sf::Vector2f(this->right_Side_Panel_B_A_.getLeftPosition(true, 5.f), this->right_Side_Panel_B_A_.getTopPosition(true, 10.f)), true);
-	this->right_Side_Panel_T_B_.setSettings("C:/Users/thoma/source/repos/BlockyNewt/Pilrithia/Pilrithia/Pilrithia/Font/arial.ttf", 12, "Setting", sf::Vector2f(this->right_Side_Panel_B_B_.getLeftPosition(true, 2.f), this->right_Side_Panel_B_B_.getTopPosition(true, 10.f)), true);
-	this->right_Side_Panel_T_C_.setSettings("C:/Users/thoma/source/repos/BlockyNewt/Pilrithia/Pilrithia/Pilrithia/Font/arial.ttf", 12, "Save", sf::Vector2f(this->right_Side_Panel_B_C_.getLeftPosition(true, 2.f), this->right_Side_Panel_B_C_.getTopPosition(true, 10.f)), true);
-	this->right_Side_Panel_T_D_.setSettings("C:/Users/thoma/source/repos/BlockyNewt/Pilrithia/Pilrithia/Pilrithia/Font/arial.ttf", 12, "Load", sf::Vector2f(this->right_Side_Panel_B_D_.getLeftPosition(true, 2.f), this->right_Side_Panel_B_D_.getTopPosition(true, 10.f)), true);
+	this->right_Side_Panel_T_A_.setSettings("Font/arial.ttf", 12, "Clear", sf::Vector2f(this->right_Side_Panel_B_A_.getLeftPosition(true, 5.f), this->right_Side_Panel_B_A_.getTopPosition(true, 10.f)), true);
+	this->right_Side_Panel_T_B_.setSettings("Font/arial.ttf", 12, "Setting", sf::Vector2f(this->right_Side_Panel_B_B_.getLeftPosition(true, 2.f), this->right_Side_Panel_B_B_.getTopPosition(true, 10.f)), true);
+	this->right_Side_Panel_T_C_.setSettings("Font/arial.ttf", 12, "Save", sf::Vector2f(this->right_Side_Panel_B_C_.getLeftPosition(true, 2.f), this->right_Side_Panel_B_C_.getTopPosition(true, 10.f)), true);
+	this->right_Side_Panel_T_D_.setSettings("Font/arial.ttf", 12, "Load", sf::Vector2f(this->right_Side_Panel_B_D_.getLeftPosition(true, 2.f), this->right_Side_Panel_B_D_.getTopPosition(true, 10.f)), true);
 
 	this->right_Side_Panel_Buttons_.push_back(right_Side_Panel_B_A_);
 	this->right_Side_Panel_Buttons_.push_back(right_Side_Panel_B_B_);
@@ -38,16 +38,16 @@ void StateEditor::initializeRightSidePanel()
 void StateEditor::initializeTilemapSettings()
 {
 	this->tilemap_Settings_X_A_.setSettings(800.f, 600.f, this->window_->getSize().x / 2.f - 800.f / 2.f, this->window_->getSize().y / 2.f - 600.f / 2.f, sf::Color::Green, 1.f, sf::Color::Red, false);
-	this->tilemap_Settings_T_D_.setSettings("C:/Users/thoma/source/repos/BlockyNewt/Pilrithia/Pilrithia/Pilrithia/Font/arial.ttf", 35, "Tilemap Settings", sf::Vector2f(this->tilemap_Settings_X_A_.getLeftPosition(true, 300.f), this->tilemap_Settings_X_A_.getTopPosition(true, 20.f)), false);
+	this->tilemap_Settings_T_D_.setSettings("Font/arial.ttf", 35, "Tilemap Settings", sf::Vector2f(this->tilemap_Settings_X_A_.getLeftPosition(true, 300.f), this->tilemap_Settings_X_A_.getTopPosition(true, 20.f)), false);
 
 	this->tilemap_Settings_B_A_.setSettings(150.f, 50.f, this->tilemap_Settings_X_A_.getLeftPosition(true, 250), this->tilemap_Settings_X_A_.getBottomPosition(false, 55), sf::Color::Blue, 1, sf::Color::Red, false);
 	this->tilemap_Settings_B_B_.setSettings(150.f, 50.f, this->tilemap_Settings_B_A_.getRightPosition(true, 20), this->tilemap_Settings_B_A_.getTopPosition(), sf::Color::Blue, 1, sf::Color::Red, false);
 
-	this->tilemap_Settings_T_A_.setSettings("C:/Users/thoma/source/repos/BlockyNewt/Pilrithia/Pilrithia/Pilrithia/Font/arial.ttf", 25, "Max Grid Size X", sf::Vector2f(this->tilemap_Settings_X_A_.getLeftPosition(true, 10.f), this->tilemap_Settings_X_A_.getTopPosition(true, 100.f)), false);
-	this->tilemap_Settings_T_B_.setSettings("C:/Users/thoma/source/repos/BlockyNewt/Pilrithia/Pilrithia/Pilrithia/Font/arial.ttf", 25, "Max Grid Size Y", sf::Vector2f(this->tilemap_Settings_X_A_.getLeftPosition(true, 10.f), this->tilemap_Settings_T_A_.getTopPosition(true, 50.f)), false);
-	this->tilemap_Settings_T_C_.setSettings("C:/Users/thoma/source/repos/BlockyNewt/Pilrithia/Pilrithia/Pilrithia/Font/arial.ttf", 25, "Tile Size X & Y", sf::Vector2f(this->tilemap_Settings_X_A_.getLeftPosition(true, 10.f), this->tilemap_Settings_T_B_.getTopPosition(true, 50.f)), false);
-	this->tilemap_Settings_T_E_.setSettings("C:/Users/thoma/source/repos/BlockyNewt/Pilrithia/Pilrithia/Pilrithia/Font/arial.ttf", 25, "Accept", sf::Vector2f(this->tilemap_Settings_B_A_.getLeftPosition(true, 10.f), this->tilemap_Settings_B_A_.getTopPosition(true, 10.f)), false);
-	this->tilemap_Settings_T_F_.setSettings("C:/Users/thoma/source/repos/BlockyNewt/Pilrithia/Pilrithia/Pilrithia/Font/arial.ttf", 25, "Close", sf::Vector2f(this->tilemap_Settings_B_B_.getLeftPosition(true, 10.f), this->tilemap_Settings_B_B_.getTopPosition(true, 10.f)), false);
+	this->tilemap_Settings_T_A_.setSettings("Font/arial.ttf", 25, "Max Grid Size X", sf::Vector2f(this->tilemap_Settings_X_A_.getLeftPosition(true, 10.f), this->tilemap_Settings_X_A_.getTopPosition(true, 100.f)), false);
+	this->tilemap_Settings_T_B_.setSettings("Font/arial.ttf", 25, "Max Grid Size Y", sf::Vector2f(this->tilemap_Settings_X_A_.getLeftPosition(true, 10.f), this->tilemap_Settings_T_A_.getTopPosition(true, 50.f)), false);
+	this->tilemap_Settings_T_C_.setSettings("Font/arial.ttf", 25, "Tile Size X & Y", sf::Vector2f(this->tilemap_Settings_X_A_.getLeftPosition(true, 10.f), this->tilemap_Settings_T_B_.getTopPosition(true, 50.f)), false);
+	this->tilemap_Settings_T_E_.setSettings("Font/arial.ttf", 25, "Accept", sf::Vector2f(this->tilemap_Settings_B_A_.getLeftPosition(true, 10.f), this->tilemap_Settings_B_A_.getTopPosition(true, 10.f)), false);
+	this->tilemap_Settings_T_F_.setSettings("Font/arial.ttf", 25, "Close", sf::Vector2f(this->tilemap_Settings_B_B_.getLeftPosition(true, 10.f), this->tilemap_Settings_B_B_.getTopPosition(true, 10.f)), false);
 
 	this->tilemap_Settings_I_A_.setSettings(75.f, 40.f, this->tilemap_Settings_T_A_.getRightPosition(true, 10.f), this->tilemap_Settings_T_A_.getTopPosition(false, 10), sf::Color::Black, 1.f, sf::Color::Red, false, false);
 	this->tilemap_Settings_I_B_.setSettings(75.f, 40.f, this->tilemap_Settings_T_B_.getRightPosition(true, 10.f), this->tilemap_Settings_T_B_.getTopPosition(false, 10), sf::Color::Black, 1.f, sf::Color::Red, false, false);
@@ -61,8 +61,8 @@ StateEditor::StateEditor(std::stack<State*>* states, sf::RenderWindow* window, M
 
 	this->camera_ = new Camera(this->window_->getSize().x, this->window_->getSize().y);
 	this->tilemap_ = new Tilemap(5, 5, 30);
-	this->window_Position_.setSettings("C:/Users/thoma/source/repos/BlockyNewt/Pilrithia/Pilrithia/Pilrithia/Font/arial.ttf", 18, "", sf::Vector2f(0.f, 0.f), true);
-	this->grid_Position_.setSettings("C:/Users/thoma/source/repos/BlockyNewt/Pilrithia/Pilrithia/Pilrithia/Font/arial.ttf", 18, "", sf::Vector2f(0.f, 0.f), true);
+	this->window_Position_.setSettings("Font/arial.ttf", 18, "", sf::Vector2f(0.f, 0.f), true);
+	this->grid_Position_.setSettings("Font/arial.ttf", 18, "", sf::Vector2f(0.f, 0.f), true);
 	this->tile_Box_.setSettings(30.f, 30.f, 0.f, 0.f, sf::Color::Transparent, 1.f, sf::Color::Red, true);
 
 	this->initializeInstructionsPanel();

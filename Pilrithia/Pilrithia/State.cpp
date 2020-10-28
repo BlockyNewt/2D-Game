@@ -27,7 +27,7 @@ State::~State()
 	delete this->menu_Pause_;
 }
 
-void State::updateMousePosition(const sf::View* view)
+void State::updateMousePosition(const sf::View* view, float tileSizeXY)
 {
 	this->window_->setView(*view);
 
@@ -36,8 +36,8 @@ void State::updateMousePosition(const sf::View* view)
 	this->mouse_Position_View_ = this->window_->mapPixelToCoords(this->mouse_Position_Window_);
 
 	this->mouse_Position_Grid_ = sf::Vector2u(
-		static_cast<unsigned>(this->mouse_Position_View_.x) / static_cast<unsigned>(30),
-		static_cast<unsigned>(this->mouse_Position_View_.y) / static_cast<unsigned>(30));
+		static_cast<unsigned>(this->mouse_Position_View_.x) / static_cast<unsigned>(tileSizeXY),
+		static_cast<unsigned>(this->mouse_Position_View_.y) / static_cast<unsigned>(tileSizeXY));
 
 	//std::cout << "X: " << this->mouse_Position_Window_.x << " Y: " << this->mouse_Position_Window_.y << std::endl;
 }

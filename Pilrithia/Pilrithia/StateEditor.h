@@ -22,10 +22,14 @@ private:
 	void initializeInstructionsPanel();
 	void initializeRightSidePanel();
 	void initializeTilemapSettings();
+	void initializeSave();
+	void initializeLoad();
 
 	void instructionsPollEvent(sf::Event& ev);
 	void rightPanelPollEvent(sf::Event& ev);
 	void tilemapSettingsPollEvent(sf::Event& ev);
+	void savePollEvent(sf::Event& ev);
+	void loadPollEvent(sf::Event& ev);
 
 private:
 
@@ -69,10 +73,45 @@ private:
 	Text tilemap_Settings_T_D_;
 	Text tilemap_Settings_T_E_;
 	Text tilemap_Settings_T_F_;
+	Text tilemap_Settings_T_G_;
 	
 	InputBox tilemap_Settings_I_A_;
 	InputBox tilemap_Settings_I_B_;
 	InputBox tilemap_Settings_I_C_;
+
+	CheckBox tilemap_Settings_C_A_;
+
+
+
+	//SAVE BOX
+	Box save_X_A_;
+
+	Button save_B_A_;
+	Button save_B_B_;
+
+	Text save_T_A_;
+	Text save_T_B_;
+	Text save_T_C_;
+	Text save_T_D_;
+
+	InputBox save_I_A_;
+
+
+
+
+	//LOAD BOX
+	Box load_X_A_;
+
+	Button load_B_A_;
+	Button load_B_B_;
+
+	Text load_T_A_;
+	Text load_T_B_;
+	Text load_T_C_;
+	Text load_T_D_;
+
+	InputBox load_I_A_;
+
 
 	//TESTING ONLY
 	Camera* camera_;

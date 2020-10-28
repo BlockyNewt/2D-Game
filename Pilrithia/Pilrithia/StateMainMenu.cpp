@@ -23,11 +23,15 @@ StateMainMenu::StateMainMenu(std::stack<State*>* states, sf::RenderWindow* windo
 	this->b_F_.setSettings(100.f, 50.f, this->b_E_.getLeftPosition(), this->b_E_.getBottomPosition(true, 10.f), sf::Color::Red, 1, sf::Color::Red, true);
 	this->t_F_.setSettings("Font/arial.ttf", 18, "Editor", this->b_F_.setPositionOfText(this->t_F_.setText()), true);
 
+	this->b_G_.setSettings(100.f, 50.f, this->b_F_.getLeftPosition(), this->b_F_.getBottomPosition(true, 10.f), sf::Color::Red, 1, sf::Color::Red, true);
+	this->t_G_.setSettings("Font/arial.ttf", 18, "Test zone", this->b_G_.setPositionOfText(this->t_G_.setText()), true);
+
 	this->buttons_.push_back(this->b_B_);
 	this->buttons_.push_back(this->b_C_);
 	this->buttons_.push_back(this->b_D_);
 	this->buttons_.push_back(this->b_E_);
 	this->buttons_.push_back(this->b_F_);
+	this->buttons_.push_back(this->b_G_);
 
 	this->texts_.push_back(this->t_A_);
 	this->texts_.push_back(this->t_B_);
@@ -35,6 +39,7 @@ StateMainMenu::StateMainMenu(std::stack<State*>* states, sf::RenderWindow* windo
 	this->texts_.push_back(this->t_D_);
 	this->texts_.push_back(this->t_E_);
 	this->texts_.push_back(this->t_F_);
+	this->texts_.push_back(this->t_G_);
 }
 
 StateMainMenu::~StateMainMenu()
@@ -62,6 +67,10 @@ void StateMainMenu::updatePollEvent(sf::Event& ev)
 	else if (this->buttons_[4].updatePollEvent(ev))
 	{
 		this->states_->push(new StateEditor(this->states_, this->window_));
+	}
+	else if (this->buttons_[5].updatePollEvent(ev))
+	{
+		this->states_->push(new StateTestZone(this->states_, this->window_));
 	}
 }
 

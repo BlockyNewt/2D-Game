@@ -7,15 +7,24 @@ Tilemap::Tilemap(const unsigned gridSizeX, const unsigned gridSizeY, float tileS
 
 	this->tile_Size_X_Y_ = tileSizeXY;
 
-	std::cout << "BIcasdfasdfth" << std::endl;
 	this->grid_.resize(grid_Max_Size_X_, std::vector<Tile*>());
-	for (int i = 0; i < grid_Max_Size_X_; ++i)
+	this->outline_.resize(grid_Max_Size_X_, std::vector<Tile*>());
+	for (int x = 0; x < grid_Max_Size_X_; ++x)
 	{
-		for (int k = 0; k < grid_Max_Size_Y_; ++k)
+		for (int y = 0; y < grid_Max_Size_Y_; ++y)
 		{
-			this->grid_[k].resize(grid_Max_Size_Y_, NULL);
+			this->grid_[x].resize(grid_Max_Size_Y_, NULL);
+			this->outline_[x].resize(grid_Max_Size_Y_, NULL);
 		}
 	}
+
+	/*for (int x = 0; x < grid_Max_Size_X_; ++x)
+	{
+		for (int y = 0; y < grid_Max_Size_Y_; ++y)
+		{
+			this->outline_[x][y] = new Tile(x * this->tile_Size_X_Y_, y * this->tile_Size_X_Y_, this->tile_Size_X_Y_, false);
+		}
+	}*/
 
 	/*for (int i = 0; i < gridSizeX; ++i)
 	{
@@ -39,9 +48,12 @@ Tilemap::~Tilemap()
 	}
 }
 
-void Tilemap::update()
+void Tilemap::update(const Camera& camera)
 {
-
+	this->camera_Left_Position = camera.getView().getCenter().x - camera.getView().getSize().x / 2.f;
+	this->camera_Right_Position = camera.getView().getCenter().x + camera.getView().getSize().x / 2.f;
+	this->camera_Top_Position = camera.getView().getCenter().y - camera.getView().getSize().y / 2.f;
+	this->camera_Bottom_Position = camera.getView().getCenter().y + camera.getView().getSize().y / 2.f;
 }
 
 void Tilemap::render(sf::RenderTarget& target)
@@ -52,7 +64,30 @@ void Tilemap::render(sf::RenderTarget& target)
 		{
 			if (a != NULL)
 			{
-				a->render(target);
+				if (a->getPosition().x > this->camera_Left_Position &&
+					a->getPosition().x < this->camera_Right_Position &&
+					a->getPosition().y > this->camera_Top_Position &&
+					a->getPosition().y < this->camera_Bottom_Position)
+				{
+					a->render(target);
+				}
+			}
+		}
+	}
+
+	for (auto& g : this->outline_)
+	{
+		for (auto& a : g)
+		{
+			if (a != NULL)
+			{
+				if (a->getPosition().x > this->camera_Left_Position &&
+					a->getPosition().x < this->camera_Right_Position &&
+					a->getPosition().y > this->camera_Top_Position &&
+					a->getPosition().y < this->camera_Bottom_Position)
+				{
+					a->render(target);
+				}
 			}
 		}
 	}
@@ -67,7 +102,7 @@ void Tilemap::addTile(float gridPosX, float gridPosY)
 	{
 		if (this->grid_[gridPosX][gridPosY] == NULL)
 		{
-			this->grid_[gridPosX][gridPosY] = new Tile(gridPosX * this->tile_Size_X_Y_, gridPosY * this->tile_Size_X_Y_, this->tile_Size_X_Y_, true);
+			this->grid_[gridPosX][gridPosY] = new Tile(gridPosX * this->tile_Size_X_Y_, gridPosY * this->tile_Size_X_Y_, this->tile_Size_X_Y_, true, 1);
 		}
 		else
 		{
@@ -110,7 +145,7 @@ void Tilemap::save(const std::string fileName)
 
 		TILE SIZE XY
 
-		POSITION X, POSITION Y, TILESIZE XY, HAS COLOR 
+		POSITION X, POSITION Y, TILESIZE XY, HAS COLOR, TYPE CONVERSION
 	
 	*/
 
@@ -127,7 +162,7 @@ void Tilemap::save(const std::string fileName)
 			{
 				if (this->grid_[x][y])
 				{
-					outToFile << x << " " << y << " " << this->grid_[x][y]->getHasColor() << " ";
+					outToFile << x << " " << y << " " << this->grid_[x][y]->getHasColor() << " " << this->grid_[x][y]->getTypeConversion() << " ";
 				}
 			}
 		}
@@ -154,23 +189,34 @@ void Tilemap::load(const std::string fileName)
 		inFromFile >> this->grid_Max_Size_X_ >> this->grid_Max_Size_Y_ >> this->tile_Size_X_Y_;
 
 		this->grid_.resize(this->grid_Max_Size_X_, std::vector<Tile*>());
+		this->outline_.resize(this->grid_Max_Size_X_, std::vector<Tile*>());
 		for (int x = 0; x < this->grid_Max_Size_X_; ++x)
 		{
 			for (int y = 0; y < this->grid_Max_Size_Y_; ++y)
 			{
-				this->grid_[y].resize(this->grid_Max_Size_Y_, NULL);
+				this->grid_[x].resize(this->grid_Max_Size_Y_, NULL);
+				this->outline_[x].resize(this->grid_Max_Size_Y_, NULL);
 			}
 		}
+
+		/*for (int x = 0; x < grid_Max_Size_X_; ++x)
+		{
+			for (int y = 0; y < grid_Max_Size_Y_; ++y)
+			{
+				this->outline_[x][y] = new Tile(x * this->tile_Size_X_Y_, y * this->tile_Size_X_Y_, this->tile_Size_X_Y_, false);
+			}
+		}*/
 
 		unsigned x = 0;
 		unsigned y = 0;
 
 		int hasColor = 0;
 
+		int typeConversion = 0;
 
-		while (inFromFile >> x >> y >> hasColor)
+		while (inFromFile >> x >> y >> hasColor >> typeConversion)
 		{
-			this->grid_[x][y] = new Tile(x * this->tile_Size_X_Y_, y * this->tile_Size_X_Y_, this->tile_Size_X_Y_, hasColor);
+			this->grid_[x][y] = new Tile(x * this->tile_Size_X_Y_, y * this->tile_Size_X_Y_, this->tile_Size_X_Y_, hasColor, typeConversion);
 		}
 
 
@@ -184,28 +230,67 @@ void Tilemap::load(const std::string fileName)
 	inFromFile.close();
 }
 
-void Tilemap::clearGrid()
+void Tilemap::clearGrid(const bool& isGridEnabled)
 {
 	for (int x = 0; x < this->grid_Max_Size_X_; ++x)
 	{
 		for (int y = 0; y < this->grid_Max_Size_Y_; ++y)
 		{
 			delete this->grid_[x][y];
+			delete this->outline_[x][y];
 
 			this->grid_[x][y] = NULL;
+			this->outline_[x][y] = NULL;
 		}
 	}
 
 	this->grid_.resize(this->grid_Max_Size_X_, std::vector<Tile*>());
+	this->outline_.resize(this->grid_Max_Size_X_, std::vector<Tile*>());
 	for (int x = 0; x < this->grid_Max_Size_X_; ++x)
 	{
 		for (int y = 0; y < this->grid_Max_Size_Y_; ++y)
 		{
 			this->grid_[x].resize(this->grid_Max_Size_Y_, NULL);
+			this->outline_[x].resize(grid_Max_Size_Y_, NULL);
 		}
 	}
 
+	/*for (int x = 0; x < grid_Max_Size_X_; ++x)
+	{
+		for (int y = 0; y < grid_Max_Size_Y_; ++y)
+		{
+			this->outline_[x][y] = new Tile(x * this->tile_Size_X_Y_, y * this->tile_Size_X_Y_, this->tile_Size_X_Y_, false);
+		}
+	}*/
+
+	/*if (isGridEnabled)
+	{
+		this->enableGrid();
+	}*/
+
 	std::cout << "DEBUG::TILEMAP::CLEARGRID() -> TILE GRID HAS BEEN CLEARED." << std::endl;
+}
+
+void Tilemap::enableGrid()
+{
+	for (int x = 0; x < this->grid_Max_Size_X_; ++x)
+	{
+		for (int y = 0; y < this->grid_Max_Size_Y_; ++y)
+		{
+			this->outline_[x][y]->setOutlineColor(sf::Color::White);
+		}
+	}
+}
+
+void Tilemap::disableGrid()
+{
+	for (int x = 0; x < this->grid_Max_Size_X_; ++x)
+	{
+		for (int y = 0; y < this->grid_Max_Size_Y_; ++y)
+		{
+			this->outline_[x][y]->setOutlineColor(sf::Color::Transparent);
+		}
+	}
 }
 
 void Tilemap::resizeTilemap(const unsigned gridSizeX, const unsigned gridSizeY)
@@ -219,19 +304,68 @@ void Tilemap::resizeTilemap(const unsigned gridSizeX, const unsigned gridSizeY)
 	{
 		this->grid_Max_Size_Y_ = gridSizeY;
 	}
-
+	std::cout << "AA" << std::endl;
 
 	this->grid_.resize(this->grid_Max_Size_X_, std::vector<Tile*>());
+	this->outline_.resize(this->grid_Max_Size_X_, std::vector<Tile*>());
 	for (int x = 0; x < this->grid_Max_Size_X_; ++x)
 	{
 		for (int y = 0; y < this->grid_Max_Size_Y_; ++y)
 		{
-			this->grid_[y].resize(this->grid_Max_Size_Y_, NULL);
+			this->grid_[x].resize(this->grid_Max_Size_Y_, NULL);
+			this->outline_[x].resize(grid_Max_Size_Y_, NULL);
 		}
 	}
+	std::cout << "BB" << std::endl;
+
+	/*for (int x = 0; x < grid_Max_Size_X_; ++x)
+	{
+		for (int y = 0; y < grid_Max_Size_Y_; ++y)
+		{
+			this->outline_[x][y] = new Tile(x * this->tile_Size_X_Y_, y * this->tile_Size_X_Y_, this->tile_Size_X_Y_, false);
+		}
+	}*/
 }
 
 void Tilemap::resizeTileSize(float tileSizeXY)
 {
 	this->tile_Size_X_Y_ = tileSizeXY;
+}
+
+void Tilemap::playerCollision(PlayerTest& playerTest)
+{
+	for (int x = 0; x < this->grid_Max_Size_X_; ++x)
+	{
+		for (int y = 0; y < this->grid_Max_Size_Y_; ++y)
+		{
+			if (this->grid_[x][y] != NULL)
+			{
+				if (this->grid_[x][y]->getType() == TYPE::BOUNDARY)
+				{
+					if (playerTest.getPlayerModel().getGlobalBounds().left + playerTest.getPlayerModel().getGlobalBounds().width > this->grid_[x][y]->getLeftPosition())
+					{
+						playerTest.getPlayerModel().setPosition(sf::Vector2f(this->grid_[x][y]->getLeftPosition(), playerTest.getPlayerModel().getGlobalBounds().top));
+					}
+					else if (playerTest.getPlayerModel().getGlobalBounds().left < this->grid_[x][y]->getRightPosition())
+					{
+						playerTest.getPlayerModel().setPosition(sf::Vector2f(this->grid_[x][y]->getRightPosition(), playerTest.getPlayerModel().getGlobalBounds().top));
+					}
+
+					if (playerTest.getPlayerModel().getGlobalBounds().top + playerTest.getPlayerModel().getGlobalBounds().height < this->grid_[x][y]->getTopPosition())
+					{
+						playerTest.getPlayerModel().setPosition(sf::Vector2f(playerTest.getPlayerModel().getGlobalBounds().left, this->grid_[x][y]->getTopPosition()));
+					}
+					else if (playerTest.getPlayerModel().getGlobalBounds().top > this->grid_[x][y]->getBottomPosition())
+					{
+						playerTest.getPlayerModel().setPosition(sf::Vector2f(playerTest.getPlayerModel().getGlobalBounds().left, this->grid_[x][y]->getBottomPosition()));
+					}
+				}
+			}
+		}
+	}
+}
+
+const float& Tilemap::getTileSizeXY() const
+{
+	return this->tile_Size_X_Y_;
 }

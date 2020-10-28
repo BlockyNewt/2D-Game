@@ -2,6 +2,7 @@
 #define STATEMAINMENU_H
 
 #include "StateEditor.h"
+#include "StateTestZone.h"
 
 class StateMainMenu
 	: public State
@@ -22,6 +23,7 @@ private:
 	Button b_D_;
 	Button b_E_;
 	Button b_F_;
+	Button b_G_;
 	std::vector<Button> buttons_;
 
 	Text t_A_;
@@ -30,6 +32,7 @@ private:
 	Text t_D_;
 	Text t_E_;
 	Text t_F_;
+	Text t_G_;
 	std::vector<Text> texts_;
 };
 

@@ -16,7 +16,7 @@ public:
 	virtual void update() = 0;
 	virtual void render(sf::RenderTarget& target) = 0;
 
-	void updateMousePosition(const sf::View* view);
+	void updateMousePosition(const sf::View* view, const float tileSizeXY = 1.f);
 
 protected:
 	std::stack<State*>* states_;

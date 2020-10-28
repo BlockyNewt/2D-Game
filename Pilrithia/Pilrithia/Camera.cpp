@@ -17,22 +17,33 @@ void Camera::updatePollEvent(sf::Event& ev)
 	{
 		if (ev.key.code == sf::Keyboard::W)
 		{
-			this->camera_.move(sf::Vector2f(0.f, -5.f));
+			this->camera_.move(sf::Vector2f(0.f, -15.f));
 		}
-
-		if (ev.key.code == sf::Keyboard::S)
+		else if (ev.key.code == sf::Keyboard::S)
 		{
-			this->camera_.move(sf::Vector2f(0.f, 5.f));
+			this->camera_.move(sf::Vector2f(0.f, 15.f));
 		}
-
+		
 		if (ev.key.code == sf::Keyboard::A)
 		{
-			this->camera_.move(sf::Vector2f(-5.f, 0.f));
+			this->camera_.move(sf::Vector2f(-15.f, 0.f));
+		}
+		else if (ev.key.code == sf::Keyboard::D)
+		{
+			this->camera_.move(sf::Vector2f(15.f, 0.f));
+		}
+	}
+	else if (ev.type == sf::Event::MouseWheelScrolled)
+	{
+		//WILL NEED TO CHANGE THE VALUES LATER IN CASE SOMEONE CHANGES RESOLUTION
+		if (ev.mouseWheelScroll.delta == 1)
+		{
+			this->camera_.setSize(sf::Vector2f(this->camera_.getSize().x - 128.f, this->camera_.getSize().y - 72.f));
 		}
 
-		if (ev.key.code == sf::Keyboard::D)
+		if (ev.mouseWheelScroll.delta == -1)
 		{
-			this->camera_.move(sf::Vector2f(5.f, 0.f));
+			this->camera_.setSize(sf::Vector2f(this->camera_.getSize().x + 128.f, this->camera_.getSize().y + 72.f));
 		}
 	}
 }

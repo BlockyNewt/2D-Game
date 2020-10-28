@@ -4,6 +4,8 @@ InputBox::InputBox()
 {
 	this->input_String_ = "";
 
+	this->input_String_Max_Size_ = 0;
+
 	this->is_Hovering_ = false;
 }
 
@@ -11,7 +13,7 @@ InputBox::~InputBox()
 {
 }
 
-void InputBox::setSettings(float sizeX, float sizeY, float posX, float posY, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, bool isVisible, bool isInputting)
+void InputBox::setSettings(float sizeX, float sizeY, float posX, float posY, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, bool isVisible, bool isInputting, int inputStringMaxSize)
 {
 	this->input_Box_.setSize(sf::Vector2f(sizeX, sizeY));
 	this->input_Box_.setPosition(sf::Vector2f(posX, posY));
@@ -20,6 +22,8 @@ void InputBox::setSettings(float sizeX, float sizeY, float posX, float posY, con
 	this->input_Box_.setOutlineColor(outlineColor);
 
 	this->fill_Color_ = fillColor;
+
+	this->input_String_Max_Size_ = inputStringMaxSize;
 
 	this->is_Visible_ = isVisible;
 	this->is_Inputting_ = isInputting;
@@ -70,7 +74,7 @@ void InputBox::updateInputPollEvent(sf::Event& ev)
 		{
 			if (ev.text.unicode != '\b')
 			{
-				if (this->input_String_.size() < 4)
+				if (this->input_String_.size() < this->input_String_Max_Size_)
 				{
 					this->input_String_ += ev.text.unicode;
 				}

@@ -14,7 +14,7 @@ public:
 	InputBox();
 	~InputBox();
 
-	void setSettings(float sizeX, float sizeY, float posX, float posY, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, bool isVisible, bool isInputting);
+	void setSettings(float sizeX, float sizeY, float posX, float posY, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, bool isVisible, bool isInputting, int inputStringMaxSize);
 
 	void updatePollEvent(sf::Event& ev);
 
@@ -48,6 +48,8 @@ private:
 	Text input_Text_;
 
 	std::string input_String_;
+	int input_String_Max_Size_;
+
 
 	bool is_Inputting_;
 	bool is_Hovering_;

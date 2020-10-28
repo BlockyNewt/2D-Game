@@ -5,6 +5,7 @@
 #include "Text.h"
 #include "Box.h"
 #include "InputBox.h"
+#include "CheckBox.h"
 
 #include <iostream>
 #include <string>

@@ -32,7 +32,7 @@ bool Button::updatePollEvent(sf::Event& ev)
 		{
 			if (ev.key.code == sf::Mouse::Left)
 			{
-				std::cout << "Left mouse button is being pressed" << std::endl;
+				//std::cout << "Left mouse button is being pressed" << std::endl;
 
 				this->is_Hovering_ = false;
 

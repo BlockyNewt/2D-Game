@@ -16,7 +16,8 @@ public:
 	void render(sf::RenderTarget& target);
 
 	void setIsVisible(bool isVisible);
-	void SetPosition(float x, float y);
+	void setPosition(float x, float y);
+	void setSize(float x, float y);
 
 	const sf::Vector2f& getPosition() const;
 	const sf::FloatRect& getGlobalBounds() const;

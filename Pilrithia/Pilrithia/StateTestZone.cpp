@@ -37,7 +37,7 @@ void StateTestZone::updatePollEvent(sf::Event& ev)
 
 		//this->camera_->updatePollEvent(ev);
 
-		this->player_Test_.updatePollEvent(ev);
+		this->player_Test_.updatePollEvent(ev, this->dt_);
 
 
 		if (ev.type == sf::Event::KeyPressed)
@@ -97,12 +97,15 @@ void StateTestZone::updatePollEvent(sf::Event& ev)
 void StateTestZone::update()
 {
 	this->updateMousePosition(&this->camera_->getView(), this->tilemap_->getTileSizeXY());
+	this->updateDeltaClock();
 
 	this->menu_Pause_->update(this->mouse_Position_Window_);
 	
 	if (!this->menu_Pause_->getIsPaused())
 	{
 		this->tilemap_->update(*this->camera_);
+
+		this->player_Test_.update();
 
 		this->tilemap_->playerCollision(this->player_Test_);
 

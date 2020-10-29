@@ -96,6 +96,7 @@ StateEditor::StateEditor(std::stack<State*>* states, sf::RenderWindow* window, M
 	this->tilemap_ = new Tilemap(5, 5, 30);
 	this->window_Position_.setSettings("Font/arial.ttf", 18, "", sf::Vector2f(0.f, 0.f), true);
 	this->grid_Position_.setSettings("Font/arial.ttf", 18, "", sf::Vector2f(0.f, 0.f), true);
+	this->tile_Type_.setSettings("Font/arial.ttf", 18, "", sf::Vector2f(0.f, 0.f), true);
 	this->tile_Box_.setSettings(30.f, 30.f, 0.f, 0.f, sf::Color::Transparent, 1.f, sf::Color::Red, true);
 
 	this->initializeInstructionsPanel();
@@ -279,11 +280,11 @@ void StateEditor::tilemapSettingsPollEvent(sf::Event& ev)
 
 			if (this->tilemap_Settings_C_A_.getIsEnabled())
 			{
-				//this->tilemap_->enableGrid();
+				this->tilemap_->enableGrid(this->tilemap_Settings_C_A_.getIsEnabled());
 			}
 			else
 			{
-				//this->tilemap_->disableGrid();
+				this->tilemap_->disableGrid(this->tilemap_Settings_C_A_.getIsEnabled());
 			}
 		}
 
@@ -410,8 +411,10 @@ void StateEditor::updatePollEvent(sf::Event& ev)
 		this->savePollEvent(ev);
 		this->loadPollEvent(ev);
 
-		if (!this->tilemap_Settings_X_A_.getIsVisible())
+		if (!this->tilemap_Settings_X_A_.getIsVisible() && !this->save_X_A_.getIsVisible() && !this->load_X_A_.getIsVisible())
 		{
+			this->tilemap_->updatePollEvent(ev);
+
 			if (ev.type == sf::Event::MouseButtonPressed)
 			{
 				if (ev.key.code == sf::Mouse::Left)
@@ -446,6 +449,9 @@ void StateEditor::update()
 
 		this->grid_Position_.setText().setString("X: " + std::to_string(this->mouse_Position_Grid_.x * static_cast<int>(this->tilemap_->getTileSizeXY())) + " Y:" + std::to_string(this->mouse_Position_Grid_.y * static_cast<int>(this->tilemap_->getTileSizeXY())));
 		this->grid_Position_.setText().setPosition(sf::Vector2f(this->mouse_Position_Window_.x + 20.f, this->mouse_Position_Window_.y + 15.f));
+
+		this->tile_Type_.setText().setString("Tile Type: " + this->tilemap_->getTileTypeStr());
+		this->tile_Type_.setText().setPosition(sf::Vector2f(this->mouse_Position_Window_.x + 20.f, this->mouse_Position_Window_.y + 40.f));
 
 
 		for (auto& b : this->right_Side_Panel_Buttons_)
@@ -549,6 +555,7 @@ void StateEditor::render(sf::RenderTarget& target)
 
 	this->window_Position_.render(target);
 	this->grid_Position_.render(target);
+	this->tile_Type_.render(target);
 	
 	this->menu_Pause_->render(target);
 }

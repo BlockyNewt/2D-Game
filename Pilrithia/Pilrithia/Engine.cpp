@@ -13,6 +13,7 @@ Engine::Engine()
 
 	//PUSH NEW STATE HERE
 	this->states_.push(new StateMainMenu(&this->states_, this->window_));
+
 }
 
 Engine::~Engine()

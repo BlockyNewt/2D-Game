@@ -14,7 +14,10 @@ public:
 	Tilemap(const unsigned gridSizeX, const unsigned gridSizeY, float tileSizeXY);
 	~Tilemap();
 
+	void updatePollEvent(sf::Event& ev);
+
 	void update(const Camera& camera);
+	void updateTileType();
 
 	void render(sf::RenderTarget& target);
 
@@ -24,16 +27,19 @@ public:
 	void load(const std::string fileName);
 
 	void clearGrid(const bool& isGridEnabled = false);
-	void enableGrid();
-	void disableGrid();
+	void enableGrid(const bool& isGridEnabled = false);
+	void disableGrid(const bool& isGridEnabled = false);
 
 	void resizeTilemap(const unsigned gridSizeX, const unsigned gridSizeY);
 	void resizeTileSize(float tileSizeXY);
 
+
+	const float& getTileSizeXY() const;
+	const std::string& getTileTypeStr() const;
+
 	//TESTING 
 	void playerCollision(PlayerTest& playerTest);
 
-	const float& getTileSizeXY() const;
 
 private:
 
@@ -49,6 +55,11 @@ private:
 
 	std::vector<std::vector<Tile*> > grid_;
 	std::vector<std::vector<Tile*> > outline_;
+
+	bool is_Grid_Enabled_;
+
+	int tile_Type_;
+	std::string tile_Type_Str_;
 };
 
 #endif

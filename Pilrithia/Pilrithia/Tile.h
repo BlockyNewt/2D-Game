@@ -12,12 +12,14 @@ enum class TYPE
 	DEFAULT = 0, 
 
 	BOUNDARY,
+	FALL,
+
 };
 
 class Tile
 {
 public:
-	Tile(float positionX, float positionY, const float tileSizeXY, bool hasColor, int type);
+	Tile(float positionX, float positionY, const float tileSizeXY, int type);
 	~Tile();
 
 	void render(sf::RenderTarget& target);
@@ -26,10 +28,10 @@ public:
 	void setOutlineColor(const sf::Color& outlineColor);
 	void setHasColor(bool hasColor);
 
-	const bool& getHasColor() const;
 	const sf::Vector2f& getPosition() const;
 	const TYPE& getType() const;
 	const int& getTypeConversion() const;
+	const sf::FloatRect getGlobalBounds() const;
 
 	//TESTING WITH PLAYER COLLISION
 	const float& getLeftPosition() const;
@@ -44,8 +46,6 @@ private:
 
 	TYPE type_;
 	int type_Conversion_;
-
-	bool has_Color_;
 
 };
 

@@ -17,6 +17,7 @@ public:
 	virtual void render(sf::RenderTarget& target) = 0;
 
 	void updateMousePosition(const sf::View* view, const float tileSizeXY = 1.f);
+	void updateDeltaClock();
 
 protected:
 	std::stack<State*>* states_;
@@ -29,9 +30,14 @@ protected:
 
 	MenuPause* menu_Pause_;
 	MenuSetting* menu_Setting_;
+
+	float dt_;
+
 private:
 
 private:
+	sf::Clock dt_Clock_;
+
 };
 
 #endif // !STATE_H

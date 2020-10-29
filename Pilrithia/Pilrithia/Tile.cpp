@@ -1,33 +1,32 @@
 #include "Tile.h"
 
-Tile::Tile(float positionX, float positionY, const float tileSizeXY, bool hasColor, int type)
+Tile::Tile(float positionX, float positionY, const float tileSizeXY, int type)
 {
 	this->tile_.setPosition(sf::Vector2f(positionX, positionY));
 	this->tile_.setSize(sf::Vector2f(tileSizeXY, tileSizeXY));
 	this->tile_.setOutlineColor(sf::Color::Transparent);
 	this->tile_.setOutlineThickness(1.f);
 
-	this->has_Color_ = hasColor;
-
-	if (this->has_Color_)
-	{
-		this->tile_.setFillColor(sf::Color::Yellow);
-	}
 	
 	this->type_Conversion_ = type;
 
 	switch (this->type_Conversion_)
 	{
+	case 0:
+		this->type_ = TYPE::DEFAULT;
+		this->tile_.setFillColor(sf::Color::Transparent);
+		break;
 	case 1:
 		this->type_ = TYPE::BOUNDARY;
+		this->tile_.setFillColor(sf::Color::Yellow);
+		break;
+	case 2:
+		this->type_ = TYPE::FALL;
+		this->tile_.setFillColor(sf::Color::Blue);
 		break;
 	default:
 		break;
 	}
-
-	/*this->tile_.setFillColor(sf::Color::Blue);
-	this->tile_.setOutlineThickness(1.f);
-	this->tile_.setOutlineColor(sf::Color::Red);*/
 }
 
 Tile::~Tile()
@@ -49,16 +48,6 @@ void Tile::setOutlineColor(const sf::Color& outlineColor)
 	this->tile_.setOutlineColor(outlineColor);
 }
 
-void Tile::setHasColor(bool hasColor)
-{
-	this->has_Color_ = hasColor;
-}
-
-const bool& Tile::getHasColor() const
-{
-	return this->has_Color_;
-}
-
 const sf::Vector2f& Tile::getPosition() const
 {
 	return this->tile_.getPosition();
@@ -72,6 +61,11 @@ const TYPE& Tile::getType() const
 const int& Tile::getTypeConversion() const
 {
 	return this->type_Conversion_;
+}
+
+const sf::FloatRect Tile::getGlobalBounds() const
+{
+	return this->tile_.getGlobalBounds();
 }
 
 const float& Tile::getLeftPosition() const

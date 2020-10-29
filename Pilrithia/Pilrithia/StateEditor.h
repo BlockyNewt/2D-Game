@@ -118,6 +118,7 @@ private:
 	Tilemap* tilemap_;
 	Text window_Position_;
 	Text grid_Position_;
+	Text tile_Type_;
 	Box tile_Box_;
 
 };

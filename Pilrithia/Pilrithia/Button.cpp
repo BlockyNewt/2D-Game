@@ -26,6 +26,9 @@ void Button::setSettings(float sizeX, float sizeY, float posX, float posY, const
 
 bool Button::updatePollEvent(sf::Event& ev)
 {
+	/*
+		IF YOU ARE HOVERING THEN YOU CANT CLICK THE BUTTON
+	*/
 	if (this->is_Hovering_)
 	{
 		if (ev.type == sf::Event::MouseButtonPressed)
@@ -37,6 +40,10 @@ bool Button::updatePollEvent(sf::Event& ev)
 				this->is_Hovering_ = false;
 
 				return true;
+			}
+			else
+			{
+				return false;
 			}
 		}
 		else
@@ -52,6 +59,9 @@ bool Button::updatePollEvent(sf::Event& ev)
 
 void Button::updateBoundaries(const sf::Vector2i& mousePositionWindow)
 {
+	/*
+		IF THE MOUSE POSITION OF THE WINDOW IS WITHIN THE BOUNDARIES OF THIS BUTTON THEN CHANGE THE COLOR 
+	*/
 	if (this->button_.getGlobalBounds().contains(sf::Vector2f(mousePositionWindow.x, mousePositionWindow.y)))
 	{
 		//std::cout << "Within bounds." << std::endl;
@@ -69,6 +79,9 @@ void Button::updateBoundaries(const sf::Vector2i& mousePositionWindow)
 
 void Button::render(sf::RenderTarget& target)
 {
+	/*
+		DRAW THE BOX ONLY IF IT IS VISIBLE
+	*/
 	if (this->is_Visible_)
 	{
 		target.draw(this->button_);
@@ -77,7 +90,7 @@ void Button::render(sf::RenderTarget& target)
 
 const sf::Vector2f& Button::setPositionOfText(sf::Text& text)
 {
-	text.setPosition(sf::Vector2f(this->button_.getGlobalBounds().left + 10.f, this->button_.getGlobalBounds().top + 10.f));
+	text.setPosition(sf::Vector2f(this->getLeftPosition() + 10.f, this->getTopPosition() + 10.f));
 
 	return text.getPosition();
 }
@@ -94,6 +107,9 @@ const sf::Vector2f& Button::getPosition() const
 
 const float Button::getLeftPosition(bool pOrM, float offset) const
 {
+	/*
+		pOrM STAND FOR "PLUS OR MINUS". TRUE FOR ADDING THE OFFSET OR MINUS FOR SUBTRACTING THE OFFSET
+	*/
 	if (pOrM)
 	{
 		return this->button_.getGlobalBounds().left + offset;
@@ -106,6 +122,9 @@ const float Button::getLeftPosition(bool pOrM, float offset) const
 
 const float Button::getRightPosition(bool pOrM, float offset) const
 {
+	/*
+		pOrM STAND FOR "PLUS OR MINUS". TRUE FOR ADDING THE OFFSET OR MINUS FOR SUBTRACTING THE OFFSET
+	*/
 	if (pOrM)
 	{
 		return this->button_.getGlobalBounds().left + this->button_.getGlobalBounds().width + offset;
@@ -118,6 +137,9 @@ const float Button::getRightPosition(bool pOrM, float offset) const
 
 const float Button::getTopPosition(bool pOrM, float offset) const
 {
+	/*
+		pOrM STAND FOR "PLUS OR MINUS". TRUE FOR ADDING THE OFFSET OR MINUS FOR SUBTRACTING THE OFFSET
+	*/
 	if (pOrM)
 	{
 		return this->button_.getGlobalBounds().top + offset;
@@ -130,6 +152,9 @@ const float Button::getTopPosition(bool pOrM, float offset) const
 
 const float Button::getBottomPosition(bool pOrM, float offset) const
 {
+	/*
+		pOrM STAND FOR "PLUS OR MINUS". TRUE FOR ADDING THE OFFSET OR MINUS FOR SUBTRACTING THE OFFSET
+	*/
 	if (pOrM)
 	{
 		return this->button_.getGlobalBounds().top + this->button_.getGlobalBounds().height + offset;

@@ -31,7 +31,6 @@ private:
 	
 	Box x_A_;
 
-
 	Button b_B_;
 	Button b_C_;
 	std::vector<Button>buttons_;

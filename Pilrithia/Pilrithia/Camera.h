@@ -14,6 +14,8 @@ public:
 
 	void updatePollEvent(sf::Event& ev);
 
+	void setCenter(const sf::Vector2f& playerPosition);
+
 	const sf::View& getView() const;
 
 private:

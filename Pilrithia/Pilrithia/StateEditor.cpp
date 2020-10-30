@@ -2,6 +2,10 @@
 
 void StateEditor::initializeInstructionsPanel()
 {
+	/*
+		SET SETTINGS FOR ALL OF THE INSTRUCTION PANEL OBJECTS
+	*/
+
 	this->instruction_Panel_X_A_.setSettings(400.f, 700.f, 10.f, 10.f, sf::Color::Green, 1.f, sf::Color::Red, true);
 
 	std::string instructionsStr = "1.) Press 'Tab' to hide this window. \n\n2.) Press 'Esc' to open pause window \n\n3.) Left click to add tile \n\n4.) Right click to remove tile \n\n5.) WSAD to move camera \n\n6.) Mouse wheel to scroll in and out \n\n7.) nothing for now";
@@ -12,6 +16,10 @@ void StateEditor::initializeInstructionsPanel()
 
 void StateEditor::initializeRightSidePanel()
 {
+	/*
+		SET SETTINGS FOR ALL OF THE RIGHT SIDE PANEL OBJECTS
+	*/
+
 	this->right_Side_Panel_X_A_.setSettings(50.f, 700.f, this->window_->getSize().x - 60.f, 10.f, sf::Color::Green, 1.f, sf::Color::Red, true);
 
 	this->right_Side_Panel_B_A_.setSettings(40.f, 40.f, this->right_Side_Panel_X_A_.getLeftPosition(true, 5), this->right_Side_Panel_X_A_.getTopPosition(true, 5), sf::Color::Blue, 1, sf::Color::Red, true);
@@ -37,6 +45,10 @@ void StateEditor::initializeRightSidePanel()
 
 void StateEditor::initializeTilemapSettings()
 {
+	/*
+		SET SETTINGS FOR ALL OF THE TILEMAP SETTINGS OBJECTS
+	*/
+
 	this->tilemap_Settings_X_A_.setSettings(800.f, 600.f, this->window_->getSize().x / 2.f - 800.f / 2.f, this->window_->getSize().y / 2.f - 600.f / 2.f, sf::Color::Green, 1.f, sf::Color::Red, false);
 	this->tilemap_Settings_T_D_.setSettings("Font/arial.ttf", 35, "Tilemap Settings", sf::Vector2f(this->tilemap_Settings_X_A_.getLeftPosition(true, 300.f), this->tilemap_Settings_X_A_.getTopPosition(true, 20.f)), false);
 
@@ -59,6 +71,10 @@ void StateEditor::initializeTilemapSettings()
 
 void StateEditor::initializeSave()
 {
+	/*
+		SET SETTINGS FOR ALL OF THE SAVE OBJECTS
+	*/
+
 	this->save_X_A_.setSettings(800.f, 400.f, this->window_->getSize().x / 2.f - 800.f / 2.f, this->window_->getSize().y / 2.f - 600.f / 2.f, sf::Color::Green, 1.f, sf::Color::Red, false);
 
 	this->save_B_A_.setSettings(150.f, 50.f, this->save_X_A_.getLeftPosition(true, 250), this->save_X_A_.getBottomPosition(false, 55), sf::Color::Blue, 1, sf::Color::Red, false);
@@ -74,6 +90,10 @@ void StateEditor::initializeSave()
 
 void StateEditor::initializeLoad()
 {
+	/*
+		SET SETTINGS FOR ALL OF THE LOAD OBJECTS
+	*/
+
 	this->load_X_A_.setSettings(800.f, 400.f, this->window_->getSize().x / 2.f - 800.f / 2.f, this->window_->getSize().y / 2.f - 600.f / 2.f, sf::Color::Green, 1.f, sf::Color::Red, false);
 
 	this->load_B_A_.setSettings(150.f, 50.f, this->load_X_A_.getLeftPosition(true, 250), this->load_X_A_.getBottomPosition(false, 55), sf::Color::Blue, 1, sf::Color::Red, false);
@@ -91,6 +111,14 @@ StateEditor::StateEditor(std::stack<State*>* states, sf::RenderWindow* window, M
 	: State(states, window, menuSetting, menuPause)
 {
 	std::cout << "DEBUG::STATEEDITOR::STATEEDITOR() -> HAS STARTED." << std::endl;
+
+	/*
+		SET SETTINGS FOR OTHER OTHER THINGS HERE SUCH AS:
+		CAMERA,
+		TILEMAP,
+		MOUSE POSITION TEXT,
+		TILE BOX FOR THE GRID MOUSE POSITION
+	*/
 
 	this->camera_ = new Camera(this->window_->getSize().x, this->window_->getSize().y);
 	this->tilemap_ = new Tilemap(5, 5, 30);
@@ -112,6 +140,11 @@ StateEditor::~StateEditor()
 
 void StateEditor::instructionsPollEvent(sf::Event& ev)
 {
+	/*
+		PRESS TAB TO OPEN THE INSTRUCTIONS PANEL AND MAKE EVERYTHING
+		RELATED TO IT VISIBLE AS WELL
+	*/
+
 	if (ev.type == sf::Event::KeyPressed)
 	{
 		if (ev.key.code == sf::Keyboard::Tab)
@@ -137,12 +170,23 @@ void StateEditor::instructionsPollEvent(sf::Event& ev)
 
 void StateEditor::rightPanelPollEvent(sf::Event& ev)
 {
-	//RIGHT SIDE PANEL BUTTONS
+	/*
+		RIGHT SIDE PANEL BUTTONS
+		-THE IF / ELSES FOR THE BUTTONS IS JUST AN ENABLER AND DISABLER TO MAKE
+		THE OBJECT VISIBLE AND NON VISIBLE
+	*/
+
+	/*
+		CLEAR BUTTON
+	*/
 	if (this->right_Side_Panel_Buttons_[0].updatePollEvent(ev))
 	{
 		this->tilemap_->clearGrid(this->tilemap_Settings_C_A_.getIsEnabled());
 	}
 
+	/*
+		TILEMAP SETTINGS BUTTON
+	*/
 	if (this->right_Side_Panel_Buttons_[1].updatePollEvent(ev))
 	{
 		if (!this->tilemap_Settings_X_A_.getIsVisible())
@@ -191,6 +235,9 @@ void StateEditor::rightPanelPollEvent(sf::Event& ev)
 		}
 	}
 
+	/*
+		SAVE BUTTON
+	*/
 	if (this->right_Side_Panel_Buttons_[2].updatePollEvent(ev))
 	{
 		if (!this->save_X_A_.getIsVisible())
@@ -218,6 +265,9 @@ void StateEditor::rightPanelPollEvent(sf::Event& ev)
 		
 	}
 
+	/*
+		LOAD BUTTON
+	*/
 	if (this->right_Side_Panel_Buttons_[3].updatePollEvent(ev))
 	{
 		if (!this->load_X_A_.getIsVisible())
@@ -247,6 +297,10 @@ void StateEditor::rightPanelPollEvent(sf::Event& ev)
 
 void StateEditor::tilemapSettingsPollEvent(sf::Event& ev)
 {
+	/*
+		TILE MAP SETTINGS 
+
+	*/
 	if (this->tilemap_Settings_X_A_.getIsVisible())
 	{
 		this->tilemap_Settings_I_A_.updatePollEvent(ev);
@@ -255,6 +309,10 @@ void StateEditor::tilemapSettingsPollEvent(sf::Event& ev)
 
 		if (this->tilemap_Settings_B_A_.updatePollEvent(ev))
 		{
+			/*
+				IF THE MAX GRID SIZE X OR Y INPUTBOXES HAS MORE THAN 0 CHARACTERS THEN 
+				UPDATE THE SIZE OF THE GRID
+			*/
 			if (this->tilemap_Settings_I_A_.getString().length() > 0 || this->tilemap_Settings_I_B_.getString().length() > 0)
 			{
 				int newGridSizeX = std::atoi(this->tilemap_Settings_I_A_.getString().c_str());
@@ -266,6 +324,10 @@ void StateEditor::tilemapSettingsPollEvent(sf::Event& ev)
 				this->tilemap_Settings_I_B_.clearString();
 			}
 
+			/*
+				IF THE TILE SIZE X Y INPUTBOX HAS MORE THAN 0 CHARACTERS THEN CHANGE THE SIZE 
+				OF THE TILES
+			*/
 			if (this->tilemap_Settings_I_C_.getString().length() > 0)
 			{
 				int newTileSizeXY = std::atoi(this->tilemap_Settings_I_C_.getString().c_str());
@@ -278,6 +340,9 @@ void StateEditor::tilemapSettingsPollEvent(sf::Event& ev)
 				this->tilemap_Settings_I_C_.clearString();
 			}
 
+			/*
+				IF THE CHECKBOX IS ENABLED THEN ENABLE OR DISBALE THE GRID OUTLINE
+			*/
 			if (this->tilemap_Settings_C_A_.getIsEnabled())
 			{
 				this->tilemap_->enableGrid(this->tilemap_Settings_C_A_.getIsEnabled());
@@ -288,22 +353,26 @@ void StateEditor::tilemapSettingsPollEvent(sf::Event& ev)
 			}
 		}
 
+		/*
+			CHECK BOX FOR ENABLING AND DISABLING THE GRID OUTLINE
+		*/
 		if (this->tilemap_Settings_C_A_.updatePollEvent(ev))
 		{
-			std::cout << "Hey" << std::endl;
 			if (!this->tilemap_Settings_C_A_.getIsEnabled())
 			{
-				std::cout << "True" << std::endl;
 				this->tilemap_Settings_C_A_.setIsEnabled(true);
 			}
 			else
 			{
-				std::cout << "False" << std::endl;
 				this->tilemap_Settings_C_A_.setIsEnabled(false);
 			}
 		}
 
 
+		/*
+			IF THE CLOSE BUTTONS IF CLICKED THEN HIDE EVERYTHING RELATED 
+			TO TILEMAP SETTINGS
+		*/
 		if (this->tilemap_Settings_B_B_.updatePollEvent(ev))
 		{
 			this->tilemap_Settings_X_A_.setIsVisible(false);
@@ -334,10 +403,18 @@ void StateEditor::tilemapSettingsPollEvent(sf::Event& ev)
 
 void StateEditor::savePollEvent(sf::Event& ev)
 {
+	/*
+		SAVE BOX
+	*/
+
 	if (this->save_X_A_.getIsVisible())
 	{
 		this->save_I_A_.updatePollEvent(ev);
 
+		/*
+			IF SAVE BUTTONS IS CLICKED AND THE INPUTBOX ALSO HAS MORE THAN
+			0 CHARACTERS THEN SAVE THE TILEMAP TO A FILE
+		*/
 		if (this->save_B_A_.updatePollEvent(ev))
 		{
 			if (this->save_I_A_.getString().length() > 0)
@@ -348,6 +425,10 @@ void StateEditor::savePollEvent(sf::Event& ev)
 			}
 		}
 
+		/*
+			IF SAVE CLOSE BUTTONS IS CLICKED THEN HIDE EVERYTHING 
+			RELATED TO SAVE
+		*/
 		if (this->save_B_B_.updatePollEvent(ev))
 		{
 			this->save_X_A_.setIsVisible(false);
@@ -364,10 +445,17 @@ void StateEditor::savePollEvent(sf::Event& ev)
 
 void StateEditor::loadPollEvent(sf::Event& ev)
 {
+	/*
+		LOAD BOX
+	*/
 	if (this->load_X_A_.getIsVisible())
 	{
 		this->load_I_A_.updatePollEvent(ev);
 
+		/*
+			IF LOAD BUTTON IS CLICKED AND THE INPUTBOX HAS MORE THAN
+			0 CHARACTERS THEN LOAD THE TILEMAP FILE
+		*/
 		if (this->load_B_A_.updatePollEvent(ev))
 		{
 			if (this->load_I_A_.getString().length() > 0)
@@ -378,6 +466,10 @@ void StateEditor::loadPollEvent(sf::Event& ev)
 			}
 		}
 
+		/*
+			IF LOAD CLOSE BUTTONS IS CLICKED HIDE EVERYTHING 
+			RELATED TO LOAD
+		*/
 		if (this->load_B_B_.updatePollEvent(ev))
 		{
 			this->load_X_A_.setIsVisible(false);
@@ -394,6 +486,10 @@ void StateEditor::loadPollEvent(sf::Event& ev)
 
 void StateEditor::updatePollEvent(sf::Event& ev)
 {
+	/*
+		IF THE MAIN MENU EXIT BUTTON IS CLICKED THEN EXIT 
+		THIS STATE
+	*/
 	if (this->menu_Pause_->updatePollEvent(ev))
 	{
 		this->states_->pop();
@@ -403,6 +499,9 @@ void StateEditor::updatePollEvent(sf::Event& ev)
 	{
 		this->window_->setKeyRepeatEnabled(true);
 
+		/*
+			UPDATE CAMERA POLL EVENTS HERE
+		*/
 		this->camera_->updatePollEvent(ev);
 
 		this->instructionsPollEvent(ev);
@@ -411,21 +510,25 @@ void StateEditor::updatePollEvent(sf::Event& ev)
 		this->savePollEvent(ev);
 		this->loadPollEvent(ev);
 
+		/*
+			IF TILEMAP SETTINGS, LOAD, AND SAVE BOXES ARE NOT OPEN THEN YOU
+			CAN ADD AND REMOVE TILES
+		*/
 		if (!this->tilemap_Settings_X_A_.getIsVisible() && !this->save_X_A_.getIsVisible() && !this->load_X_A_.getIsVisible())
 		{
+			/*
+				UPDATE TILEMAP POLL EVENT FOR CHANGING TILE TYPES
+			*/
 			this->tilemap_->updatePollEvent(ev);
 
-			if (ev.type == sf::Event::MouseButtonPressed)
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
-				if (ev.key.code == sf::Mouse::Left)
-				{
-					this->tilemap_->addTile(this->mouse_Position_Grid_.x, this->mouse_Position_Grid_.y);
-				}
+				this->tilemap_->addTile(this->mouse_Position_Grid_.x, this->mouse_Position_Grid_.y);
+			}
 
-				if (ev.key.code == sf::Mouse::Right)
-				{
-					this->tilemap_->removeTile(this->mouse_Position_Grid_.x, this->mouse_Position_Grid_.y);
-				}
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+			{
+				this->tilemap_->removeTile(this->mouse_Position_Grid_.x, this->mouse_Position_Grid_.y);
 			}
 		}
 	}
@@ -433,17 +536,32 @@ void StateEditor::updatePollEvent(sf::Event& ev)
 
 void StateEditor::update()
 {
+	/*
+		UPDATE MOUSE POSITIONS
+	*/
 	this->updateMousePosition(&this->camera_->getView(), this->tilemap_->getTileSizeXY());
 
+	/*
+		UPDATE PAUSE MENU
+	*/
 	this->menu_Pause_->update(this->mouse_Position_Window_);
 	
 	if (!this->menu_Pause_->getIsPaused())
 	{
+		/*
+			UPDATE TILEMAP 
+		*/
 		this->tilemap_->update(*this->camera_);
 
+		/*
+			UPDATE TILE BOX POSITION BASED ON MOUSE GRID POSITION
+		*/
 		this->tile_Box_.setPosition(static_cast<float>(this->mouse_Position_Grid_.x * this->tilemap_->getTileSizeXY()), static_cast<float>(this->mouse_Position_Grid_.y * this->tilemap_->getTileSizeXY()));
 
 
+		/*
+			UPDATE MOUSE TEST POSITIONS BASED ON WHERE MOUSE CURSOR IS ON SCREEN
+		*/
 		this->window_Position_.setText().setString("X: " + std::to_string(this->mouse_Position_Window_.x) + " Y:" + std::to_string(this->mouse_Position_Window_.y));
 		this->window_Position_.setText().setPosition(sf::Vector2f(this->mouse_Position_Window_.x + 20.f, this->mouse_Position_Window_.y - 15.f));
 
@@ -454,12 +572,17 @@ void StateEditor::update()
 		this->tile_Type_.setText().setPosition(sf::Vector2f(this->mouse_Position_Window_.x + 20.f, this->mouse_Position_Window_.y + 40.f));
 
 
+		/*
+			UPDATE RIGHT SIDE PANEL BUTTONS
+		*/
 		for (auto& b : this->right_Side_Panel_Buttons_)
 		{
 			b.updateBoundaries(this->mouse_Position_Window_);
 		}
 
-		//SETTINGS BUTTONS	
+		/*
+			UPDATE SETTINGS OBJECTS 
+		*/
 		if (this->tilemap_Settings_X_A_.getIsVisible())
 		{
 			this->tilemap_Settings_B_A_.updateBoundaries(this->mouse_Position_Window_);
@@ -472,6 +595,9 @@ void StateEditor::update()
 			this->tilemap_Settings_C_A_.updateBoundaries(this->mouse_Position_Window_);
 		}
 
+		/*
+			UPDATE SAVE OBJECTS
+		*/
 		if (this->save_X_A_.getIsVisible())
 		{
 			this->save_B_A_.updateBoundaries(this->mouse_Position_Window_);
@@ -480,6 +606,9 @@ void StateEditor::update()
 			this->save_I_A_.update(this->mouse_Position_Window_);
 		}
 
+		/*
+			UPDATE LOAD OBJECTS
+		*/
 		if (this->load_X_A_.getIsVisible())
 		{
 			this->load_B_A_.updateBoundaries(this->mouse_Position_Window_);
@@ -492,13 +621,23 @@ void StateEditor::update()
 
 void StateEditor::render(sf::RenderTarget& target)
 {
+	/*
+		SET CAMERA VIEW
+	*/
 	target.setView(this->camera_->getView());
 
 	this->tilemap_->render(target);
 	this->tile_Box_.render(target);
 
+	/*
+		SET VIEW BACK TO DEFUALT 
+	*/
 	target.setView(target.getDefaultView());
 
+
+	/*
+		RENDER INSTRUCTION RELATED OBJECTS HERE
+	*/
 	this->instruction_Panel_X_A_.render(target);
 	this->right_Side_Panel_X_A_.render(target);
 
@@ -506,6 +645,9 @@ void StateEditor::render(sf::RenderTarget& target)
 	this->t_B_.render(target);
 
 
+	/*
+		RENDER TILEMAP RELATED OBJECTS HERE
+	*/
 	this->tilemap_Settings_X_A_.render(target);
 	this->tilemap_Settings_B_A_.render(target);
 	this->tilemap_Settings_B_B_.render(target);
@@ -523,6 +665,9 @@ void StateEditor::render(sf::RenderTarget& target)
 	this->tilemap_Settings_C_A_.render(target);
 	
 
+	/*
+		RENDER SAVE RELATED OBJECTS HERE
+	*/
 	this->save_X_A_.render(target);
 	this->save_B_A_.render(target);
 	this->save_B_B_.render(target);
@@ -533,6 +678,9 @@ void StateEditor::render(sf::RenderTarget& target)
 	this->save_I_A_.render(target);
 
 
+	/*
+		RENDER LOAD RELATED OBJECTS HERE
+	*/
 	this->load_X_A_.render(target);
 	this->load_B_A_.render(target);
 	this->load_B_B_.render(target);
@@ -542,6 +690,9 @@ void StateEditor::render(sf::RenderTarget& target)
 	this->load_T_D_.render(target);
 	this->load_I_A_.render(target);
 
+	/*
+		RENDER RIGHT SIDE PANEL BUTTONS AND TEXT HERE
+	*/
 	for (auto& b : this->right_Side_Panel_Buttons_)
 	{
 		b.render(target);
@@ -553,9 +704,16 @@ void StateEditor::render(sf::RenderTarget& target)
 	}
 
 
+	/*
+		RENDER MOUSE POSITIONS TEXT HERE
+	*/
 	this->window_Position_.render(target);
 	this->grid_Position_.render(target);
 	this->tile_Type_.render(target);
 	
+
+	/*
+		MUST RENDER PAUSE MENU LAST
+	*/
 	this->menu_Pause_->render(target);
 }

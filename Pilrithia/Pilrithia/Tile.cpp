@@ -1,15 +1,23 @@
 #include "Tile.h"
 
-Tile::Tile(float positionX, float positionY, const float tileSizeXY, int type)
+Tile::Tile(float positionX, float positionY,  float tileSizeXY, int type)
 {
+	/*
+		SET SETTINGS
+	*/
 	this->tile_.setPosition(sf::Vector2f(positionX, positionY));
 	this->tile_.setSize(sf::Vector2f(tileSizeXY, tileSizeXY));
 	this->tile_.setOutlineColor(sf::Color::Transparent);
 	this->tile_.setOutlineThickness(1.f);
 
-	
 	this->type_Conversion_ = type;
+	this->type_ = TYPE::DEFAULT;
 
+	/*
+		CANNOT PASS A TYPE THROUGH FOR SAVING AND LOADING FROM FILE REASONS
+
+		CHECK WHICH TYPE OF TILE IT IS BASED OFF THE INT BEING PASSED
+	*/
 	switch (this->type_Conversion_)
 	{
 	case 0:
@@ -68,22 +76,27 @@ const sf::FloatRect Tile::getGlobalBounds() const
 	return this->tile_.getGlobalBounds();
 }
 
-const float& Tile::getLeftPosition() const
+const float Tile::getLeftPosition() const
 {
 	return this->tile_.getGlobalBounds().left;
 }
 
-const float& Tile::getRightPosition() const
+const float Tile::getRightPosition() const
 {
 	return this->tile_.getGlobalBounds().left + this->tile_.getGlobalBounds().width;
 }
 
-const float& Tile::getTopPosition() const
+const float Tile::getTopPosition() const
 {
 	return this->tile_.getGlobalBounds().top;
 }
 
-const float& Tile::getBottomPosition() const
+const float Tile::getBottomPosition() const
 {
 	return this->tile_.getGlobalBounds().top + this->tile_.getGlobalBounds().height;
+}
+
+const sf::RectangleShape& Tile::getTile() const
+{
+	return this->tile_;
 }

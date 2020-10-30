@@ -29,6 +29,10 @@ State::~State()
 
 void State::updateMousePosition(const sf::View* view, float tileSizeXY)
 {
+	/*
+		UPDATE DIFFERENT MOUSE POSITOINS BASE ON THE VIEW WE ARE SENDING IN
+	*/
+
 	this->window_->setView(*view);
 
 	this->mouse_Position_Window_ = sf::Mouse::getPosition(*this->window_);
@@ -44,5 +48,28 @@ void State::updateMousePosition(const sf::View* view, float tileSizeXY)
 
 void State::updateDeltaClock()
 {
+	/*
+		UPDATE DELTA TIME
+	*/
+
 	this->dt_ = this->dt_Clock_.restart().asSeconds();
+
+	//std::cout << "DEBUG::STATE::UPDATEDELTACLOCK() -> SECONDS: " << this->dt_ << std::endl;
+}
+
+const float State::percentToPixelX(const float sizeX)
+{
+	/*
+
+	TO GET SIZEX...
+	EXAMPLE: 200 / 1280 * 100 = 15.6
+			 1280 * 15.6 / 100 = 200
+	*/
+
+	return std::floor(static_cast<float>(this->window_->getSize().x)) * (sizeX / 100.f);
+}
+
+const float State::percentToPixelY(const float sizeY)
+{
+	return std::floor(static_cast<float>(this->window_->getSize().y)) * (sizeY / 100.f);
 }

@@ -8,6 +8,9 @@
 
 #include "PlayerTest.h"
 
+#include "Npc.h"
+#include "NpcTest.h"
+
 class StateTestZone
 	: public State
 {
@@ -22,6 +25,9 @@ public:
 private:
 
 private:
+	/*
+		LOAD BOX
+	*/
 	Box load_X_A_;
 
 	Button load_B_A_;
@@ -34,11 +40,17 @@ private:
 
 	InputBox load_I_A_;
 
+
+	/*
+		OTHER
+	*/
 	Tilemap* tilemap_;
 	Camera* camera_;
 
+
 	//TESTING
 	PlayerTest player_Test_;
+	NpcTest npc_Test_;
 };
 
 #endif // !STATETESTZONE_H

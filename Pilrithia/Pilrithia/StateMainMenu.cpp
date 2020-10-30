@@ -5,11 +5,17 @@ StateMainMenu::StateMainMenu(std::stack<State*>* states, sf::RenderWindow* windo
 {
 	std::cout << "DEBUG::STATEMAINMENU::STATEMAINMENU() -> HAS STARTED." << std::endl;
 
+	/*
+		SET SETTINGS FOR BUTTONS AND TEXT IN CONSTRUCTOR SINCE THERE ARE NOT MANY
+	*/
 
 	this->t_A_.setSettings("Font/arial.ttf", 50, "Title", sf::Vector2f(this->window_->getSize().x /2.f, 10.f), true);
 
-	this->b_B_.setSettings(100.f, 50.f, 10.f, 50.f, sf::Color::Red, 1, sf::Color::Red, true);
-	this->t_B_.setSettings("Font/arial.ttf", 18, "Play", this->b_B_.setPositionOfText(this->t_B_.setText()), true);
+	/*
+		PERCENT TO PIXEL EXAMPLE with b_B_ & t_B_
+	*/
+	this->b_B_.setSettings(this->percentToPixelX(7.8125f), this->percentToPixelY(6.944444444444444f), 10.f, 50.f, sf::Color::Red, 1, sf::Color::Red, true);
+	this->t_B_.setSettings("Font/arial.ttf", this->percentToPixelX(1.40625f), "Play", this->b_B_.setPositionOfText(this->t_B_.setText()), true);
 
 	this->b_C_.setSettings(100.f, 50.f, this->b_B_.getLeftPosition(), this->b_B_.getBottomPosition(true, 10.f), sf::Color::Red, 1, sf::Color::Red, true);
 	this->t_C_.setSettings("Font/arial.ttf", 18, "Load", this->b_C_.setPositionOfText(this->t_C_.setText()), true);
@@ -48,51 +54,93 @@ StateMainMenu::~StateMainMenu()
 
 void StateMainMenu::updatePollEvent(sf::Event& ev)
 {
-	if (this->buttons_[0].updatePollEvent(ev))
+	this->menu_Setting_->updatePollEvent(ev, this->window_);
+
+	if (!this->menu_Setting_->getIsInSettings())
 	{
-		//NOTHING FOR NOW
-	}
-	else if (this->buttons_[1].updatePollEvent(ev))
-	{
-		//NOTHING FOR NOW
-	}
-	else if (this->buttons_[2].updatePollEvent(ev))
-	{
-		//NOTHING FOR NOW
-	}
-	else if (this->buttons_[3].updatePollEvent(ev))
-	{
-		this->states_->pop();
-	}
-	else if (this->buttons_[4].updatePollEvent(ev))
-	{
-		this->states_->push(new StateEditor(this->states_, this->window_));
-	}
-	else if (this->buttons_[5].updatePollEvent(ev))
-	{
-		this->states_->push(new StateTestZone(this->states_, this->window_));
+		if (this->buttons_[0].updatePollEvent(ev))
+		{
+			//NOTHING FOR NOW
+		}
+		else if (this->buttons_[1].updatePollEvent(ev))
+		{
+			//NOTHING FOR NOW
+		}
+		else if (this->buttons_[2].updatePollEvent(ev))
+		{
+			if (!this->menu_Setting_->getIsInSettings())
+			{
+				this->menu_Setting_->makeAllVisible(true);
+			}
+		}
+
+		/*
+			EXIT BUTTON
+		*/
+		else if (this->buttons_[3].updatePollEvent(ev))
+		{
+			this->states_->pop();
+		}
+
+		/*
+			EDITOR BUTTON
+		*/
+		else if (this->buttons_[4].updatePollEvent(ev))
+		{
+			this->states_->push(new StateEditor(this->states_, this->window_));
+		}
+
+		/*
+			ZONE TEST BUTTONS
+		*/
+		else if (this->buttons_[5].updatePollEvent(ev))
+		{
+			this->states_->push(new StateTestZone(this->states_, this->window_));
+		}
 	}
 }
 
 void StateMainMenu::update()
 {
+	/*
+		UPDATE MOUSE POSITION
+	*/
 	this->updateMousePosition(&this->window_->getDefaultView());
 
-	for (auto& b : this->buttons_)
+	if (!this->menu_Setting_->getIsInSettings())
 	{
-		b.updateBoundaries(this->mouse_Position_Window_);
+
+		/*
+			UPDATE BUTTONS
+		*/
+		for (auto& b : this->buttons_)
+		{
+			b.updateBoundaries(this->mouse_Position_Window_);
+		}
 	}
+
+
+	this->menu_Setting_->update(this->mouse_Position_Window_);
 }
 
 void StateMainMenu::render(sf::RenderTarget& target)
 {
-	for (auto& b : this->buttons_)
+	if (!this->menu_Setting_->getIsInSettings())
 	{
-		b.render(target);
+		/*
+			RENDER BUTTONS AND TEXT
+		*/
+		for (auto& b : this->buttons_)
+		{
+			b.render(target);
+		}
+
+		for (auto& t : this->texts_)
+		{
+			t.render(target);
+		}
 	}
 
-	for (auto& t : this->texts_)
-	{
-		t.render(target);
-	}
+
+	this->menu_Setting_->render(target);
 }

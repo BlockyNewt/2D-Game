@@ -29,6 +29,10 @@ bool MenuPause::updatePollEvent(sf::Event& ev)
 {
 	if (ev.type == sf::Event::KeyPressed)
 	{
+		/*
+			ENABLE PAUSE MENU BY PRESSING ESCAPE AND IF YOU PUSH IT AGAIN THEN
+			YOU WILL DISABLE IT
+		*/
 		if (ev.key.code == sf::Keyboard::Escape &&
 			!this->is_Paused_)
 		{
@@ -45,6 +49,9 @@ bool MenuPause::updatePollEvent(sf::Event& ev)
 		}
 	}
 
+	/*
+		UPDATE POLL EVENTS OF THE BUTTONS
+	*/
 	if (this->is_Paused_)
 	{
 		if (this->buttons_[0].updatePollEvent(ev))
@@ -72,6 +79,9 @@ bool MenuPause::updatePollEvent(sf::Event& ev)
 
 void MenuPause::update(const sf::Vector2i& mousePositionWindow)
 {
+	/*
+		UPDATE BOUNADRIES OF BUTTONS
+	*/
 	if (this->is_Paused_)
 	{
 		for (auto& b : this->buttons_)
@@ -83,6 +93,9 @@ void MenuPause::update(const sf::Vector2i& mousePositionWindow)
 
 void MenuPause::render(sf::RenderTarget& target)
 {
+	/*
+		IF PAUSED RENDER OBJECTS
+	*/
 	if (this->is_Paused_)
 	{
 		this->x_A_.render(target);

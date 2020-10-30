@@ -22,7 +22,6 @@ private:
 	sf::RenderWindow* window_;
 	sf::Event ev_;
 
-	//MAKE STACK HERE LATER FOR STATES
 	std::stack<State*> states_;
 
 };

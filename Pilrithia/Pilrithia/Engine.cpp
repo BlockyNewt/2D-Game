@@ -4,6 +4,9 @@ Engine::Engine()
 {
 	std::cout << "DEBUG::ENGINE::ENGINE() -> HAS STARTED." << std::endl;
 
+	/*
+		SET WINDOW SETTINGS
+	*/
 	this->vm_.width = 1280;
 	this->vm_.height = 720;
 
@@ -11,9 +14,10 @@ Engine::Engine()
 	this->window_->setFramerateLimit(60);
 	this->window_->setKeyRepeatEnabled(false);
 
-	//PUSH NEW STATE HERE
+	/*
+		PUSH FIRST STATE HERE
+	*/
 	this->states_.push(new StateMainMenu(&this->states_, this->window_));
-
 }
 
 Engine::~Engine()
@@ -28,6 +32,7 @@ Engine::~Engine()
 
 void Engine::run()
 {
+	
 	while (this->window_->isOpen())
 	{
 		this->updatePollEvent();
@@ -40,11 +45,17 @@ void Engine::updatePollEvent()
 {
 	while (this->window_->pollEvent(this->ev_))
 	{
+		/*
+			IF 'X' BUTTON IS CLICKED ON THE WINDOW THEN EXIT THE PROGRAM
+		*/
 		if (this->ev_.type == sf::Event::Closed)
 		{
 			this->window_->close();
 		}
 		
+		/*
+			IF THE STATES CONTAINER IS NOT EMPTY THEN CONTINUE TO UPDATE POLL EVENTS
+		*/
 		if (!this->states_.empty())
 		{
 			this->states_.top()->updatePollEvent(this->ev_);
@@ -58,6 +69,9 @@ void Engine::updatePollEvent()
 
 void Engine::update()
 {
+	/*
+		IF THE STATES CONTAINER IS NOT EMPTY THEN CONTINUE TO UPDATE 
+	*/
 	if (!this->states_.empty())
 	{
 		this->states_.top()->update();
@@ -70,8 +84,15 @@ void Engine::update()
 
 void Engine::render()
 {
+	/*
+		CLEAR WINDOW FOR DRAWING NEW ITEMS
+	*/
 	this->window_->clear();
 
+
+	/*
+		IF THE STATES CONTAINER IS NOT EMPTY THEN CONTINUE TO RENDER
+	*/
 	if (!this->states_.empty())
 	{
 		this->states_.top()->render(*this->window_);
@@ -81,5 +102,8 @@ void Engine::render()
 		this->window_->close();
 	}
 
+	/*
+		DISPLAY DRAWN ITEMS
+	*/
 	this->window_->display();
 }

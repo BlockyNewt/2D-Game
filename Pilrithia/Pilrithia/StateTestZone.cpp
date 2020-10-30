@@ -35,10 +35,11 @@ void StateTestZone::updatePollEvent(sf::Event& ev)
 	{
 		this->window_->setKeyRepeatEnabled(true);
 
-		//this->camera_->updatePollEvent(ev);
+		this->camera_->updatePollEvent(ev);
 
 		this->player_Test_.updatePollEvent(ev, this->dt_);
 
+		this->window_->setKeyRepeatEnabled(true);
 
 		if (ev.type == sf::Event::KeyPressed)
 		{
@@ -105,9 +106,13 @@ void StateTestZone::update()
 	{
 		this->tilemap_->update(*this->camera_);
 
+		this->tilemap_->playerCollision(this->player_Test_);
+
 		this->player_Test_.update();
 
-		this->tilemap_->playerCollision(this->player_Test_);
+		this->npc_Test_.update(this->player_Test_.getPlayerGlobalBounds());
+
+		this->camera_->setCenter(sf::Vector2f(this->player_Test_.getPlayerModel().getPosition().x, this->player_Test_.getPlayerModel().getPosition().y));
 
 		if (this->load_X_A_.getIsVisible())
 		{
@@ -120,13 +125,16 @@ void StateTestZone::update()
 
 void StateTestZone::render(sf::RenderTarget& target)
 {
-	//target.setView(this->camera_->getView());
+	target.setView(this->camera_->getView());
 
 	this->tilemap_->render(target);
-
-	//target.setView(target.getDefaultView());
+	
+	this->npc_Test_.render(target);
 
 	this->player_Test_.render(target);
+
+	target.setView(target.getDefaultView());
+
 
 	this->load_X_A_.render(target);
 	this->load_B_A_.render(target);

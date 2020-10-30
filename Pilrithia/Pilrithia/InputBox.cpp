@@ -15,6 +15,9 @@ InputBox::~InputBox()
 
 void InputBox::setSettings(float sizeX, float sizeY, float posX, float posY, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, bool isVisible, bool isInputting, int inputStringMaxSize)
 {
+	/*
+		SET SETTINGS FOR INPUTBOX
+	*/
 	this->input_Box_.setSize(sf::Vector2f(sizeX, sizeY));
 	this->input_Box_.setPosition(sf::Vector2f(posX, posY));
 	this->input_Box_.setFillColor(fillColor);
@@ -33,6 +36,9 @@ void InputBox::setSettings(float sizeX, float sizeY, float posX, float posY, con
 
 void InputBox::updateEnablePollEvent(sf::Event& ev)
 {
+	/*
+		IF YOU ARE HOVERING THEN YOU CAN CLICK THE INPUTBOX AND ENABLE IT FOR TYPING
+	*/
 	if (this->is_Hovering_)
 	{
 		if (!this->is_Inputting_)
@@ -50,6 +56,9 @@ void InputBox::updateEnablePollEvent(sf::Event& ev)
 	}
 	else
 	{
+		/*
+			IF CLICKED AGAIN WHILE NOT HOVERING WITHIN THE BOUNDARIES OF THE BOX THEN YOU WILL DISABLE TYPING
+		*/
 		if (this->is_Inputting_)
 		{
 			if (ev.type == sf::Event::MouseButtonPressed)
@@ -70,6 +79,9 @@ void InputBox::updateInputPollEvent(sf::Event& ev)
 {
 	if (this->is_Inputting_)
 	{
+		/*
+			GET TEXT TYPED FROM THE KEYBOARD AS LONG AS IT'S NOT A 'BACKSPACE'
+		*/
 		if (ev.type == sf::Event::TextEntered)
 		{
 			if (ev.text.unicode != '\b')
@@ -81,6 +93,9 @@ void InputBox::updateInputPollEvent(sf::Event& ev)
 			}
 		}
 
+		/*
+			IF 'BACKSPACE' IS PRESSED THEN DELETE THE LAST CHARACTER ADDED FROM THE STRING
+		*/
 		if (ev.type == sf::Event::KeyPressed)
 		{
 			if (ev.key.code == sf::Keyboard::BackSpace)
@@ -102,6 +117,9 @@ void InputBox::updatePollEvent(sf::Event& ev)
 
 void InputBox::updateBoundaries(const sf::Vector2i& mousePositionWindow)
 {
+	/*
+		IF THE MOUSE POSITION OF THE WINDOW IS WITHIN THE BOUNDARIES OF THIS INPUTBOX THEN CHANGE THE COLOR
+	*/
 	if (this->input_Box_.getGlobalBounds().contains(sf::Vector2f(mousePositionWindow.x, mousePositionWindow.y)))
 	{
 		//std::cout << "Within bounds." << std::endl;
@@ -130,6 +148,9 @@ void InputBox::update(const sf::Vector2i& mousePositionWindow)
 
 void InputBox::render(sf::RenderTarget& target)
 {
+	/*
+		DRAW THE INPUTBOX ONLY IF IT IS VISIBLE
+	*/
 	if (this->is_Visible_)
 	{
 		target.draw(this->input_Box_);
@@ -155,6 +176,9 @@ const sf::Vector2f& InputBox::getPosition() const
 
 const float InputBox::getLeftPosition(bool pOrM, float offset) const
 {
+	/*
+		pOrM STAND FOR "PLUS OR MINUS". TRUE FOR ADDING THE OFFSET OR MINUS FOR SUBTRACTING THE OFFSET
+	*/
 	if (pOrM)
 	{
 		return this->input_Box_.getGlobalBounds().left + offset;
@@ -167,6 +191,9 @@ const float InputBox::getLeftPosition(bool pOrM, float offset) const
 
 const float InputBox::getRightPosition(bool pOrM, float offset) const
 {
+	/*
+		pOrM STAND FOR "PLUS OR MINUS". TRUE FOR ADDING THE OFFSET OR MINUS FOR SUBTRACTING THE OFFSET
+	*/
 	if (pOrM)
 	{
 		return this->input_Box_.getGlobalBounds().left + this->input_Box_.getGlobalBounds().width + offset;
@@ -179,6 +206,9 @@ const float InputBox::getRightPosition(bool pOrM, float offset) const
 
 const float InputBox::getTopPosition(bool pOrM, float offset) const
 {
+	/*
+		pOrM STAND FOR "PLUS OR MINUS". TRUE FOR ADDING THE OFFSET OR MINUS FOR SUBTRACTING THE OFFSET
+	*/
 	if (pOrM)
 	{
 		return this->input_Box_.getGlobalBounds().top + offset;
@@ -191,6 +221,9 @@ const float InputBox::getTopPosition(bool pOrM, float offset) const
 
 const float InputBox::getBottomPosition(bool pOrM, float offset) const
 {
+	/*
+		pOrM STAND FOR "PLUS OR MINUS". TRUE FOR ADDING THE OFFSET OR MINUS FOR SUBTRACTING THE OFFSET
+	*/
 	if (pOrM)
 	{
 		return this->input_Box_.getGlobalBounds().top + this->input_Box_.getGlobalBounds().height + offset;

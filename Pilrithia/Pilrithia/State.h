@@ -19,6 +19,9 @@ public:
 	void updateMousePosition(const sf::View* view, const float tileSizeXY = 1.f);
 	void updateDeltaClock();
 
+	const float percentToPixelX(const float sizeX);
+	const float percentToPixelY(const float sizeY);
+
 protected:
 	std::stack<State*>* states_;
 	

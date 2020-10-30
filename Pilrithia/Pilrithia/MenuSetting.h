@@ -4,6 +4,7 @@
 #include "Button.h"
 #include "Text.h"
 #include "Box.h"
+#include "CheckBox.h"
 
 #include <iostream>
 #include <string>
@@ -16,14 +17,34 @@ public:
 	MenuSetting(sf::RenderWindow* window);
 	~MenuSetting();
 
-	bool updatePollEvent(sf::Event& ev);
+	void updatePollEvent(sf::Event& ev, sf::RenderWindow* window);
 	void update(const sf::Vector2i& mousePositionWindow);
 	void render(sf::RenderTarget& target);
 
-private:
+	void makeAllVisible(bool isInSettings);
+
+
+	const bool& getIsInSettings() const;
 
 private:
 
+private:
+	bool is_In_Settings_;
+
+	Box x_A_;
+
+	Text t_A_;
+
+	Text resolution_1280x720_T_A_;
+	CheckBox resolution_1280x720_C_A_;
+
+	Text resolution_600x600_T_A_;
+	CheckBox resolution_600x600_C_A_;
+
+	Text t_B_;
+	Button b_B_;
+	Text t_C_;
+	Button b_C_;
 };
 
 #endif // !MENUSETTING_H

@@ -44,15 +44,13 @@ public:
 private:
 
 private:
+	/*
+		GRID
+	*/
 	unsigned grid_Max_Size_X_;
 	unsigned grid_Max_Size_Y_;
-
 	float tile_Size_X_Y_;
-	float camera_Left_Position;
-	float camera_Right_Position;
-	float camera_Top_Position;
-	float camera_Bottom_Position;
-
+	
 	std::vector<std::vector<Tile*> > grid_;
 	std::vector<std::vector<Tile*> > outline_;
 
@@ -60,6 +58,19 @@ private:
 
 	int tile_Type_;
 	std::string tile_Type_Str_;
+
+
+	/*
+		CAMERA 
+	*/
+	float camera_Left_Position;
+	float camera_Right_Position;
+	float camera_Top_Position;
+	float camera_Bottom_Position;
+
+	
+
+	
 };
 
 #endif

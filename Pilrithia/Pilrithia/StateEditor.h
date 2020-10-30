@@ -32,18 +32,34 @@ private:
 	void loadPollEvent(sf::Event& ev);
 
 private:
+	/*
+		OTHER
+	*/
+	Camera* camera_;
+	Tilemap* tilemap_;
+	Box tile_Box_;
 
-	//INSTRUCTIONS PANEL
+
+	/*
+		MOUSE POSITIONS
+	*/
+	Text window_Position_;
+	Text grid_Position_;
+	Text tile_Type_;
+
+
+	/*
+		INSTRUCTIONS PANEL 
+	*/
 	Box instruction_Panel_X_A_;
 
-
-	//MOUSE POSITIONS
 	Text t_A_;
 	Text t_B_;
 
 
-
-	//RIGHT SIDE PANEL
+	/*
+		RIGHT SIDE PANEL
+	*/
 	Box right_Side_Panel_X_A_;
 
 	Button right_Side_Panel_B_A_;
@@ -59,9 +75,9 @@ private:
 	std::vector<Text> right_Side_Panel_Texts_;
 
 
-
-
-	//TILE MAP SETTINGS
+	/*
+		TILE MAP SETTINGS
+	*/
 	Box tilemap_Settings_X_A_;
 
 	Button tilemap_Settings_B_A_;
@@ -82,8 +98,9 @@ private:
 	CheckBox tilemap_Settings_C_A_;
 
 
-
-	//SAVE BOX
+	/*
+		SAVE BOX
+	*/
 	Box save_X_A_;
 
 	Button save_B_A_;
@@ -97,9 +114,9 @@ private:
 	InputBox save_I_A_;
 
 
-
-
-	//LOAD BOX
+	/*
+		LOAD BOX
+	*/
 	Box load_X_A_;
 
 	Button load_B_A_;
@@ -111,16 +128,6 @@ private:
 	Text load_T_D_;
 
 	InputBox load_I_A_;
-
-
-	//TESTING ONLY
-	Camera* camera_;
-	Tilemap* tilemap_;
-	Text window_Position_;
-	Text grid_Position_;
-	Text tile_Type_;
-	Box tile_Box_;
-
 };
 
 

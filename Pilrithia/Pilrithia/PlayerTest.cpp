@@ -2,8 +2,8 @@
 
 PlayerTest::PlayerTest()
 {
-	this->player_Model_.setSize(sf::Vector2f(20.f, 20.f));
-	this->player_Model_.setPosition(sf::Vector2f(0.f, 0.f));
+	this->player_Model_.setSize(sf::Vector2f(25.f, 25.f));
+	this->player_Model_.setPosition(sf::Vector2f(60.f, 60.f));
 	this->player_Model_.setFillColor(sf::Color::Cyan);
 
 	this->next_Position_.setSize(sf::Vector2f(this->player_Model_.getSize().x, this->player_Model_.getSize().y));
@@ -15,9 +15,13 @@ PlayerTest::PlayerTest()
 	this->velocity_.x = 0.f;
 	this->velocity_.y = 0.f;
 	this->movement_Speed_ = 200.f;
-	this->gravity_ = 20.f;
+	this->gravity_ = 2.f;
+	this->position_Before_Jump_ = 0.f;
+	this->jump_Speed_ = 200.f;
+	this->max_Jump_Height_ = 60.f;
 
 	this->is_Falling_ = false;
+	this->is_Jumping_ = false;
 }
 
 PlayerTest::~PlayerTest()
@@ -26,34 +30,39 @@ PlayerTest::~PlayerTest()
 
 void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 {
-	if (ev.type == sf::Event::KeyPressed)
+	if (!this->is_Falling_ && !this->is_Jumping_)
 	{
-		if (ev.key.code == sf::Keyboard::W && !this->is_Falling_)
-		{
-			this->velocity_.y -= this->movement_Speed_ * dt;
-		}
-		else if (ev.key.code == sf::Keyboard::S && !this->is_Falling_)
-		{
-			this->velocity_.y += this->movement_Speed_ * dt;
-		}
-		if (ev.key.code == sf::Keyboard::A)
-		{
-			this->velocity_.x -= this->movement_Speed_ * dt;
-		}
-		else if (ev.key.code == sf::Keyboard::D)
-		{
-			this->velocity_.x += this->movement_Speed_ * dt;
-		}
+		this->velocity_.y = 0.f;
+	}
+	
+	this->velocity_.x = 0.f;
 
-		if (ev.key.code == sf::Keyboard::Space)
-		{
-			
-		}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && !this->is_Jumping_)
+	{
+		this->velocity_.y += -this->movement_Speed_ * dt;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	{
+		this->velocity_.y += this->movement_Speed_ * dt;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	{
+		this->velocity_.x += -this->movement_Speed_ * dt;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	{
+		this->velocity_.x += this->movement_Speed_ * dt;
 	}
 
-	if (this->is_Falling_)
+	if (ev.type == sf::Event::KeyPressed && !this->is_Falling_)
 	{
-		this->velocity_.y += this->gravity_ * dt;
+		if (ev.key.code == sf::Keyboard::Space)
+		{
+			this->is_Jumping_ = true;
+			this->velocity_.y += -this->jump_Speed_ * dt;
+			
+		}
 	}
 }
 
@@ -61,28 +70,37 @@ void PlayerTest::update()
 {
 	player_Model_.move(this->velocity_);
 
-	this->player_Bounds_ = this->player_Model_.getGlobalBounds();
-
-	this->next_Position_Bounds_ = this->player_Bounds_;
-
+	this->next_Position_Bounds_ = this->player_Model_.getGlobalBounds();
 	this->next_Position_Bounds_.left += this->velocity_.x;
 	this->next_Position_Bounds_.top += this->velocity_.y;
 
-	this->next_Position_.setPosition(this->next_Position_Bounds_.left, this->next_Position_Bounds_.top);
 
-	
 
-	if (!this->is_Falling_)
+	if (!this->is_Jumping_)
 	{
+		this->position_Before_Jump_ = this->player_Model_.getGlobalBounds().top;
+	}
+
+	if (this->player_Model_.getGlobalBounds().top - this->position_Before_Jump_ <= -this->max_Jump_Height_)
+	{
+		this->is_Jumping_ = false;
+		this->is_Falling_ = true;
 		this->velocity_.y = 0.f;
 	}
-	this->velocity_.x = 0.f;
+
+	if (this->is_Falling_)
+	{
+		this->velocity_.y += this->gravity_;
+	}
+	
+
+	this->next_Position_.setPosition(this->next_Position_Bounds_.left, this->next_Position_Bounds_.top);
 }
 
 void PlayerTest::render(sf::RenderTarget& target)
 {
-	target.draw(this->player_Model_);
 	target.draw(this->next_Position_);
+	target.draw(this->player_Model_);
 }
 
 void PlayerTest::setVelocityX(float x)
@@ -105,12 +123,17 @@ sf::RectangleShape& PlayerTest::getPlayerModel()
 	return this->player_Model_;
 }
 
-const sf::FloatRect& PlayerTest::getPlayerGlobalBounds() const
+const sf::Vector2f& PlayerTest::getVelocity() const
 {
-	return this->player_Bounds_;
+	return this->velocity_;
 }
 
-const sf::FloatRect& PlayerTest::getNextPositionGlobalBounds() const
+const sf::FloatRect PlayerTest::getPlayerGlobalBounds() const
+{
+	return this->player_Model_.getGlobalBounds();
+}
+
+const sf::FloatRect PlayerTest::getNextPositionGlobalBounds() const
 {
 	return this->next_Position_Bounds_;
 }
@@ -118,4 +141,9 @@ const sf::FloatRect& PlayerTest::getNextPositionGlobalBounds() const
 const bool& PlayerTest::getIsFalling() const
 {
 	return this->is_Falling_;
+}
+
+const bool& PlayerTest::getIsJumping() const
+{
+	return this->is_Jumping_;
 }

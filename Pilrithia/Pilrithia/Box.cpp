@@ -11,6 +11,9 @@ Box::~Box()
 
 void Box::setSettings(float sizeX, float sizeY, float posX, float posY, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, bool isVisible)
 {
+	/*
+		SET SETTINGS FOR THE BOX HERE
+	*/
 	this->box_.setSize(sf::Vector2f(sizeX, sizeY));
 	this->box_.setPosition(sf::Vector2f(posX, posY));
 	this->box_.setFillColor(fillColor);
@@ -22,6 +25,9 @@ void Box::setSettings(float sizeX, float sizeY, float posX, float posY, const sf
 
 void Box::render(sf::RenderTarget& target)
 {
+	/*
+		DRAW THE BOX ONLY IF IT IS VISIBLE
+	*/
 	if (this->is_Visible_)
 	{
 		target.draw(this->box_);
@@ -48,13 +54,16 @@ const sf::Vector2f& Box::getPosition() const
 	return this->box_.getPosition();
 }
 
-const sf::FloatRect& Box::getGlobalBounds() const
+const sf::FloatRect Box::getGlobalBounds() const
 {
 	return this->box_.getGlobalBounds();
 }
 
 const float Box::getLeftPosition(bool pOrM, float offset) const
 {
+	/*
+		pOrM STAND FOR "PLUS OR MINUS". TRUE FOR ADDING THE OFFSET OR MINUS FOR SUBTRACTING THE OFFSET
+	*/
 	if (pOrM)
 	{
 		return this->box_.getGlobalBounds().left + offset;
@@ -67,6 +76,9 @@ const float Box::getLeftPosition(bool pOrM, float offset) const
 
 const float Box::getRightPosition(bool pOrM, float offset) const
 {
+	/*
+		pOrM STAND FOR "PLUS OR MINUS". TRUE FOR ADDING THE OFFSET OR MINUS FOR SUBTRACTING THE OFFSET
+	*/
 	if (pOrM)
 	{
 		return this->box_.getGlobalBounds().left + this->box_.getGlobalBounds().width + offset;
@@ -79,6 +91,9 @@ const float Box::getRightPosition(bool pOrM, float offset) const
 
 const float Box::getTopPosition(bool pOrM, float offset) const
 {
+	/*
+		pOrM STAND FOR "PLUS OR MINUS". TRUE FOR ADDING THE OFFSET OR MINUS FOR SUBTRACTING THE OFFSET
+	*/
 	if (pOrM)
 	{
 		return this->box_.getGlobalBounds().top + offset;
@@ -91,6 +106,9 @@ const float Box::getTopPosition(bool pOrM, float offset) const
 
 const float Box::getBottomPosition(bool pOrM, float offset) const
 {
+	/*
+		pOrM STAND FOR "PLUS OR MINUS". TRUE FOR ADDING THE OFFSET OR MINUS FOR SUBTRACTING THE OFFSET
+	*/
 	if (pOrM)
 	{
 		return this->box_.getGlobalBounds().top + this->box_.getGlobalBounds().height + offset;

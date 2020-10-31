@@ -64,7 +64,7 @@ void Button::updateBoundaries(const sf::Vector2i& mousePositionWindow)
 	*/
 	if (this->button_.getGlobalBounds().contains(sf::Vector2f(mousePositionWindow.x, mousePositionWindow.y)))
 	{
-		//std::cout << "Within bounds." << std::endl;
+		std::cout << "Within bounds." << std::endl;
 		this->button_.setFillColor(sf::Color::Green);
 		
 		this->is_Hovering_ = true;

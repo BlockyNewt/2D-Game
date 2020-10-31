@@ -18,6 +18,8 @@ StateTestZone::StateTestZone(std::stack<State*>* states, sf::RenderWindow* windo
 	this->load_T_D_.setSettings("Font/arial.ttf", 25, "Close", sf::Vector2f(this->load_B_B_.getLeftPosition(true, 10.f), this->load_B_B_.getTopPosition(true, 10.f)), true);
 
 	this->load_I_A_.setSettings(500.f, 40.f, this->load_T_B_.getRightPosition(true, 10.f), this->load_T_B_.getTopPosition(), sf::Color::Black, 1.f, sf::Color::Red, true, false, 30);
+
+	this->npc_Test_.setSettings(this->window_->getSize());
 }
 
 StateTestZone::~StateTestZone()
@@ -38,6 +40,8 @@ void StateTestZone::updatePollEvent(sf::Event& ev)
 		this->camera_->updatePollEvent(ev);
 
 		this->player_Test_.updatePollEvent(ev, this->dt_);
+
+		this->npc_Test_.updatePollEvent(ev);
 
 		this->window_->setKeyRepeatEnabled(true);
 
@@ -104,15 +108,16 @@ void StateTestZone::update()
 	
 	if (!this->menu_Pause_->getIsPaused())
 	{
+		this->camera_->setCenter(sf::Vector2f(this->player_Test_.getPlayerModel().getPosition().x, this->player_Test_.getPlayerModel().getPosition().y));
+
 		this->tilemap_->update(*this->camera_);
 
 		this->tilemap_->playerCollision(this->player_Test_);
 
 		this->player_Test_.update();
 
-		this->npc_Test_.update(this->player_Test_.getPlayerGlobalBounds());
+		this->npc_Test_.update(this->mouse_Position_View_, this->mouse_Position_Window_, this->player_Test_.getPlayerGlobalBounds(), *this->camera_);
 
-		this->camera_->setCenter(sf::Vector2f(this->player_Test_.getPlayerModel().getPosition().x, this->player_Test_.getPlayerModel().getPosition().y));
 
 		if (this->load_X_A_.getIsVisible())
 		{

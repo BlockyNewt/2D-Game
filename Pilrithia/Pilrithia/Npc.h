@@ -3,7 +3,9 @@
 
 #include "SFML/Graphics.hpp"
 
-#include "PlayerTest.h"
+#include "DialogBox.h"
+#include "QuestBox.h"
+#include "Camera.h"
 
 #include <iostream>
 #include <string>
@@ -15,7 +17,7 @@ public:
 	virtual ~Npc();
 
 	virtual void updatePollEvent(sf::Event& ev) = 0;
-	virtual void update(sf::FloatRect playerBounds) = 0;
+	virtual void update(const sf::Vector2f& mousePositionView, const sf::Vector2i& mousePositionWindow, sf::FloatRect playerBounds, const Camera& camera) = 0;
 	virtual void render(sf::RenderTarget& target) = 0;
 
 

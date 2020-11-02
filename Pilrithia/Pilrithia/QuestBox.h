@@ -15,7 +15,7 @@ public:
 	QuestBox();
 	~QuestBox();
 
-	void setSettings(float posX, float posY, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor);
+	void setSettings(float posX, float posY, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, const std::string& questText);
 
 	bool updatePollEvent(sf::Event& ev);
 	void update(const sf::Vector2i& mousePositionWindow);
@@ -32,6 +32,8 @@ private:
 	Text quest_Text_;
 	Button accept_Button_;
 	Button decline_Button_;
+	Text accept_Text_;
+	Text decline_Text_;
 
 	bool is_Visible_;
 };

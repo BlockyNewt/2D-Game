@@ -10,10 +10,12 @@ Engine::Engine()
 	this->vm_.width = 1280;
 	this->vm_.height = 720;
 
-	this->window_ = new sf::RenderWindow(this->vm_, "Pilrithia", sf::Style::Default);
+	this->context_Settings_.antialiasingLevel = 8;
+
+	this->window_ = new sf::RenderWindow(this->vm_, "Pilrithia", sf::Style::Default, this->context_Settings_);
 	this->window_->setFramerateLimit(60);
 	this->window_->setKeyRepeatEnabled(false);
-
+	
 	/*
 		PUSH FIRST STATE HERE
 	*/
@@ -52,7 +54,7 @@ void Engine::updatePollEvent()
 		{
 			this->window_->close();
 		}
-		
+
 		/*
 			IF THE STATES CONTAINER IS NOT EMPTY THEN CONTINUE TO UPDATE POLL EVENTS
 		*/

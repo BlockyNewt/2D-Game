@@ -527,33 +527,38 @@ void Tilemap::playerCollision(PlayerTest& playerTest)
 							playerTest.getPlayerModel().setPosition(sf::Vector2f(this->grid_[x][y]->getRightPosition(), playerTest.getPlayerGlobalBounds().top));
 						}
 
+						//TOP COLLISION
+						if (playerBounds.top > this->grid_[x][y]->getTopPosition() &&
+							playerBounds.top + playerBounds.height > this->grid_[x][y]->getBottomPosition() &&
+							playerBounds.left < this->grid_[x][y]->getRightPosition() &&
+							playerBounds.left + playerBounds.width > this->grid_[x][y]->getLeftPosition())
+						{
+							//std::cout << "Top " << std::endl;
+
+							if (playerTest.getIsJumping())
+							{
+								playerTest.setIsJumping(false);
+								playerTest.setIsFalling(true);
+							}
+
+							playerTest.setVelocityY(0.f);
+							playerTest.getPlayerModel().setPosition(sf::Vector2f(playerTest.getPlayerGlobalBounds().left, this->grid_[x][y]->getBottomPosition()));
+						}
+
 						//BOTTOM COLLISION	
-						if (playerBounds.top < this->grid_[x][y]->getTopPosition() &&
+						else if (playerBounds.top < this->grid_[x][y]->getTopPosition() &&
 							playerBounds.top + playerBounds.height < this->grid_[x][y]->getBottomPosition() &&
 							playerBounds.left < this->grid_[x][y]->getRightPosition() &&
 							playerBounds.left + playerBounds.width > this->grid_[x][y]->getLeftPosition())
 						{
-							//std::cout << "Bottom ";
+							//std::cout << "Bottom " << std::endl;
 
 							playerTest.setIsFalling(false);
 							playerTest.setVelocityY(0.f);
 							playerTest.getPlayerModel().setPosition(sf::Vector2f(playerTest.getPlayerGlobalBounds().left, this->grid_[x][y]->getTopPosition() - playerTest.getPlayerGlobalBounds().height));
 						}
-
-						//TOP COLLISION
-						else if (playerBounds.top > this->grid_[x][y]->getTopPosition() &&
-							playerBounds.top + playerBounds.height > this->grid_[x][y]->getBottomPosition() &&
-							playerBounds.left < this->grid_[x][y]->getRightPosition() &&
-							playerBounds.left + playerBounds.width > this->grid_[x][y]->getLeftPosition())
-						{
-							//std::cout << "Top ";
-							playerTest.setIsFalling(true);
-							playerTest.setVelocityY(0.f);
-							playerTest.getPlayerModel().setPosition(sf::Vector2f(playerTest.getPlayerGlobalBounds().left, this->grid_[x][y]->getBottomPosition()));
-						}
 					}
 				}
-				
 
 
 				
@@ -603,6 +608,8 @@ void Tilemap::playerCollision(PlayerTest& playerTest)
 					}
 				}
 				
+
+
 				
 			}
 		}

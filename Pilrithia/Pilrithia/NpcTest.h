@@ -24,13 +24,19 @@ private:
 	sf::RectangleShape npc_Model_;
 	sf::RectangleShape npc_Range_;
 
-	//MAKE CLASSES FOR DIALOG BOX
 	DialogBox dialog_Box_;
 	QuestBox quest_Box_;
+
+	Text name_;
 
 	Camera* camera_;
 
 	bool is_Within_Range_;
+
+	std::string dialog_Box_Str_;
+	std::string quest_Box_Str_;
+
+	std::string npc_Name_;
 };
 
 #endif

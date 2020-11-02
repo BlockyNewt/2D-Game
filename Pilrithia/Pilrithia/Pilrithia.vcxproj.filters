@@ -13,30 +13,24 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Gui">
+      <UniqueIdentifier>{4bc0e681-0374-48a7-9ff6-4eafb66c8984}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\State">
+      <UniqueIdentifier>{bb24c514-3f50-4c90-9330-430bb048f8ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Gui">
+      <UniqueIdentifier>{1bc525e7-5b76-4099-869f-164496628e39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\State">
+      <UniqueIdentifier>{9af1a993-52da-4606-b937-9ab4f45808a3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Engine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="State.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="StateMainMenu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Button.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Text.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="StateEditor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Box.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MenuPause.cpp">
@@ -54,15 +48,6 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="InputBox.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CheckBox.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="StateTestZone.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -72,33 +57,57 @@
     <ClCompile Include="NpcTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Box.cpp">
+      <Filter>Source Files\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Source Files\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="CheckBox.cpp">
+      <Filter>Source Files\Gui</Filter>
+    </ClCompile>
     <ClCompile Include="DialogBox.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="InputBox.cpp">
+      <Filter>Source Files\Gui</Filter>
     </ClCompile>
     <ClCompile Include="QuestBox.cpp">
+      <Filter>Source Files\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>Source Files\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="StateEditor.cpp">
+      <Filter>Source Files\State</Filter>
+    </ClCompile>
+    <ClCompile Include="StateMainMenu.cpp">
+      <Filter>Source Files\State</Filter>
+    </ClCompile>
+    <ClCompile Include="StateTestZone.cpp">
+      <Filter>Source Files\State</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>Source Files\State</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerHud.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuCharacterCreation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Race.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RaceOrc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RaceHuman.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="State.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="StateMainMenu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Button.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Text.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="StateEditor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Box.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MenuPause.h">
@@ -113,18 +122,6 @@
     <ClInclude Include="Tile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="InputBox.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CheckBox.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="StateTestZone.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerTest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -134,10 +131,55 @@
     <ClInclude Include="NpcTest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Box.h">
+      <Filter>Header Files\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Header Files\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckBox.h">
+      <Filter>Header Files\Gui</Filter>
+    </ClInclude>
     <ClInclude Include="DialogBox.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="InputBox.h">
+      <Filter>Header Files\Gui</Filter>
     </ClInclude>
     <ClInclude Include="QuestBox.h">
+      <Filter>Header Files\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>Header Files\State</Filter>
+    </ClInclude>
+    <ClInclude Include="StateEditor.h">
+      <Filter>Header Files\State</Filter>
+    </ClInclude>
+    <ClInclude Include="StateMainMenu.h">
+      <Filter>Header Files\State</Filter>
+    </ClInclude>
+    <ClInclude Include="StateTestZone.h">
+      <Filter>Header Files\State</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerHud.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuCharacterCreation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Race.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RaceOrc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>Header Files\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="RaceHuman.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

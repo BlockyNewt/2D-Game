@@ -17,7 +17,9 @@ public:
 	void render(sf::RenderTarget& target);
 
 	sf::Text& setText();
+	void setString(const std::string& string);
 	void setIsVisible(bool isVisible);
+
 
 	const sf::Vector2f& getPosition() const;
 	const float getLeftPosition(bool pOrM = true, float offset = 0) const;

@@ -1,9 +1,11 @@
 #ifndef PLAYERTEST_H
 #define PLAYERTEST_H
 
-#include "SFML/Graphics.hpp"
+#include "Race.h"
+#include "RaceOrc.h"
 
-#include <iostream>	
+#include "PlayerHud.h"
+
 
 class PlayerTest
 {	
@@ -11,14 +13,18 @@ public:
 	PlayerTest();
 	~PlayerTest();
 
+	void initializeCharacter( Race* race);
+
 	void updatePollEvent(sf::Event& ev, const float& dt);
-	void update();
+	void update(const sf::Vector2i& mousePositionWindow, const Camera& camera);
 	void render(sf::RenderTarget& target);
 
 
+	void setPosition(float x, float y);
 	void setVelocityX(float x);
 	void setVelocityY(float y);
 	void setIsFalling(bool isFalling);
+	void setIsJumping(bool isJumping);
 
 	sf::RectangleShape& getPlayerModel();
 	const sf::Vector2f& getVelocity() const;
@@ -30,6 +36,9 @@ public:
 private:
 
 private:
+	Race* race_;
+	PlayerHud player_Hud_;
+
 	sf::RectangleShape player_Model_;
 	sf::RectangleShape next_Position_;
 

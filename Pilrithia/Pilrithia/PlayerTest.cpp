@@ -2,6 +2,8 @@
 
 PlayerTest::PlayerTest()
 {
+	this->race_ = NULL;
+
 	this->player_Model_.setSize(sf::Vector2f(25.f, 25.f));
 	this->player_Model_.setPosition(sf::Vector2f(60.f, 60.f));
 	this->player_Model_.setFillColor(sf::Color::Cyan);
@@ -26,10 +28,24 @@ PlayerTest::PlayerTest()
 
 PlayerTest::~PlayerTest()
 {
+	delete this->race_;
+}
+
+void PlayerTest::initializeCharacter(Race* race)
+{
+	this->race_ = race;
+
+	this->player_Model_.setFillColor(this->race_->getModel().getFillColor());
+	this->player_Model_.setOutlineColor(this->race_->getModel().getOutlineColor());
 }
 
 void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 {
+	/*
+		PLAYER HUD POLL UPDATES
+	*/
+	this->player_Hud_.updatePollEvent(ev);
+
 	if (!this->is_Falling_ && !this->is_Jumping_)
 	{
 		this->velocity_.y = 0.f;
@@ -38,6 +54,9 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 	this->velocity_.x = 0.f;
 
 
+	/*
+		MOVEMENT POLL UPDATES
+	*/
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && !this->is_Jumping_)
 	{
 		this->velocity_.y += -this->movement_Speed_ * dt;
@@ -55,18 +74,20 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 		this->velocity_.x += this->movement_Speed_ * dt;
 	}
 
+	/*
+		JUMP POLL UPDATE
+	*/
 	if (ev.type == sf::Event::KeyPressed && !this->is_Falling_)
 	{
 		if (ev.key.code == sf::Keyboard::Space)
 		{
 			this->is_Jumping_ = true;
 			this->velocity_.y += -this->jump_Speed_ * dt;
-			
 		}
 	}
 }
 
-void PlayerTest::update()
+void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& camera)
 {
 	player_Model_.move(this->velocity_);
 
@@ -81,8 +102,10 @@ void PlayerTest::update()
 		this->position_Before_Jump_ = this->player_Model_.getGlobalBounds().top;
 	}
 
-	if (this->player_Model_.getGlobalBounds().top - this->position_Before_Jump_ <= -this->max_Jump_Height_)
+	if (this->is_Jumping_ && this->player_Model_.getGlobalBounds().top - this->position_Before_Jump_ <= -this->max_Jump_Height_)
 	{
+		//std::cout << "jumping" << std::endl;
+
 		this->is_Jumping_ = false;
 		this->is_Falling_ = true;
 		this->velocity_.y = 0.f;
@@ -93,14 +116,22 @@ void PlayerTest::update()
 		this->velocity_.y += this->gravity_;
 	}
 	
-
 	this->next_Position_.setPosition(this->next_Position_Bounds_.left, this->next_Position_Bounds_.top);
+
+	this->player_Hud_.update(mousePositionWindow, camera);
 }
 
 void PlayerTest::render(sf::RenderTarget& target)
 {
 	target.draw(this->next_Position_);
 	target.draw(this->player_Model_);
+
+	this->player_Hud_.render(target);
+}
+
+void PlayerTest::setPosition(float x, float y)
+{
+	this->player_Model_.setPosition(sf::Vector2f(x, y));
 }
 
 void PlayerTest::setVelocityX(float x)
@@ -116,6 +147,11 @@ void PlayerTest::setVelocityY(float y)
 void PlayerTest::setIsFalling(bool isFalling)
 {
 	this->is_Falling_ = isFalling;
+}
+
+void PlayerTest::setIsJumping(bool isJumping)
+{
+	this->is_Jumping_ = isJumping;
 }
 
 sf::RectangleShape& PlayerTest::getPlayerModel()

@@ -15,7 +15,7 @@ public:
 	DialogBox();
 	~DialogBox();
 
-	void setSettings(float sizeX, float sizeY, float posX, float posY, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, bool isVisible);
+	void setSettings(float sizeX, float sizeY, float posX, float posY, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, const std::string& dialogText, bool isVisible);
 
 	bool updatePollEvent(sf::Event& ev);
 

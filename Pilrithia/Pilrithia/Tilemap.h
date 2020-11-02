@@ -68,7 +68,6 @@ private:
 	float camera_Top_Position;
 	float camera_Bottom_Position;
 
-	
 
 	
 };

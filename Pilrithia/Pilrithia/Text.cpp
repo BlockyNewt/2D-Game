@@ -26,6 +26,8 @@ void Text::setSettings(std::string fontFilePath, unsigned int characterSize, std
 	this->text_.setCharacterSize(characterSize);
 	this->text_.setString(text);
 	this->text_.setPosition(position);
+	this->text_.setOutlineThickness(1.f);
+	this->text_.setOutlineColor(sf::Color::Black);
 
 	this->is_Visible_ = isVisible;
 }
@@ -44,6 +46,11 @@ void Text::render(sf::RenderTarget& target)
 sf::Text& Text::setText()
 {
 	return this->text_;
+}
+
+void Text::setString(const std::string& string)
+{
+	this->text_.setString(string);
 }
 
 void Text::setIsVisible(bool isVisible)

@@ -19,6 +19,7 @@ private:
 
 private:
 	sf::VideoMode vm_;
+	sf::ContextSettings context_Settings_;
 	sf::RenderWindow* window_;
 	sf::Event ev_;
 

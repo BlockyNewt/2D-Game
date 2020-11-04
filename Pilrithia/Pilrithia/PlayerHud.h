@@ -18,8 +18,12 @@ public:
 	PlayerHud();
 	~PlayerHud();
 
+	//ONLY FOR TESTING
+	void changeCharacterName(const std::string& name);
+
 	void updatePollEvent(sf::Event& ev);
-	void update(const sf::Vector2i& mousePositionWindow, const Camera& camera);
+	void updateNamePosition(const sf::Vector2f& playerPosition);
+	void update(const sf::Vector2i& mousePositionWindow, const Camera& camera, const sf::Vector2f& playerPosition);
 	void render(sf::RenderTarget& target);
 
 private:
@@ -43,6 +47,7 @@ private:
 	Text character_T_B_;
 	Text character_T_C_;
 	Text character_T_D_;
+	Text character_T_E_;
 
 	Button skill_B_A_;
 	Button skill_B_B_;

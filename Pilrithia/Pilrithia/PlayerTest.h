@@ -13,7 +13,7 @@ public:
 	PlayerTest();
 	~PlayerTest();
 
-	void initializeCharacter( Race* race);
+	void initializeCharacter(Race* race, const std::string& name);
 
 	void updatePollEvent(sf::Event& ev, const float& dt);
 	void update(const sf::Vector2i& mousePositionWindow, const Camera& camera);
@@ -38,6 +38,8 @@ private:
 private:
 	Race* race_;
 	PlayerHud player_Hud_;
+
+	std::string name_;
 
 	sf::RectangleShape player_Model_;
 	sf::RectangleShape next_Position_;

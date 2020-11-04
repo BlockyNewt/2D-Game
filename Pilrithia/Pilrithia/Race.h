@@ -3,6 +3,8 @@
 
 #include "SFML/Graphics.hpp"
 
+#include "Classes.h"
+
 #include <iostream>
 #include <string>
 
@@ -17,6 +19,8 @@ public:
 	virtual const std::string getName() const = 0;
 	virtual const std::string getSummary() const = 0;
 	virtual const sf::RectangleShape& getModel() const = 0;
+	virtual Classes& getClassesOne() const = 0;
+	virtual Classes& getClassesTwo() const = 0;
 
 private:
 

@@ -139,33 +139,41 @@ void StateTestZone::updateCharacterCreationPollEvent(sf::Event& ev)
 		/*
 			IF THE POLL EVENT COMES BACK TRUE THEN UPDATE OUR PLAYER
 		*/
-		if (this->menu_Character_Creation_->updatePollEvent(ev))
+		if (!this->character_Creation_X_A_.getIsVisible())
 		{
-			this->player_Test_.initializeCharacter(&this->menu_Character_Creation_->getRace());
+			if (this->menu_Character_Creation_->updatePollEvent(ev))
+			{
+				this->player_Test_.initializeCharacter(&this->menu_Character_Creation_->getRace(), this->menu_Character_Creation_->getName());
+			}
 		}
+		
 
-		/*
-			IF WE DO NEED TO CREATE A CHARACTER, CLOSE THE TESTING BOX FOR CHARACTER CREATION
-		*/
-		if (this->character_Creation_B_B_.updatePollEvent(ev))
+		
+		if (this->character_Creation_X_A_.getIsVisible())
 		{
-			this->menu_Character_Creation_->setIsCreatingCharacter(true);
+			/*
+				IF WE DO NEED TO CREATE A CHARACTER, CLOSE THE TESTING BOX FOR CHARACTER CREATION
+			*/
+			if (this->character_Creation_B_B_.updatePollEvent(ev))
+			{
+				this->menu_Character_Creation_->setIsCreatingCharacter(true);
 
-			this->character_Creation_X_A_.setIsVisible(false);
-			this->character_Creation_B_B_.setIsVisible(false);
-			this->character_Creation_B_C_.setIsVisible(false);
-			this->character_Creation_T_A_.setIsVisible(false);
-			this->character_Creation_T_B_.setIsVisible(false);
-			this->character_Creation_T_C_.setIsVisible(false);
-		}
+				this->character_Creation_X_A_.setIsVisible(false);
+				this->character_Creation_B_B_.setIsVisible(false);
+				this->character_Creation_B_C_.setIsVisible(false);
+				this->character_Creation_T_A_.setIsVisible(false);
+				this->character_Creation_T_B_.setIsVisible(false);
+				this->character_Creation_T_C_.setIsVisible(false);
+			}
 
-		/*
-			IF WE DO NOT NEED TO CREATE A CHARACTER IN TESTING THEN CLOSE THE CHARACTER
-			CREATION BOX
-		*/
-		if (this->character_Creation_B_C_.updatePollEvent(ev))
-		{
-			this->menu_Character_Creation_->setIsCreatingCharacter(false);
+			/*
+				IF WE DO NOT NEED TO CREATE A CHARACTER IN TESTING THEN CLOSE THE CHARACTER
+				CREATION BOX
+			*/
+			if (this->character_Creation_B_C_.updatePollEvent(ev))
+			{
+				this->menu_Character_Creation_->setIsCreatingCharacter(false);
+			}
 		}
 	}
 }

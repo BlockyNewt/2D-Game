@@ -105,6 +105,11 @@ const sf::Vector2f& Button::getPosition() const
 	return this->button_.getPosition();
 }
 
+const sf::FloatRect Button::getGlobalBounds() const
+{
+	return this->button_.getGlobalBounds();
+}
+
 const float Button::getLeftPosition(bool pOrM, float offset) const
 {
 	/*

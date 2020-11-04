@@ -4,6 +4,8 @@ PlayerTest::PlayerTest()
 {
 	this->race_ = NULL;
 
+	this->name_ = "";
+
 	this->player_Model_.setSize(sf::Vector2f(25.f, 25.f));
 	this->player_Model_.setPosition(sf::Vector2f(60.f, 60.f));
 	this->player_Model_.setFillColor(sf::Color::Cyan);
@@ -28,15 +30,17 @@ PlayerTest::PlayerTest()
 
 PlayerTest::~PlayerTest()
 {
-	delete this->race_;
+	//delete this->race_;
 }
 
-void PlayerTest::initializeCharacter(Race* race)
+void PlayerTest::initializeCharacter(Race* race, const std::string& name)
 {
 	this->race_ = race;
-
 	this->player_Model_.setFillColor(this->race_->getModel().getFillColor());
 	this->player_Model_.setOutlineColor(this->race_->getModel().getOutlineColor());
+
+	this->name_ = name;
+	this->player_Hud_.changeCharacterName(this->name_);
 }
 
 void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
@@ -118,7 +122,7 @@ void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& c
 	
 	this->next_Position_.setPosition(this->next_Position_Bounds_.left, this->next_Position_Bounds_.top);
 
-	this->player_Hud_.update(mousePositionWindow, camera);
+	this->player_Hud_.update(mousePositionWindow, camera, this->player_Model_.getPosition());
 }
 
 void PlayerTest::render(sf::RenderTarget& target)

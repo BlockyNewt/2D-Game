@@ -25,6 +25,18 @@
     <Filter Include="Header Files\State">
       <UniqueIdentifier>{9af1a993-52da-4606-b937-9ab4f45808a3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Classes">
+      <UniqueIdentifier>{bc240552-2b26-43d8-803b-75da513b9a2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Classes">
+      <UniqueIdentifier>{e889cf30-5abe-4c2a-aa83-f73097b43b2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Race">
+      <UniqueIdentifier>{d7cf9697-fda1-410d-bb01-640378170280}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Race">
+      <UniqueIdentifier>{e23f84e6-e386-46a2-b383-bd4fd8a41e41}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -96,13 +108,49 @@
     <ClCompile Include="MenuCharacterCreation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Race.cpp">
+    <ClCompile Include="Skill.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RaceOrc.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Classes.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="ClassesBerserker.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="ClassesRainmaker.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="ClassesSavage.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="ClassesWitchDoctor.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Race.cpp">
+      <Filter>Source Files\Race</Filter>
+    </ClCompile>
+    <ClCompile Include="RaceDwarf.cpp">
+      <Filter>Source Files\Race</Filter>
+    </ClCompile>
+    <ClCompile Include="RaceElf.cpp">
+      <Filter>Source Files\Race</Filter>
     </ClCompile>
     <ClCompile Include="RaceHuman.cpp">
+      <Filter>Source Files\Race</Filter>
+    </ClCompile>
+    <ClCompile Include="RaceOrc.cpp">
+      <Filter>Source Files\Race</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillStabyWab.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillStrike.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillPoisonRain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HoverDescription.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -170,16 +218,52 @@
     <ClInclude Include="MenuCharacterCreation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Race.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RaceOrc.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Text.h">
       <Filter>Header Files\Gui</Filter>
     </ClInclude>
+    <ClInclude Include="Skill.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes.h">
+      <Filter>Header Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="ClassesBerserker.h">
+      <Filter>Header Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="ClassesRainmaker.h">
+      <Filter>Header Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="ClassesSavage.h">
+      <Filter>Header Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="ClassesWitchDoctor.h">
+      <Filter>Header Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Race.h">
+      <Filter>Header Files\Race</Filter>
+    </ClInclude>
+    <ClInclude Include="RaceDwarf.h">
+      <Filter>Header Files\Race</Filter>
+    </ClInclude>
+    <ClInclude Include="RaceElf.h">
+      <Filter>Header Files\Race</Filter>
+    </ClInclude>
     <ClInclude Include="RaceHuman.h">
+      <Filter>Header Files\Race</Filter>
+    </ClInclude>
+    <ClInclude Include="RaceOrc.h">
+      <Filter>Header Files\Race</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillStabyWab.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillStrike.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillPoisonRain.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HoverDescription.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

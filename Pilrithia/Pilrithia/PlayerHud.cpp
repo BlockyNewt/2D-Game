@@ -37,6 +37,7 @@ PlayerHud::PlayerHud()
 	this->character_T_B_.setSettings("Font/arial.ttf", 12, "Bag", sf::Vector2f(this->character_B_B_.getLeftPosition(), this->character_B_B_.getTopPosition()), true);
 	this->character_T_C_.setSettings("Font/arial.ttf", 12, "Quests", sf::Vector2f(this->character_B_C_.getLeftPosition(), this->character_B_C_.getTopPosition()), true);
 	this->character_T_D_.setSettings("Font/arial.ttf", 12, "Skill Tree", sf::Vector2f(this->character_B_D_.getLeftPosition(), this->character_B_D_.getTopPosition()), true);
+	this->character_T_E_.setSettings("Font/arial.ttf", 18, "", sf::Vector2f(0.f, 0.f), true);
 
 	this->skill_B_A_.setSettings(60.f, 60.f, 400.f, 650.f, sf::Color::Blue, 1.f, sf::Color::White, true);
 	this->skill_B_B_.setSettings(60.f, 60.f, this->skill_B_A_.getRightPosition(true, 10.f), this->skill_B_A_.getTopPosition(), sf::Color::Blue, 1.f, sf::Color::White, true);
@@ -52,6 +53,11 @@ PlayerHud::PlayerHud()
 PlayerHud::~PlayerHud()
 {
 	delete this->camera_;
+}
+
+void PlayerHud::changeCharacterName(const std::string& name)
+{
+	this->character_T_E_.setString(name);
 }
 
 void PlayerHud::updatePollEvent(sf::Event& ev)
@@ -76,11 +82,18 @@ void PlayerHud::updatePollEvent(sf::Event& ev)
 	}
 }
 
-void PlayerHud::update(const sf::Vector2i& mousePositionWindow, const Camera& camera)
+void PlayerHud::updateNamePosition(const sf::Vector2f& playerPosition)
+{
+	this->character_T_E_.setText().setPosition(sf::Vector2f(playerPosition.x, playerPosition.y - 22.f));
+}
+
+void PlayerHud::update(const sf::Vector2i& mousePositionWindow, const Camera& camera, const sf::Vector2f& playerPosition)
 {
 	if (this->is_Hiding_Hud_)
 	{
 		*this->camera_ = camera;
+
+		this->updateNamePosition(playerPosition);
 
 		this->character_B_A_.updateBoundaries(mousePositionWindow);
 		this->character_B_B_.updateBoundaries(mousePositionWindow);
@@ -124,5 +137,8 @@ void PlayerHud::render(sf::RenderTarget& target)
 		this->skill_T_C_.render(target);
 
 		target.setView(this->camera_->getView());
+
+		this->character_T_E_.render(target);
+
 	}
 }

@@ -7,10 +7,14 @@
 #include "Button.h"
 #include "Text.h"
 #include "InputBox.h"
+#include "HoverDescription.h"
 
 #include "Race.h"
 #include "RaceOrc.h"
 #include "RaceHuman.h"
+#include "RaceDwarf.h"
+#include "RaceElf.h"
+
 
 class MenuCharacterCreation
 {
@@ -18,50 +22,82 @@ public:
 	MenuCharacterCreation(const unsigned int windowSizeX, const unsigned int windowSizeY);
 	~MenuCharacterCreation();
 
+	void updateRacePollEvent(sf::Event& ev);
+	void updateClassPollEvent(sf::Event& ev);
 	bool updatePollEvent(sf::Event& ev);
 	void update(const sf::Vector2i& mousePositionWindow);
 	void render(sf::RenderTarget& target);
-
 
 	void setIsCreatingCharacter(bool isCreatingCharacter);
 
 	const bool& getIsCreatingCharacter() const;
 	Race& getRace() const;
+	const std::string& getName() const;
 
 private:
+	void initializeNameGui();
+	void initializeRaceGui();
+	void initializeClassGui();
 
 private:
 	//TESTING 
 	Race* race_;
 	RaceOrc race_Orc_;
 	RaceHuman race_Human_;
+	RaceDwarf race_Dwarf_;
+	RaceElf race_Elf_;
 
 	sf::RectangleShape race_Model_;
 
-	Box x_A_;
-	Box x_B_;
-	Box x_C_;
-	Box x_D_;
+	HoverDescription skill_Description_;
 
-	Text t_A_;
-	Text t_B_;
-	Text t_C_;
-	Text t_D_;
-	Text t_E_;
-	Text t_F_;
-	Text t_G_;
-	Text t_H_;
-	Text t_I_;
-	Text t_J_;
 
-	InputBox i_A_;
+	Text title_T_A_;
 
-	Button b_A_;
-	Button b_B_;
-	Button b_C_;
-	Button b_D_;
-	Button b_E_;
-	Button b_F_;
+	Box background_X_A_;
+	Box model_Preview_X_A_;
+	Box race_X_A_;
+	Box class_X_A_;
+
+	//NAME
+	Button name_B_B_;
+
+	Text name_T_A_;
+	Text name_T_B_;
+
+	InputBox name_I_A_;
+
+	//RACE
+	Button race_B_A_;
+	Button race_B_B_;
+	Button race_B_C_;
+	Button race_B_D_;
+	Button race_B_E_;
+
+	Text race_T_A_;
+	Text race_T_B_;
+	Text race_T_C_;
+	Text race_T_D_;
+	Text race_T_E_;
+	Text race_T_F_;
+	Text race_T_G_;
+
+
+	//CLASS
+	Button class_B_B_;
+	Button class_B_C_;
+	Button class_B_F_;
+
+	Text class_T_A_;
+	Text class_T_B_;
+	Text class_T_C_;
+	Text class_T_D_;
+	Text class_T_E_;
+	Text class_T_F_;
+
+
+
+	
 
 
 	bool is_Creating_Character_;

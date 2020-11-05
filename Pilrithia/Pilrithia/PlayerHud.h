@@ -1,16 +1,9 @@
 #ifndef PLAYERHUD_H
 #define PLAYERHUD_H
 
-#include "SFML/Graphics.hpp"
+#include "PlayerInventory.h"
 
-#include "Camera.h"
-
-#include "Box.h"
-#include "Button.h"
-#include "Text.h"
-
-#include <iostream>	
-
+#include "Race.h"
 
 class PlayerHud
 {
@@ -19,17 +12,21 @@ public:
 	~PlayerHud();
 
 	//ONLY FOR TESTING
-	void changeCharacterName(const std::string& name);
+	void intializeHud(const std::string& name, const Classes* classes);
 
+	void updateInventoryPollEvent(sf::Event& ev, const std::string& name, const std::string& className, const std::map<std::string, int>& stats, const std::map<std::string, int>& resistances);
 	void updatePollEvent(sf::Event& ev);
 	void updateNamePosition(const sf::Vector2f& playerPosition);
 	void update(const sf::Vector2i& mousePositionWindow, const Camera& camera, const sf::Vector2f& playerPosition);
 	void render(sf::RenderTarget& target);
 
+
 private:
 
 private:
 	Camera* camera_;
+	PlayerInventory player_Inventory_;
+
 
 	//MAYBE MAKE GUI FOR THIS LATER (COULD ALSO USE WITH ENEMIES
 	sf::RectangleShape health_Bar_Back_;
@@ -56,6 +53,8 @@ private:
 	Text skill_T_A_;
 	Text skill_T_B_;
 	Text skill_T_C_;
+
+	HoverDescription skill_D_A_;
 
 	bool is_Hiding_Hud_;
 };

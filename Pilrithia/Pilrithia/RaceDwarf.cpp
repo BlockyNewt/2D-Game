@@ -24,6 +24,11 @@ void RaceDwarf::initializeRace(const float& posX, const float& posY)
 	this->model_.setOutlineColor(sf::Color::Blue);
 }
 
+void RaceDwarf::setPlayerClasses(Classes& classes)
+{
+	this->player_Classes_ = &classes;
+}
+
 const std::string RaceDwarf::getName() const
 {
 	return this->name_;
@@ -47,4 +52,9 @@ Classes& RaceDwarf::getClassesOne() const
 Classes& RaceDwarf::getClassesTwo() const
 {
 	return *this->classes_Two_;
+}
+
+Classes& RaceDwarf::getPlayerClass() const
+{
+	return *this->player_Classes_;
 }

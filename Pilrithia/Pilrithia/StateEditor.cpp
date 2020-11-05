@@ -8,7 +8,7 @@ void StateEditor::initializeInstructionsPanel()
 
 	this->instruction_Panel_X_A_.setSettings(400.f, 700.f, 10.f, 10.f, sf::Color::Green, 1.f, sf::Color::Red, true);
 
-	std::string instructionsStr = "1.) Press 'Tab' to hide this window. \n\n2.) Press 'Esc' to open pause window \n\n3.) Left click to add tile \n\n4.) Right click to remove tile \n\n5.) WSAD to move camera \n\n6.) Mouse wheel to scroll in and out \n\n7.) nothing for now";
+	std::string instructionsStr = "1.) Press 'Tab' to hide this window. \n\n2.) Press 'Esc' to open pause window \n\n3.) Left click to add tile \n\n4.) Right click to remove tile \n\n5.) WSAD to move camera \n\n6.) Mouse wheel to scroll in and out \n\n7.) '1' and '2' to change tile type \n\n8.) '4' and '5' to change tile layer";
 
 	this->t_A_.setSettings("Font/arial.ttf", 25, "Editor Instructions", sf::Vector2f(this->instruction_Panel_X_A_.getLeftPosition(true, 100.f), this->instruction_Panel_X_A_.getTopPosition(true, 10.f)), true);
 	this->t_B_.setSettings("Font/arial.ttf", 18, instructionsStr, sf::Vector2f(this->instruction_Panel_X_A_.getLeftPosition(true, 10.f), this->t_A_.getBottomPosition(true, 50.f)), true);
@@ -121,11 +121,12 @@ StateEditor::StateEditor(std::stack<State*>* states, sf::RenderWindow* window, M
 	*/
 
 	this->camera_ = new Camera(this->window_->getSize().x, this->window_->getSize().y);
-	this->tilemap_ = new Tilemap(5, 5, 30);
+	this->tilemap_ = new Tilemap(5, 5, 2, 30);
 	this->window_Position_.setSettings("Font/arial.ttf", 18, "", sf::Vector2f(0.f, 0.f), true);
 	this->grid_Position_.setSettings("Font/arial.ttf", 18, "", sf::Vector2f(0.f, 0.f), true);
 	this->tile_Type_.setSettings("Font/arial.ttf", 18, "", sf::Vector2f(0.f, 0.f), true);
-	this->tile_Box_.setSettings(30.f, 30.f, 0.f, 0.f, sf::Color::Transparent, 1.f, sf::Color::Red, true);
+	this->tile_Layer_.setSettings("Font/arial.ttf", 18, "", sf::Vector2f(0.f, 0.f), true);
+	this->tile_Box_.setSettings(this->tilemap_->getTileSizeXY(), this->tilemap_->getTileSizeXY(), 0.f, 0.f, sf::Color::Transparent, 1.f, sf::Color::Red, true);
 
 	this->initializeInstructionsPanel();
 	this->initializeRightSidePanel();
@@ -562,14 +563,17 @@ void StateEditor::update()
 		/*
 			UPDATE MOUSE TEST POSITIONS BASED ON WHERE MOUSE CURSOR IS ON SCREEN
 		*/
-		this->window_Position_.setText().setString("X: " + std::to_string(this->mouse_Position_Window_.x) + " Y:" + std::to_string(this->mouse_Position_Window_.y));
-		this->window_Position_.setText().setPosition(sf::Vector2f(this->mouse_Position_Window_.x + 20.f, this->mouse_Position_Window_.y - 15.f));
+		this->window_Position_.setString("X: " + std::to_string(this->mouse_Position_Window_.x) + " Y:" + std::to_string(this->mouse_Position_Window_.y));
+		this->window_Position_.setPosition(this->mouse_Position_Window_.x + 20.f, this->mouse_Position_Window_.y - 15.f);
 
-		this->grid_Position_.setText().setString("X: " + std::to_string(this->mouse_Position_Grid_.x * static_cast<int>(this->tilemap_->getTileSizeXY())) + " Y:" + std::to_string(this->mouse_Position_Grid_.y * static_cast<int>(this->tilemap_->getTileSizeXY())));
-		this->grid_Position_.setText().setPosition(sf::Vector2f(this->mouse_Position_Window_.x + 20.f, this->mouse_Position_Window_.y + 15.f));
+		this->grid_Position_.setString("X: " + std::to_string(this->mouse_Position_Grid_.x * static_cast<int>(this->tilemap_->getTileSizeXY() * 2.f)) + " Y:" + std::to_string(this->mouse_Position_Grid_.y * static_cast<int>(this->tilemap_->getTileSizeXY() * 2.f)));
+		this->grid_Position_.setPosition(this->mouse_Position_Window_.x + 20.f, this->mouse_Position_Window_.y + 15.f);
 
-		this->tile_Type_.setText().setString("Tile Type: " + this->tilemap_->getTileTypeStr());
-		this->tile_Type_.setText().setPosition(sf::Vector2f(this->mouse_Position_Window_.x + 20.f, this->mouse_Position_Window_.y + 40.f));
+		this->tile_Type_.setString("Tile Type: " + this->tilemap_->getTileTypeStr());
+		this->tile_Type_.setPosition(this->mouse_Position_Window_.x + 20.f, this->mouse_Position_Window_.y + 40.f);
+
+		this->tile_Layer_.setString("Tile Layer: " + this->tilemap_->getTileLayerStr());
+		this->tile_Layer_.setPosition(this->mouse_Position_Window_.x + 20.f, this->mouse_Position_Window_.y + 60.f);
 
 
 		/*
@@ -710,6 +714,7 @@ void StateEditor::render(sf::RenderTarget& target)
 	this->window_Position_.render(target);
 	this->grid_Position_.render(target);
 	this->tile_Type_.render(target);
+	this->tile_Layer_.render(target);
 	
 
 	/*

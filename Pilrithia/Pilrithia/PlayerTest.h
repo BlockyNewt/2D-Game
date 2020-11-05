@@ -1,7 +1,6 @@
 #ifndef PLAYERTEST_H
 #define PLAYERTEST_H
 
-#include "Race.h"
 #include "RaceOrc.h"
 
 #include "PlayerHud.h"
@@ -34,12 +33,16 @@ public:
 	const bool& getIsJumping() const;
 
 private:
+	void initializeHud();
 
 private:
 	Race* race_;
 	PlayerHud player_Hud_;
 
 	std::string name_;
+	std::map<std::string, int> stats_;
+	std::map<std::string, int> resistances_;
+
 
 	sf::RectangleShape player_Model_;
 	sf::RectangleShape next_Position_;
@@ -55,6 +58,8 @@ private:
 
 	bool is_Falling_;
 	bool is_Jumping_;
+
+
 };
 
 #endif // !PLAYERTEST_H

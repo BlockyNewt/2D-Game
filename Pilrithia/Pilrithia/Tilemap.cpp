@@ -1,30 +1,38 @@
 #include "Tilemap.h"
 
-Tilemap::Tilemap(const unsigned gridSizeX, const unsigned gridSizeY, float tileSizeXY)
+Tilemap::Tilemap(const unsigned gridSizeX, const unsigned gridSizeY, const unsigned gridSizeZ, float tileSizeXY)
 {
 	this->grid_Max_Size_X_ = gridSizeX;
 	this->grid_Max_Size_Y_ = gridSizeY;
+	this->grid_Max_Size_Z_ = gridSizeZ;
 
 	this->tile_Size_X_Y_ = tileSizeXY;
 
 	this->is_Grid_Enabled_ = false;
 
 	this->tile_Type_ = 0;
+	this->tile_Layer_ = 0;
 	this->tile_Type_Str_ = "";
 
 	/*
 		RESIZE GRID AND THE OUTLINE GRID 
 	*/
-	this->grid_.resize(grid_Max_Size_X_, std::vector<Tile*>());
+	this->grid_.resize(grid_Max_Size_X_, std::vector<std::vector<Tile*>>());
 	this->outline_.resize(grid_Max_Size_X_, std::vector<Tile*>());
 	for (int x = 0; x < grid_Max_Size_X_; ++x)
 	{
 		for (int y = 0; y < grid_Max_Size_Y_; ++y)
 		{
-			this->grid_[x].resize(grid_Max_Size_Y_, NULL);
+			this->grid_[x].resize(grid_Max_Size_Y_, std::vector<Tile*>());
 			this->outline_[x].resize(grid_Max_Size_Y_, NULL);
+
+			for (int z = 0; z < this->grid_Max_Size_Z_; ++z)
+			{
+				this->grid_[x][y].resize(grid_Max_Size_Z_, NULL);
+			}
 		}
 	}
+
 
 	/*
 		FILL THE OUTLINE GRID WITH BLANK TILES 
@@ -44,7 +52,10 @@ Tilemap::~Tilemap()
 	{
 		for (auto& y : x)
 		{
-			delete y;
+			for (auto& z : y)
+			{
+				delete z;
+			}
 		}
 	}
 }
@@ -52,22 +63,51 @@ Tilemap::~Tilemap()
 void Tilemap::updatePollEvent(sf::Event& ev)
 {
 	/*
-		FOR NOW THIS IS ONLY FOR CHANGING THE TILE TYPE
+		CHANGING THE TILE TYPE
 	*/
 
 	if (ev.type == sf::Event::KeyPressed)
 	{
-		if (ev.key.code == sf::Keyboard::Q)
+		if (ev.key.code == sf::Keyboard::Num1)
 		{
 			if (this->tile_Type_ > 0)
 			{
 				this->tile_Type_--;
+
 			}
 		}
 
-		if (ev.key.code == sf::Keyboard::E)
+		if (ev.key.code == sf::Keyboard::Num2)
 		{
-			this->tile_Type_++;
+			if (this->tile_Type_ < 3)
+			{
+				this->tile_Type_++;
+
+			}
+		}
+	}
+
+	/*
+		CHANGE TILE LAYER
+	*/
+
+	if (ev.type == sf::Event::KeyPressed)
+	{
+		if (ev.key.code == sf::Keyboard::Num4)
+		{
+			if (this->tile_Layer_ > 0)
+			{
+				this->tile_Layer_--;
+
+			}
+		}
+
+		if (ev.key.code == sf::Keyboard::Num5)
+		{
+			if (this->tile_Layer_ < this->grid_Max_Size_Z_)
+			{
+				this->tile_Layer_++;
+			}
 		}
 	}
 }
@@ -78,6 +118,7 @@ void Tilemap::update(const Camera& camera)
 		UPDATE TILE TYPE STRING FOR STATEEDITOR
 	*/
 	this->updateTileType();
+	this->tile_Layer_Str_ = std::to_string(this->tile_Layer_);
 
 
 	/*
@@ -117,18 +158,21 @@ void Tilemap::render(sf::RenderTarget& target)
 	/*
 		RENDER ONLY WHAT CAN BE SEEN ON THE SCREEN
 	*/
-	for (auto& g : this->grid_)
+	for (auto& x : this->grid_)
 	{
-		for (auto& a : g)
+		for (auto& y : x)
 		{
-			if (a != NULL)
+			for (auto& z : y)
 			{
-				if (a->getPosition().x > this->camera_Left_Position &&
-					a->getPosition().x < this->camera_Right_Position &&
-					a->getPosition().y > this->camera_Top_Position &&
-					a->getPosition().y < this->camera_Bottom_Position)
+				if (z != NULL)
 				{
-					a->render(target);
+					if (z->getPosition().x > this->camera_Left_Position &&
+						z->getPosition().x < this->camera_Right_Position &&
+						z->getPosition().y > this->camera_Top_Position &&
+						z->getPosition().y < this->camera_Bottom_Position)
+					{
+						z->render(target);
+					}
 				}
 			}
 		}
@@ -136,18 +180,18 @@ void Tilemap::render(sf::RenderTarget& target)
 
 	if (this->is_Grid_Enabled_)
 	{
-		for (auto& g : this->outline_)
+		for (auto& x : this->outline_)
 		{
-			for (auto& a : g)
+			for (auto& y : x)
 			{
-				if (a != NULL)
+				if (y != NULL)
 				{
-					if (a->getPosition().x > this->camera_Left_Position &&
-						a->getPosition().x < this->camera_Right_Position &&
-						a->getPosition().y > this->camera_Top_Position &&
-						a->getPosition().y < this->camera_Bottom_Position)
+					if (y->getPosition().x > this->camera_Left_Position &&
+						y->getPosition().x < this->camera_Right_Position &&
+						y->getPosition().y > this->camera_Top_Position &&
+						y->getPosition().y < this->camera_Bottom_Position)
 					{
-						a->render(target);
+						y->render(target);
 					}
 				}
 			}
@@ -163,11 +207,13 @@ void Tilemap::addTile(float gridPosX, float gridPosY)
 	if (gridPosX >= 0 &&
 		gridPosX < this->grid_Max_Size_X_&&
 		gridPosY >= 0 &&
-		gridPosY < this->grid_Max_Size_Y_)
+		gridPosY < this->grid_Max_Size_Y_ &&
+		this->tile_Layer_ >= 0 &&
+		this->tile_Layer_ < this->grid_Max_Size_Z_)
 	{
-		if (this->grid_[gridPosX][gridPosY] == NULL)
+		if (this->grid_[gridPosX][gridPosY][this->tile_Layer_] == NULL)
 		{
-			this->grid_[gridPosX][gridPosY] = new Tile(gridPosX * this->tile_Size_X_Y_, gridPosY * this->tile_Size_X_Y_, this->tile_Size_X_Y_, this->tile_Type_);
+			this->grid_[gridPosX][gridPosY][this->tile_Layer_] = new Tile(gridPosX * this->tile_Size_X_Y_, gridPosY * this->tile_Size_X_Y_, this->tile_Size_X_Y_, this->tile_Type_);
 		}
 		else
 		{
@@ -189,13 +235,15 @@ void Tilemap::removeTile(float gridPosX, float gridPosY)
 	if (gridPosX >= 0 &&
 		gridPosX < this->grid_Max_Size_X_ &&
 		gridPosY >= 0 &&
-		gridPosY < this->grid_Max_Size_Y_)
+		gridPosY < this->grid_Max_Size_Y_ &&
+		this->tile_Layer_ >= 0 &&
+		this->tile_Layer_ < this->grid_Max_Size_Z_)
 	{
-		if (this->grid_[gridPosX][gridPosY] != NULL)
+		if (this->grid_[gridPosX][gridPosY][this->tile_Layer_] != NULL)
 		{
-			delete this->grid_[gridPosX][gridPosY];
+			delete this->grid_[gridPosX][gridPosY][this->tile_Layer_];
 
-			this->grid_[gridPosX][gridPosY] = NULL;
+			this->grid_[gridPosX][gridPosY][this->tile_Layer_] = NULL;
 
 			std::cout << "DEBUG::TILEMAP::REMOVETILE() -> TILE REMOVED." << std::endl;
 		}
@@ -211,6 +259,7 @@ void Tilemap::save(const std::string fileName)
 
 			GRID MAX SIZE X
 			GRID MAX SIZE Y
+			GRID MAX SIZE Z
 
 			TILE SIZE XY
 
@@ -238,9 +287,12 @@ void Tilemap::save(const std::string fileName)
 		{
 			for (int y = 0; y < this->grid_Max_Size_Y_; ++y)
 			{
-				if (this->grid_[x][y])
+				for (int z = 0; z < this->grid_Max_Size_Z_; ++z)
 				{
-					outToFile << x << " " << y << " " << this->grid_[x][y]->getTypeConversion() << " ";
+					if (this->grid_[x][y][z])
+					{
+						outToFile << x << " " << y << " " << z << " " << this->grid_[x][y][z]->getTypeConversion() << " ";
+					}
 				}
 			}
 		}
@@ -281,14 +333,19 @@ void Tilemap::load(const std::string fileName)
 		/*
 			RESIZE GRID AND OUTLINE GRID
 		*/
-		this->grid_.resize(this->grid_Max_Size_X_, std::vector<Tile*>());
+		this->grid_.resize(this->grid_Max_Size_X_, std::vector<std::vector<Tile*>>());
 		this->outline_.resize(this->grid_Max_Size_X_, std::vector<Tile*>());
 		for (int x = 0; x < this->grid_Max_Size_X_; ++x)
 		{
 			for (int y = 0; y < this->grid_Max_Size_Y_; ++y)
 			{
-				this->grid_[x].resize(this->grid_Max_Size_Y_, NULL);
+				this->grid_[x].resize(this->grid_Max_Size_Y_, std::vector<Tile*>());
 				this->outline_[x].resize(this->grid_Max_Size_Y_, NULL);
+
+				for (int z = 0; z < this->grid_Max_Size_Z_; ++z)
+				{
+					this->grid_[x][y].resize(this->grid_Max_Size_Z_, NULL);
+				}
 			}
 		}
 
@@ -308,15 +365,16 @@ void Tilemap::load(const std::string fileName)
 		*/
 		unsigned x = 0;
 		unsigned y = 0;
+		unsigned z = 0;
 
 		int typeConversion = 0;
 
-		while (inFromFile >> x >> y >> typeConversion)
+		while (inFromFile >> x >> y >> z >> typeConversion)
 		{
 			/*
 				READ TILE DATA FROM FILE AND ADD IT TO THE GID
 			*/
-			this->grid_[x][y] = new Tile(x * this->tile_Size_X_Y_, y * this->tile_Size_X_Y_, this->tile_Size_X_Y_, typeConversion);
+			this->grid_[x][y][z] = new Tile(x * this->tile_Size_X_Y_, y * this->tile_Size_X_Y_,  this->tile_Size_X_Y_, typeConversion);
 		}
 
 
@@ -347,25 +405,33 @@ void Tilemap::clearGrid(const bool& isGridEnabled)
 	{
 		for (int y = 0; y < this->grid_Max_Size_Y_; ++y)
 		{
-			delete this->grid_[x][y];
 			delete this->outline_[x][y];
-
-			this->grid_[x][y] = NULL;
 			this->outline_[x][y] = NULL;
+
+			for (int z = 0; z < this->grid_Max_Size_Z_; ++z)
+			{
+				delete this->grid_[x][y][z];
+				this->grid_[x][y][z] = NULL;
+			}
 		}
 	}
 
 	/*
 		RESIZE BOTH GRIDS
 	*/
-	this->grid_.resize(this->grid_Max_Size_X_, std::vector<Tile*>());
+	this->grid_.resize(this->grid_Max_Size_X_, std::vector<std::vector<Tile*>>());
 	this->outline_.resize(this->grid_Max_Size_X_, std::vector<Tile*>());
 	for (int x = 0; x < this->grid_Max_Size_X_; ++x)
 	{
 		for (int y = 0; y < this->grid_Max_Size_Y_; ++y)
 		{
-			this->grid_[x].resize(this->grid_Max_Size_Y_, NULL);
+			this->grid_[x].resize(this->grid_Max_Size_Y_, std::vector<Tile*>());
 			this->outline_[x].resize(grid_Max_Size_Y_, NULL);
+
+			for (int z = 0; z < this->grid_Max_Size_Z_; ++z)
+			{
+				this->grid_[x][y].resize(this->grid_Max_Size_Z_, NULL);
+			}
 		}
 	}
 
@@ -444,14 +510,19 @@ void Tilemap::resizeTilemap(const unsigned gridSizeX, const unsigned gridSizeY)
 	/*
 		RESIZE BOTH GRIDS HERE
 	*/
-	this->grid_.resize(this->grid_Max_Size_X_, std::vector<Tile*>());
+	this->grid_.resize(this->grid_Max_Size_X_, std::vector<std::vector<Tile*>>());
 	this->outline_.resize(this->grid_Max_Size_X_, std::vector<Tile*>());
 	for (int x = 0; x < this->grid_Max_Size_X_; ++x)
 	{
 		for (int y = 0; y < this->grid_Max_Size_Y_; ++y)
 		{
-			this->grid_[x].resize(this->grid_Max_Size_Y_, NULL);
+			this->grid_[x].resize(this->grid_Max_Size_Y_, std::vector<Tile*>());
 			this->outline_[x].resize(grid_Max_Size_Y_, NULL);
+			
+			for (int z = 0; z < this->grid_Max_Size_Z_; ++z)
+			{
+				this->grid_[x][y].resize(this->grid_Max_Size_Z_, NULL);
+			}
 		}
 	}
 
@@ -482,135 +553,137 @@ void Tilemap::playerCollision(PlayerTest& playerTest)
 	{
 		for (int y = 0; y < this->grid_Max_Size_Y_; ++y)
 		{
-			/*
-				IF A GRID POSITION DOES NOT EQUAL NULL
-			*/
-			if (this->grid_[x][y] != NULL)
+			for (int z = 0; z < this->grid_Max_Size_Z_; ++z)
 			{
 				/*
-					GET GLOBAL BOUNDS OF PLAYER AND PLAYERS NEXT POSITION
+					IF A GRID POSITION DOES NOT EQUAL NULL
 				*/
-				sf::FloatRect playerBounds = playerTest.getPlayerGlobalBounds();
-				sf::FloatRect NextPosition = playerTest.getNextPositionGlobalBounds();
-
-				NextPosition = playerBounds;
-				NextPosition.left += playerTest.getVelocity().x;
-				NextPosition.top += playerTest.getVelocity().y;
-
-				/*
-					IF THE TILE IS BOUNDARY THEN UPDATE ITS COLLISION
-				*/
-				if (this->grid_[x][y]->getType() == TYPE::BOUNDARY)
+				if (this->grid_[x][y][z] != NULL)
 				{
-					if (this->grid_[x][y]->getGlobalBounds().intersects(NextPosition))
+					/*
+						GET GLOBAL BOUNDS OF PLAYER AND PLAYERS NEXT POSITION
+					*/
+					sf::FloatRect playerBounds = playerTest.getPlayerGlobalBounds();
+					sf::FloatRect NextPosition = playerTest.getNextPositionGlobalBounds();
+
+					NextPosition = playerBounds;
+					NextPosition.left += playerTest.getVelocity().x;
+					NextPosition.top += playerTest.getVelocity().y;
+
+					/*
+						IF THE TILE IS BOUNDARY THEN UPDATE ITS COLLISION
+					*/
+					if (this->grid_[x][y][z]->getType() == TYPE::BOUNDARY)
 					{
-						//RIGHT COLLISION
-						if (playerBounds.left < this->grid_[x][y]->getLeftPosition() &&
-							playerBounds.left + playerBounds.width < this->grid_[x][y]->getRightPosition() &&
-							playerBounds.top < this->grid_[x][y]->getBottomPosition() &&
-							playerBounds.top + playerBounds.height > this->grid_[x][y]->getTopPosition())
+						if (this->grid_[x][y][z]->getGlobalBounds().intersects(NextPosition))
 						{
-							//std::cout << "Right ";
-							playerTest.setVelocityX(0.f);
-							playerTest.getPlayerModel().setPosition(sf::Vector2f(this->grid_[x][y]->getLeftPosition() - playerTest.getPlayerGlobalBounds().width, playerTest.getPlayerGlobalBounds().top));
-						}
-
-						//LEFT COLLISION
-						else if (playerBounds.left > this->grid_[x][y]->getLeftPosition() &&
-							playerBounds.left + playerBounds.width > this->grid_[x][y]->getRightPosition() &&
-							playerBounds.top < this->grid_[x][y]->getBottomPosition() &&
-							playerBounds.top + playerBounds.height > this->grid_[x][y]->getTopPosition())
-						{
-							//std::cout << "Left ";
-
-							playerTest.setVelocityX(0.f);
-							playerTest.getPlayerModel().setPosition(sf::Vector2f(this->grid_[x][y]->getRightPosition(), playerTest.getPlayerGlobalBounds().top));
-						}
-
-						//TOP COLLISION
-						if (playerBounds.top > this->grid_[x][y]->getTopPosition() &&
-							playerBounds.top + playerBounds.height > this->grid_[x][y]->getBottomPosition() &&
-							playerBounds.left < this->grid_[x][y]->getRightPosition() &&
-							playerBounds.left + playerBounds.width > this->grid_[x][y]->getLeftPosition())
-						{
-							//std::cout << "Top " << std::endl;
-
-							if (playerTest.getIsJumping())
+							//RIGHT COLLISION
+							if (playerBounds.left < this->grid_[x][y][z]->getLeftPosition() &&
+								playerBounds.left + playerBounds.width < this->grid_[x][y][z]->getRightPosition() &&
+								playerBounds.top < this->grid_[x][y][z]->getBottomPosition() &&
+								playerBounds.top + playerBounds.height > this->grid_[x][y][z]->getTopPosition())
 							{
-								playerTest.setIsJumping(false);
+								//std::cout << "Right ";
+								playerTest.setVelocityX(0.f);
+								playerTest.getPlayerModel().setPosition(sf::Vector2f(this->grid_[x][y][z]->getLeftPosition() - playerTest.getPlayerGlobalBounds().width, playerTest.getPlayerGlobalBounds().top));
+							}
+
+							//LEFT COLLISION
+							else if (playerBounds.left > this->grid_[x][y][z]->getLeftPosition() &&
+								playerBounds.left + playerBounds.width > this->grid_[x][y][z]->getRightPosition() &&
+								playerBounds.top < this->grid_[x][y][z]->getBottomPosition() &&
+								playerBounds.top + playerBounds.height > this->grid_[x][y][z]->getTopPosition())
+							{
+								//std::cout << "Left ";
+
+								playerTest.setVelocityX(0.f);
+								playerTest.getPlayerModel().setPosition(sf::Vector2f(this->grid_[x][y][z]->getRightPosition(), playerTest.getPlayerGlobalBounds().top));
+							}
+
+							//TOP COLLISION
+							if (playerBounds.top > this->grid_[x][y][z]->getTopPosition() &&
+								playerBounds.top + playerBounds.height > this->grid_[x][y][z]->getBottomPosition() &&
+								playerBounds.left < this->grid_[x][y][z]->getRightPosition() &&
+								playerBounds.left + playerBounds.width > this->grid_[x][y][z]->getLeftPosition())
+							{
+								//std::cout << "Top " << std::endl;
+
+								if (playerTest.getIsJumping())
+								{
+									playerTest.setIsJumping(false);
+									playerTest.setIsFalling(true);
+								}
+
+								playerTest.setVelocityY(0.f);
+								playerTest.getPlayerModel().setPosition(sf::Vector2f(playerTest.getPlayerGlobalBounds().left, this->grid_[x][y][z]->getBottomPosition()));
+							}
+
+							//BOTTOM COLLISION	
+							else if (playerBounds.top < this->grid_[x][y][z]->getTopPosition() &&
+								playerBounds.top + playerBounds.height < this->grid_[x][y][z]->getBottomPosition() &&
+								playerBounds.left < this->grid_[x][y][z]->getRightPosition() &&
+								playerBounds.left + playerBounds.width > this->grid_[x][y][z]->getLeftPosition())
+							{
+								//std::cout << "Bottom " << std::endl;
+
+								playerTest.setIsFalling(false);
+								playerTest.setVelocityY(0.f);
+								playerTest.getPlayerModel().setPosition(sf::Vector2f(playerTest.getPlayerGlobalBounds().left, this->grid_[x][y][z]->getTopPosition() - playerTest.getPlayerGlobalBounds().height));
+							}
+						}
+					}
+
+
+
+					/*
+						IF THE TILE TYPE IS FALL AND THE PLAYER IS NOT JUMPING THEN UPDATE COLLISION
+						AND MAKE THE PLAYER FALL
+					*/
+					if (this->grid_[x][y][z]->getType() == TYPE::FALL && !playerTest.getIsJumping())
+					{
+						if (this->grid_[x][y][z]->getGlobalBounds().intersects(NextPosition))
+						{
+							//RIGHT COLLISION
+							if (playerBounds.left < this->grid_[x][y][z]->getLeftPosition() &&
+								playerBounds.left + playerBounds.width < this->grid_[x][y][z]->getRightPosition() &&
+								playerBounds.top < this->grid_[x][y][z]->getBottomPosition() &&
+								playerBounds.top + playerBounds.height > this->grid_[x][y][z]->getTopPosition())
+							{
 								playerTest.setIsFalling(true);
 							}
 
-							playerTest.setVelocityY(0.f);
-							playerTest.getPlayerModel().setPosition(sf::Vector2f(playerTest.getPlayerGlobalBounds().left, this->grid_[x][y]->getBottomPosition()));
+							//LEFT COLLISION
+							else if (playerBounds.left > this->grid_[x][y][z]->getLeftPosition() &&
+								playerBounds.left + playerBounds.width > this->grid_[x][y][z]->getRightPosition() &&
+								playerBounds.top < this->grid_[x][y][z]->getBottomPosition() &&
+								playerBounds.top + playerBounds.height > this->grid_[x][y][z]->getTopPosition())
+							{
+								playerTest.setIsFalling(true);
+							}
+
+							//BOTTOM COLLISION	
+							if (playerBounds.top < this->grid_[x][y][z]->getTopPosition() &&
+								playerBounds.top + playerBounds.height < this->grid_[x][y][z]->getBottomPosition() &&
+								playerBounds.left < this->grid_[x][y][z]->getRightPosition() &&
+								playerBounds.left + playerBounds.width > this->grid_[x][y][z]->getLeftPosition())
+							{
+								playerTest.setIsFalling(true);
+							}
+
+							//TOP COLLISION
+							else if (playerBounds.top > this->grid_[x][y][z]->getTopPosition() &&
+								playerBounds.top + playerBounds.height > this->grid_[x][y][z]->getBottomPosition() &&
+								playerBounds.left < this->grid_[x][y][z]->getRightPosition() &&
+								playerBounds.left + playerBounds.width > this->grid_[x][y][z]->getLeftPosition())
+							{
+								playerTest.setIsFalling(true);
+							}
 						}
 
-						//BOTTOM COLLISION	
-						else if (playerBounds.top < this->grid_[x][y]->getTopPosition() &&
-							playerBounds.top + playerBounds.height < this->grid_[x][y]->getBottomPosition() &&
-							playerBounds.left < this->grid_[x][y]->getRightPosition() &&
-							playerBounds.left + playerBounds.width > this->grid_[x][y]->getLeftPosition())
-						{
-							//std::cout << "Bottom " << std::endl;
 
-							playerTest.setIsFalling(false);
-							playerTest.setVelocityY(0.f);
-							playerTest.getPlayerModel().setPosition(sf::Vector2f(playerTest.getPlayerGlobalBounds().left, this->grid_[x][y]->getTopPosition() - playerTest.getPlayerGlobalBounds().height));
-						}
+
 					}
 				}
-
-
-				
-				/*
-					IF THE TILE TYPE IS FALL AND THE PLAYER IS NOT JUMPING THEN UPDATE COLLISION 
-					AND MAKE THE PLAYER FALL
-				*/
-				if (this->grid_[x][y]->getType() == TYPE::FALL && !playerTest.getIsJumping())
-				{
-					if (this->grid_[x][y]->getGlobalBounds().intersects(NextPosition))
-					{
-						//RIGHT COLLISION
-						if (playerBounds.left < this->grid_[x][y]->getLeftPosition() &&
-							playerBounds.left + playerBounds.width < this->grid_[x][y]->getRightPosition() &&
-							playerBounds.top < this->grid_[x][y]->getBottomPosition() &&
-							playerBounds.top + playerBounds.height > this->grid_[x][y]->getTopPosition())
-						{
-							playerTest.setIsFalling(true);
-						}
-
-						//LEFT COLLISION
-						else if (playerBounds.left > this->grid_[x][y]->getLeftPosition() &&
-							playerBounds.left + playerBounds.width > this->grid_[x][y]->getRightPosition() &&
-							playerBounds.top < this->grid_[x][y]->getBottomPosition() &&
-							playerBounds.top + playerBounds.height > this->grid_[x][y]->getTopPosition())
-						{
-							playerTest.setIsFalling(true);
-						}
-
-						//BOTTOM COLLISION	
-						if (playerBounds.top < this->grid_[x][y]->getTopPosition() &&
-							playerBounds.top + playerBounds.height < this->grid_[x][y]->getBottomPosition() &&
-							playerBounds.left < this->grid_[x][y]->getRightPosition() &&
-							playerBounds.left + playerBounds.width > this->grid_[x][y]->getLeftPosition())
-						{
-							playerTest.setIsFalling(true);
-						}
-
-						//TOP COLLISION
-						else if (playerBounds.top > this->grid_[x][y]->getTopPosition() &&
-							playerBounds.top + playerBounds.height > this->grid_[x][y]->getBottomPosition() &&
-							playerBounds.left < this->grid_[x][y]->getRightPosition() &&
-							playerBounds.left + playerBounds.width > this->grid_[x][y]->getLeftPosition())
-						{
-							playerTest.setIsFalling(true);
-						}
-					}
-				}
-				
-
-
-				
 			}
 		}
 	}
@@ -624,4 +697,9 @@ const float& Tilemap::getTileSizeXY() const
 const std::string& Tilemap::getTileTypeStr() const
 {
 	return this->tile_Type_Str_;
+}
+
+const std::string& Tilemap::getTileLayerStr() const
+{
+	return this->tile_Layer_Str_;
 }

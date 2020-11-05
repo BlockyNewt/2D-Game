@@ -137,7 +137,7 @@ void InputBox::updateBoundaries(const sf::Vector2i& mousePositionWindow)
 
 void InputBox::updateInputString()
 {
-	this->input_Text_.setText().setString(this->input_String_);
+	this->input_Text_.setString(this->input_String_);
 }
 
 void InputBox::update(const sf::Vector2i& mousePositionWindow)

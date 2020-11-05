@@ -165,6 +165,7 @@
     <ClCompile Include="Npc.cpp" />
     <ClCompile Include="NpcTest.cpp" />
     <ClCompile Include="PlayerHud.cpp" />
+    <ClCompile Include="PlayerInventory.cpp" />
     <ClCompile Include="PlayerTest.cpp" />
     <ClCompile Include="QuestBox.cpp" />
     <ClCompile Include="Race.cpp" />
@@ -175,7 +176,6 @@
     <ClCompile Include="Skill.cpp" />
     <ClCompile Include="SkillPoisonRain.cpp" />
     <ClCompile Include="SkillStabyWab.cpp" />
-    <ClCompile Include="SkillStrike.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StateEditor.cpp" />
     <ClCompile Include="StateMainMenu.cpp" />
@@ -204,6 +204,7 @@
     <ClInclude Include="Npc.h" />
     <ClInclude Include="NpcTest.h" />
     <ClInclude Include="PlayerHud.h" />
+    <ClInclude Include="PlayerInventory.h" />
     <ClInclude Include="PlayerTest.h" />
     <ClInclude Include="QuestBox.h" />
     <ClInclude Include="Race.h" />
@@ -214,7 +215,6 @@
     <ClInclude Include="Skill.h" />
     <ClInclude Include="SkillPoisonRain.h" />
     <ClInclude Include="SkillStabyWab.h" />
-    <ClInclude Include="SkillStrike.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateEditor.h" />
     <ClInclude Include="StateMainMenu.h" />

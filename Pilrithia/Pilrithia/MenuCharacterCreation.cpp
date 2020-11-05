@@ -45,12 +45,12 @@ void MenuCharacterCreation::initializeClassGui()
 	this->class_T_D_.setSettings("Font/arial.ttf", 18, "Class Summary", sf::Vector2f(this->class_X_A_.getLeftPosition(true, 100.f), this->class_X_A_.getTopPosition(true, 100.f)), true);
 	this->class_T_E_.setSettings("Font/arial.ttf", 28, "Skillset preview", sf::Vector2f(this->class_X_A_.getLeftPosition(true, 300.f), this->class_X_A_.getTopPosition(true, 200.f)), true);
 	this->class_T_F_.setSettings("Font/arial.ttf", 18, "Race class skill 1", sf::Vector2f(this->class_B_F_.getLeftPosition(true, 10.f), this->class_B_F_.getTopPosition(true, 10.f)), true);
+
+	this->class_D_A_.setHoverBoundaries(this->class_B_F_.getGlobalBounds());
 }
 
 MenuCharacterCreation::MenuCharacterCreation(const unsigned int windowSizeX, const unsigned int windowSizeY)
 {
-	
-
 	this->is_Creating_Character_ = true;
 
 	this->title_T_A_.setSettings("Font/arial.ttf", 50, "Character Creation", sf::Vector2f(windowSizeX / 2.f - 200.f, 10.f), true);
@@ -69,12 +69,11 @@ MenuCharacterCreation::MenuCharacterCreation(const unsigned int windowSizeX, con
 	this->race_Elf_.initializeRace(this->model_Preview_X_A_.getLeftPosition(true, 125.f), this->model_Preview_X_A_.getTopPosition(true, 250.f));
 
 	this->race_Model_.setSize(sf::Vector2f(50.f, 50.f));
-	this->race_Model_.setPosition(sf::Vector2f(this->model_Preview_X_A_.getLeftPosition(true, 125.f), this->model_Preview_X_A_.getTopPosition(true, 250.f)));
+	this->race_Model_.setPosition(sf::Vector2f(this->model_Preview_X_A_.getLeftPosition(true, 125.f), this->model_Preview_X_A_.getTopPosition(true, 200.f)));
 	this->race_Model_.setFillColor(sf::Color::Transparent);
 	this->race_Model_.setOutlineThickness(1.f);
 	this->race_Model_.setOutlineColor(sf::Color::Transparent);
 
-	this->skill_Description_.setHoverBoundaries(this->class_B_F_.getGlobalBounds());
 }
 
 MenuCharacterCreation::~MenuCharacterCreation()
@@ -115,6 +114,7 @@ void MenuCharacterCreation::updateRacePollEvent(sf::Event& ev)
 	{
 		this->race_T_G_.setString(this->race_->getSummary());
 		this->race_Model_ = this->race_->getModel();
+		this->race_Model_.setPosition(sf::Vector2f(this->model_Preview_X_A_.getLeftPosition(true, 125.f), this->model_Preview_X_A_.getTopPosition(true, 300.f)));
 
 		this->class_T_B_.setString(this->race_->getClassesOne().getName());
 		this->class_T_C_.setString(this->race_->getClassesTwo().getName());
@@ -128,7 +128,10 @@ void MenuCharacterCreation::updateClassPollEvent(sf::Event& ev)
 		this->class_T_D_.setString(this->race_->getClassesOne().getSummary());
 		this->class_T_F_.setString(this->race_->getClassesOne().getSkillOne().getName());
 
-		this->skill_Description_.setString(this->race_->getClassesOne().getSkillOne().getSummary());
+		this->class_D_A_.setString(this->race_->getClassesOne().getSkillOne().getSummary());
+
+		this->race_->setPlayerClasses(this->race_->getClassesOne());
+		std::cout << "Player selected class name: " << this->race_->getPlayerClass().getName() << std::endl;
 	}
 
 	if (this->class_B_C_.updatePollEvent(ev))
@@ -136,7 +139,10 @@ void MenuCharacterCreation::updateClassPollEvent(sf::Event& ev)
 		this->class_T_D_.setString(this->race_->getClassesTwo().getSummary());
 		this->class_T_F_.setString(this->race_->getClassesTwo().getSkillOne().getName());
 
-		this->skill_Description_.setString(this->race_->getClassesTwo().getSkillOne().getSummary());
+		this->class_D_A_.setString(this->race_->getClassesTwo().getSkillOne().getSummary());
+
+		this->race_->setPlayerClasses(this->race_->getClassesTwo());
+		std::cout << "Player selected class name: " << this->race_->getPlayerClass().getName() << std::endl;
 	}
 }
 
@@ -180,7 +186,7 @@ void MenuCharacterCreation::update(const sf::Vector2i& mousePositionWindow)
 
 		this->name_I_A_.update(mousePositionWindow);
 
-		this->skill_Description_.update(mousePositionWindow);
+		this->class_D_A_.update(mousePositionWindow);
 	}
 }
 
@@ -232,7 +238,7 @@ void MenuCharacterCreation::render(sf::RenderTarget& target)
 
 		this->name_I_A_.render(target);
 
-		this->skill_Description_.render(target);
+		this->class_D_A_.render(target);
 
 		target.draw(this->race_Model_);
 	}

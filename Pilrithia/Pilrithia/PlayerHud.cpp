@@ -47,6 +47,8 @@ PlayerHud::PlayerHud()
 	this->skill_T_B_.setSettings("Font/arial.ttf", 12, "Skill 2", sf::Vector2f(this->skill_B_B_.getLeftPosition(), this->skill_B_B_.getTopPosition()), true);
 	this->skill_T_C_.setSettings("Font/arial.ttf", 12, "Skill 3", sf::Vector2f(this->skill_B_C_.getLeftPosition(), this->skill_B_C_.getTopPosition()), true);
 
+	this->skill_D_A_.setHoverBoundaries(this->skill_B_A_.getGlobalBounds());
+
 	this->is_Hiding_Hud_ = true;
 }
 
@@ -55,9 +57,28 @@ PlayerHud::~PlayerHud()
 	delete this->camera_;
 }
 
-void PlayerHud::changeCharacterName(const std::string& name)
+void PlayerHud::intializeHud(const std::string& name, const Classes* classes)
 {
 	this->character_T_E_.setString(name);
+
+	if (classes != NULL)
+	{
+		this->skill_T_A_.setString(classes->getSkillOne().getName());
+		this->skill_D_A_.setString(classes->getSkillOne().getSummary());
+	}
+}
+
+void PlayerHud::updateInventoryPollEvent(sf::Event& ev, const std::string& name, const std::string& className, const std::map<std::string, int>& stats, const std::map<std::string, int>& resistances)
+{
+	if (this->character_B_A_.updatePollEvent(ev))
+	{
+		if (this->player_Inventory_.getIsHidingInventory())
+		{
+			this->player_Inventory_.setIsHidingInventory(false);
+
+			this->player_Inventory_.initializeInventory(name, className, stats, resistances);
+		}
+	}
 }
 
 void PlayerHud::updatePollEvent(sf::Event& ev)
@@ -66,6 +87,9 @@ void PlayerHud::updatePollEvent(sf::Event& ev)
 		MAY WANT TO MAKE THIS FUNCTION A RETURN A STRING ON BUTTON PRESSES  BACK TO THE PLAYERTEST SO THAT WE DONT HAVE TO
 		PASS EVERYTHING FROM PLAYER INTO HERE. 
 	*/
+
+	this->player_Inventory_.updatePollEvent(ev);
+
 	if (ev.type == sf::Event::KeyPressed)
 	{
 		if (ev.key.code == sf::Keyboard::F2)
@@ -80,11 +104,28 @@ void PlayerHud::updatePollEvent(sf::Event& ev)
 			}
 		}
 	}
+
+	
+
+	if (this->character_B_B_.updatePollEvent(ev))
+	{
+
+	}
+
+	if (this->character_B_C_.updatePollEvent(ev))
+	{
+
+	}
+
+	if (this->character_B_D_.updatePollEvent(ev))
+	{
+
+	}
 }
 
 void PlayerHud::updateNamePosition(const sf::Vector2f& playerPosition)
 {
-	this->character_T_E_.setText().setPosition(sf::Vector2f(playerPosition.x, playerPosition.y - 22.f));
+	this->character_T_E_.setPosition(playerPosition.x, playerPosition.y - 22.f);
 }
 
 void PlayerHud::update(const sf::Vector2i& mousePositionWindow, const Camera& camera, const sf::Vector2f& playerPosition)
@@ -103,6 +144,10 @@ void PlayerHud::update(const sf::Vector2i& mousePositionWindow, const Camera& ca
 		this->skill_B_A_.updateBoundaries(mousePositionWindow);
 		this->skill_B_B_.updateBoundaries(mousePositionWindow);
 		this->skill_B_C_.updateBoundaries(mousePositionWindow);
+
+		this->skill_D_A_.update(mousePositionWindow);
+
+		this->player_Inventory_.update(mousePositionWindow);
 	}
 }
 
@@ -122,7 +167,7 @@ void PlayerHud::render(sf::RenderTarget& target)
 		this->character_B_B_.render(target);
 		this->character_B_C_.render(target);
 		this->character_B_D_.render(target);
-
+		
 		this->character_T_A_.render(target);
 		this->character_T_B_.render(target);
 		this->character_T_C_.render(target);
@@ -136,9 +181,15 @@ void PlayerHud::render(sf::RenderTarget& target)
 		this->skill_T_B_.render(target);
 		this->skill_T_C_.render(target);
 
+		this->skill_D_A_.render(target);
+
+
+
+		this->player_Inventory_.render(target);
+
 		target.setView(this->camera_->getView());
 
 		this->character_T_E_.render(target);
-
 	}
 }
+

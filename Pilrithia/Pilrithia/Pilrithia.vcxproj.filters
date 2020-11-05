@@ -144,13 +144,13 @@
     <ClCompile Include="SkillStabyWab.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SkillStrike.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="SkillPoisonRain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="HoverDescription.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerInventory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -257,13 +257,13 @@
     <ClInclude Include="SkillStabyWab.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SkillStrike.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SkillPoisonRain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="HoverDescription.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerInventory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

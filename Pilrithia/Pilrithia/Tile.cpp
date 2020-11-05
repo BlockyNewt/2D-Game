@@ -1,6 +1,6 @@
 #include "Tile.h"
 
-Tile::Tile(float positionX, float positionY,  float tileSizeXY, int type)
+Tile::Tile(float positionX, float positionY, float tileSizeXY, int type)
 {
 	/*
 		SET SETTINGS

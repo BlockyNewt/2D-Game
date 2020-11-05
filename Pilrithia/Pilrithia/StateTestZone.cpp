@@ -7,7 +7,7 @@ StateTestZone::StateTestZone(std::stack<State*>* states, sf::RenderWindow* windo
 
 	this->camera_ = new Camera(this->window_->getSize().x, this->window_->getSize().y);
 
-	this->tilemap_ = new Tilemap(20, 20, 30);
+	this->tilemap_ = new Tilemap(20, 20, 30 , 2);
 
 	this->npc_Test_.setSettings(this->window_->getSize());
 
@@ -255,9 +255,9 @@ void StateTestZone::render(sf::RenderTarget& target)
 
 	this->tilemap_->render(target);
 	
-	this->player_Test_.render(target);
-
 	this->npc_Test_.render(target);
+
+	this->player_Test_.render(target);
 
 	target.setView(target.getDefaultView());
 

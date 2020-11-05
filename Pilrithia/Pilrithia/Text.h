@@ -16,12 +16,15 @@ public:
 
 	void render(sf::RenderTarget& target);
 
-	sf::Text& setText();
 	void setString(const std::string& string);
+	void setPosition(float x, float y);
 	void setIsVisible(bool isVisible);
-
+	sf::Text& setText();
 
 	const sf::Vector2f& getPosition() const;
+	const sf::FloatRect getGlobalBounds() const;
+	const std::string& getString() const;
+	const sf::Text& getText() const;
 	const float getLeftPosition(bool pOrM = true, float offset = 0) const;
 	const float getRightPosition(bool pOrM = true, float offset = 0) const;
 	const float getTopPosition(bool pOrM = true, float offset = 0) const;

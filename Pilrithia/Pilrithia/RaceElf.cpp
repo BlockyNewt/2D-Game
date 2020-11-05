@@ -24,6 +24,11 @@ void RaceElf::initializeRace(const float& posX, const float& posY)
 	this->model_.setOutlineColor(sf::Color::Green);
 }
 
+void RaceElf::setPlayerClasses(Classes& classes)
+{
+	this->player_Classes_ = &classes;
+}
+
 const std::string RaceElf::getName() const
 {
 	return this->name_;
@@ -47,4 +52,9 @@ Classes& RaceElf::getClassesOne() const
 Classes& RaceElf::getClassesTwo() const
 {
 	return *this->classes_Two_;
+}
+
+Classes& RaceElf::getPlayerClass() const
+{
+	return *this->player_Classes_;
 }

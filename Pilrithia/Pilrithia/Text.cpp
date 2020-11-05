@@ -43,14 +43,14 @@ void Text::render(sf::RenderTarget& target)
 	}
 }
 
-sf::Text& Text::setText()
-{
-	return this->text_;
-}
-
 void Text::setString(const std::string& string)
 {
 	this->text_.setString(string);
+}
+
+void Text::setPosition(float x, float y)
+{
+	this->text_.setPosition(sf::Vector2f(x, y));
 }
 
 void Text::setIsVisible(bool isVisible)
@@ -58,9 +58,29 @@ void Text::setIsVisible(bool isVisible)
 	this->is_Visible_ = isVisible;
 }
 
+sf::Text& Text::setText()
+{
+	return this->text_;
+}
+
 const sf::Vector2f& Text::getPosition() const
 {
 	return this->text_.getPosition();
+}
+
+const sf::FloatRect Text::getGlobalBounds() const
+{
+	return this->text_.getGlobalBounds();
+}
+
+const std::string& Text::getString() const
+{
+	return this->text_.getString();
+}
+
+const sf::Text& Text::getText() const
+{
+	return this->text_;
 }
 
 const float Text::getLeftPosition(bool pOrM, float offset) const

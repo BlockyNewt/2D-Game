@@ -2,11 +2,14 @@
 
 PlayerTest::PlayerTest()
 {
-	this->race_ = NULL;
+	this->race_ = new RaceOrc();
+	this->race_->initializeRace(0.f, 0.f);
+	this->race_->setPlayerClasses(this->race_->getClassesOne());
+
 
 	this->name_ = "";
 
-	this->player_Model_.setSize(sf::Vector2f(25.f, 25.f));
+	this->player_Model_.setSize(sf::Vector2f(25.f, 50.f));
 	this->player_Model_.setPosition(sf::Vector2f(60.f, 60.f));
 	this->player_Model_.setFillColor(sf::Color::Cyan);
 
@@ -40,7 +43,24 @@ void PlayerTest::initializeCharacter(Race* race, const std::string& name)
 	this->player_Model_.setOutlineColor(this->race_->getModel().getOutlineColor());
 
 	this->name_ = name;
-	this->player_Hud_.changeCharacterName(this->name_);
+	this->player_Hud_.intializeHud(this->name_, &this->race_->getPlayerClass());
+
+	//WILL NEED TO INSERT CLASS STATS ONCE WE HAVE THOSE READY
+	this->stats_.insert(std::make_pair("strength", 0));
+	this->stats_.insert(std::make_pair("dexerity", 0));
+	this->stats_.insert(std::make_pair("constitution", 0));
+	this->stats_.insert(std::make_pair("intelligence", 0));
+	this->stats_.insert(std::make_pair("perception", 0));
+	this->stats_.insert(std::make_pair("wisdom", 0));
+
+	this->resistances_.insert(std::make_pair("cold", 0));
+	this->resistances_.insert(std::make_pair("fire", 0));
+	this->resistances_.insert(std::make_pair("lightning", 0));
+	this->resistances_.insert(std::make_pair("poison", 0));
+}
+
+void PlayerTest::initializeHud()
+{
 }
 
 void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
@@ -48,6 +68,8 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 	/*
 		PLAYER HUD POLL UPDATES
 	*/
+	
+	this->player_Hud_.updateInventoryPollEvent(ev, this->name_, this->race_->getPlayerClass().getName(), this->stats_, this->resistances_);
 	this->player_Hud_.updatePollEvent(ev);
 
 	if (!this->is_Falling_ && !this->is_Jumping_)

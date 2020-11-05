@@ -17,12 +17,15 @@ public:
 
 	void initializeRace(const float& posX, const float& posY) override;
 
+	void setPlayerClasses(Classes& classes) override;
+
 	const std::string getName() const override;
 	const std::string getSummary() const override;
 	const sf::RectangleShape& getModel() const override;
 	Classes& getClassesOne() const override;
 	Classes& getClassesTwo() const override;
-
+	Classes& getPlayerClass() const override;
+	
 private:
 
 private:
@@ -32,10 +35,11 @@ private:
 	sf::RectangleShape model_;
 
 	Classes* classes_One_;
-	Classes* classes_Advanced_One_;
+	Classes* classes_One_Advanced_;
 	Classes* classes_Two_;
-	Classes* classes_Advanced_Two_;
+	Classes* classes_Two_Advanced_;
 
+	Classes* player_Classes_;
 
 };
 

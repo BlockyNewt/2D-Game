@@ -17,13 +17,26 @@ void HoverDescription::setHoverBoundaries(const sf::FloatRect itemBoundaries)
 {
 	this->boundaries_ = itemBoundaries;
 
-	this->description_Box_.setPosition(this->boundaries_.left + this->boundaries_.width, this->boundaries_.top);
-	this->text_.setText().setPosition(sf::Vector2f(this->boundaries_.left + this->boundaries_.width, this->boundaries_.top));
+	this->description_Box_.setPosition(this->boundaries_.left, this->boundaries_.top - this->description_Box_.getGlobalBounds().height);
+	this->text_.setPosition(this->description_Box_.getLeftPosition(), this->description_Box_.getTopPosition());
 }
 
 void HoverDescription::setString(const std::string& text)
 {
 	this->text_.setString(text);
+	
+	for (int x = 0; x < this->text_.setText().getString().getSize(); ++x)
+	{
+		if (this->text_.setText().findCharacterPos(x).x >= this->description_Box_.getRightPosition())
+		{
+			std::string reformat = this->text_.setText().getString();
+
+			reformat.insert(x, "\n");
+
+			this->text_.setString(reformat);
+		}
+	}
+
 }
 
 void HoverDescription::update(const sf::Vector2i& mousePositionWindow)

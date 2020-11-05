@@ -46,6 +46,7 @@ private:
 	Text window_Position_;
 	Text grid_Position_;
 	Text tile_Type_;
+	Text tile_Layer_;
 
 
 	/*

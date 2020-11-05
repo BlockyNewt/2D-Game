@@ -49,7 +49,6 @@ private:
 
 	sf::RectangleShape race_Model_;
 
-	HoverDescription skill_Description_;
 
 
 	Text title_T_A_;
@@ -94,6 +93,9 @@ private:
 	Text class_T_D_;
 	Text class_T_E_;
 	Text class_T_F_;
+
+	HoverDescription class_D_A_;
+
 
 
 

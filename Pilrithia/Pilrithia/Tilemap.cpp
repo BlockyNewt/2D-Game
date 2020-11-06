@@ -606,13 +606,10 @@ void Tilemap::playerCollision(PlayerTest& playerTest)
 								playerBounds.left < this->grid_[x][y][z]->getRightPosition() &&
 								playerBounds.left + playerBounds.width > this->grid_[x][y][z]->getLeftPosition())
 							{
-								//std::cout << "Top " << std::endl;
+								std::cout << "Top " << std::endl;
 
-								if (playerTest.getIsJumping())
-								{
-									playerTest.setIsJumping(false);
-									playerTest.setIsFalling(true);
-								}
+								playerTest.setIsJumping(false);
+								playerTest.setIsFalling(true);
 
 								playerTest.setVelocityY(0.f);
 								playerTest.getPlayerModel().setPosition(sf::Vector2f(playerTest.getPlayerGlobalBounds().left, this->grid_[x][y][z]->getBottomPosition()));
@@ -638,6 +635,8 @@ void Tilemap::playerCollision(PlayerTest& playerTest)
 					/*
 						IF THE TILE TYPE IS FALL AND THE PLAYER IS NOT JUMPING THEN UPDATE COLLISION
 						AND MAKE THE PLAYER FALL
+
+						THIS IS STILL IFFY WITH FALLING
 					*/
 					if (this->grid_[x][y][z]->getType() == TYPE::FALL && !playerTest.getIsJumping())
 					{
@@ -679,10 +678,10 @@ void Tilemap::playerCollision(PlayerTest& playerTest)
 								playerTest.setIsFalling(true);
 							}
 						}
-
-
-
 					}
+
+
+
 				}
 			}
 		}

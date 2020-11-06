@@ -77,6 +77,30 @@ void Button::updateBoundaries(const sf::Vector2i& mousePositionWindow)
 	}
 }
 
+bool Button::updateBoundariesValue(const sf::Vector2i& mousePositionWindow)
+{
+	/*
+		IF THE MOUSE POSITION OF THE WINDOW IS WITHIN THE BOUNDARIES OF THIS BUTTON THEN CHANGE THE COLOR
+	*/
+	if (this->button_.getGlobalBounds().contains(sf::Vector2f(mousePositionWindow.x, mousePositionWindow.y)))
+	{
+		//std::cout << "Within bounds." << std::endl;
+		this->button_.setFillColor(sf::Color::Green);
+
+		this->is_Hovering_ = true;
+
+		return true;
+	}
+	else
+	{
+		this->button_.setFillColor(this->fill_Color_);
+
+		this->is_Hovering_ = false;
+
+		return false;
+	}
+}
+
 void Button::render(sf::RenderTarget& target)
 {
 	/*
@@ -173,4 +197,9 @@ const float Button::getBottomPosition(bool pOrM, float offset) const
 const bool& Button::getIsVisible() const
 {
 	return this->is_Visible_;
+}
+
+const bool& Button::getIsHovering() const
+{
+	return this->is_Hovering_;
 }

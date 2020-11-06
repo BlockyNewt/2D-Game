@@ -2,6 +2,10 @@
 
 void PlayerInventory::initializeStats()
 {
+	/*
+		SET SETTINGS FOR STAT RELATED OBJECTS
+	*/
+
 	this->stats_T_A_.setSettings("Font/arial.ttf", 28, "Stats", sf::Vector2f(this->x_B_.getRightPosition(true, 80.f), this->x_B_.getTopPosition(true, 10.f)), true);
 	this->stats_T_B_.setSettings("Font/arial.ttf", 18, "Strength: ", sf::Vector2f(this->stats_T_A_.getLeftPosition(false, 50.f), this->stats_T_A_.getTopPosition(true, 40.f)), true);
 	this->stats_T_C_.setSettings("Font/arial.ttf", 18, "Dexerity: ", sf::Vector2f(this->stats_T_B_.getLeftPosition(), this->stats_T_B_.getTopPosition(true, 40.f)), true);
@@ -27,6 +31,10 @@ void PlayerInventory::initializeStats()
 
 void PlayerInventory::initializeResistances()
 {
+	/*
+		SET SETTINGS FOR RESISTANCE RELATED OBJECTS
+	*/
+
 	this->resistances_T_A_.setSettings("Font/arial.ttf", 28, "Resistances", sf::Vector2f(this->stats_T_A_.getLeftPosition(true, 250.f), this->x_B_.getTopPosition(true, 10.f)), true);
 	this->resistances_T_B_.setSettings("Font/arial.ttf", 18, "Cold: ", sf::Vector2f(this->resistances_T_A_.getLeftPosition(), this->resistances_T_A_.getTopPosition(true, 40.f)), true);
 	this->resistances_T_C_.setSettings("Font/arial.ttf", 18, "Fire: ", sf::Vector2f(this->resistances_T_B_.getLeftPosition(), this->resistances_T_B_.getTopPosition(true, 40.f)), true);
@@ -68,6 +76,10 @@ PlayerInventory::~PlayerInventory()
 
 void PlayerInventory::initializeInventory(const std::string& name, const std::string& className, const std::map<std::string, int>& stats, const std::map<std::string, int>& resistances)
 {
+	/*
+		ON INVENTORY BUTTON CLICK SET ALL STATS AND RESISTANCES
+	*/
+
 	if (!this->is_Hiding_Inventory_)
 	{
 		this->t_C_.setString("Name: " + name);

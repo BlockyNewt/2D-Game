@@ -16,6 +16,7 @@ public:
 	bool updatePollEvent(sf::Event& ev);
 
 	void updateBoundaries(const sf::Vector2i& mousePositionWindow);
+	bool updateBoundariesValue(const sf::Vector2i& mousePositionWindow);
 
 	void render(sf::RenderTarget& target);
 
@@ -30,6 +31,7 @@ public:
 	const float getTopPosition(bool pOrM = true, float offset = 0) const;
 	const float getBottomPosition(bool pOrM = true, float offset = 0) const;
 	const bool& getIsVisible() const;
+	const bool& getIsHovering()const;
 
 
 private:

@@ -29,11 +29,16 @@ PlayerTest::PlayerTest()
 
 	this->is_Falling_ = false;
 	this->is_Jumping_ = false;
+
+	//TESTING ONLY FIX LATER
+	this->player_Bag_.initializeBag(10);
+	this->camera_ = new Camera(0.f, 0.f);	
 }
 
 PlayerTest::~PlayerTest()
 {
 	//delete this->race_;
+	delete this->camera_;
 }
 
 void PlayerTest::initializeCharacter(Race* race, const std::string& name)
@@ -69,8 +74,30 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 		PLAYER HUD POLL UPDATES
 	*/
 	
-	this->player_Hud_.updateInventoryPollEvent(ev, this->name_, this->race_->getPlayerClass().getName(), this->stats_, this->resistances_);
 	this->player_Hud_.updatePollEvent(ev);
+	this->player_Inventory_.updatePollEvent(ev);
+	this->player_Bag_.updatePollEvent(ev);
+
+	if (this->player_Hud_.updateInventoryPollEvent(ev))
+	{
+		if (this->player_Inventory_.getIsHidingInventory())
+		{
+			this->player_Inventory_.setIsHidingInventory(false);
+
+			this->player_Inventory_.initializeInventory(this->name_, this->race_->getPlayerClass().getName(), this->stats_, this->resistances_);
+		}
+	}
+
+
+	if (this->player_Hud_.updateBagPollEvent(ev))
+	{
+		if (this->player_Bag_.getIsHidingBag())
+		{
+			this->player_Bag_.setIsHidingBag(false);
+		}
+	}
+
+
 
 	if (!this->is_Falling_ && !this->is_Jumping_)
 	{
@@ -121,8 +148,6 @@ void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& c
 	this->next_Position_Bounds_.left += this->velocity_.x;
 	this->next_Position_Bounds_.top += this->velocity_.y;
 
-
-
 	if (!this->is_Jumping_)
 	{
 		this->position_Before_Jump_ = this->player_Model_.getGlobalBounds().top;
@@ -144,15 +169,27 @@ void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& c
 	
 	this->next_Position_.setPosition(this->next_Position_Bounds_.left, this->next_Position_Bounds_.top);
 
+	*this->camera_ = camera;
+
 	this->player_Hud_.update(mousePositionWindow, camera, this->player_Model_.getPosition());
+	this->player_Inventory_.update(mousePositionWindow);
+	this->player_Bag_.update(mousePositionWindow);
 }
 
 void PlayerTest::render(sf::RenderTarget& target)
 {
 	target.draw(this->next_Position_);
 	target.draw(this->player_Model_);
+	
+	target.setView(target.getDefaultView());
 
 	this->player_Hud_.render(target);
+
+	this->player_Inventory_.render(target);
+	this->player_Bag_.render(target);
+
+
+	target.setView(this->camera_->getView());
 }
 
 void PlayerTest::setPosition(float x, float y)

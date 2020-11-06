@@ -2,9 +2,11 @@
 
 void MenuCharacterCreation::initializeNameGui()
 {
+	/*
+		SET SETTINGS FOR NAME RELATED OBJECTS
+	*/
+
 	this->name_T_A_.setSettings("Font/arial.ttf", 24, "Name:", sf::Vector2f(150.f, 100.f), true);
-
-
 
 	this->name_I_A_.setSettings(400.f, 40.f, this->name_T_A_.getRightPosition(true, 10.f), this->name_T_A_.getTopPosition(), sf::Color::Red, 1.f, sf::Color::White, true, false, 20);
 
@@ -14,6 +16,10 @@ void MenuCharacterCreation::initializeNameGui()
 
 void MenuCharacterCreation::initializeRaceGui()
 {
+	/*
+		SET SETTINGS FOR RACE RELATED OBJECTS
+	*/
+
 	this->race_X_A_.setSettings(800.f, 200.f, this->name_T_A_.getLeftPosition(), this->model_Preview_X_A_.getTopPosition(true, 50.f), sf::Color::Black, 1.f, sf::Color::White, true);
 
 	this->race_B_A_.setSettings(80.f, 80.f, this->race_X_A_.getLeftPosition(false, 115.f), this->race_X_A_.getTopPosition(true, 60.f), sf::Color::Red, 1.f, sf::Color::White, true);
@@ -33,6 +39,10 @@ void MenuCharacterCreation::initializeRaceGui()
 
 void MenuCharacterCreation::initializeClassGui()
 {
+	/*
+		SET SETTINGS FOR CLASS RELATED OBJECTS
+	*/
+
 	this->class_X_A_.setSettings(800.f, 335.f, this->race_X_A_.getLeftPosition(), this->race_X_A_.getBottomPosition(true, 10.f), sf::Color::Black, 1.f, sf::Color::White, true);
 
 	this->class_B_B_.setSettings(80.f, 80.f, this->class_X_A_.getLeftPosition(true, 100.f), this->class_X_A_.getTopPosition(true, 10.f), sf::Color::Red, 1.f, sf::Color::White, true);
@@ -62,12 +72,18 @@ MenuCharacterCreation::MenuCharacterCreation(const unsigned int windowSizeX, con
 	this->initializeRaceGui();
 	this->initializeClassGui();
 
+	/*
+		INITIALIZE THE RACES AND SET THE POSITION OF THEIR MODELS
+	*/
 	this->race_ = NULL;
 	this->race_Orc_.initializeRace(this->model_Preview_X_A_.getLeftPosition(true, 125.f), this->model_Preview_X_A_.getTopPosition(true, 250.f));
 	this->race_Human_.initializeRace(this->model_Preview_X_A_.getLeftPosition(true, 125.f), this->model_Preview_X_A_.getTopPosition(true, 250.f));
 	this->race_Dwarf_.initializeRace(this->model_Preview_X_A_.getLeftPosition(true, 125.f), this->model_Preview_X_A_.getTopPosition(true, 250.f));
 	this->race_Elf_.initializeRace(this->model_Preview_X_A_.getLeftPosition(true, 125.f), this->model_Preview_X_A_.getTopPosition(true, 250.f));
 
+	/*
+		SET SETTINGS FOR RACE PREVIEW MODEL
+	*/
 	this->race_Model_.setSize(sf::Vector2f(50.f, 50.f));
 	this->race_Model_.setPosition(sf::Vector2f(this->model_Preview_X_A_.getLeftPosition(true, 125.f), this->model_Preview_X_A_.getTopPosition(true, 200.f)));
 	this->race_Model_.setFillColor(sf::Color::Transparent);
@@ -83,6 +99,10 @@ MenuCharacterCreation::~MenuCharacterCreation()
 
 void MenuCharacterCreation::updateRacePollEvent(sf::Event& ev)
 {
+	/*
+		UPDATE RACE BUTTON POLL EVENTS 
+	*/
+
 	if (this->race_B_A_.updatePollEvent(ev))
 	{
 		this->race_ = &this->race_Orc_;
@@ -112,6 +132,9 @@ void MenuCharacterCreation::updateRacePollEvent(sf::Event& ev)
 
 	if (this->race_ != NULL)
 	{
+		/*
+			CHANGE NEEDED OBJECTS AFTER YOU CLICK ON A RACE
+		*/
 		this->race_T_G_.setString(this->race_->getSummary());
 		this->race_Model_ = this->race_->getModel();
 		this->race_Model_.setPosition(sf::Vector2f(this->model_Preview_X_A_.getLeftPosition(true, 125.f), this->model_Preview_X_A_.getTopPosition(true, 300.f)));
@@ -123,6 +146,13 @@ void MenuCharacterCreation::updateRacePollEvent(sf::Event& ev)
 
 void MenuCharacterCreation::updateClassPollEvent(sf::Event& ev)
 {
+	/*
+		UPDATE CLASS BUTTONS POLL EVENTS
+	*/
+
+	/*
+		IF YOU CLICK RACE CLASS ONE BUTTON
+	*/
 	if (this->class_B_B_.updatePollEvent(ev))
 	{
 		this->class_T_D_.setString(this->race_->getClassesOne().getSummary());
@@ -130,10 +160,16 @@ void MenuCharacterCreation::updateClassPollEvent(sf::Event& ev)
 
 		this->class_D_A_.setString(this->race_->getClassesOne().getSkillOne().getSummary());
 
+		/*
+			SET PLAYERS CLASS TO SELECTED CLASS
+		*/
 		this->race_->setPlayerClasses(this->race_->getClassesOne());
 		std::cout << "Player selected class name: " << this->race_->getPlayerClass().getName() << std::endl;
 	}
 
+	/*
+		IF YOU CLICK RACE CLASS TWO BUTTON
+	*/
 	if (this->class_B_C_.updatePollEvent(ev))
 	{
 		this->class_T_D_.setString(this->race_->getClassesTwo().getSummary());
@@ -141,6 +177,9 @@ void MenuCharacterCreation::updateClassPollEvent(sf::Event& ev)
 
 		this->class_D_A_.setString(this->race_->getClassesTwo().getSkillOne().getSummary());
 
+		/*
+			SET PLAYERS CLASS TO SELECTED CLASS
+		*/
 		this->race_->setPlayerClasses(this->race_->getClassesTwo());
 		std::cout << "Player selected class name: " << this->race_->getPlayerClass().getName() << std::endl;
 	}
@@ -153,6 +192,9 @@ bool MenuCharacterCreation::updatePollEvent(sf::Event& ev)
 		this->updateRacePollEvent(ev);
 		this->updateClassPollEvent(ev);
 
+		/*
+			UPDATE KEYBOARD INPUT FOR NAME INPUT
+		*/
 		this->name_I_A_.updatePollEvent(ev);
 
 		if (this->name_B_B_.updatePollEvent(ev))
@@ -184,6 +226,9 @@ void MenuCharacterCreation::update(const sf::Vector2i& mousePositionWindow)
 		this->class_B_B_.updateBoundaries(mousePositionWindow);
 		this->class_B_C_.updateBoundaries(mousePositionWindow);
 
+		/*
+			UPDATE STRING WHEN TYPING NAME IN
+		*/
 		this->name_I_A_.update(mousePositionWindow);
 
 		this->class_D_A_.update(mousePositionWindow);

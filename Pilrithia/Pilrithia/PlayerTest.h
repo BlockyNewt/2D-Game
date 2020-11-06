@@ -4,6 +4,8 @@
 #include "RaceOrc.h"
 
 #include "PlayerHud.h"
+#include "PlayerInventory.h"
+#include "PlayerBag.h"
 
 
 class PlayerTest
@@ -36,8 +38,11 @@ private:
 	void initializeHud();
 
 private:
+	Camera* camera_;
 	Race* race_;
 	PlayerHud player_Hud_;
+	PlayerInventory player_Inventory_;
+	PlayerBag player_Bag_;
 
 	std::string name_;
 	std::map<std::string, int> stats_;

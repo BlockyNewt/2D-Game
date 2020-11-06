@@ -1,9 +1,17 @@
 #ifndef PLAYERHUD_H
 #define PLAYERHUD_H
 
-#include "PlayerInventory.h"
-
 #include "Race.h"
+
+#include "Camera.h"
+
+#include "Box.h"
+#include "Button.h"
+#include "Text.h"
+#include "HoverDescription.h"
+
+#include <iostream>	
+#include <string>
 
 class PlayerHud
 {
@@ -14,7 +22,8 @@ public:
 	//ONLY FOR TESTING
 	void intializeHud(const std::string& name, const Classes* classes);
 
-	void updateInventoryPollEvent(sf::Event& ev, const std::string& name, const std::string& className, const std::map<std::string, int>& stats, const std::map<std::string, int>& resistances);
+	bool updateInventoryPollEvent(sf::Event& ev);
+	bool updateBagPollEvent(sf::Event& ev);
 	void updatePollEvent(sf::Event& ev);
 	void updateNamePosition(const sf::Vector2f& playerPosition);
 	void update(const sf::Vector2i& mousePositionWindow, const Camera& camera, const sf::Vector2f& playerPosition);
@@ -25,8 +34,6 @@ private:
 
 private:
 	Camera* camera_;
-	PlayerInventory player_Inventory_;
-
 
 	//MAYBE MAKE GUI FOR THIS LATER (COULD ALSO USE WITH ENEMIES
 	sf::RectangleShape health_Bar_Back_;

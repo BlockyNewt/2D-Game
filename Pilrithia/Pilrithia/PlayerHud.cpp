@@ -68,16 +68,27 @@ void PlayerHud::intializeHud(const std::string& name, const Classes* classes)
 	}
 }
 
-void PlayerHud::updateInventoryPollEvent(sf::Event& ev, const std::string& name, const std::string& className, const std::map<std::string, int>& stats, const std::map<std::string, int>& resistances)
+bool PlayerHud::updateInventoryPollEvent(sf::Event& ev)
 {
 	if (this->character_B_A_.updatePollEvent(ev))
 	{
-		if (this->player_Inventory_.getIsHidingInventory())
-		{
-			this->player_Inventory_.setIsHidingInventory(false);
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
 
-			this->player_Inventory_.initializeInventory(name, className, stats, resistances);
-		}
+bool PlayerHud::updateBagPollEvent(sf::Event& ev)
+{
+	if (this->character_B_B_.updatePollEvent(ev))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
 	}
 }
 
@@ -87,8 +98,6 @@ void PlayerHud::updatePollEvent(sf::Event& ev)
 		MAY WANT TO MAKE THIS FUNCTION A RETURN A STRING ON BUTTON PRESSES  BACK TO THE PLAYERTEST SO THAT WE DONT HAVE TO
 		PASS EVERYTHING FROM PLAYER INTO HERE. 
 	*/
-
-	this->player_Inventory_.updatePollEvent(ev);
 
 	if (ev.type == sf::Event::KeyPressed)
 	{
@@ -107,10 +116,7 @@ void PlayerHud::updatePollEvent(sf::Event& ev)
 
 	
 
-	if (this->character_B_B_.updatePollEvent(ev))
-	{
-
-	}
+	
 
 	if (this->character_B_C_.updatePollEvent(ev))
 	{
@@ -146,8 +152,6 @@ void PlayerHud::update(const sf::Vector2i& mousePositionWindow, const Camera& ca
 		this->skill_B_C_.updateBoundaries(mousePositionWindow);
 
 		this->skill_D_A_.update(mousePositionWindow);
-
-		this->player_Inventory_.update(mousePositionWindow);
 	}
 }
 
@@ -185,11 +189,11 @@ void PlayerHud::render(sf::RenderTarget& target)
 
 
 
-		this->player_Inventory_.render(target);
-
 		target.setView(this->camera_->getView());
 
 		this->character_T_E_.render(target);
+
+		target.setView(target.getDefaultView());
 	}
 }
 

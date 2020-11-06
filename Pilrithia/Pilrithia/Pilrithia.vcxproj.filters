@@ -37,18 +37,30 @@
     <Filter Include="Source Files\Race">
       <UniqueIdentifier>{e23f84e6-e386-46a2-b383-bd4fd8a41e41}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Player">
+      <UniqueIdentifier>{76d9318f-c5de-4aa6-9796-78b87036b7c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Player">
+      <UniqueIdentifier>{28052e2d-14df-4bea-a09a-ed149627d31f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Skills">
+      <UniqueIdentifier>{063b5482-e483-4ba0-8f17-3e98e4be6ab1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Menus">
+      <UniqueIdentifier>{b9557539-5d13-4d00-aa6a-7901a84f1d1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Menus">
+      <UniqueIdentifier>{8c90f698-9ae5-4265-a8d5-c90da052c308}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Skills">
+      <UniqueIdentifier>{4532e693-42b8-4683-ae11-bf58318889d3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Engine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuPause.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuSetting.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Tilemap.cpp">
@@ -58,9 +70,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Npc.cpp">
@@ -102,15 +111,6 @@
     <ClCompile Include="State.cpp">
       <Filter>Source Files\State</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerHud.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuCharacterCreation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Skill.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Classes.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
@@ -141,36 +141,57 @@
     <ClCompile Include="RaceOrc.cpp">
       <Filter>Source Files\Race</Filter>
     </ClCompile>
-    <ClCompile Include="SkillStabyWab.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="PlayerTest.cpp">
+      <Filter>Source Files\Player</Filter>
     </ClCompile>
-    <ClCompile Include="SkillPoisonRain.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="PlayerBag.cpp">
+      <Filter>Source Files\Player</Filter>
     </ClCompile>
-    <ClCompile Include="HoverDescription.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="PlayerHud.cpp">
+      <Filter>Source Files\Player</Filter>
     </ClCompile>
     <ClCompile Include="PlayerInventory.cpp">
+      <Filter>Source Files\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="HoverDescription.cpp">
+      <Filter>Source Files\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuCharacterCreation.cpp">
+      <Filter>Source Files\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuPause.cpp">
+      <Filter>Source Files\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuSetting.cpp">
+      <Filter>Source Files\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill.cpp">
+      <Filter>Source Files\Skills</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillPoisonRain.cpp">
+      <Filter>Source Files\Skills</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillStabyWab.cpp">
+      <Filter>Source Files\Skills</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemDropDownList.cpp">
+      <Filter>Source Files\Gui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MenuPause.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuSetting.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Tilemap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Tile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerTest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Npc.h">
@@ -212,17 +233,8 @@
     <ClInclude Include="StateTestZone.h">
       <Filter>Header Files\State</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerHud.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuCharacterCreation.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Text.h">
       <Filter>Header Files\Gui</Filter>
-    </ClInclude>
-    <ClInclude Include="Skill.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Classes.h">
       <Filter>Header Files\Classes</Filter>
@@ -254,17 +266,47 @@
     <ClInclude Include="RaceOrc.h">
       <Filter>Header Files\Race</Filter>
     </ClInclude>
-    <ClInclude Include="SkillStabyWab.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="PlayerBag.h">
+      <Filter>Header Files\Player</Filter>
     </ClInclude>
-    <ClInclude Include="SkillPoisonRain.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="HoverDescription.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="PlayerHud.h">
+      <Filter>Header Files\Player</Filter>
     </ClInclude>
     <ClInclude Include="PlayerInventory.h">
+      <Filter>Header Files\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerTest.h">
+      <Filter>Header Files\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill.h">
+      <Filter>Header Files\Skills</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillPoisonRain.h">
+      <Filter>Header Files\Skills</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillStabyWab.h">
+      <Filter>Header Files\Skills</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuCharacterCreation.h">
+      <Filter>Header Files\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuPause.h">
+      <Filter>Header Files\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuSetting.h">
+      <Filter>Header Files\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="HoverDescription.h">
+      <Filter>Header Files\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemTest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemDropDownList.h">
+      <Filter>Header Files\Gui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

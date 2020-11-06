@@ -1,8 +1,6 @@
 #ifndef PLAYERINVENTORY_H
 #define PLAYERINVENTORY_H
 
-#include "SFML/Graphics.hpp"
-
 #include "Camera.h"
 
 #include "Box.h"

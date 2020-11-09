@@ -92,6 +92,19 @@ bool PlayerHud::updateBagPollEvent(sf::Event& ev)
 	}
 }
 
+bool PlayerHud::updateQuestPollEvent(sf::Event& ev)
+{
+	if (this->character_B_C_.updatePollEvent(ev))
+	{
+		std::cout << "Showing quests" << std::endl;
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 void PlayerHud::updatePollEvent(sf::Event& ev)
 {
 	/*
@@ -112,20 +125,6 @@ void PlayerHud::updatePollEvent(sf::Event& ev)
 				this->is_Hiding_Hud_ = false;
 			}
 		}
-	}
-
-	
-
-	
-
-	if (this->character_B_C_.updatePollEvent(ev))
-	{
-
-	}
-
-	if (this->character_B_D_.updatePollEvent(ev))
-	{
-
 	}
 }
 

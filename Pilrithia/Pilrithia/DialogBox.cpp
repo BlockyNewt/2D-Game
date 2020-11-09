@@ -23,9 +23,16 @@ bool DialogBox::updatePollEvent(sf::Event& ev)
 {
 	if (this->is_Visible_)
 	{
-		if (this->expand_Button_.updatePollEvent(ev))
+		if (this->expand_Button_.getIsVisible())
 		{
-			return true;
+			if (this->expand_Button_.updatePollEvent(ev))
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
 		else
 		{
@@ -42,8 +49,11 @@ void DialogBox::update(const sf::Vector2f& mousePositionView)
 {
 	if (this->is_Visible_)
 	{
-		//std::cout << "updating mouse position for dialog box" << std::endl;
-		this->expand_Button_.updateBoundaries(sf::Vector2i(mousePositionView.x, mousePositionView.y));
+		if (this->expand_Button_.getIsVisible())
+		{
+			//std::cout << "updating mouse position for dialog box" << std::endl;
+			this->expand_Button_.updateBoundaries(sf::Vector2i(mousePositionView.x, mousePositionView.y));
+		}
 	}
 }
 
@@ -53,14 +63,30 @@ void DialogBox::render(sf::RenderTarget& target)
 	{
 		this->dialog_Background_.render(target);
 		this->dialog_Text_.render(target);
-		this->expand_Button_.render(target);
-		this->expand_Button_Text_.render(target);
+
+		if (this->expand_Button_.getIsVisible())
+		{
+			this->expand_Button_.render(target);
+			this->expand_Button_Text_.render(target);
+		}
 	}
 }
 
 void DialogBox::setIsVisible(bool isVisible)
 {
 	this->is_Visible_ = isVisible;
+}
+
+void DialogBox::setString(const std::string& string)
+{
+	this->dialog_Text_.setString(string);
+
+	this->dialog_Text_.wrapText(this->dialog_Background_.getGlobalBounds());
+}
+
+void DialogBox::setExpandButtonVisibility(bool isVisible)
+{
+	this->expand_Button_.setIsVisible(isVisible);
 }
 
 const bool& DialogBox::getIsVisible() const

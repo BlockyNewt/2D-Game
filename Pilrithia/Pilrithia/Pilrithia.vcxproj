@@ -170,8 +170,11 @@
     <ClCompile Include="PlayerBag.cpp" />
     <ClCompile Include="PlayerHud.cpp" />
     <ClCompile Include="PlayerInventory.cpp" />
+    <ClCompile Include="PlayerQuest.cpp" />
     <ClCompile Include="PlayerTest.cpp" />
+    <ClCompile Include="Quest.cpp" />
     <ClCompile Include="QuestBox.cpp" />
+    <ClCompile Include="QuestTest.cpp" />
     <ClCompile Include="Race.cpp" />
     <ClCompile Include="RaceDwarf.cpp" />
     <ClCompile Include="RaceElf.cpp" />
@@ -213,8 +216,11 @@
     <ClInclude Include="PlayerBag.h" />
     <ClInclude Include="PlayerHud.h" />
     <ClInclude Include="PlayerInventory.h" />
+    <ClInclude Include="PlayerQuest.h" />
     <ClInclude Include="PlayerTest.h" />
+    <ClInclude Include="Quest.h" />
     <ClInclude Include="QuestBox.h" />
+    <ClInclude Include="QuestTest.h" />
     <ClInclude Include="Race.h" />
     <ClInclude Include="RaceDwarf.h" />
     <ClInclude Include="RaceElf.h" />

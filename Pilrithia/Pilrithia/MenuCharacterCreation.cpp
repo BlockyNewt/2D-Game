@@ -106,21 +106,29 @@ void MenuCharacterCreation::updateRacePollEvent(sf::Event& ev)
 	if (this->race_B_A_.updatePollEvent(ev))
 	{
 		this->race_ = &this->race_Orc_;
+
+		this->setObjectsBasedOnRace();
 	}
 
 	if (this->race_B_B_.updatePollEvent(ev))
 	{
 		this->race_ = &this->race_Human_;
+
+		this->setObjectsBasedOnRace();
 	}
 
 	if (this->race_B_C_.updatePollEvent(ev))
 	{
 		this->race_ = &this->race_Dwarf_;
+
+		this->setObjectsBasedOnRace();
 	}
 
 	if (this->race_B_D_.updatePollEvent(ev))
 	{
 		this->race_ = &this->race_Elf_;
+
+		this->setObjectsBasedOnRace();
 	}
 
 	if (this->race_B_E_.updatePollEvent(ev))
@@ -130,18 +138,7 @@ void MenuCharacterCreation::updateRacePollEvent(sf::Event& ev)
 		this->race_Model_.setOutlineColor(sf::Color::Transparent);
 	}
 
-	if (this->race_ != NULL)
-	{
-		/*
-			CHANGE NEEDED OBJECTS AFTER YOU CLICK ON A RACE
-		*/
-		this->race_T_G_.setString(this->race_->getSummary());
-		this->race_Model_ = this->race_->getModel();
-		this->race_Model_.setPosition(sf::Vector2f(this->model_Preview_X_A_.getLeftPosition(true, 125.f), this->model_Preview_X_A_.getTopPosition(true, 300.f)));
-
-		this->class_T_B_.setString(this->race_->getClassesOne().getName());
-		this->class_T_C_.setString(this->race_->getClassesTwo().getName());
-	}
+	
 }
 
 void MenuCharacterCreation::updateClassPollEvent(sf::Event& ev)
@@ -226,6 +223,7 @@ void MenuCharacterCreation::update(const sf::Vector2i& mousePositionWindow)
 		this->class_B_B_.updateBoundaries(mousePositionWindow);
 		this->class_B_C_.updateBoundaries(mousePositionWindow);
 
+
 		/*
 			UPDATE STRING WHEN TYPING NAME IN
 		*/
@@ -292,6 +290,24 @@ void MenuCharacterCreation::render(sf::RenderTarget& target)
 void MenuCharacterCreation::setIsCreatingCharacter(bool isCreatingCharacter)
 {
 	this->is_Creating_Character_ = isCreatingCharacter;
+}
+
+void MenuCharacterCreation::setObjectsBasedOnRace()
+{
+	if (this->race_ != NULL)
+	{
+		/*
+			CHANGE NEEDED OBJECTS AFTER YOU CLICK ON A RACE
+		*/
+		this->race_T_G_.setString(this->race_->getSummary());
+		this->race_T_G_.wrapText(this->race_X_A_.getGlobalBounds());
+
+		this->race_Model_ = this->race_->getModel();
+		this->race_Model_.setPosition(sf::Vector2f(this->model_Preview_X_A_.getLeftPosition(true, 125.f), this->model_Preview_X_A_.getTopPosition(true, 300.f)));
+
+		this->class_T_B_.setString(this->race_->getClassesOne().getName());
+		this->class_T_C_.setString(this->race_->getClassesTwo().getName());
+	}
 }
 
 const bool& MenuCharacterCreation::getIsCreatingCharacter() const

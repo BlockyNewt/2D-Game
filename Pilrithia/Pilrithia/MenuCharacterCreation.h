@@ -29,6 +29,7 @@ public:
 	void render(sf::RenderTarget& target);
 
 	void setIsCreatingCharacter(bool isCreatingCharacter);
+	void setObjectsBasedOnRace();
 
 	const bool& getIsCreatingCharacter() const;
 	Race& getRace() const;

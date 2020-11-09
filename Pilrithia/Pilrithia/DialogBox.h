@@ -25,6 +25,8 @@ public:
 
 
 	void setIsVisible(bool isVisible);
+	void setString(const std::string& string);
+	void setExpandButtonVisibility(bool isVisible);
 
 	const bool& getIsVisible() const;
 

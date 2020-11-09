@@ -17,11 +17,14 @@ public:
 
 	void setSettings(float posX, float posY, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, const std::string& questText);
 
-	bool updatePollEvent(sf::Event& ev);
+	bool updateAcceptPollEvent(sf::Event& ev);
+	bool updateDeclinePollEvent(sf::Event& ev);
+	bool updateCompletePollEvent(sf::Event& ev);
 	void update(const sf::Vector2i& mousePositionWindow);
 	void render(sf::RenderTarget& target);
 
 	void setIsVisible(bool isVisible);
+	void setString(const std::string& string);
 
 	const bool& getIsVisible() const;
 
@@ -32,10 +35,14 @@ private:
 	Text quest_Text_;
 	Button accept_Button_;
 	Button decline_Button_;
+	Button complete_Button_;
 	Text accept_Text_;
 	Text decline_Text_;
+	Text complete_Text_;
 
 	bool is_Visible_;
+	bool is_Accepted_;
+	bool is_Completed_;
 };
 
 #endif

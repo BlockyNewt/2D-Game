@@ -6,6 +6,9 @@
 #include "PlayerHud.h"
 #include "PlayerInventory.h"
 #include "PlayerBag.h"
+#include "PlayerQuest.h"
+
+#include "QuestTest.h"
 
 
 class PlayerTest
@@ -18,14 +21,18 @@ public:
 
 	void updatePollEvent(sf::Event& ev, const float& dt);
 	void update(const sf::Vector2i& mousePositionWindow, const Camera& camera);
-	void render(sf::RenderTarget& target);
+	void renderHudItems(sf::RenderTarget& target);
+	void renderPlayerModel(sf::RenderTarget& target);
 
+
+	void addQuest(Quest& quest);
 
 	void setPosition(float x, float y);
 	void setVelocityX(float x);
 	void setVelocityY(float y);
 	void setIsFalling(bool isFalling);
 	void setIsJumping(bool isJumping);
+	PlayerQuest& setPlayerQuest();
 
 	sf::RectangleShape& getPlayerModel();
 	const sf::Vector2f& getVelocity() const;
@@ -33,6 +40,8 @@ public:
 	const sf::FloatRect getNextPositionGlobalBounds() const;
 	const bool& getIsFalling() const;
 	const bool& getIsJumping() const;
+	const PlayerQuest& getPlayerQuest() const;
+
 
 private:
 	void initializeHud();
@@ -43,6 +52,7 @@ private:
 	PlayerHud player_Hud_;
 	PlayerInventory player_Inventory_;
 	PlayerBag player_Bag_;
+	PlayerQuest player_Quest_;
 
 	std::string name_;
 	std::map<std::string, int> stats_;
@@ -63,7 +73,6 @@ private:
 
 	bool is_Falling_;
 	bool is_Jumping_;
-
 
 };
 

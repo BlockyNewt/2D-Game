@@ -22,7 +22,7 @@ public:
 	PlayerBag();
 	~PlayerBag();
 
-	void initializeBag(int maxBagSize);
+	void initializeBag(int maxBagSizeY);
 
 	void updatePollEvent(sf::Event& ev);
 	void update(const sf::Vector2i& mousePositionWindow);
@@ -35,7 +35,7 @@ public:
 private:
 
 private:
-	unsigned int max_Bag_Size_;
+	unsigned int max_Bag_Size_Y_;
 
 	HoverDescription d_A_;
 	ItemDropDownList l_A_;

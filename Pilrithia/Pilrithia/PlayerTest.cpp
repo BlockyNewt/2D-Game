@@ -6,7 +6,6 @@ PlayerTest::PlayerTest()
 	this->race_->initializeRace(0.f, 0.f);
 	this->race_->setPlayerClasses(this->race_->getClassesOne());
 
-
 	this->name_ = "";
 
 	this->player_Model_.setSize(sf::Vector2f(25.f, 50.f));
@@ -31,8 +30,8 @@ PlayerTest::PlayerTest()
 	this->is_Jumping_ = false;
 
 	//TESTING ONLY FIX LATER
-	this->player_Bag_.initializeBag(10);
-	this->camera_ = new Camera(0.f, 0.f);	
+	this->player_Bag_.initializeBag(5);
+	this->camera_ = new Camera(0.f, 0.f);
 }
 
 PlayerTest::~PlayerTest()
@@ -77,6 +76,7 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 	this->player_Hud_.updatePollEvent(ev);
 	this->player_Inventory_.updatePollEvent(ev);
 	this->player_Bag_.updatePollEvent(ev);
+	this->player_Quest_.updatePollEvent(ev);
 
 	if (this->player_Hud_.updateInventoryPollEvent(ev))
 	{
@@ -97,6 +97,14 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 		}
 	}
 
+
+	if (this->player_Hud_.updateQuestPollEvent(ev))
+	{
+		if (this->player_Quest_.getIsHidingQuest())
+		{
+			this->player_Quest_.setIsHidingQuest(false);
+		}
+	}
 
 
 	if (!this->is_Falling_ && !this->is_Jumping_)
@@ -174,22 +182,33 @@ void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& c
 	this->player_Hud_.update(mousePositionWindow, camera, this->player_Model_.getPosition());
 	this->player_Inventory_.update(mousePositionWindow);
 	this->player_Bag_.update(mousePositionWindow);
+	this->player_Quest_.update(mousePositionWindow);
 }
 
-void PlayerTest::render(sf::RenderTarget& target)
+void PlayerTest::renderHudItems(sf::RenderTarget& target)
 {
-	target.draw(this->next_Position_);
-	target.draw(this->player_Model_);
-	
 	target.setView(target.getDefaultView());
 
 	this->player_Hud_.render(target);
 
 	this->player_Inventory_.render(target);
 	this->player_Bag_.render(target);
-
+	this->player_Quest_.render(target);
 
 	target.setView(this->camera_->getView());
+}
+
+void PlayerTest::renderPlayerModel(sf::RenderTarget& target)
+{
+	target.setView(this->camera_->getView());
+
+	target.draw(this->next_Position_);
+	target.draw(this->player_Model_);
+}
+
+void PlayerTest::addQuest(Quest& quest)
+{
+	this->player_Quest_.addQuest(quest);
 }
 
 void PlayerTest::setPosition(float x, float y)
@@ -215,6 +234,11 @@ void PlayerTest::setIsFalling(bool isFalling)
 void PlayerTest::setIsJumping(bool isJumping)
 {
 	this->is_Jumping_ = isJumping;
+}
+
+PlayerQuest& PlayerTest::setPlayerQuest()
+{
+	return this->player_Quest_;
 }
 
 sf::RectangleShape& PlayerTest::getPlayerModel()
@@ -245,4 +269,9 @@ const bool& PlayerTest::getIsFalling() const
 const bool& PlayerTest::getIsJumping() const
 {
 	return this->is_Jumping_;
+}
+
+const PlayerQuest& PlayerTest::getPlayerQuest() const
+{
+	return this->player_Quest_;
 }

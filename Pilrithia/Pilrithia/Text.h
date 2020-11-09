@@ -16,6 +16,8 @@ public:
 
 	void render(sf::RenderTarget& target);
 
+	void wrapText(const sf::FloatRect boundaries);
+
 	void setString(const std::string& string);
 	void setPosition(float x, float y);
 	void setIsVisible(bool isVisible);

@@ -32,22 +32,23 @@ void HoverDescription::setString(const std::string& text)
 	*/
 
 	this->text_.setString(text);
+	this->text_.wrapText(this->description_Box_.getGlobalBounds());
 	
-	/*
-		FIND EVERY CHARACTERS POSITION IN THE STRING WITHIN THE WINDOW. IF IT'S OUTSIDE OF THE 
-		BOUNDS OF THE HOVER BOX THEN IT WILL INSERT A NEWLINE BEFORE THAT CHARACTER
-	*/
-	for (int x = 0; x < this->text_.setText().getString().getSize(); ++x)
-	{
-		if (this->text_.setText().findCharacterPos(x).x >= this->description_Box_.getRightPosition())
-		{
-			std::string reformat = this->text_.setText().getString();
+	///*
+	//	FIND EVERY CHARACTERS POSITION IN THE STRING WITHIN THE WINDOW. IF IT'S OUTSIDE OF THE 
+	//	BOUNDS OF THE HOVER BOX THEN IT WILL INSERT A NEWLINE BEFORE THAT CHARACTER
+	//*/
+	//for (int x = 0; x < this->text_.setText().getString().getSize(); ++x)
+	//{
+	//	if (this->text_.setText().findCharacterPos(x).x >= this->description_Box_.getRightPosition())
+	//	{
+	//		std::string reformat = this->text_.setText().getString();
 
-			reformat.insert(x, "\n");
+	//		reformat.insert(x, "\n");
 
-			this->text_.setString(reformat);
-		}
-	}
+	//		this->text_.setString(reformat);
+	//	}
+	//}
 
 }
 
@@ -71,4 +72,9 @@ void HoverDescription::render(sf::RenderTarget& target)
 
 		this->text_.render(target);
 	}
+}
+
+void HoverDescription::setIsVisible(bool isVisible)
+{
+	this->is_Visible_ = isVisible;
 }

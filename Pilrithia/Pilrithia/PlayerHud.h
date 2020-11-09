@@ -24,6 +24,7 @@ public:
 
 	bool updateInventoryPollEvent(sf::Event& ev);
 	bool updateBagPollEvent(sf::Event& ev);
+	bool updateQuestPollEvent(sf::Event& ev);
 	void updatePollEvent(sf::Event& ev);
 	void updateNamePosition(const sf::Vector2f& playerPosition);
 	void update(const sf::Vector2i& mousePositionWindow, const Camera& camera, const sf::Vector2f& playerPosition);

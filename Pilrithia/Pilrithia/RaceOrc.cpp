@@ -3,7 +3,7 @@
 RaceOrc::RaceOrc()
 {
 	this->name_ = "Orc";
-	this->summary_ = "Savage and huge beasts that care not for who or what you are, but only themselves. They will fight until their last breath.";
+	this->summary_ = "Green, huge, terrifying, and also a bit dim witted. They fight with pure strength and show no sign of weakness making one on one battles challenging for their opponents. Just their battlecrys and screams alone can bring terror into the most intellectual of warriors. They do not stop until their last breath and will wreak havoc on anything in their way before then. \n\nOrcs may be savages but when it comes to the people of their clan they show much care and affection towards one another.";
 
 	this->classes_One_ = new ClassesSavage();
 	this->classes_One_Advanced_ = new ClassesBerserker();
@@ -21,7 +21,7 @@ RaceOrc::~RaceOrc()
 	delete this->classes_Two_;
 	delete this->classes_Two_Advanced_;
 
-	delete this->player_Classes_;
+	//delete this->player_Classes_;
 }
 
 void RaceOrc::initializeRace(const float& posX, const float& posY)

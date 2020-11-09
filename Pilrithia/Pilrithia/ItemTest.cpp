@@ -37,7 +37,9 @@ bool ItemTest::updatePollEvent(sf::Event& ev)
 
 bool ItemTest::update(const sf::Vector2i& mousePositionWindow)
 {
-	if (this->b_A_.updateBoundariesValue(mousePositionWindow))
+	this->b_A_.updateBoundaries(mousePositionWindow);
+
+	if (this->b_A_.getIsHovering())
 	{
 		return true;
 	}

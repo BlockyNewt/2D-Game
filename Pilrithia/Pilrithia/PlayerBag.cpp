@@ -20,26 +20,26 @@ PlayerBag::~PlayerBag()
 {
 }
 
-void PlayerBag::initializeBag(int maxBagSize)
+void PlayerBag::initializeBag(int maxBagSizeY)
 {
 	/*
 		SET SIZE OF BAG 
 	*/
 
-	this->max_Bag_Size_ = maxBagSize;
+	this->max_Bag_Size_Y_ = maxBagSizeY;
 
 	this->items_.resize(13, std::vector<Item*>());
 	for (int x = 0; x < 13; ++x)
 	{
-		for (int y = 0; y < 5; ++y)
+		for (int y = 0; y < this->max_Bag_Size_Y_; ++y)
 		{
-			this->items_[x].resize(5, NULL);
+			this->items_[x].resize(this->max_Bag_Size_Y_, NULL);
 		}
 	}
 
 	for (int x = 0; x < 13; ++x)
 	{
-		for (int y = 0; y < 5; ++y)
+		for (int y = 0; y < this->max_Bag_Size_Y_; ++y)
 		{
 			this->items_[x][y] = new ItemTest(this->x_A_.getLeftPosition(true, 14.f) + x * 60.f, this->x_A_.getTopPosition(true, 100.f) + y * 60.f);
 		}
@@ -67,26 +67,55 @@ void PlayerBag::updatePollEvent(sf::Event& ev)
 		*/
 		for (int x = 0; x < 13; ++x)
 		{
-			for (int y = 0; y < 5; ++y)
+			for (int y = 0; y < this->max_Bag_Size_Y_; ++y)
 			{
-				if (this->items_[x][y]->updatePollEvent(ev))
+				if (this->items_[x][y] != NULL)
 				{
-					if (!this->l_A_.getIsHovering())
+					if (this->items_[x][y]->updatePollEvent(ev))
 					{
-						this->l_A_.setSettings(1, this->items_[x][y]->getItemGlobalBoundaries());
-						this->l_A_.setIsVisible(true);
+						if (!this->l_A_.getIsHovering())
+						{
+							this->l_A_.setSettings(1, this->items_[x][y]->getItemGlobalBoundaries());
+							this->l_A_.setIsVisible(true);
 
-						this->selected_Item_X_ = x;
-						this->selected_Item_Y_ = y;
+							this->selected_Item_X_ = x;
+							this->selected_Item_Y_ = y;
+						}
 					}
 				}
 			}
 		}
 
+		
 		/*
-			UPDATE DROP DOWN LIST POLL EVENTS
+			DROP DOWN LIST EQUIP POLL EVENT
 		*/
-		this->l_A_.updatePollEvent(ev);
+		if (this->l_A_.updateEquipPollEvent(ev))
+		{
+			//EQUIP ITEM
+		}
+
+		/*
+			DROP DOWN LIST UNEQUIP POLL EVENT
+		*/
+		if (this->l_A_.updateUnequipPollEvent(ev))
+		{
+			//UNEQUIP ITEM
+		}
+
+		/*
+			DROP DOWN LIST DELETE POLL EVENT
+		*/
+		if (this->l_A_.updateDeletePollEvent(ev))
+		{
+			//DELETE ITEM
+			
+			delete this->items_[this->selected_Item_X_][this->selected_Item_Y_];
+			this->items_[this->selected_Item_X_][this->selected_Item_Y_] = NULL;
+
+			this->l_A_.setIsHovering(false);
+			this->l_A_.setIsVisible(false);
+		}
 	}
 }
 
@@ -103,25 +132,32 @@ void PlayerBag::update(const sf::Vector2i& mousePositionWindow)
 		{
 			for (auto& y : x)
 			{
-				if (y->update(mousePositionWindow))
+				if (y != NULL)
 				{
-					this->d_A_.update(mousePositionWindow);
-					this->d_A_.setHoverBoundaries(y->getItemGlobalBoundaries());
+					if (y->update(mousePositionWindow))
+					{
+						this->d_A_.update(mousePositionWindow);
+						this->d_A_.setHoverBoundaries(y->getItemGlobalBoundaries());
 
-					//SEND ITEM NAME, DESCIPRITON, AND EFFECTS IF ANY HERE
-					this->d_A_.setString("Testing");
+						//SEND ITEM NAME, DESCIPRITON, AND EFFECTS IF ANY HERE
+						this->d_A_.setString("Test Item Description");
+					}
 				}
-				
 			}
 		}
+
 
 		/*
 			IF THE DROP DOWN LIST IS VISIBLE THEN UPDATE THAT 
 		*/
 		if (this->l_A_.getIsVisible())
 		{
-			this->items_[this->selected_Item_X_][this->selected_Item_Y_]->update(mousePositionWindow);
-			this->l_A_.update(mousePositionWindow, this->items_[this->selected_Item_X_][this->selected_Item_Y_]->getItemGlobalBoundaries());
+			if (this->items_[this->selected_Item_X_][this->selected_Item_Y_] != NULL)
+			{
+				this->items_[this->selected_Item_X_][this->selected_Item_Y_]->update(mousePositionWindow);
+				
+				this->l_A_.update(mousePositionWindow, this->items_[this->selected_Item_X_][this->selected_Item_Y_]->getItemGlobalBoundaries());
+			}
 		}
 	}
 }
@@ -136,7 +172,10 @@ void PlayerBag::render(sf::RenderTarget& target)
 		{
 			for (auto& y : x)
 			{
-				y->render(target);
+				if (y != NULL)
+				{
+					y->render(target);
+				}
 			}
 		}
 		
@@ -152,7 +191,6 @@ void PlayerBag::render(sf::RenderTarget& target)
 		this->t_E_.render(target);
 
 		this->d_A_.render(target);
-
 	}
 }
 

@@ -205,7 +205,7 @@ void StateTestZone::updatePollEvent(sf::Event& ev)
 
 			this->player_Test_.updatePollEvent(ev, this->dt_);
 
-			this->npc_Test_.updatePollEvent(ev);
+			this->npc_Test_.updatePollEvent(ev, this->player_Test_);
 
 			this->window_->setKeyRepeatEnabled(true);
 		}
@@ -229,7 +229,7 @@ void StateTestZone::update()
 
 		this->player_Test_.update(this->mouse_Position_Window_, *this->camera_);
 
-		this->npc_Test_.update(this->mouse_Position_View_, this->mouse_Position_Window_, this->player_Test_.getPlayerGlobalBounds(), *this->camera_);
+		this->npc_Test_.update(this->mouse_Position_View_, this->mouse_Position_Window_, this->player_Test_.getPlayerGlobalBounds(), *this->camera_, this->player_Test_);
 
 
 		if (this->menu_Character_Creation_->getIsCreatingCharacter())
@@ -255,9 +255,12 @@ void StateTestZone::render(sf::RenderTarget& target)
 
 	this->tilemap_->render(target);
 	
+	this->player_Test_.renderPlayerModel(target);
+
 	this->npc_Test_.render(target);
 
-	this->player_Test_.render(target);
+	this->player_Test_.renderHudItems(target);
+
 
 	target.setView(target.getDefaultView());
 

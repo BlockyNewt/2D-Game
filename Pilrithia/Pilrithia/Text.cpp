@@ -43,6 +43,25 @@ void Text::render(sf::RenderTarget& target)
 	}
 }
 
+void Text::wrapText(const sf::FloatRect boundaries)
+{
+	/*
+		FIND EVERY CHARACTERS POSITION IN THE STRING WITHIN THE WINDOW. IF IT'S OUTSIDE OF THE
+		BOUNDS OF THE HOVER BOX THEN IT WILL INSERT A NEWLINE BEFORE THAT CHARACTER
+	*/
+	for (int x = 0; x < this->text_.getString().getSize(); ++x)
+	{
+		if (this->text_.findCharacterPos(x).x >= boundaries.left + boundaries.width)
+		{
+			std::string reformat = this->text_.getString();
+
+			reformat.insert(x, "\n");
+
+			this->text_.setString(reformat);
+		}
+	}
+}
+
 void Text::setString(const std::string& string)
 {
 	this->text_.setString(string);

@@ -21,6 +21,8 @@ public:
 	void update(const sf::Vector2i& mousePositionWindow);
 	void render(sf::RenderTarget& target);
 
+	void setIsVisible(bool isVisible);
+
 private:
 
 private:

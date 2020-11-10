@@ -185,7 +185,7 @@ void NpcTest::update(const sf::Vector2f& mousePositionView, const sf::Vector2i& 
 		/*
 			IF QUEST IS NOT TURNED IN
 		*/
-		if (!this->quest_->getIsQuestTurnedIn())
+		if (!playerTest.setPlayerQuest().isQuestTurnedInCompleted(*this->quest_))
 		{
 			/*
 				IF THE QUEST IS TAKEN AND THE QUEST TASK IS NOT COMPLETED

@@ -10,6 +10,7 @@ PlayerQuest::PlayerQuest()
 
 	this->b_B_.setSettings(50.f, 50.f, this->x_A_.getRightPosition(false, 50.f), this->x_A_.getTopPosition(), sf::Color::Red, 1.f, sf::Color::White, true);
 	
+	this->t_A_.setSettings("Font/arial.ttf", 28, "Quests", sf::Vector2f(this->x_A_.getLeftPosition(true, 350.f), this->x_A_.getTopPosition(true, 10.f)), true);
 	this->t_B_.setSettings("Font/arial.ttf", 18, "Close", sf::Vector2f(this->b_B_.getLeftPosition(true, 10.f), this->b_B_.getTopPosition(true, 10.f)), true);
 }
 
@@ -56,6 +57,27 @@ bool PlayerQuest::isQuestTaskCompleted(Quest& quest)
 	{
 		if (this->quests_[i]->getQuestName() == quest.getQuestName() &&
 			this->quests_[i]->getIsTaskCompleted())
+		{
+			//std::cout << "Quest task has been completed. " << std::endl;
+
+			break;
+
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+}
+
+bool PlayerQuest::isQuestTurnedInCompleted(Quest& quest)
+{
+	
+	for (int i = 0; i < this->quests_.size(); ++i)
+	{
+		if (this->quests_[i]->getQuestName() == quest.getQuestName() &&
+			this->quests_[i]->getIsQuestTurnedIn())
 		{
 			//std::cout << "Quest task has been completed. " << std::endl;
 
@@ -134,6 +156,7 @@ void PlayerQuest::render(sf::RenderTarget& target)
 
 		this->b_B_.render(target);
 
+		this->t_A_.render(target);
 		this->t_B_.render(target);
 
 		if (!this->quests_.empty())

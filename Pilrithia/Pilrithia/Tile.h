@@ -12,8 +12,6 @@ enum class TYPE
 	DEFAULT = 0, 
 
 	BOUNDARY,
-	FALL,
-
 };
 
 class Tile

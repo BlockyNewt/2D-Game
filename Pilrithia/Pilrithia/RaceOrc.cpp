@@ -6,10 +6,10 @@ RaceOrc::RaceOrc()
 	this->summary_ = "Green, huge, terrifying, and also a bit dim witted. They fight with pure strength and show no sign of weakness making one on one battles challenging for their opponents. Just their battlecrys and screams alone can bring terror into the most intellectual of warriors. They do not stop until their last breath and will wreak havoc on anything in their way before then. \n\nOrcs may be savages but when it comes to the people of their clan they show much care and affection towards one another.";
 
 	this->classes_One_ = new ClassesSavage();
-	this->classes_One_Advanced_ = new ClassesBerserker();
+	this->classes_One_Advanced_ = NULL;
 
 	this->classes_Two_ = new ClassesRainmaker();
-	this->classes_Two_Advanced_ = new ClassesWitchDoctor();
+	this->classes_Two_Advanced_ = NULL;
 
 	this->player_Classes_ = NULL;
 }

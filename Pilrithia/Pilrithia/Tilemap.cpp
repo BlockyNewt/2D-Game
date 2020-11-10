@@ -14,6 +14,10 @@ Tilemap::Tilemap(const unsigned gridSizeX, const unsigned gridSizeY, const unsig
 	this->tile_Layer_ = 0;
 	this->tile_Type_Str_ = "";
 
+	this->is_Bottom_Colliding_ = false;
+
+	this->is_Tilemap_Loaded_ = false;
+
 	/*
 		RESIZE GRID AND THE OUTLINE GRID 
 	*/
@@ -79,7 +83,7 @@ void Tilemap::updatePollEvent(sf::Event& ev)
 
 		if (ev.key.code == sf::Keyboard::Num2)
 		{
-			if (this->tile_Type_ < 3)
+			if (this->tile_Type_ < 2)
 			{
 				this->tile_Type_++;
 
@@ -144,9 +148,6 @@ void Tilemap::updateTileType()
 		break;
 	case 1:
 		this->tile_Type_Str_ = "Boundary";
-		break;
-	case 2:
-		this->tile_Type_Str_ = "Fall";
 		break;
 	default:
 		break;
@@ -379,6 +380,8 @@ void Tilemap::load(const std::string fileName)
 
 
 		std::cout << "DEBUG::TILEMAP::SAVE() -> LOAD WAS SUCCESSFUL." << std::endl;
+
+		this->is_Tilemap_Loaded_ = true;
 	}
 	else
 	{
@@ -549,139 +552,109 @@ void Tilemap::resizeTileSize(float tileSizeXY)
 
 void Tilemap::playerCollision(PlayerTest& playerTest)
 {
-	for (int x = 0; x < this->grid_Max_Size_X_; ++x)
+	/*
+		RESET AFTER EVERY ITERATION 
+
+		DO NOT DELETE THIS!
+	*/
+
+
+	if (this->is_Tilemap_Loaded_)
 	{
-		for (int y = 0; y < this->grid_Max_Size_Y_; ++y)
+		this->is_Bottom_Colliding_ = false;
+
+		for (int x = 0; x < this->grid_Max_Size_X_; ++x)
 		{
-			for (int z = 0; z < this->grid_Max_Size_Z_; ++z)
+			for (int y = 0; y < this->grid_Max_Size_Y_; ++y)
 			{
-				/*
-					IF A GRID POSITION DOES NOT EQUAL NULL
-				*/
-				if (this->grid_[x][y][z] != NULL)
+				for (int z = 0; z < this->grid_Max_Size_Z_; ++z)
 				{
 					/*
-						GET GLOBAL BOUNDS OF PLAYER AND PLAYERS NEXT POSITION
+						IF A GRID POSITION DOES NOT EQUAL NULL
 					*/
-					sf::FloatRect playerBounds = playerTest.getPlayerGlobalBounds();
-					sf::FloatRect NextPosition = playerTest.getNextPositionGlobalBounds();
-
-					NextPosition = playerBounds;
-					NextPosition.left += playerTest.getVelocity().x;
-					NextPosition.top += playerTest.getVelocity().y;
-
-					/*
-						IF THE TILE IS BOUNDARY THEN UPDATE ITS COLLISION
-					*/
-					if (this->grid_[x][y][z]->getType() == TYPE::BOUNDARY)
+					if (this->grid_[x][y][z] != NULL)
 					{
-						if (this->grid_[x][y][z]->getGlobalBounds().intersects(NextPosition))
+						/*
+							GET GLOBAL BOUNDS OF PLAYER AND PLAYERS NEXT POSITION
+						*/
+						sf::FloatRect playerBounds = playerTest.getPlayerGlobalBounds();
+						sf::FloatRect NextPosition = playerTest.getNextPositionGlobalBounds();
+
+						NextPosition = playerBounds;
+						NextPosition.left += playerTest.getVelocity().x;
+						NextPosition.top += playerTest.getVelocity().y;
+
+						/*
+							IF THE TILE IS BOUNDARY THEN UPDATE ITS COLLISION
+						*/
+						if (this->grid_[x][y][z]->getType() == TYPE::BOUNDARY)
 						{
-							//RIGHT COLLISION
-							if (playerBounds.left < this->grid_[x][y][z]->getLeftPosition() &&
-								playerBounds.left + playerBounds.width < this->grid_[x][y][z]->getRightPosition() &&
-								playerBounds.top < this->grid_[x][y][z]->getBottomPosition() &&
-								playerBounds.top + playerBounds.height > this->grid_[x][y][z]->getTopPosition())
+							if (this->grid_[x][y][z]->getGlobalBounds().intersects(NextPosition))
 							{
-								//std::cout << "Right ";
-								playerTest.setVelocityX(0.f);
-								playerTest.getPlayerModel().setPosition(sf::Vector2f(this->grid_[x][y][z]->getLeftPosition() - playerTest.getPlayerGlobalBounds().width, playerTest.getPlayerGlobalBounds().top));
-							}
+								//RIGHT COLLISION
+								if (playerBounds.left < this->grid_[x][y][z]->getLeftPosition() &&
+									playerBounds.left + playerBounds.width < this->grid_[x][y][z]->getRightPosition() &&
+									playerBounds.top < this->grid_[x][y][z]->getBottomPosition() &&
+									playerBounds.top + playerBounds.height > this->grid_[x][y][z]->getTopPosition())
+								{
+									//std::cout << "Right ";
+									playerTest.setVelocityX(0.f);
+									playerTest.getPlayerModel().setPosition(sf::Vector2f(this->grid_[x][y][z]->getLeftPosition() - playerTest.getPlayerGlobalBounds().width, playerTest.getPlayerGlobalBounds().top));
+								}
 
-							//LEFT COLLISION
-							else if (playerBounds.left > this->grid_[x][y][z]->getLeftPosition() &&
-								playerBounds.left + playerBounds.width > this->grid_[x][y][z]->getRightPosition() &&
-								playerBounds.top < this->grid_[x][y][z]->getBottomPosition() &&
-								playerBounds.top + playerBounds.height > this->grid_[x][y][z]->getTopPosition())
-							{
-								//std::cout << "Left ";
+								//LEFT COLLISION
+								else if (playerBounds.left > this->grid_[x][y][z]->getLeftPosition() &&
+									playerBounds.left + playerBounds.width > this->grid_[x][y][z]->getRightPosition() &&
+									playerBounds.top < this->grid_[x][y][z]->getBottomPosition() &&
+									playerBounds.top + playerBounds.height > this->grid_[x][y][z]->getTopPosition())
+								{
+									//std::cout << "Left ";
 
-								playerTest.setVelocityX(0.f);
-								playerTest.getPlayerModel().setPosition(sf::Vector2f(this->grid_[x][y][z]->getRightPosition(), playerTest.getPlayerGlobalBounds().top));
-							}
+									playerTest.setVelocityX(0.f);
+									playerTest.getPlayerModel().setPosition(sf::Vector2f(this->grid_[x][y][z]->getRightPosition(), playerTest.getPlayerGlobalBounds().top));
+								}
 
-							//TOP COLLISION
-							if (playerBounds.top > this->grid_[x][y][z]->getTopPosition() &&
-								playerBounds.top + playerBounds.height > this->grid_[x][y][z]->getBottomPosition() &&
-								playerBounds.left < this->grid_[x][y][z]->getRightPosition() &&
-								playerBounds.left + playerBounds.width > this->grid_[x][y][z]->getLeftPosition())
-							{
-								std::cout << "Top " << std::endl;
+								//TOP COLLISION
+								if (playerBounds.top > this->grid_[x][y][z]->getTopPosition() &&
+									playerBounds.top + playerBounds.height > this->grid_[x][y][z]->getBottomPosition() &&
+									playerBounds.left < this->grid_[x][y][z]->getRightPosition() &&
+									playerBounds.left + playerBounds.width > this->grid_[x][y][z]->getLeftPosition())
+								{
+									//std::cout << "Top " << std::endl;
 
-								playerTest.setIsJumping(false);
-								playerTest.setIsFalling(true);
+									playerTest.setIsJumping(false);
+									playerTest.setIsFalling(true);
 
-								playerTest.setVelocityY(0.f);
-								playerTest.getPlayerModel().setPosition(sf::Vector2f(playerTest.getPlayerGlobalBounds().left, this->grid_[x][y][z]->getBottomPosition()));
-							}
+									playerTest.setVelocityY(0.f);
+									playerTest.getPlayerModel().setPosition(sf::Vector2f(playerTest.getPlayerGlobalBounds().left, this->grid_[x][y][z]->getBottomPosition()));
+								}
 
-							//BOTTOM COLLISION	
-							else if (playerBounds.top < this->grid_[x][y][z]->getTopPosition() &&
-								playerBounds.top + playerBounds.height < this->grid_[x][y][z]->getBottomPosition() &&
-								playerBounds.left < this->grid_[x][y][z]->getRightPosition() &&
-								playerBounds.left + playerBounds.width > this->grid_[x][y][z]->getLeftPosition())
-							{
-								//std::cout << "Bottom " << std::endl;
+								//BOTTOM COLLISION	
+								else if (playerBounds.top < this->grid_[x][y][z]->getTopPosition() &&
+									playerBounds.top + playerBounds.height < this->grid_[x][y][z]->getBottomPosition() &&
+									playerBounds.left < this->grid_[x][y][z]->getRightPosition() &&
+									playerBounds.left + playerBounds.width > this->grid_[x][y][z]->getLeftPosition())
+								{
+									//std::cout << "Bottom " << std::endl;
 
-								playerTest.setIsFalling(false);
-								playerTest.setVelocityY(0.f);
-								playerTest.getPlayerModel().setPosition(sf::Vector2f(playerTest.getPlayerGlobalBounds().left, this->grid_[x][y][z]->getTopPosition() - playerTest.getPlayerGlobalBounds().height));
+									playerTest.setIsFalling(false);
+									this->is_Bottom_Colliding_ = true;
+									playerTest.setVelocityY(0.f);
+									playerTest.getPlayerModel().setPosition(sf::Vector2f(playerTest.getPlayerGlobalBounds().left, this->grid_[x][y][z]->getTopPosition() - playerTest.getPlayerGlobalBounds().height));
+								}
+
+
 							}
 						}
 					}
-
-
-
-					/*
-						IF THE TILE TYPE IS FALL AND THE PLAYER IS NOT JUMPING THEN UPDATE COLLISION
-						AND MAKE THE PLAYER FALL
-
-						THIS IS STILL IFFY WITH FALLING
-					*/
-					if (this->grid_[x][y][z]->getType() == TYPE::FALL && !playerTest.getIsJumping())
+					else
 					{
-						if (this->grid_[x][y][z]->getGlobalBounds().intersects(NextPosition))
+						if (!this->is_Bottom_Colliding_ && !playerTest.getIsJumping())
 						{
-							//RIGHT COLLISION
-							if (playerBounds.left < this->grid_[x][y][z]->getLeftPosition() &&
-								playerBounds.left + playerBounds.width < this->grid_[x][y][z]->getRightPosition() &&
-								playerBounds.top < this->grid_[x][y][z]->getBottomPosition() &&
-								playerBounds.top + playerBounds.height > this->grid_[x][y][z]->getTopPosition())
-							{
-								playerTest.setIsFalling(true);
-							}
+							playerTest.setVelocityY(playerTest.getGravity());
 
-							//LEFT COLLISION
-							else if (playerBounds.left > this->grid_[x][y][z]->getLeftPosition() &&
-								playerBounds.left + playerBounds.width > this->grid_[x][y][z]->getRightPosition() &&
-								playerBounds.top < this->grid_[x][y][z]->getBottomPosition() &&
-								playerBounds.top + playerBounds.height > this->grid_[x][y][z]->getTopPosition())
-							{
-								playerTest.setIsFalling(true);
-							}
-
-							//BOTTOM COLLISION	
-							if (playerBounds.top < this->grid_[x][y][z]->getTopPosition() &&
-								playerBounds.top + playerBounds.height < this->grid_[x][y][z]->getBottomPosition() &&
-								playerBounds.left < this->grid_[x][y][z]->getRightPosition() &&
-								playerBounds.left + playerBounds.width > this->grid_[x][y][z]->getLeftPosition())
-							{
-								playerTest.setIsFalling(true);
-							}
-
-							//TOP COLLISION
-							else if (playerBounds.top > this->grid_[x][y][z]->getTopPosition() &&
-								playerBounds.top + playerBounds.height > this->grid_[x][y][z]->getBottomPosition() &&
-								playerBounds.left < this->grid_[x][y][z]->getRightPosition() &&
-								playerBounds.left + playerBounds.width > this->grid_[x][y][z]->getLeftPosition())
-							{
-								playerTest.setIsFalling(true);
-							}
 						}
 					}
-
-
-
 				}
 			}
 		}
@@ -701,4 +674,9 @@ const std::string& Tilemap::getTileTypeStr() const
 const std::string& Tilemap::getTileLayerStr() const
 {
 	return this->tile_Layer_Str_;
+}
+
+const bool& Tilemap::getIsTilemapLoaded() const
+{
+	return this->is_Tilemap_Loaded_;
 }

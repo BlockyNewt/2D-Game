@@ -114,16 +114,10 @@
     <ClCompile Include="Classes.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
-    <ClCompile Include="ClassesBerserker.cpp">
-      <Filter>Source Files\Classes</Filter>
-    </ClCompile>
     <ClCompile Include="ClassesRainmaker.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
     <ClCompile Include="ClassesSavage.cpp">
-      <Filter>Source Files\Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="ClassesWitchDoctor.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
     <ClCompile Include="Race.cpp">
@@ -192,6 +186,12 @@
     <ClCompile Include="QuestTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerSkillTree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CircleButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -248,16 +248,10 @@
     <ClInclude Include="Classes.h">
       <Filter>Header Files\Classes</Filter>
     </ClInclude>
-    <ClInclude Include="ClassesBerserker.h">
-      <Filter>Header Files\Classes</Filter>
-    </ClInclude>
     <ClInclude Include="ClassesRainmaker.h">
       <Filter>Header Files\Classes</Filter>
     </ClInclude>
     <ClInclude Include="ClassesSavage.h">
-      <Filter>Header Files\Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="ClassesWitchDoctor.h">
       <Filter>Header Files\Classes</Filter>
     </ClInclude>
     <ClInclude Include="Race.h">
@@ -324,6 +318,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="QuestTest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerSkillTree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CircleButton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

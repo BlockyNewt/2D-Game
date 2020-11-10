@@ -44,6 +44,7 @@ void State::updateMousePosition(const sf::View* view, float tileSizeXY)
 		static_cast<unsigned>(this->mouse_Position_View_.y) / static_cast<unsigned>(tileSizeXY));
 
 	//std::cout << "X: " << this->mouse_Position_Window_.x << " Y: " << this->mouse_Position_Window_.y << std::endl;
+	std::cout << "X: " << this->mouse_Position_View_.x << " Y: " << this->mouse_Position_View_.y << std::endl;
 }
 
 void State::updateDeltaClock()

@@ -37,6 +37,7 @@ public:
 	const float& getTileSizeXY() const;
 	const std::string& getTileTypeStr() const;
 	const std::string& getTileLayerStr() const;
+	const bool& getIsTilemapLoaded() const;
 
 	//TESTING 
 	void playerCollision(PlayerTest& playerTest);
@@ -63,6 +64,10 @@ private:
 	std::string tile_Type_Str_;
 	std::string tile_Layer_Str_;
 
+	bool is_Bottom_Colliding_;
+
+
+	bool is_Tilemap_Loaded_;
 
 	/*
 		CAMERA 
@@ -71,6 +76,7 @@ private:
 	float camera_Right_Position;
 	float camera_Top_Position;
 	float camera_Bottom_Position;
+
 
 
 	

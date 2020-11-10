@@ -4,9 +4,7 @@
 #include "Race.h"
 
 #include "ClassesSavage.h"
-#include "ClassesBerserker.h"
 #include "ClassesRainmaker.h"
-#include "ClassesWitchDoctor.h"
 
 class RaceOrc
 	: public Race

@@ -21,6 +21,7 @@ public:
 
 	bool isThisQuestTaken(Quest& quest);
 	bool isQuestTaskCompleted(Quest& quest);
+	bool isQuestTurnedInCompleted(Quest& quest);
 	void addQuest(Quest& quest);
 	void completeQuest(Quest& quest);
 
@@ -40,6 +41,7 @@ private:
 
 	Button b_B_;
 
+	Text t_A_;
 	Text t_B_;
 
 	int max_Quest_;

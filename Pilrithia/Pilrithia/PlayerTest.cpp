@@ -29,8 +29,12 @@ PlayerTest::PlayerTest()
 	this->is_Falling_ = false;
 	this->is_Jumping_ = false;
 
+	this->level_ = 0;
+	this->max_Exp_ = 0.f;
+	this->exp_ = 0.f;
+
 	//TESTING ONLY FIX LATER
-	this->player_Bag_.initializeBag(5);
+	this->player_Bag_.initializeBag();
 	this->camera_ = new Camera(0.f, 0.f);
 }
 
@@ -49,18 +53,34 @@ void PlayerTest::initializeCharacter(Race* race, const std::string& name)
 	this->name_ = name;
 	this->player_Hud_.intializeHud(this->name_, &this->race_->getPlayerClass());
 
-	//WILL NEED TO INSERT CLASS STATS ONCE WE HAVE THOSE READY
-	this->stats_.insert(std::make_pair("strength", 0));
-	this->stats_.insert(std::make_pair("dexerity", 0));
-	this->stats_.insert(std::make_pair("constitution", 0));
-	this->stats_.insert(std::make_pair("intelligence", 0));
-	this->stats_.insert(std::make_pair("perception", 0));
-	this->stats_.insert(std::make_pair("wisdom", 0));
+	if (this->stats_.empty())
+	{
+		this->stats_.insert(std::make_pair("strength", this->race_->getPlayerClass().getStrength()));
+		this->stats_.insert(std::make_pair("dexerity", this->race_->getPlayerClass().getDexerity()));
+		this->stats_.insert(std::make_pair("constitution", this->race_->getPlayerClass().getConstitution()));
+		this->stats_.insert(std::make_pair("intelligence", this->race_->getPlayerClass().getIntelligence()));
+		this->stats_.insert(std::make_pair("perception", this->race_->getPlayerClass().getPerception()));
+		this->stats_.insert(std::make_pair("wisdom", this->race_->getPlayerClass().getWisdom()));
 
-	this->resistances_.insert(std::make_pair("cold", 0));
-	this->resistances_.insert(std::make_pair("fire", 0));
-	this->resistances_.insert(std::make_pair("lightning", 0));
-	this->resistances_.insert(std::make_pair("poison", 0));
+		this->resistances_.insert(std::make_pair("cold", this->race_->getPlayerClass().getCold()));
+		this->resistances_.insert(std::make_pair("fire", this->race_->getPlayerClass().getFire()));
+		this->resistances_.insert(std::make_pair("lightning", this->race_->getPlayerClass().getLightning()));
+		this->resistances_.insert(std::make_pair("poison", this->race_->getPlayerClass().getPoison()));
+	}
+	else
+	{
+		this->stats_.at("strength") = this->race_->getPlayerClass().getStrength();
+		this->stats_.at("dexerity") = this->race_->getPlayerClass().getDexerity();
+		this->stats_.at("constitution") = this->race_->getPlayerClass().getConstitution();
+		this->stats_.at("intelligence") = this->race_->getPlayerClass().getIntelligence();
+		this->stats_.at("perception") = this->race_->getPlayerClass().getPerception();
+		this->stats_.at("wisdom") = this->race_->getPlayerClass().getWisdom();
+
+		this->resistances_.at("cold") = this->race_->getPlayerClass().getCold();
+		this->resistances_.at("fire") = this->race_->getPlayerClass().getFire();
+		this->resistances_.at("lightning") = this->race_->getPlayerClass().getLightning();
+		this->resistances_.at("poison") = this->race_->getPlayerClass().getPoison();
+	}
 }
 
 void PlayerTest::initializeHud()
@@ -77,6 +97,7 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 	this->player_Inventory_.updatePollEvent(ev);
 	this->player_Bag_.updatePollEvent(ev);
 	this->player_Quest_.updatePollEvent(ev);
+	this->player_Skill_Tree_.updatePollEvent(ev);
 
 	if (this->player_Hud_.updateInventoryPollEvent(ev))
 	{
@@ -106,83 +127,107 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 		}
 	}
 
-
-	if (!this->is_Falling_ && !this->is_Jumping_)
+	if (this->player_Hud_.updateSkillTreePollEvent(ev))
 	{
-		this->velocity_.y = 0.f;
-	}
-	
-	this->velocity_.x = 0.f;
-
-
-	/*
-		MOVEMENT POLL UPDATES
-	*/
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && !this->is_Jumping_)
-	{
-		this->velocity_.y += -this->movement_Speed_ * dt;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-	{
-		this->velocity_.y += this->movement_Speed_ * dt;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-	{
-		this->velocity_.x += -this->movement_Speed_ * dt;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-	{
-		this->velocity_.x += this->movement_Speed_ * dt;
-	}
-
-	/*
-		JUMP POLL UPDATE
-	*/
-	if (ev.type == sf::Event::KeyPressed && !this->is_Falling_)
-	{
-		if (ev.key.code == sf::Keyboard::Space)
+		if (this->player_Skill_Tree_.getIsHidingSkillTree())
 		{
-			this->is_Jumping_ = true;
-			this->velocity_.y += -this->jump_Speed_ * dt;
+			this->player_Skill_Tree_.setIsHidingSkillTree(false);
 		}
 	}
+
+
+	
+
+	if (this->player_Inventory_.getIsHidingInventory() &&  
+		this->player_Bag_.getIsHidingBag() && 
+		this->player_Quest_.getIsHidingQuest() && 
+		this->player_Skill_Tree_.getIsHidingSkillTree())
+	{
+		if (!this->is_Falling_ && !this->is_Jumping_)
+		{
+			this->velocity_.y = 0.f;
+		}
+
+		this->velocity_.x = 0.f;
+
+
+		/*
+			MOVEMENT POLL UPDATES
+		*/
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && !this->is_Jumping_)
+		{
+			this->velocity_.y += -this->movement_Speed_ * dt;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		{
+			this->velocity_.y += this->movement_Speed_ * dt;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		{
+			this->velocity_.x += -this->movement_Speed_ * dt;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		{
+			this->velocity_.x += this->movement_Speed_ * dt;
+		}
+
+		/*
+			JUMP POLL UPDATE
+		*/
+		if (ev.type == sf::Event::KeyPressed && !this->is_Falling_)
+		{
+			if (ev.key.code == sf::Keyboard::Space)
+			{
+				this->is_Jumping_ = true;
+				this->velocity_.y += -this->jump_Speed_ * dt;
+			}
+		}
+	}
+	
 }
 
 void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& camera)
 {
-	player_Model_.move(this->velocity_);
-
-	this->next_Position_Bounds_ = this->player_Model_.getGlobalBounds();
-	this->next_Position_Bounds_.left += this->velocity_.x;
-	this->next_Position_Bounds_.top += this->velocity_.y;
-
-	if (!this->is_Jumping_)
+	if (this->player_Inventory_.getIsHidingInventory() &&
+		this->player_Bag_.getIsHidingBag() &&
+		this->player_Quest_.getIsHidingQuest() &&
+		this->player_Skill_Tree_.getIsHidingSkillTree())
 	{
-		this->position_Before_Jump_ = this->player_Model_.getGlobalBounds().top;
-	}
+		player_Model_.move(this->velocity_);
 
-	if (this->is_Jumping_ && this->player_Model_.getGlobalBounds().top - this->position_Before_Jump_ <= -this->max_Jump_Height_)
-	{
-		//std::cout << "jumping" << std::endl;
+		this->next_Position_Bounds_ = this->player_Model_.getGlobalBounds();
+		this->next_Position_Bounds_.left += this->velocity_.x;
+		this->next_Position_Bounds_.top += this->velocity_.y;
 
-		this->is_Jumping_ = false;
-		this->is_Falling_ = true;
-		this->velocity_.y = 0.f;
-	}
+		if (!this->is_Jumping_)
+		{
+			this->position_Before_Jump_ = this->player_Model_.getGlobalBounds().top;
+		}
 
-	if (this->is_Falling_)
-	{
-		this->velocity_.y += this->gravity_;
+		if (this->is_Jumping_ && this->player_Model_.getGlobalBounds().top - this->position_Before_Jump_ <= -this->max_Jump_Height_)
+		{
+			//std::cout << "jumping" << std::endl;
+
+			this->is_Jumping_ = false;
+			this->is_Falling_ = true;
+			this->velocity_.y = 0.f;
+		}
+
+		if (this->is_Falling_)
+		{
+			this->velocity_.y += this->gravity_;
+		}
+
+		this->next_Position_.setPosition(this->next_Position_Bounds_.left, this->next_Position_Bounds_.top);
+
+		*this->camera_ = camera;
 	}
 	
-	this->next_Position_.setPosition(this->next_Position_Bounds_.left, this->next_Position_Bounds_.top);
-
-	*this->camera_ = camera;
-
 	this->player_Hud_.update(mousePositionWindow, camera, this->player_Model_.getPosition());
 	this->player_Inventory_.update(mousePositionWindow);
 	this->player_Bag_.update(mousePositionWindow);
 	this->player_Quest_.update(mousePositionWindow);
+	this->player_Skill_Tree_.update(mousePositionWindow);
 }
 
 void PlayerTest::renderHudItems(sf::RenderTarget& target)
@@ -194,6 +239,7 @@ void PlayerTest::renderHudItems(sf::RenderTarget& target)
 	this->player_Inventory_.render(target);
 	this->player_Bag_.render(target);
 	this->player_Quest_.render(target);
+	this->player_Skill_Tree_.render(target);
 
 	target.setView(this->camera_->getView());
 }
@@ -251,6 +297,11 @@ const sf::Vector2f& PlayerTest::getVelocity() const
 	return this->velocity_;
 }
 
+const float& PlayerTest::getGravity() const
+{
+	return this->gravity_;
+}
+
 const sf::FloatRect PlayerTest::getPlayerGlobalBounds() const
 {
 	return this->player_Model_.getGlobalBounds();
@@ -271,7 +322,22 @@ const bool& PlayerTest::getIsJumping() const
 	return this->is_Jumping_;
 }
 
+const PlayerInventory& PlayerTest::getPlayerInventory() const
+{
+	return this->player_Inventory_;
+}
+
+const PlayerBag& PlayerTest::getPlayerBag() const
+{
+	return this->player_Bag_;
+}
+
 const PlayerQuest& PlayerTest::getPlayerQuest() const
 {
 	return this->player_Quest_;
+}
+
+const PlayerSkillTree& PlayerTest::getPlayerSkillTree() const
+{
+	return this->player_Skill_Tree_;
 }

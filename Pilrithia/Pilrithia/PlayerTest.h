@@ -7,6 +7,7 @@
 #include "PlayerInventory.h"
 #include "PlayerBag.h"
 #include "PlayerQuest.h"
+#include "PlayerSkillTree.h"
 
 #include "QuestTest.h"
 
@@ -36,12 +37,15 @@ public:
 
 	sf::RectangleShape& getPlayerModel();
 	const sf::Vector2f& getVelocity() const;
+	const float& getGravity() const;
 	const sf::FloatRect getPlayerGlobalBounds() const;
 	const sf::FloatRect getNextPositionGlobalBounds() const;
 	const bool& getIsFalling() const;
 	const bool& getIsJumping() const;
+	const PlayerInventory& getPlayerInventory() const;
+	const PlayerBag& getPlayerBag() const;
 	const PlayerQuest& getPlayerQuest() const;
-
+	const PlayerSkillTree& getPlayerSkillTree() const;
 
 private:
 	void initializeHud();
@@ -53,6 +57,7 @@ private:
 	PlayerInventory player_Inventory_;
 	PlayerBag player_Bag_;
 	PlayerQuest player_Quest_;
+	PlayerSkillTree player_Skill_Tree_;
 
 	std::string name_;
 	std::map<std::string, int> stats_;
@@ -73,6 +78,10 @@ private:
 
 	bool is_Falling_;
 	bool is_Jumping_;
+
+	int level_;
+	float max_Exp_;
+	float exp_;
 
 };
 

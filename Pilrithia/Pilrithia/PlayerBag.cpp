@@ -14,19 +14,22 @@ PlayerBag::PlayerBag()
 	this->t_C_.setSettings("Font/arial.ttf", 28, "Gold", sf::Vector2f(this->x_A_.getLeftPosition(true, 10.f), this->x_A_.getBottomPosition(false, 40.f)), true);
 	this->t_D_.setSettings("Font/arial.ttf", 28, "Silver", sf::Vector2f(this->t_C_.getRightPosition(true, 200.f), this->x_A_.getBottomPosition(false, 40.f)), true);
 	this->t_E_.setSettings("Font/arial.ttf", 28, "Copper", sf::Vector2f(this->t_D_.getRightPosition(true, 200.f), this->x_A_.getBottomPosition(false, 40.f)), true);
+
+	this->selected_Item_X_ = 0;
+	this->selected_Item_Y_ = 0;
+
+	this->max_Bag_Size_Y_ = 1;
 }
 
 PlayerBag::~PlayerBag()
 {
 }
 
-void PlayerBag::initializeBag(int maxBagSizeY)
+void PlayerBag::initializeBag()
 {
 	/*
 		SET SIZE OF BAG 
 	*/
-
-	this->max_Bag_Size_Y_ = maxBagSizeY;
 
 	this->items_.resize(13, std::vector<Item*>());
 	for (int x = 0; x < 13; ++x)
@@ -197,6 +200,11 @@ void PlayerBag::render(sf::RenderTarget& target)
 void PlayerBag::setIsHidingBag(bool isHidingBag)
 {
 	this->is_Hiding_Bag_ = isHidingBag;
+}
+
+void PlayerBag::setMaxBagSizeY(int value)
+{
+	this->max_Bag_Size_Y_ = value;
 }
 
 const bool& PlayerBag::getIsHidingBag() const

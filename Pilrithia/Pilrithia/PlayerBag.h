@@ -22,13 +22,14 @@ public:
 	PlayerBag();
 	~PlayerBag();
 
-	void initializeBag(int maxBagSizeY);
+	void initializeBag();
 
 	void updatePollEvent(sf::Event& ev);
 	void update(const sf::Vector2i& mousePositionWindow);
 	void render(sf::RenderTarget& target);
 
 	void setIsHidingBag(bool isHidingBag);
+	void setMaxBagSizeY(int value);
 
 	const bool& getIsHidingBag() const;
 

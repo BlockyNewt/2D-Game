@@ -149,11 +149,10 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CheckBox.cpp" />
+    <ClCompile Include="CircleButton.cpp" />
     <ClCompile Include="Classes.cpp" />
-    <ClCompile Include="ClassesBerserker.cpp" />
     <ClCompile Include="ClassesRainmaker.cpp" />
     <ClCompile Include="ClassesSavage.cpp" />
-    <ClCompile Include="ClassesWitchDoctor.cpp" />
     <ClCompile Include="DialogBox.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="HoverDescription.cpp" />
@@ -171,6 +170,7 @@
     <ClCompile Include="PlayerHud.cpp" />
     <ClCompile Include="PlayerInventory.cpp" />
     <ClCompile Include="PlayerQuest.cpp" />
+    <ClCompile Include="PlayerSkillTree.cpp" />
     <ClCompile Include="PlayerTest.cpp" />
     <ClCompile Include="Quest.cpp" />
     <ClCompile Include="QuestBox.cpp" />
@@ -196,11 +196,10 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CheckBox.h" />
+    <ClInclude Include="CircleButton.h" />
     <ClInclude Include="Classes.h" />
-    <ClInclude Include="ClassesBerserker.h" />
     <ClInclude Include="ClassesRainmaker.h" />
     <ClInclude Include="ClassesSavage.h" />
-    <ClInclude Include="ClassesWitchDoctor.h" />
     <ClInclude Include="DialogBox.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="HoverDescription.h" />
@@ -217,6 +216,7 @@
     <ClInclude Include="PlayerHud.h" />
     <ClInclude Include="PlayerInventory.h" />
     <ClInclude Include="PlayerQuest.h" />
+    <ClInclude Include="PlayerSkillTree.h" />
     <ClInclude Include="PlayerTest.h" />
     <ClInclude Include="Quest.h" />
     <ClInclude Include="QuestBox.h" />

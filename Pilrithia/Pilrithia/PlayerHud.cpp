@@ -96,7 +96,20 @@ bool PlayerHud::updateQuestPollEvent(sf::Event& ev)
 {
 	if (this->character_B_C_.updatePollEvent(ev))
 	{
-		std::cout << "Showing quests" << std::endl;
+		//std::cout << "Showing quests" << std::endl;
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+bool PlayerHud::updateSkillTreePollEvent(sf::Event& ev)
+{
+	if (this->character_B_D_.updatePollEvent(ev))
+	{
+		std::cout << "Showing skill tree" << std::endl;
 		return true;
 	}
 	else

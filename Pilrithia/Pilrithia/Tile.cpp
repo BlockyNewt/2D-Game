@@ -28,12 +28,6 @@ Tile::Tile(float positionX, float positionY, float tileSizeXY, int type)
 		this->type_ = TYPE::BOUNDARY;
 		this->tile_.setFillColor(sf::Color::Yellow);
 		break;
-	case 2:
-		this->type_ = TYPE::FALL;
-		this->tile_.setFillColor(sf::Color::Blue);
-		this->tile_.setSize(sf::Vector2f(tileSizeXY / 2.f, tileSizeXY / 2.f));
-		this->tile_.setPosition(sf::Vector2f(positionX + this->tile_.getSize().x / 2.f, positionY + this->tile_.getSize().y / 2.f));
-		break;
 	default:
 		break;
 	}

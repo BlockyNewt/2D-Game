@@ -201,7 +201,13 @@ void StateTestZone::updatePollEvent(sf::Event& ev)
 		{
 			this->window_->setKeyRepeatEnabled(true);
 
-			this->camera_->updatePollEvent(ev);
+			if (this->player_Test_.getPlayerInventory().getIsHidingInventory() &&
+				this->player_Test_.getPlayerBag().getIsHidingBag() &&
+				this->player_Test_.getPlayerQuest().getIsHidingQuest() &&
+				this->player_Test_.getPlayerSkillTree().getIsHidingSkillTree())
+			{
+				this->camera_->updatePollEvent(ev);
+			}
 
 			this->player_Test_.updatePollEvent(ev, this->dt_);
 
@@ -221,13 +227,24 @@ void StateTestZone::update()
 	
 	if (!this->menu_Pause_->getIsPaused())
 	{
-		this->camera_->setCenter(sf::Vector2f(this->player_Test_.getPlayerModel().getPosition().x, this->player_Test_.getPlayerModel().getPosition().y));
+		if (this->player_Test_.getPlayerInventory().getIsHidingInventory() &&
+			this->player_Test_.getPlayerBag().getIsHidingBag() && 
+			this->player_Test_.getPlayerQuest().getIsHidingQuest() && 
+			this->player_Test_.getPlayerSkillTree().getIsHidingSkillTree())
+		{
+			this->camera_->setCenter(sf::Vector2f(this->player_Test_.getPlayerModel().getPosition().x, this->player_Test_.getPlayerModel().getPosition().y));
+		}
 
 		this->tilemap_->update(*this->camera_);
 
 		this->tilemap_->playerCollision(this->player_Test_);
 
 		this->player_Test_.update(this->mouse_Position_Window_, *this->camera_);
+
+		if (!this->player_Test_.getPlayerSkillTree().getIsHidingSkillTree())
+		{
+			this->updateMousePosition(&this->player_Test_.getPlayerSkillTree().getView(), this->tilemap_->getTileSizeXY());
+		}
 
 		this->npc_Test_.update(this->mouse_Position_View_, this->mouse_Position_Window_, this->player_Test_.getPlayerGlobalBounds(), *this->camera_, this->player_Test_);
 

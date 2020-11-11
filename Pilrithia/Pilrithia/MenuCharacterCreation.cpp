@@ -56,7 +56,7 @@ void MenuCharacterCreation::initializeClassGui()
 	this->class_T_E_.setSettings("Font/arial.ttf", 28, "Skillset preview", sf::Vector2f(this->class_X_A_.getLeftPosition(true, 300.f), this->class_X_A_.getTopPosition(true, 200.f)), true);
 	this->class_T_F_.setSettings("Font/arial.ttf", 18, "Race class skill 1", sf::Vector2f(this->class_B_F_.getLeftPosition(true, 10.f), this->class_B_F_.getTopPosition(true, 10.f)), true);
 
-	this->class_D_A_.setHoverBoundaries(this->class_B_F_.getGlobalBounds());
+	this->class_D_A_.setHoverBoundaries(HOVERPOSITION::TOP, this->class_B_F_.getGlobalBounds(), this->class_B_F_.getGlobalBounds());
 }
 
 MenuCharacterCreation::MenuCharacterCreation(const unsigned int windowSizeX, const unsigned int windowSizeY)
@@ -153,9 +153,11 @@ void MenuCharacterCreation::updateClassPollEvent(sf::Event& ev)
 	if (this->class_B_B_.updatePollEvent(ev))
 	{
 		this->class_T_D_.setString(this->race_->getClassesOne().getSummary());
+		this->class_T_D_.wrapText(this->class_X_A_.getGlobalBounds());
+
 		this->class_T_F_.setString(this->race_->getClassesOne().getSkillOne().getName());
 
-		this->class_D_A_.setString(this->race_->getClassesOne().getSkillOne().getSummary());
+		this->class_D_A_.setString(DESCRIPTIONTYPE::SKILL, this->race_->getClassesOne().getSkillOne().getName(), this->race_->getClassesOne().getSkillOne().getSummary());
 
 		/*
 			SET PLAYERS CLASS TO SELECTED CLASS
@@ -170,9 +172,11 @@ void MenuCharacterCreation::updateClassPollEvent(sf::Event& ev)
 	if (this->class_B_C_.updatePollEvent(ev))
 	{
 		this->class_T_D_.setString(this->race_->getClassesTwo().getSummary());
+		this->class_T_D_.wrapText(this->class_X_A_.getGlobalBounds());
+
 		this->class_T_F_.setString(this->race_->getClassesTwo().getSkillOne().getName());
 
-		this->class_D_A_.setString(this->race_->getClassesTwo().getSkillOne().getSummary());
+		this->class_D_A_.setString(DESCRIPTIONTYPE::SKILL, this->race_->getClassesTwo().getSkillOne().getName(), this->race_->getClassesTwo().getSkillOne().getSummary());
 
 		/*
 			SET PLAYERS CLASS TO SELECTED CLASS

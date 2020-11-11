@@ -14,19 +14,19 @@ void PlayerInventory::initializeStats()
 	this->stats_T_F_.setSettings("Font/arial.ttf", 18, "Perception: ", sf::Vector2f(this->stats_T_E_.getLeftPosition(), this->stats_T_E_.getTopPosition(true, 40.f)), true);
 	this->stats_T_G_.setSettings("Font/arial.ttf", 18, "Wisdom: ", sf::Vector2f(this->stats_T_F_.getLeftPosition(), this->stats_T_F_.getTopPosition(true, 40.f)), true);
 
-	this->stats_D_B_.setHoverBoundaries(this->stats_T_B_.getGlobalBounds());
-	this->stats_D_C_.setHoverBoundaries(this->stats_T_C_.getGlobalBounds());
-	this->stats_D_D_.setHoverBoundaries(this->stats_T_D_.getGlobalBounds());
-	this->stats_D_E_.setHoverBoundaries(this->stats_T_E_.getGlobalBounds());
-	this->stats_D_F_.setHoverBoundaries(this->stats_T_F_.getGlobalBounds());
-	this->stats_D_G_.setHoverBoundaries(this->stats_T_G_.getGlobalBounds());
+	this->stats_D_B_.setHoverBoundaries(HOVERPOSITION::TOP, this->stats_T_B_.getGlobalBounds(), this->stats_T_B_.getGlobalBounds());
+	this->stats_D_C_.setHoverBoundaries(HOVERPOSITION::TOP, this->stats_T_C_.getGlobalBounds(), this->stats_T_C_.getGlobalBounds());
+	this->stats_D_D_.setHoverBoundaries(HOVERPOSITION::TOP, this->stats_T_D_.getGlobalBounds(), this->stats_T_D_.getGlobalBounds());
+	this->stats_D_E_.setHoverBoundaries(HOVERPOSITION::TOP, this->stats_T_E_.getGlobalBounds(), this->stats_T_E_.getGlobalBounds());
+	this->stats_D_F_.setHoverBoundaries(HOVERPOSITION::TOP, this->stats_T_F_.getGlobalBounds(), this->stats_T_F_.getGlobalBounds());
+	this->stats_D_G_.setHoverBoundaries(HOVERPOSITION::TOP, this->stats_T_G_.getGlobalBounds(), this->stats_T_G_.getGlobalBounds());
 
-	this->stats_D_B_.setString("Increase physical damage, and carry capcity");
-	this->stats_D_C_.setString("Increase attack speed and dodge");
-	this->stats_D_D_.setString("Increase health");
-	this->stats_D_E_.setString("Increase damage done with magic spells");
-	this->stats_D_F_.setString("Increase detection of traps and clues, increase accuracy of ranges attacks");
-	this->stats_D_G_.setString("Increase restoration spell effects");
+	this->stats_D_B_.setString(DESCRIPTIONTYPE::STAT, "", "Increase physical damage, and carry capcity");
+	this->stats_D_C_.setString(DESCRIPTIONTYPE::STAT, "", "Increase attack speed and dodge");
+	this->stats_D_D_.setString(DESCRIPTIONTYPE::STAT, "", "Increase health");
+	this->stats_D_E_.setString(DESCRIPTIONTYPE::STAT, "", "Increase damage done with magic spells");
+	this->stats_D_F_.setString(DESCRIPTIONTYPE::STAT, "", "Increase detection of traps and clues, increase accuracy of ranges attacks");
+	this->stats_D_G_.setString(DESCRIPTIONTYPE::STAT, "", "Increase restoration spell effects");
 }
 
 void PlayerInventory::initializeResistances()
@@ -41,15 +41,15 @@ void PlayerInventory::initializeResistances()
 	this->resistances_T_D_.setSettings("Font/arial.ttf", 18, "Lightning: ", sf::Vector2f(this->resistances_T_C_.getLeftPosition(), this->resistances_T_C_.getTopPosition(true, 40.f)), true);
 	this->resistances_T_E_.setSettings("Font/arial.ttf", 18, "Poison: ", sf::Vector2f(this->resistances_T_D_.getLeftPosition(), this->resistances_T_D_.getTopPosition(true, 40.f)), true);
 
-	this->resistances_D_B_.setHoverBoundaries(this->resistances_T_B_.getGlobalBounds());
-	this->resistances_D_C_.setHoverBoundaries(this->resistances_T_C_.getGlobalBounds());
-	this->resistances_D_D_.setHoverBoundaries(this->resistances_T_D_.getGlobalBounds());
-	this->resistances_D_E_.setHoverBoundaries(this->resistances_T_E_.getGlobalBounds());
+	this->resistances_D_B_.setHoverBoundaries(HOVERPOSITION::TOP, this->resistances_T_B_.getGlobalBounds(), this->resistances_T_B_.getGlobalBounds());
+	this->resistances_D_C_.setHoverBoundaries(HOVERPOSITION::TOP, this->resistances_T_C_.getGlobalBounds(), this->resistances_T_C_.getGlobalBounds());
+	this->resistances_D_D_.setHoverBoundaries(HOVERPOSITION::TOP, this->resistances_T_D_.getGlobalBounds(), this->resistances_T_D_.getGlobalBounds());
+	this->resistances_D_E_.setHoverBoundaries(HOVERPOSITION::TOP, this->resistances_T_E_.getGlobalBounds(), this->resistances_T_E_.getGlobalBounds());
 
-	this->resistances_D_B_.setString("Increase resistance to anything that's cold");
-	this->resistances_D_C_.setString("Increase resistance to anything that's fire");
-	this->resistances_D_D_.setString("Increase resistance to anything that's lightning");
-	this->resistances_D_E_.setString("Increase resistance to anything that's poison");
+	this->resistances_D_B_.setString(DESCRIPTIONTYPE::STAT, "", "Increase resistance to anything that's cold");
+	this->resistances_D_C_.setString(DESCRIPTIONTYPE::STAT, "", "Increase resistance to anything that's fire");
+	this->resistances_D_D_.setString(DESCRIPTIONTYPE::STAT, "", "Increase resistance to anything that's lightning");
+	this->resistances_D_E_.setString(DESCRIPTIONTYPE::STAT, "", "Increase resistance to anything that's poison");
 }
 
 PlayerInventory::PlayerInventory()
@@ -68,6 +68,17 @@ PlayerInventory::PlayerInventory()
 	this->initializeResistances();
 
 	this->is_Hiding_Inventory_ = true;
+
+	this->selected_Equipment_ = ITEMTYPE::DEFAULT;
+
+	this->equipment_.insert(std::make_pair(ITEMTYPE::HELM, new ItemTest(this->x_B_.getLeftPosition(true, 10.f), this->x_B_.getTopPosition(true, 25.f), ITEMTYPE::HELM)));
+	this->equipment_.insert(std::make_pair(ITEMTYPE::SHOULDER, new ItemTest(this->x_B_.getLeftPosition(true, 10.f), this->equipment_.at(ITEMTYPE::HELM)->getButton().getBottomPosition(true, 10.f), ITEMTYPE::SHOULDER)));
+	this->equipment_.insert(std::make_pair(ITEMTYPE::CHEST, new ItemTest(this->x_B_.getLeftPosition(true, 10.f), this->equipment_.at(ITEMTYPE::SHOULDER)->getButton().getBottomPosition(true, 10.f), ITEMTYPE::CHEST)));
+	this->equipment_.insert(std::make_pair(ITEMTYPE::GLOVE, new ItemTest(this->x_B_.getLeftPosition(true, 10.f), this->equipment_.at(ITEMTYPE::CHEST)->getButton().getBottomPosition(true, 10.f), ITEMTYPE::GLOVE)));
+	this->equipment_.insert(std::make_pair(ITEMTYPE::LEG, new ItemTest(this->x_B_.getLeftPosition(true, 10.f), this->equipment_.at(ITEMTYPE::GLOVE)->getButton().getBottomPosition(true, 10.f), ITEMTYPE::LEG)));
+	this->equipment_.insert(std::make_pair(ITEMTYPE::FEET, new ItemTest(this->x_B_.getLeftPosition(true, 10.f), this->equipment_.at(ITEMTYPE::LEG)->getButton().getBottomPosition(true, 10.f), ITEMTYPE::FEET)));
+	this->equipment_.insert(std::make_pair(ITEMTYPE::WEAPON, new ItemTest(this->equipment_.at(ITEMTYPE::FEET)->getButton().getRightPosition(true, 10.f), this->equipment_.at(ITEMTYPE::FEET)->getButton().getTopPosition(), ITEMTYPE::WEAPON)));
+	this->equipment_.insert(std::make_pair(ITEMTYPE::OFFHAND, new ItemTest(this->equipment_.at(ITEMTYPE::WEAPON)->getButton().getRightPosition(true, 10.f), this->equipment_.at(ITEMTYPE::FEET)->getButton().getTopPosition(), ITEMTYPE::OFFHAND)));
 }
 
 PlayerInventory::~PlayerInventory()
@@ -113,6 +124,80 @@ void PlayerInventory::updatePollEvent(sf::Event& ev)
 		{
 			this->is_Hiding_Inventory_ = true;
 		}
+
+		if (!this->equipment_.empty())
+		{
+			if (this->equipment_.at(ITEMTYPE::HELM)->updatePollEvent(ev))
+			{
+				if (!this->l_A_.getIsHovering())
+				{
+					this->selected_Equipment_ = ITEMTYPE::HELM;
+
+				}
+			}
+			else if (this->equipment_.at(ITEMTYPE::SHOULDER)->updatePollEvent(ev))
+			{
+				if (!this->l_A_.getIsHovering())
+				{
+					this->selected_Equipment_ = ITEMTYPE::SHOULDER;
+
+				}
+			}
+			else if (this->equipment_.at(ITEMTYPE::CHEST)->updatePollEvent(ev))
+			{
+				if (!this->l_A_.getIsHovering())
+				{
+					this->selected_Equipment_ = ITEMTYPE::CHEST;
+
+				}
+			}
+			else if (this->equipment_.at(ITEMTYPE::GLOVE)->updatePollEvent(ev))
+			{
+				if (!this->l_A_.getIsHovering())
+				{
+					this->selected_Equipment_ = ITEMTYPE::GLOVE;
+
+				}
+			}
+			else if (this->equipment_.at(ITEMTYPE::LEG)->updatePollEvent(ev))
+			{
+				if (!this->l_A_.getIsHovering())
+				{
+					this->selected_Equipment_ = ITEMTYPE::LEG;
+
+				}
+			}
+			else if (this->equipment_.at(ITEMTYPE::FEET)->updatePollEvent(ev))
+			{
+				if (!this->l_A_.getIsHovering())
+				{
+					this->selected_Equipment_ = ITEMTYPE::FEET;
+
+				}
+			}
+			else if (this->equipment_.at(ITEMTYPE::WEAPON)->updatePollEvent(ev))
+			{
+				if (!this->l_A_.getIsHovering())
+				{
+					this->selected_Equipment_ = ITEMTYPE::WEAPON;
+
+				}
+			}
+			else if (this->equipment_.at(ITEMTYPE::OFFHAND)->updatePollEvent(ev))
+			{
+				if (!this->l_A_.getIsHovering())
+				{
+					this->selected_Equipment_ = ITEMTYPE::OFFHAND;
+
+				}
+			}
+
+			if (this->selected_Equipment_ != ITEMTYPE::DEFAULT)
+			{
+				this->l_A_.setSettings(1, this->equipment_.at(this->selected_Equipment_)->getItemGlobalBoundaries());
+				this->l_A_.setIsVisible(true);
+			}
+		}
 	}
 }
 
@@ -133,6 +218,27 @@ void PlayerInventory::update(const sf::Vector2i& mousePositionWindow)
 		this->resistances_D_C_.update(mousePositionWindow);
 		this->resistances_D_D_.update(mousePositionWindow);
 		this->resistances_D_E_.update(mousePositionWindow);
+
+		if (!this->equipment_.empty())
+		{
+			for (auto& e : this->equipment_)
+			{
+				if (e.second->update(mousePositionWindow))
+				{
+					e.second->setItemHoverDescriptionSettings(HOVERPOSITION::RIGHT, e.second->getItemGlobalBoundaries(), this->x_A_.getGlobalBounds(), DESCRIPTIONTYPE::ITEM, "Test", "description");
+				}
+			}
+		}
+
+		if (this->l_A_.getIsVisible())
+		{
+			if (this->equipment_.at(this->selected_Equipment_) != NULL)
+			{
+				this->equipment_.at(this->selected_Equipment_)->update(mousePositionWindow);
+
+				this->l_A_.update(mousePositionWindow, this->equipment_.at(this->selected_Equipment_)->getItemGlobalBoundaries());
+			}
+		}
 	}
 }
 
@@ -151,6 +257,16 @@ void PlayerInventory::render(sf::RenderTarget& target)
 		this->t_B_.render(target);
 		this->t_C_.render(target);
 		this->t_D_.render(target);
+
+		if (!this->equipment_.empty())
+		{
+			for (auto& e : this->equipment_)
+			{
+				e.second->render(target);
+			}
+		}
+
+		this->l_A_.render(target);
 		
 		this->stats_T_A_.render(target);
 		this->stats_T_B_.render(target);

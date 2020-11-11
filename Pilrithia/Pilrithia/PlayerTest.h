@@ -11,6 +11,7 @@
 
 #include "QuestTest.h"
 
+#include <math.h>
 
 class PlayerTest
 {	
@@ -53,7 +54,7 @@ private:
 private:
 	Camera* camera_;
 	Race* race_;
-	PlayerHud player_Hud_;
+	PlayerHud* player_Hud_;
 	PlayerInventory player_Inventory_;
 	PlayerBag player_Bag_;
 	PlayerQuest player_Quest_;

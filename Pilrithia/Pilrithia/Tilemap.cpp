@@ -623,9 +623,9 @@ void Tilemap::playerCollision(PlayerTest& playerTest)
 									//std::cout << "Top " << std::endl;
 
 									playerTest.setIsJumping(false);
-									playerTest.setIsFalling(true);
+									//playerTest.setIsFalling(true);
+									playerTest.setVelocityY(playerTest.getGravity());
 
-									playerTest.setVelocityY(0.f);
 									playerTest.getPlayerModel().setPosition(sf::Vector2f(playerTest.getPlayerGlobalBounds().left, this->grid_[x][y][z]->getBottomPosition()));
 								}
 

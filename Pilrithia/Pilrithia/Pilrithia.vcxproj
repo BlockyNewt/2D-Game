@@ -181,6 +181,7 @@
     <ClCompile Include="RaceHuman.cpp" />
     <ClCompile Include="RaceOrc.cpp" />
     <ClCompile Include="Skill.cpp" />
+    <ClCompile Include="SkillButton.cpp" />
     <ClCompile Include="SkillPoisonRain.cpp" />
     <ClCompile Include="SkillStabyWab.cpp" />
     <ClCompile Include="State.cpp" />
@@ -227,6 +228,7 @@
     <ClInclude Include="RaceHuman.h" />
     <ClInclude Include="RaceOrc.h" />
     <ClInclude Include="Skill.h" />
+    <ClInclude Include="SkillButton.h" />
     <ClInclude Include="SkillPoisonRain.h" />
     <ClInclude Include="SkillStabyWab.h" />
     <ClInclude Include="State.h" />

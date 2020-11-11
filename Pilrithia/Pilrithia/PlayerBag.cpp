@@ -44,7 +44,7 @@ void PlayerBag::initializeBag()
 	{
 		for (int y = 0; y < this->max_Bag_Size_Y_; ++y)
 		{
-			this->items_[x][y] = new ItemTest(this->x_A_.getLeftPosition(true, 14.f) + x * 60.f, this->x_A_.getTopPosition(true, 100.f) + y * 60.f);
+			this->items_[x][y] = new ItemTest(this->x_A_.getLeftPosition(true, 14.f) + x * 60.f, this->x_A_.getTopPosition(true, 100.f) + y * 60.f, ITEMTYPE::HELM);
 		}
 	}
 }
@@ -139,11 +139,13 @@ void PlayerBag::update(const sf::Vector2i& mousePositionWindow)
 				{
 					if (y->update(mousePositionWindow))
 					{
-						this->d_A_.update(mousePositionWindow);
-						this->d_A_.setHoverBoundaries(y->getItemGlobalBoundaries());
+						//this->d_A_.update(mousePositionWindow);
+						//this->d_A_.setHoverBoundaries(HOVERPOSITION::RIGHT, this->x_A_.getGlobalBounds());
 
-						//SEND ITEM NAME, DESCIPRITON, AND EFFECTS IF ANY HERE
-						this->d_A_.setString("Test Item Description");
+						////SEND ITEM NAME, DESCIPRITON, AND EFFECTS IF ANY HERE
+						//this->d_A_.setString(DESCRIPTIONTYPE::ITEM, "Item", "Test");
+
+						y->setItemHoverDescriptionSettings(HOVERPOSITION::RIGHT, y->getItemGlobalBoundaries(), this->x_A_.getGlobalBounds(), DESCRIPTIONTYPE::ITEM, "Item", "Test");
 					}
 				}
 			}

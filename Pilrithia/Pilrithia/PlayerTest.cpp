@@ -2,6 +2,8 @@
 
 PlayerTest::PlayerTest()
 {
+	this->player_Hud_ = new PlayerHud(1280, 720);
+
 	this->race_ = new RaceOrc();
 	this->race_->initializeRace(0.f, 0.f);
 	this->race_->setPlayerClasses(this->race_->getClassesOne());
@@ -21,7 +23,7 @@ PlayerTest::PlayerTest()
 	this->velocity_.x = 0.f;
 	this->velocity_.y = 0.f;
 	this->movement_Speed_ = 200.f;
-	this->gravity_ = 2.f;
+	this->gravity_ = 6.f;
 	this->position_Before_Jump_ = 0.f;
 	this->jump_Speed_ = 200.f;
 	this->max_Jump_Height_ = 60.f;
@@ -29,8 +31,8 @@ PlayerTest::PlayerTest()
 	this->is_Falling_ = false;
 	this->is_Jumping_ = false;
 
-	this->level_ = 0;
-	this->max_Exp_ = 0.f;
+	this->level_ = 1;
+	this->max_Exp_ = 3 * (std::pow(this->level_, 2.5f)) * 1.5;
 	this->exp_ = 0.f;
 
 	//TESTING ONLY FIX LATER
@@ -42,6 +44,8 @@ PlayerTest::~PlayerTest()
 {
 	//delete this->race_;
 	delete this->camera_;
+
+	delete this->player_Hud_;
 }
 
 void PlayerTest::initializeCharacter(Race* race, const std::string& name)
@@ -51,7 +55,7 @@ void PlayerTest::initializeCharacter(Race* race, const std::string& name)
 	this->player_Model_.setOutlineColor(this->race_->getModel().getOutlineColor());
 
 	this->name_ = name;
-	this->player_Hud_.intializeHud(this->name_, &this->race_->getPlayerClass());
+	this->player_Hud_->intializeHud(this->name_, &this->race_->getPlayerClass(), this->race_->getPlayerClass().getHealthMax(), this->race_->getPlayerClass().getHealth(), this->race_->getPlayerClass().getManaMax(), this->race_->getPlayerClass().getMana());
 
 	if (this->stats_.empty())
 	{
@@ -93,13 +97,13 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 		PLAYER HUD POLL UPDATES
 	*/
 	
-	this->player_Hud_.updatePollEvent(ev);
+	this->player_Hud_->updatePollEvent(ev, this->race_->getPlayerClass().setHealth(), this->race_->getPlayerClass().getHealthMax());
 	this->player_Inventory_.updatePollEvent(ev);
 	this->player_Bag_.updatePollEvent(ev);
 	this->player_Quest_.updatePollEvent(ev);
-	this->player_Skill_Tree_.updatePollEvent(ev);
+	this->player_Skill_Tree_.updatePollEvent(ev, this->stats_);
 
-	if (this->player_Hud_.updateInventoryPollEvent(ev))
+	if (this->player_Hud_->updateInventoryPollEvent(ev))
 	{
 		if (this->player_Inventory_.getIsHidingInventory())
 		{
@@ -110,7 +114,7 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 	}
 
 
-	if (this->player_Hud_.updateBagPollEvent(ev))
+	if (this->player_Hud_->updateBagPollEvent(ev))
 	{
 		if (this->player_Bag_.getIsHidingBag())
 		{
@@ -119,7 +123,7 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 	}
 
 
-	if (this->player_Hud_.updateQuestPollEvent(ev))
+	if (this->player_Hud_->updateQuestPollEvent(ev))
 	{
 		if (this->player_Quest_.getIsHidingQuest())
 		{
@@ -127,7 +131,7 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 		}
 	}
 
-	if (this->player_Hud_.updateSkillTreePollEvent(ev))
+	if (this->player_Hud_->updateSkillTreePollEvent(ev))
 	{
 		if (this->player_Skill_Tree_.getIsHidingSkillTree())
 		{
@@ -143,7 +147,7 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 		this->player_Quest_.getIsHidingQuest() && 
 		this->player_Skill_Tree_.getIsHidingSkillTree())
 	{
-		if (!this->is_Falling_ && !this->is_Jumping_)
+		if (!this->is_Jumping_)
 		{
 			this->velocity_.y = 0.f;
 		}
@@ -174,7 +178,7 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 		/*
 			JUMP POLL UPDATE
 		*/
-		if (ev.type == sf::Event::KeyPressed && !this->is_Falling_)
+		if (ev.type == sf::Event::KeyPressed)
 		{
 			if (ev.key.code == sf::Keyboard::Space)
 			{
@@ -209,12 +213,6 @@ void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& c
 			//std::cout << "jumping" << std::endl;
 
 			this->is_Jumping_ = false;
-			this->is_Falling_ = true;
-			this->velocity_.y = 0.f;
-		}
-
-		if (this->is_Falling_)
-		{
 			this->velocity_.y += this->gravity_;
 		}
 
@@ -223,18 +221,20 @@ void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& c
 		*this->camera_ = camera;
 	}
 	
-	this->player_Hud_.update(mousePositionWindow, camera, this->player_Model_.getPosition());
+	this->player_Hud_->update(mousePositionWindow, camera, this->player_Model_.getPosition());
 	this->player_Inventory_.update(mousePositionWindow);
 	this->player_Bag_.update(mousePositionWindow);
 	this->player_Quest_.update(mousePositionWindow);
 	this->player_Skill_Tree_.update(mousePositionWindow);
+
+	this->player_Hud_->setWidthOfHealthBar(this->race_->getPlayerClass().getHealthMax(), this->race_->getPlayerClass().setHealth());
 }
 
 void PlayerTest::renderHudItems(sf::RenderTarget& target)
 {
 	target.setView(target.getDefaultView());
 
-	this->player_Hud_.render(target);
+	this->player_Hud_->render(target);
 
 	this->player_Inventory_.render(target);
 	this->player_Bag_.render(target);

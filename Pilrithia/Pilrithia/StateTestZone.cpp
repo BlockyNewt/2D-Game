@@ -33,7 +33,6 @@ StateTestZone::StateTestZone(std::stack<State*>* states, sf::RenderWindow* windo
 	this->character_Creation_T_A_.setSettings("Font/arial.ttf", 35, "Would you like to create a character? \n\nThis is just another test feature. Not needed to do \nfurther testing.", sf::Vector2f(this->load_X_A_.getLeftPosition(true, 10.f), this->character_Creation_X_A_.getTopPosition(true, 10.f)), true);
 	this->character_Creation_T_B_.setSettings("Font/arial.ttf", 25, "Yes", sf::Vector2f(this->character_Creation_B_B_.getLeftPosition(true, 10.f), this->character_Creation_B_B_.getTopPosition(true, 10.f)), true);
 	this->character_Creation_T_C_.setSettings("Font/arial.ttf", 25, "No", sf::Vector2f(this->character_Creation_B_C_.getLeftPosition(true, 10.f), this->character_Creation_B_C_.getTopPosition(true, 10.f)), true);
-
 }
 
 StateTestZone::~StateTestZone()
@@ -241,11 +240,6 @@ void StateTestZone::update()
 
 		this->player_Test_.update(this->mouse_Position_Window_, *this->camera_);
 
-		if (!this->player_Test_.getPlayerSkillTree().getIsHidingSkillTree())
-		{
-			this->updateMousePosition(&this->player_Test_.getPlayerSkillTree().getView(), this->tilemap_->getTileSizeXY());
-		}
-
 		this->npc_Test_.update(this->mouse_Position_View_, this->mouse_Position_Window_, this->player_Test_.getPlayerGlobalBounds(), *this->camera_, this->player_Test_);
 
 
@@ -306,7 +300,6 @@ void StateTestZone::render(sf::RenderTarget& target)
 		this->load_T_D_.render(target);
 		this->load_I_A_.render(target);
 	}
-	
 
 
 	this->menu_Pause_->render(target);

@@ -9,14 +9,33 @@
 #include <iostream>
 #include <string>
 
+enum class HOVERPOSITION
+{
+	DEFAULT = 0,
+
+	TOP,
+	BOTTOM,
+	LEFT,
+	RIGHT
+};
+
+enum class DESCRIPTIONTYPE
+{
+	DEFUALT = 0,
+
+	ITEM,
+	SKILL,
+	STAT
+};
+
 class HoverDescription
 {
 public:
 	HoverDescription();
 	~HoverDescription();
 
-	void setHoverBoundaries(const sf::FloatRect itemBoundaries);
-	void setString(const std::string& text);
+	void setHoverBoundaries(HOVERPOSITION hoverPosition, const sf::FloatRect itemBoundaries, const sf::FloatRect itemBoundariesOffset);
+	void setString(DESCRIPTIONTYPE descriptionType, const std::string& title, const std::string& description);
 
 	void update(const sf::Vector2i& mousePositionWindow);
 	void render(sf::RenderTarget& target);
@@ -27,9 +46,12 @@ private:
 
 private:
 	sf::FloatRect boundaries_;
+	sf::FloatRect boundaries_Offset_;
 
 	Box description_Box_;
-	Text text_;
+
+	Text title_;
+	Text description_;
 
 	bool is_Visible_;
 };

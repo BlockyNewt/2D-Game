@@ -192,6 +192,9 @@
     <ClCompile Include="CircleButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SkillButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -324,6 +327,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CircleButton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillButton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -12,16 +12,24 @@ public:
 	ClassesSavage();
 	virtual ~ClassesSavage();
 
-	void setStrength(int& value) override;
-	void setDexerity(int& value) override;
-	void setConstitution(int& value) override;
-	void setIntelligence(int& value) override;
-	void setPerception(int& value) override;
-	void setWisdom(int& value) override;
+	int& setHealthMax() override;
+	int& setHealth() override;
+	int& setManaMax() override;
+	int& setMana() override;
+	int& setStrength() override;
+	int& setDexerity() override;
+	int& setConstitution() override;
+	int& setIntelligence() override;
+	int& setPerception() override;
+	int& setWisdom() override;
 
 	const std::string& getName() const override;
 	const std::string& getSummary() const override;
 	Skill& getSkillOne() const override;
+	const int& getHealthMax() const override;
+	const int& getHealth() const override;
+	const int& getManaMax() const override;
+	const int& getMana() const override;
 	const int& getStrength() const override;
 	const int& getDexerity() const override;
 	const int& getConstitution() const override;
@@ -40,7 +48,6 @@ public:
 	const int& getFire() const override;
 	const int& getLightning() const override;
 	const int& getPoison() const override;
-
 private:
 
 private:
@@ -49,6 +56,10 @@ private:
 
 	CLASSTYPE class_Type_;
 
+	int health_Max_;
+	int health_;
+	int mana_Max_;
+	int mana_;
 	int strength_;
 	int dexerity_;
 	int constitution_;

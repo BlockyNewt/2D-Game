@@ -16,21 +16,24 @@
 class PlayerHud
 {
 public:
-	PlayerHud();
+	PlayerHud(unsigned int windowSizeX, unsigned int windowSizeY);
 	~PlayerHud();
 
 	//ONLY FOR TESTING
-	void intializeHud(const std::string& name, const Classes* classes);
+	void intializeHud(const std::string& name, const Classes* classes, const int& healthMax, const int& health, const int& manaMax, const int& mana);
 
 	bool updateInventoryPollEvent(sf::Event& ev);
 	bool updateBagPollEvent(sf::Event& ev);
 	bool updateQuestPollEvent(sf::Event& ev);
 	bool updateSkillTreePollEvent(sf::Event& ev);
-	void updatePollEvent(sf::Event& ev);
+	void updatePollEvent(sf::Event& ev, int& health, const int& healthMax);
 	void updateNamePosition(const sf::Vector2f& playerPosition);
 	void update(const sf::Vector2i& mousePositionWindow, const Camera& camera, const sf::Vector2f& playerPosition);
 	void render(sf::RenderTarget& target);
 
+	void setWidthOfHealthBar(const int& healthMax, int& health);
+
+	const float percentToPixel(const float size);
 
 private:
 
@@ -43,6 +46,9 @@ private:
 
 	sf::RectangleShape mana_Bar_Back_;
 	sf::RectangleShape mana_Bar_Front_;
+
+	sf::RectangleShape experience_Bar_Back_;
+	sf::RectangleShape experience_Bar_Front_;
 
 	Button character_B_A_;
 	Button character_B_B_;
@@ -66,6 +72,9 @@ private:
 	HoverDescription skill_D_A_;
 
 	bool is_Hiding_Hud_;
+
+	unsigned int window_Size_X_;
+	unsigned int window_Size_Y_;
 };
 
 #endif // !PLAYERHUD_H

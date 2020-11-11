@@ -4,7 +4,8 @@ HoverDescription::HoverDescription()
 {
 	this->description_Box_.setSettings(200.f, 200.f, 0.f, 0.f, sf::Color::Blue, 1.f, sf::Color::White, true);
 
-	this->text_.setSettings("Font/arial.ttf", 18, "", sf::Vector2f(this->description_Box_.getLeftPosition(), this->description_Box_.getTopPosition()), true);
+	this->title_.setSettings("Font/arial.ttf", 24, "", sf::Vector2f(this->description_Box_.getLeftPosition(), this->description_Box_.getTopPosition()), true);
+	this->description_.setSettings("Font/arial.ttf", 18, "", sf::Vector2f(this->description_Box_.getLeftPosition(), this->description_Box_.getTopPosition()), true);
 
 	this->is_Visible_ = false;
 }
@@ -13,43 +14,66 @@ HoverDescription::~HoverDescription()
 {
 }
 
-void HoverDescription::setHoverBoundaries(const sf::FloatRect itemBoundaries)
+void HoverDescription::setHoverBoundaries(HOVERPOSITION hoverPosition, const sf::FloatRect itemBoundaries, const sf::FloatRect itemBoundariesOffset)
 {
 	/*
 		SET POSITION OF HOVER BOX TO THE OBJECT BEING SENT IN
 	*/
 
 	this->boundaries_ = itemBoundaries;
+	this->boundaries_Offset_ = itemBoundariesOffset;
 
-	this->description_Box_.setPosition(this->boundaries_.left, this->boundaries_.top - this->description_Box_.getGlobalBounds().height);
-	this->text_.setPosition(this->description_Box_.getLeftPosition(), this->description_Box_.getTopPosition());
+	if (hoverPosition == HOVERPOSITION::TOP)
+	{
+		this->description_Box_.setPosition(this->boundaries_Offset_.left, this->boundaries_Offset_.top - this->description_Box_.getGlobalBounds().height);
+
+	}
+	else if (hoverPosition == HOVERPOSITION::BOTTOM)
+	{
+		this->description_Box_.setPosition(this->boundaries_Offset_.left, this->boundaries_Offset_.top + this->description_Box_.getGlobalBounds().height);
+
+	}
+	else if (hoverPosition == HOVERPOSITION::LEFT)
+	{
+		this->description_Box_.setPosition(this->boundaries_Offset_.left, this->boundaries_Offset_.top);
+
+	}
+	else if (hoverPosition == HOVERPOSITION::RIGHT)
+	{
+		this->description_Box_.setPosition(this->boundaries_Offset_.left + this->boundaries_Offset_.width, this->boundaries_Offset_.top);
+	}
+
+
+	if (this->description_Box_.getTopPosition() < 0.f)
+	{
+		this->description_Box_.setPosition(this->boundaries_Offset_.left + this->boundaries_Offset_.width, 0.f);
+	}
 }
 
-void HoverDescription::setString(const std::string& text)
+void HoverDescription::setString(DESCRIPTIONTYPE descriptionType, const std::string& title, const std::string& description)
 {
 	/*
 		SET THE STRING AND WORD WRAP IT IF IT GOES OUTSIDE OF THE BOUNDARIES OF THE HOVER BOX
 	*/
 
-	this->text_.setString(text);
-	this->text_.wrapText(this->description_Box_.getGlobalBounds());
-	
-	///*
-	//	FIND EVERY CHARACTERS POSITION IN THE STRING WITHIN THE WINDOW. IF IT'S OUTSIDE OF THE 
-	//	BOUNDS OF THE HOVER BOX THEN IT WILL INSERT A NEWLINE BEFORE THAT CHARACTER
-	//*/
-	//for (int x = 0; x < this->text_.setText().getString().getSize(); ++x)
-	//{
-	//	if (this->text_.setText().findCharacterPos(x).x >= this->description_Box_.getRightPosition())
-	//	{
-	//		std::string reformat = this->text_.setText().getString();
+	if (descriptionType == DESCRIPTIONTYPE::SKILL || 
+		descriptionType == DESCRIPTIONTYPE::ITEM)
+	{
+		this->title_.setString(title);
+		this->title_.setPosition(this->description_Box_.getLeftPosition(true, 10.f), this->description_Box_.getTopPosition());
+		this->title_.wrapText(this->description_Box_.getGlobalBounds());
 
-	//		reformat.insert(x, "\n");
+		this->description_.setString(description);
+		this->description_.setPosition(this->description_Box_.getLeftPosition(), this->title_.getGlobalBounds().top + 50.f);
+		this->description_.wrapText(this->description_Box_.getGlobalBounds());
+	}
 
-	//		this->text_.setString(reformat);
-	//	}
-	//}
-
+	else if (descriptionType == DESCRIPTIONTYPE::STAT)
+	{
+		this->description_.setString(description);
+		this->description_.setPosition(this->description_Box_.getLeftPosition(), this->description_Box_.getTopPosition());
+		this->description_.wrapText(this->description_Box_.getGlobalBounds());
+	}
 }
 
 void HoverDescription::update(const sf::Vector2i& mousePositionWindow)
@@ -70,7 +94,8 @@ void HoverDescription::render(sf::RenderTarget& target)
 	{
 		this->description_Box_.render(target);
 
-		this->text_.render(target);
+		this->title_.render(target);
+		this->description_.render(target);
 	}
 }
 

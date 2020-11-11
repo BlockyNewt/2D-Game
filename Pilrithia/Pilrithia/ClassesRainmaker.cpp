@@ -7,6 +7,10 @@ ClassesRainmaker::ClassesRainmaker()
 
 	this->class_Type_ = CLASSTYPE::MENTAL;
 
+	this->health_Max_ = 12;
+	this->health_ = this->health_Max_;
+	this->mana_Max_ = 14;
+	this->mana_ = this->mana_Max_;
 	this->strength_ = 0;
 	this->dexerity_ = 0;
 	this->constitution_ = 4;
@@ -27,34 +31,54 @@ ClassesRainmaker::~ClassesRainmaker()
 	delete this->skill_One_;
 }
 
-void ClassesRainmaker::setStrength(int& value)
+int& ClassesRainmaker::setHealthMax()
 {
-	this->strength_ = value;
+	return this->health_Max_;
 }
 
-void ClassesRainmaker::setDexerity(int& value)
+int& ClassesRainmaker::setHealth()
 {
-	this->dexerity_ = value;
+	return this->health_;
 }
 
-void ClassesRainmaker::setConstitution(int& value)
+int& ClassesRainmaker::setManaMax()
 {
-	this->constitution_ = value;
+	return this->mana_Max_;
 }
 
-void ClassesRainmaker::setIntelligence(int& value)
+int& ClassesRainmaker::setMana()
 {
-	this->intelligence_ = value;
+	return this->mana_;
 }
 
-void ClassesRainmaker::setPerception(int& value)
+int& ClassesRainmaker::setStrength()
 {
-	this->perception_ = value;
+	return this->strength_;
 }
 
-void ClassesRainmaker::setWisdom(int& value)
+int& ClassesRainmaker::setDexerity()
 {
-	this->wisdom_ = value;
+	return this->dexerity_;
+}
+
+int& ClassesRainmaker::setConstitution()
+{
+	return this->constitution_;
+}
+
+int& ClassesRainmaker::setIntelligence()
+{
+	return this->intelligence_;
+}
+
+int& ClassesRainmaker::setPerception()
+{
+	return this->perception_;
+}
+
+int& ClassesRainmaker::setWisdom()
+{
+	return this->wisdom_;
 }
 
 void ClassesRainmaker::setCold(int& value)
@@ -110,6 +134,26 @@ const std::string& ClassesRainmaker::getSummary() const
 Skill& ClassesRainmaker::getSkillOne() const
 {
 	return *this->skill_One_;
+}
+
+const int& ClassesRainmaker::getHealthMax() const
+{
+	return this->health_Max_;
+}
+
+const int& ClassesRainmaker::getHealth() const
+{
+	return this->health_;
+}
+
+const int& ClassesRainmaker::getManaMax() const
+{
+	return this->mana_Max_;
+}
+
+const int& ClassesRainmaker::getMana() const
+{
+	return this->mana_;
 }
 
 const int& ClassesRainmaker::getStrength() const

@@ -7,6 +7,10 @@ ClassesSavage::ClassesSavage()
 
 	this->class_Type_ = CLASSTYPE::PHYSICAL;
 
+	this->health_Max_ = 20;
+	this->health_ = this->health_Max_;
+	this->mana_Max_ = 6;
+	this->mana_ = this->mana_Max_;
 	this->strength_ = 6;
 	this->dexerity_ = 2;
 	this->constitution_ = 5;
@@ -27,34 +31,54 @@ ClassesSavage::~ClassesSavage()
 	delete this->skill_One_;
 }
 
-void ClassesSavage::setStrength(int& value)
+int& ClassesSavage::setHealthMax()
 {
-	this->strength_ = value;
+	return this->health_Max_;
 }
 
-void ClassesSavage::setDexerity(int& value)
+int& ClassesSavage::setHealth()
 {
-	this->dexerity_ = value;
+	return this->health_;
 }
 
-void ClassesSavage::setConstitution(int& value)
+int& ClassesSavage::setManaMax()
 {
-	this->constitution_ = value;
+	return this->mana_Max_;
 }
 
-void ClassesSavage::setIntelligence(int& value)
+int& ClassesSavage::setMana()
 {
-	this->intelligence_ = value;
+	return this->mana_;
 }
 
-void ClassesSavage::setPerception(int& value)
+int& ClassesSavage::setStrength()
 {
-	this->perception_ = value;
+	return this->strength_;
 }
 
-void ClassesSavage::setWisdom(int& value)
+int& ClassesSavage::setDexerity()
 {
-	this->wisdom_ = value;
+	return this->dexerity_;
+}
+
+int& ClassesSavage::setConstitution()
+{
+	return this->constitution_;
+}
+
+int& ClassesSavage::setIntelligence()
+{
+	return this->intelligence_;
+}
+
+int& ClassesSavage::setPerception()
+{
+	return this->perception_;
+}
+
+int& ClassesSavage::setWisdom()
+{
+	return this->wisdom_;
 }
 
 void ClassesSavage::setCold(int& value)
@@ -110,6 +134,26 @@ const std::string& ClassesSavage::getSummary() const
 Skill& ClassesSavage::getSkillOne() const
 {
 	return *this->skill_One_;
+}
+
+const int& ClassesSavage::getHealthMax() const
+{
+	return this->health_Max_;
+}
+
+const int& ClassesSavage::getHealth() const
+{
+	return this->health_;
+}
+
+const int& ClassesSavage::getManaMax() const
+{
+	return this->mana_Max_;
+}
+
+const int& ClassesSavage::getMana() const
+{
+	return this->mana_;
 }
 
 const int& ClassesSavage::getStrength() const

@@ -1,12 +1,16 @@
 #ifndef PLAYERINVENTORY_H
 #define PLAYERINVENTORY_H
 
+#include "Item.h"	
+#include "ItemTest.h"
+
 #include "Camera.h"
 
 #include "Box.h"
 #include "Button.h"
 #include "Text.h"
 #include "HoverDescription.h"
+#include "ItemDropDownList.h"
 
 #include <iostream>	
 #include <vector>
@@ -72,6 +76,12 @@ private:
 
 	bool is_Hiding_Inventory_;
 
+	std::map<ITEMTYPE, Item*> equipment_;
+
+	HoverDescription d_A_;
+	ItemDropDownList l_A_;
+
+	ITEMTYPE selected_Equipment_;
 };
 
 #endif // !PLAYERINVENTORY_H

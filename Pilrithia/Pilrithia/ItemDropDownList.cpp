@@ -9,16 +9,27 @@ ItemDropDownList::~ItemDropDownList()
 {
 }
 
-void ItemDropDownList::setSettings(int itemType, const sf::FloatRect itemBoundaries)
+void ItemDropDownList::setSettings(LISTUSE listUse, const sf::FloatRect itemBoundaries)
 {
-	if (itemType == 1)
+	if (listUse == LISTUSE::INVENTORY)
 	{
-		this->b_A_.setSettings(150.f, 40.f, itemBoundaries.left + itemBoundaries.width, itemBoundaries.top, sf::Color::Red, 1.f, sf::Color::White, true);
-		this->b_B_.setSettings(150.f, 40.f, this->b_A_.getLeftPosition(), this->b_A_.getBottomPosition(true, 1.f), sf::Color::Red, 1.f, sf::Color::White, true);
+		this->b_A_.setSettings(0.f, 0.f, 0.f, 0.f, sf::Color::Transparent, 0.f, sf::Color::Transparent, false);
+		this->b_B_.setSettings(150.f, 40.f, itemBoundaries.left + itemBoundaries.width, itemBoundaries.top, sf::Color::Red, 1.f, sf::Color::White, true);
 		this->b_C_.setSettings(150.f, 40.f, this->b_B_.getLeftPosition(), this->b_B_.getBottomPosition(true, 1.f), sf::Color::Red, 1.f, sf::Color::White, true);
 
-		this->t_A_.setSettings("Font/arial.ttf", 18, "Equip", sf::Vector2f(this->b_A_.getGlobalBounds().left + 10.f, this->b_A_.getGlobalBounds().top + 10.f), true);
+		this->t_A_.setSettings("Font/arial.ttf", 0, "", sf::Vector2f(0.f, 0.f), false);
 		this->t_B_.setSettings("Font/arial.ttf", 18, "Unequip", sf::Vector2f(this->b_B_.getGlobalBounds().left + 10.f, this->b_B_.getGlobalBounds().top + 10.f), true);
+		this->t_C_.setSettings("Font/arial.ttf", 18, "Delete", sf::Vector2f(this->b_C_.getGlobalBounds().left + 10.f, this->b_C_.getGlobalBounds().top + 10.f), true);
+	}
+	
+	else if (listUse == LISTUSE::BAG)
+	{
+		this->b_A_.setSettings(150.f, 40.f, itemBoundaries.left + itemBoundaries.width, itemBoundaries.top, sf::Color::Red, 1.f, sf::Color::White, true);
+		this->b_B_.setSettings(0.f, 0.f, 0.f, 0.f, sf::Color::Transparent, 0.f, sf::Color::Transparent, false);
+		this->b_C_.setSettings(150.f, 40.f, this->b_A_.getLeftPosition(), this->b_A_.getBottomPosition(true, 1.f), sf::Color::Red, 1.f, sf::Color::White, true);
+
+		this->t_A_.setSettings("Font/arial.ttf", 18, "Equip", sf::Vector2f(this->b_A_.getGlobalBounds().left + 10.f, this->b_A_.getGlobalBounds().top + 10.f), true);
+		this->t_B_.setSettings("Font/arial.ttf", 0, "", sf::Vector2f(0.f, 0.f), false);
 		this->t_C_.setSettings("Font/arial.ttf", 18, "Delete", sf::Vector2f(this->b_C_.getGlobalBounds().left + 10.f, this->b_C_.getGlobalBounds().top + 10.f), true);
 	}
 }

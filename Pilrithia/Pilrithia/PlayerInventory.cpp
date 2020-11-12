@@ -7,12 +7,14 @@ void PlayerInventory::initializeStats()
 	*/
 
 	this->stats_T_A_.setSettings("Font/arial.ttf", 28, "Stats", sf::Vector2f(this->x_B_.getRightPosition(true, 80.f), this->x_B_.getTopPosition(true, 10.f)), true);
-	this->stats_T_B_.setSettings("Font/arial.ttf", 18, "Strength: ", sf::Vector2f(this->stats_T_A_.getLeftPosition(false, 50.f), this->stats_T_A_.getTopPosition(true, 40.f)), true);
-	this->stats_T_C_.setSettings("Font/arial.ttf", 18, "Dexerity: ", sf::Vector2f(this->stats_T_B_.getLeftPosition(), this->stats_T_B_.getTopPosition(true, 40.f)), true);
-	this->stats_T_D_.setSettings("Font/arial.ttf", 18, "Constitution: ", sf::Vector2f(this->stats_T_C_.getLeftPosition(), this->stats_T_C_.getTopPosition(true, 40.f)), true);
-	this->stats_T_E_.setSettings("Font/arial.ttf", 18, "Intelligence: ", sf::Vector2f(this->stats_T_D_.getLeftPosition(), this->stats_T_D_.getTopPosition(true, 40.f)), true);
-	this->stats_T_F_.setSettings("Font/arial.ttf", 18, "Perception: ", sf::Vector2f(this->stats_T_E_.getLeftPosition(), this->stats_T_E_.getTopPosition(true, 40.f)), true);
-	this->stats_T_G_.setSettings("Font/arial.ttf", 18, "Wisdom: ", sf::Vector2f(this->stats_T_F_.getLeftPosition(), this->stats_T_F_.getTopPosition(true, 40.f)), true);
+	this->stats_T_B_.setSettings("Font/arial.ttf", 18, "Health: ", sf::Vector2f(this->stats_T_A_.getLeftPosition(false, 50.f), this->stats_T_A_.getTopPosition(true, 40.f)), true);
+	this->stats_T_C_.setSettings("Font/arial.ttf", 18, "Mana: ", sf::Vector2f(this->stats_T_A_.getLeftPosition(false, 50.f), this->stats_T_B_.getTopPosition(true, 40.f)), true);
+	this->stats_T_D_.setSettings("Font/arial.ttf", 18, "Strength: ", sf::Vector2f(this->stats_T_A_.getLeftPosition(false, 50.f), this->stats_T_C_.getTopPosition(true, 40.f)), true);
+	this->stats_T_E_.setSettings("Font/arial.ttf", 18, "Dexerity: ", sf::Vector2f(this->stats_T_B_.getLeftPosition(), this->stats_T_D_.getTopPosition(true, 40.f)), true);
+	this->stats_T_F_.setSettings("Font/arial.ttf", 18, "Constitution: ", sf::Vector2f(this->stats_T_B_.getLeftPosition(), this->stats_T_E_.getTopPosition(true, 40.f)), true);
+	this->stats_T_G_.setSettings("Font/arial.ttf", 18, "Intelligence: ", sf::Vector2f(this->stats_T_B_.getLeftPosition(), this->stats_T_F_.getTopPosition(true, 40.f)), true);
+	this->stats_T_H_.setSettings("Font/arial.ttf", 18, "Perception: ", sf::Vector2f(this->stats_T_B_.getLeftPosition(), this->stats_T_G_.getTopPosition(true, 40.f)), true);
+	this->stats_T_I_.setSettings("Font/arial.ttf", 18, "Wisdom: ", sf::Vector2f(this->stats_T_B_.getLeftPosition(), this->stats_T_H_.getTopPosition(true, 40.f)), true);
 
 	this->stats_D_B_.setHoverBoundaries(HOVERPOSITION::TOP, this->stats_T_B_.getGlobalBounds(), this->stats_T_B_.getGlobalBounds());
 	this->stats_D_C_.setHoverBoundaries(HOVERPOSITION::TOP, this->stats_T_C_.getGlobalBounds(), this->stats_T_C_.getGlobalBounds());
@@ -69,16 +71,45 @@ PlayerInventory::PlayerInventory()
 
 	this->is_Hiding_Inventory_ = true;
 
-	this->selected_Equipment_ = ITEMTYPE::DEFAULT;
+	this->selected_Equipment_ = 0;
 
-	this->equipment_.insert(std::make_pair(ITEMTYPE::HELM, new ItemTest(this->x_B_.getLeftPosition(true, 10.f), this->x_B_.getTopPosition(true, 25.f), ITEMTYPE::HELM)));
-	this->equipment_.insert(std::make_pair(ITEMTYPE::SHOULDER, new ItemTest(this->x_B_.getLeftPosition(true, 10.f), this->equipment_.at(ITEMTYPE::HELM)->getButton().getBottomPosition(true, 10.f), ITEMTYPE::SHOULDER)));
-	this->equipment_.insert(std::make_pair(ITEMTYPE::CHEST, new ItemTest(this->x_B_.getLeftPosition(true, 10.f), this->equipment_.at(ITEMTYPE::SHOULDER)->getButton().getBottomPosition(true, 10.f), ITEMTYPE::CHEST)));
-	this->equipment_.insert(std::make_pair(ITEMTYPE::GLOVE, new ItemTest(this->x_B_.getLeftPosition(true, 10.f), this->equipment_.at(ITEMTYPE::CHEST)->getButton().getBottomPosition(true, 10.f), ITEMTYPE::GLOVE)));
-	this->equipment_.insert(std::make_pair(ITEMTYPE::LEG, new ItemTest(this->x_B_.getLeftPosition(true, 10.f), this->equipment_.at(ITEMTYPE::GLOVE)->getButton().getBottomPosition(true, 10.f), ITEMTYPE::LEG)));
-	this->equipment_.insert(std::make_pair(ITEMTYPE::FEET, new ItemTest(this->x_B_.getLeftPosition(true, 10.f), this->equipment_.at(ITEMTYPE::LEG)->getButton().getBottomPosition(true, 10.f), ITEMTYPE::FEET)));
-	this->equipment_.insert(std::make_pair(ITEMTYPE::WEAPON, new ItemTest(this->equipment_.at(ITEMTYPE::FEET)->getButton().getRightPosition(true, 10.f), this->equipment_.at(ITEMTYPE::FEET)->getButton().getTopPosition(), ITEMTYPE::WEAPON)));
-	this->equipment_.insert(std::make_pair(ITEMTYPE::OFFHAND, new ItemTest(this->equipment_.at(ITEMTYPE::WEAPON)->getButton().getRightPosition(true, 10.f), this->equipment_.at(ITEMTYPE::FEET)->getButton().getTopPosition(), ITEMTYPE::OFFHAND)));
+	this->helm_Icon_.setPosition(sf::Vector2f(this->x_B_.getLeftPosition(true, 10.f), this->x_B_.getTopPosition(true, 25.f)));
+	this->helm_Icon_.setSize(sf::Vector2f(50.f, 50.f));
+	this->helm_Icon_.setFillColor(sf::Color::Red);
+	this->helm_Icon_.setOutlineThickness(1.f);
+	this->helm_Icon_.setOutlineColor(sf::Color::White);
+
+	this->shoulder_Icon_.setPosition(sf::Vector2f(this->x_B_.getLeftPosition(true, 10.f), this->helm_Icon_.getGlobalBounds().top + this->helm_Icon_.getGlobalBounds().height + 10.f));
+	this->shoulder_Icon_.setSize(sf::Vector2f(50.f, 50.f));
+	this->shoulder_Icon_.setFillColor(sf::Color::Red);
+	this->shoulder_Icon_.setOutlineThickness(1.f);
+	this->shoulder_Icon_.setOutlineColor(sf::Color::White);
+
+	this->chest_Icon_.setPosition(sf::Vector2f(this->x_B_.getLeftPosition(true, 10.f), this->shoulder_Icon_.getGlobalBounds().top + this->shoulder_Icon_.getGlobalBounds().height + 10.f));
+	this->chest_Icon_.setSize(sf::Vector2f(50.f, 50.f));
+	this->chest_Icon_.setFillColor(sf::Color::Red);
+	this->chest_Icon_.setOutlineThickness(1.f);
+	this->chest_Icon_.setOutlineColor(sf::Color::White);
+
+	this->glove_Icon_.setPosition(sf::Vector2f(this->x_B_.getLeftPosition(true, 10.f), this->chest_Icon_.getGlobalBounds().top + this->chest_Icon_.getGlobalBounds().height + 10.f));
+	this->glove_Icon_.setSize(sf::Vector2f(50.f, 50.f));
+	this->glove_Icon_.setFillColor(sf::Color::Red);
+	this->glove_Icon_.setOutlineThickness(1.f);
+	this->glove_Icon_.setOutlineColor(sf::Color::White);
+
+	this->leg_Icon_.setPosition(sf::Vector2f(this->x_B_.getLeftPosition(true, 10.f), this->glove_Icon_.getGlobalBounds().top + this->glove_Icon_.getGlobalBounds().height + 10.f));
+	this->leg_Icon_.setSize(sf::Vector2f(50.f, 50.f));
+	this->leg_Icon_.setFillColor(sf::Color::Red);
+	this->leg_Icon_.setOutlineThickness(1.f);
+	this->leg_Icon_.setOutlineColor(sf::Color::White);
+
+	this->feet_Icon_.setPosition(sf::Vector2f(this->x_B_.getLeftPosition(true, 10.f), this->leg_Icon_.getGlobalBounds().top + this->leg_Icon_.getGlobalBounds().height + 10.f));
+	this->feet_Icon_.setSize(sf::Vector2f(50.f, 50.f));
+	this->feet_Icon_.setFillColor(sf::Color::Red);
+	this->feet_Icon_.setOutlineThickness(1.f);
+	this->feet_Icon_.setOutlineColor(sf::Color::White);
+
+	this->equipment_.resize(6, NULL);
 }
 
 PlayerInventory::~PlayerInventory()
@@ -96,14 +127,17 @@ void PlayerInventory::initializeInventory(const std::string& name, const std::st
 		this->t_C_.setString("Name: " + name);
 		this->t_D_.setString("Class: " + className);
 
+
 		if (!stats.empty())
 		{
-			this->stats_T_B_.setString("Strength: " + std::to_string(stats.find("strength")->second));
-			this->stats_T_C_.setString("Dexerity: " + std::to_string(stats.find("dexerity")->second));
-			this->stats_T_D_.setString("Constitution: " + std::to_string(stats.find("constitution")->second));
-			this->stats_T_E_.setString("Intelligence: " + std::to_string(stats.find("intelligence")->second));
-			this->stats_T_F_.setString("Perception: " + std::to_string(stats.find("perception")->second));
-			this->stats_T_G_.setString("Wisdom: " + std::to_string(stats.find("wisdom")->second));
+			this->stats_T_B_.setString("Health: " + std::to_string(stats.find("health")->second));
+			this->stats_T_C_.setString("Mana: " + std::to_string(stats.find("mana")->second));
+			this->stats_T_D_.setString("Strength: " + std::to_string(stats.find("strength")->second));
+			this->stats_T_E_.setString("Dexerity: " + std::to_string(stats.find("dexerity")->second));
+			this->stats_T_F_.setString("Constitution: " + std::to_string(stats.find("constitution")->second));
+			this->stats_T_G_.setString("Intelligence: " + std::to_string(stats.find("intelligence")->second));
+			this->stats_T_H_.setString("Perception: " + std::to_string(stats.find("perception")->second));
+			this->stats_T_I_.setString("Wisdom: " + std::to_string(stats.find("wisdom")->second));
 		}
 
 		if (!resistances.empty())
@@ -116,7 +150,65 @@ void PlayerInventory::initializeInventory(const std::string& name, const std::st
 	}
 }
 
-void PlayerInventory::updatePollEvent(sf::Event& ev)
+void PlayerInventory::realignEquipment()
+{
+	for (int x = 0; x < 6; ++x)
+	{
+		if (this->equipment_[x] != NULL)
+		{
+			if (this->equipment_[x]->getItemType() == ITEMTYPE::HELM)
+			{
+				this->equipment_[x]->setPosition(this->helm_Icon_.getPosition());
+			}
+			else if (this->equipment_[x]->getItemType() == ITEMTYPE::SHOULDER)
+			{
+				this->equipment_[x]->setPosition(this->shoulder_Icon_.getPosition());
+			}
+			else if (this->equipment_[x]->getItemType() == ITEMTYPE::CHEST)
+			{
+				this->equipment_[x]->setPosition(this->chest_Icon_.getPosition());
+			}
+			else if (this->equipment_[x]->getItemType() == ITEMTYPE::GLOVE)
+			{
+				this->equipment_[x]->setPosition(this->glove_Icon_.getPosition());
+			}
+			else if (this->equipment_[x]->getItemType() == ITEMTYPE::LEG)
+			{
+				this->equipment_[x]->setPosition(this->leg_Icon_.getPosition());
+			}
+			else if (this->equipment_[x]->getItemType() == ITEMTYPE::FEET)
+			{
+				this->equipment_[x]->setPosition(this->feet_Icon_.getPosition());
+			}
+		}
+	}
+}
+
+void PlayerInventory::updateText(std::map<std::string, int>& stats, std::map<std::string, int>& resistances)
+{
+	if (!stats.empty())
+	{
+		this->stats_T_B_.setString("Health: " + std::to_string(stats.find("health")->second));
+		this->stats_T_C_.setString("Mana: " + std::to_string(stats.find("mana")->second));
+		this->stats_T_D_.setString("Strength: " + std::to_string(stats.find("strength")->second));
+		this->stats_T_E_.setString("Dexerity: " + std::to_string(stats.find("dexerity")->second));
+		this->stats_T_F_.setString("Constitution: " + std::to_string(stats.find("constitution")->second));
+		this->stats_T_G_.setString("Intelligence: " + std::to_string(stats.find("intelligence")->second));
+		this->stats_T_H_.setString("Perception: " + std::to_string(stats.find("perception")->second));
+		this->stats_T_I_.setString("Wisdom: " + std::to_string(stats.find("wisdom")->second));
+	}
+
+	if (!resistances.empty())
+	{
+		this->resistances_T_B_.setString("Cold: " + std::to_string(resistances.find("cold")->second));
+		this->resistances_T_C_.setString("Fire: " + std::to_string(resistances.find("fire")->second));
+		this->resistances_T_D_.setString("Lightning: " + std::to_string(resistances.find("lightning")->second));
+		this->resistances_T_E_.setString("Poison: " + std::to_string(resistances.find("poison")->second));
+	}
+}
+
+
+void PlayerInventory::updatePollEvent(sf::Event& ev, std::map<std::string, int>& stats, std::map<std::string, int>& resistances, std::vector<std::vector<Item*>>& items, const unsigned& maxBagSizeX, const unsigned& maxBagSizeY)
 {
 	if (!this->is_Hiding_Inventory_)
 	{
@@ -125,78 +217,75 @@ void PlayerInventory::updatePollEvent(sf::Event& ev)
 			this->is_Hiding_Inventory_ = true;
 		}
 
-		if (!this->equipment_.empty())
+
+		for (int x = 0; x < 6; ++x)
 		{
-			if (this->equipment_.at(ITEMTYPE::HELM)->updatePollEvent(ev))
+			if (this->equipment_[x] != NULL)
 			{
-				if (!this->l_A_.getIsHovering())
+				if (this->equipment_[x]->updatePollEvent(ev))
 				{
-					this->selected_Equipment_ = ITEMTYPE::HELM;
+					if (!this->l_A_.getIsHovering())
+					{
+						this->l_A_.setSettings(LISTUSE::INVENTORY, this->equipment_[x]->getItemGlobalBoundaries());
+						this->l_A_.setIsVisible(true);
 
+						this->selected_Equipment_ = x;
+					}
 				}
 			}
-			else if (this->equipment_.at(ITEMTYPE::SHOULDER)->updatePollEvent(ev))
-			{
-				if (!this->l_A_.getIsHovering())
-				{
-					this->selected_Equipment_ = ITEMTYPE::SHOULDER;
+		}
 
+		if (this->l_A_.updateEquipPollEvent(ev))
+		{
+
+		}
+
+		if (this->l_A_.updateUnequipPollEvent(ev))
+		{
+			bool isBreaking = false;
+
+			for (int x = 0; x < maxBagSizeX; ++x)
+			{
+				for (int y = 0; y < maxBagSizeY; ++y)
+				{
+					if (items[x][y] == NULL)
+					{
+						items[x][y] = this->equipment_[this->selected_Equipment_]->getNewItem();
+
+						this->equipment_[this->selected_Equipment_]->descreaseStatsOnUnequip(stats, resistances);
+
+						delete this->equipment_[this->selected_Equipment_];
+						this->equipment_[this->selected_Equipment_] = NULL;
+
+						isBreaking = true;
+
+						break;
+					}
+				}
+
+				if (isBreaking)
+				{
+					break;
 				}
 			}
-			else if (this->equipment_.at(ITEMTYPE::CHEST)->updatePollEvent(ev))
-			{
-				if (!this->l_A_.getIsHovering())
-				{
-					this->selected_Equipment_ = ITEMTYPE::CHEST;
+			
+			this->updateText(stats, resistances);
 
-				}
-			}
-			else if (this->equipment_.at(ITEMTYPE::GLOVE)->updatePollEvent(ev))
-			{
-				if (!this->l_A_.getIsHovering())
-				{
-					this->selected_Equipment_ = ITEMTYPE::GLOVE;
+			this->l_A_.setIsVisible(false);
+			this->l_A_.setIsHovering(false);
+		}
 
-				}
-			}
-			else if (this->equipment_.at(ITEMTYPE::LEG)->updatePollEvent(ev))
-			{
-				if (!this->l_A_.getIsHovering())
-				{
-					this->selected_Equipment_ = ITEMTYPE::LEG;
+		if (this->l_A_.updateDeletePollEvent(ev))
+		{
+			this->equipment_[this->selected_Equipment_]->descreaseStatsOnUnequip(stats, resistances);
 
-				}
-			}
-			else if (this->equipment_.at(ITEMTYPE::FEET)->updatePollEvent(ev))
-			{
-				if (!this->l_A_.getIsHovering())
-				{
-					this->selected_Equipment_ = ITEMTYPE::FEET;
+			delete this->equipment_[this->selected_Equipment_];
+			this->equipment_[this->selected_Equipment_] = NULL;
 
-				}
-			}
-			else if (this->equipment_.at(ITEMTYPE::WEAPON)->updatePollEvent(ev))
-			{
-				if (!this->l_A_.getIsHovering())
-				{
-					this->selected_Equipment_ = ITEMTYPE::WEAPON;
+			this->l_A_.setIsVisible(false);
+			this->l_A_.setIsHovering(false);
 
-				}
-			}
-			else if (this->equipment_.at(ITEMTYPE::OFFHAND)->updatePollEvent(ev))
-			{
-				if (!this->l_A_.getIsHovering())
-				{
-					this->selected_Equipment_ = ITEMTYPE::OFFHAND;
-
-				}
-			}
-
-			if (this->selected_Equipment_ != ITEMTYPE::DEFAULT)
-			{
-				this->l_A_.setSettings(1, this->equipment_.at(this->selected_Equipment_)->getItemGlobalBoundaries());
-				this->l_A_.setIsVisible(true);
-			}
+			this->updateText(stats, resistances);
 		}
 	}
 }
@@ -213,30 +302,33 @@ void PlayerInventory::update(const sf::Vector2i& mousePositionWindow)
 		this->stats_D_E_.update(mousePositionWindow);
 		this->stats_D_F_.update(mousePositionWindow);
 		this->stats_D_G_.update(mousePositionWindow);
+		this->stats_D_H_.update(mousePositionWindow);
+		this->stats_D_I_.update(mousePositionWindow);
 
 		this->resistances_D_B_.update(mousePositionWindow);
 		this->resistances_D_C_.update(mousePositionWindow);
 		this->resistances_D_D_.update(mousePositionWindow);
 		this->resistances_D_E_.update(mousePositionWindow);
 
-		if (!this->equipment_.empty())
+
+		for (auto& x : this->equipment_)
 		{
-			for (auto& e : this->equipment_)
+			if (x != NULL)
 			{
-				if (e.second->update(mousePositionWindow))
+				if (x->update(mousePositionWindow))
 				{
-					e.second->setItemHoverDescriptionSettings(HOVERPOSITION::RIGHT, e.second->getItemGlobalBoundaries(), this->x_A_.getGlobalBounds(), DESCRIPTIONTYPE::ITEM, "Test", "description");
+					x->setItemHoverDescriptionSettings(HOVERPOSITION::RIGHT, x->getItemGlobalBoundaries(), this->x_A_.getGlobalBounds(), DESCRIPTIONTYPE::ITEM, x->getName(), x->getDescription());
 				}
 			}
 		}
 
 		if (this->l_A_.getIsVisible())
 		{
-			if (this->equipment_.at(this->selected_Equipment_) != NULL)
+			if (this->equipment_[this->selected_Equipment_] != NULL)
 			{
-				this->equipment_.at(this->selected_Equipment_)->update(mousePositionWindow);
+				this->equipment_[this->selected_Equipment_]->update(mousePositionWindow);
 
-				this->l_A_.update(mousePositionWindow, this->equipment_.at(this->selected_Equipment_)->getItemGlobalBoundaries());
+				this->l_A_.update(mousePositionWindow, this->equipment_[this->selected_Equipment_]->getItemGlobalBoundaries());
 			}
 		}
 	}
@@ -258,13 +350,23 @@ void PlayerInventory::render(sf::RenderTarget& target)
 		this->t_C_.render(target);
 		this->t_D_.render(target);
 
-		if (!this->equipment_.empty())
+
+		target.draw(this->helm_Icon_);
+		target.draw(this->shoulder_Icon_);
+		target.draw(this->chest_Icon_);
+		target.draw(this->glove_Icon_);
+		target.draw(this->leg_Icon_);
+		target.draw(this->feet_Icon_);
+		
+		for (auto& e : this->equipment_)
 		{
-			for (auto& e : this->equipment_)
+			if (e != NULL)
 			{
-				e.second->render(target);
+				e->render(target);
 			}
 		}
+
+		
 
 		this->l_A_.render(target);
 		
@@ -275,6 +377,8 @@ void PlayerInventory::render(sf::RenderTarget& target)
 		this->stats_T_E_.render(target);
 		this->stats_T_F_.render(target);
 		this->stats_T_G_.render(target);
+		this->stats_T_H_.render(target);
+		this->stats_T_I_.render(target);
 
 		this->stats_D_B_.render(target);
 		this->stats_D_C_.render(target);
@@ -282,6 +386,8 @@ void PlayerInventory::render(sf::RenderTarget& target)
 		this->stats_D_E_.render(target);
 		this->stats_D_F_.render(target);
 		this->stats_D_G_.render(target);
+		this->stats_D_H_.render(target);
+		this->stats_D_I_.render(target);
 
 		this->resistances_T_A_.render(target);
 		this->resistances_T_B_.render(target);
@@ -299,6 +405,11 @@ void PlayerInventory::render(sf::RenderTarget& target)
 void PlayerInventory::setIsHidingInventory(bool isHidingInventory)
 {
 	this->is_Hiding_Inventory_ = isHidingInventory;
+}
+
+std::vector<Item*>& PlayerInventory::setEquipment()
+{
+	return this->equipment_;
 }
 
 const bool& PlayerInventory::getIsHidingInventory() const

@@ -3,18 +3,20 @@
 
 #include "SFML/Graphics.hpp"
 
+#include "Item.h"	
+#include "ItemTest.h"
+
+#include "Camera.h"
+
 #include "Box.h"
 #include "Button.h"
 #include "Text.h"
 #include "HoverDescription.h"
 #include "ItemDropDownList.h"
 
-#include "Item.h"
-#include "ItemTest.h"
-
-#include <iostream>
-#include <string>
+#include <iostream>	
 #include <vector>
+#include <string>
 
 class PlayerBag
 {
@@ -23,19 +25,24 @@ public:
 	~PlayerBag();
 
 	void initializeBag();
+	void realignItems();
 
-	void updatePollEvent(sf::Event& ev);
+	void updatePollEvent(sf::Event& ev, std::vector<Item*>& equipment, std::map<std::string, int>& stats, std::map<std::string, int>& resistances);
 	void update(const sf::Vector2i& mousePositionWindow);
 	void render(sf::RenderTarget& target);
 
 	void setIsHidingBag(bool isHidingBag);
 	void setMaxBagSizeY(int value);
+	std::vector<std::vector<Item*>>& setItem();
 
 	const bool& getIsHidingBag() const;
+	const unsigned& getBagSizeX() const;
+	const unsigned& getBagSizeY() const;
 
 private:
 
 private:
+	unsigned int max_Bag_Size_X_;
 	unsigned int max_Bag_Size_Y_;
 
 	HoverDescription d_A_;

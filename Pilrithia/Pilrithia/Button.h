@@ -22,7 +22,7 @@ public:
 
 	const sf::Vector2f& setPositionOfText(sf::Text& text);
 	void setIsVisible(bool isVisible);
-
+	void setPosition(const sf::Vector2f& position);
 
 	const sf::Vector2f& getPosition() const;
 	const sf::FloatRect getGlobalBounds() const;

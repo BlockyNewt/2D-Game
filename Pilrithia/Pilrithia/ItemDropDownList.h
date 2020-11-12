@@ -9,13 +9,21 @@
 #include <iostream>
 #include <string>
 
+enum class LISTUSE
+{
+	DEFAULT = 0,
+
+	INVENTORY,
+	BAG
+};
+
 class ItemDropDownList
 {
 public:
 	ItemDropDownList();
 	~ItemDropDownList();
 
-	void setSettings(int itemType, const sf::FloatRect itemBoundaries);
+	void setSettings(LISTUSE listUse, const sf::FloatRect itemBoundaries);
 
 	bool updateEquipPollEvent(sf::Event& ev);
 	bool updateUnequipPollEvent(sf::Event& ev);

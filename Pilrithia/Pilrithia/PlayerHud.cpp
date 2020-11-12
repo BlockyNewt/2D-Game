@@ -248,6 +248,7 @@ void PlayerHud::render(sf::RenderTarget& target)
 
 void PlayerHud::setWidthOfHealthBar(const int& healthMax, int& health)
 {
+	std::cout << "health max: " << healthMax << std::endl;
 	float healthMaxToFloat = static_cast<float>(healthMax);
 	float healthToFloat = static_cast<float>(health);
 

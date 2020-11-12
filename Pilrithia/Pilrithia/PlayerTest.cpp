@@ -59,6 +59,8 @@ void PlayerTest::initializeCharacter(Race* race, const std::string& name)
 
 	if (this->stats_.empty())
 	{
+		this->stats_.insert(std::make_pair("health", this->race_->getPlayerClass().getHealthMax()));
+		this->stats_.insert(std::make_pair("mana", this->race_->getPlayerClass().getManaMax()));
 		this->stats_.insert(std::make_pair("strength", this->race_->getPlayerClass().getStrength()));
 		this->stats_.insert(std::make_pair("dexerity", this->race_->getPlayerClass().getDexerity()));
 		this->stats_.insert(std::make_pair("constitution", this->race_->getPlayerClass().getConstitution()));
@@ -70,9 +72,15 @@ void PlayerTest::initializeCharacter(Race* race, const std::string& name)
 		this->resistances_.insert(std::make_pair("fire", this->race_->getPlayerClass().getFire()));
 		this->resistances_.insert(std::make_pair("lightning", this->race_->getPlayerClass().getLightning()));
 		this->resistances_.insert(std::make_pair("poison", this->race_->getPlayerClass().getPoison()));
+
+		std::cout << std::to_string(this->stats_.at("strength")) << std::endl;
+		std::cout << std::to_string(this->stats_.at("health")) << std::endl;
+
 	}
 	else
 	{
+		this->stats_.at("health") = this->race_->getPlayerClass().getHealthMax();
+		this->stats_.at("mana") = this->race_->getPlayerClass().getManaMax();
 		this->stats_.at("strength") = this->race_->getPlayerClass().getStrength();
 		this->stats_.at("dexerity") = this->race_->getPlayerClass().getDexerity();
 		this->stats_.at("constitution") = this->race_->getPlayerClass().getConstitution();
@@ -84,6 +92,9 @@ void PlayerTest::initializeCharacter(Race* race, const std::string& name)
 		this->resistances_.at("fire") = this->race_->getPlayerClass().getFire();
 		this->resistances_.at("lightning") = this->race_->getPlayerClass().getLightning();
 		this->resistances_.at("poison") = this->race_->getPlayerClass().getPoison();
+
+		std::cout << std::to_string(this->stats_.at("health")) << std::endl;
+
 	}
 }
 
@@ -98,16 +109,19 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 	*/
 	
 	this->player_Hud_->updatePollEvent(ev, this->race_->getPlayerClass().setHealth(), this->race_->getPlayerClass().getHealthMax());
-	this->player_Inventory_.updatePollEvent(ev);
-	this->player_Bag_.updatePollEvent(ev);
+	this->player_Inventory_.updatePollEvent(ev, this->stats_, this->resistances_, this->player_Bag_.setItem(), this->player_Bag_.getBagSizeX(), this->player_Bag_.getBagSizeY());
+	this->player_Bag_.updatePollEvent(ev, this->player_Inventory_.setEquipment(), this->stats_, this->resistances_);
 	this->player_Quest_.updatePollEvent(ev);
 	this->player_Skill_Tree_.updatePollEvent(ev, this->stats_);
+
 
 	if (this->player_Hud_->updateInventoryPollEvent(ev))
 	{
 		if (this->player_Inventory_.getIsHidingInventory())
 		{
 			this->player_Inventory_.setIsHidingInventory(false);
+			
+			this->player_Inventory_.realignEquipment();
 
 			this->player_Inventory_.initializeInventory(this->name_, this->race_->getPlayerClass().getName(), this->stats_, this->resistances_);
 		}
@@ -119,6 +133,8 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 		if (this->player_Bag_.getIsHidingBag())
 		{
 			this->player_Bag_.setIsHidingBag(false);
+		
+			this->player_Bag_.realignItems();
 		}
 	}
 
@@ -227,7 +243,14 @@ void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& c
 	this->player_Quest_.update(mousePositionWindow);
 	this->player_Skill_Tree_.update(mousePositionWindow);
 
-	this->player_Hud_->setWidthOfHealthBar(this->race_->getPlayerClass().getHealthMax(), this->race_->getPlayerClass().setHealth());
+
+	//MUST USE THIS TO BE ABLE TO PASS MAP VALUE INTO FUNCTION
+	auto pos = this->stats_.find("health");
+	if (pos != this->stats_.end())
+	{
+		const int jack = pos->second;
+		this->player_Hud_->setWidthOfHealthBar(jack, this->race_->getPlayerClass().setHealth());
+	}
 }
 
 void PlayerTest::renderHudItems(sf::RenderTarget& target)

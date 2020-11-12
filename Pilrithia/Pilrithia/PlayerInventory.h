@@ -24,14 +24,19 @@ public:
 	~PlayerInventory();
 
 	void initializeInventory(const std::string& name, const std::string& className, const std::map<std::string, int>& stats, const std::map<std::string, int>& resistances);
+	void realignEquipment();
+	void updateText(std::map<std::string, int>& stats, std::map<std::string, int>& resistances);
 
-	void updatePollEvent(sf::Event& ev);
+	void updatePollEvent(sf::Event& ev, std::map<std::string, int>& stats, std::map<std::string, int>& resistances, std::vector<std::vector<Item*>>&items, const unsigned& maxBagSizeX, const unsigned& maxBagSizeY);
 	void update(const sf::Vector2i& mousePositionWindow);
 	void render(sf::RenderTarget& target);
 
 	void setIsHidingInventory(bool isHidingInventory);
+	std::vector<Item*>& setEquipment();
 
 	const bool& getIsHidingInventory() const;
+	
+	
 
 private:
 	void initializeStats();
@@ -55,6 +60,8 @@ private:
 	Text stats_T_E_;
 	Text stats_T_F_;
 	Text stats_T_G_;
+	Text stats_T_H_;
+	Text stats_T_I_;
 
 	HoverDescription stats_D_B_;
 	HoverDescription stats_D_C_;
@@ -62,6 +69,8 @@ private:
 	HoverDescription stats_D_E_;
 	HoverDescription stats_D_F_;
 	HoverDescription stats_D_G_;
+	HoverDescription stats_D_H_;
+	HoverDescription stats_D_I_;
 	
 	Text resistances_T_A_;
 	Text resistances_T_B_;
@@ -76,12 +85,19 @@ private:
 
 	bool is_Hiding_Inventory_;
 
-	std::map<ITEMTYPE, Item*> equipment_;
+	sf::RectangleShape helm_Icon_;
+	sf::RectangleShape shoulder_Icon_;
+	sf::RectangleShape chest_Icon_;
+	sf::RectangleShape glove_Icon_;
+	sf::RectangleShape leg_Icon_;
+	sf::RectangleShape feet_Icon_;
+
+	std::vector<Item*>equipment_;
+
+	int selected_Equipment_;
 
 	HoverDescription d_A_;
 	ItemDropDownList l_A_;
-
-	ITEMTYPE selected_Equipment_;
 };
 
 #endif // !PLAYERINVENTORY_H

@@ -8,18 +8,26 @@ class ItemTest
 {
 public:
 	ItemTest();
-	ItemTest(float posX, float posY, ITEMTYPE itemType);
+	ItemTest(float posX, float posY, ITEMTYPE itemType, const std::string& name, const std::string& description);
 	virtual ~ItemTest();
 
 	void setItemHoverDescriptionSettings(HOVERPOSITION hoverPosition, const sf::FloatRect boundaries, const sf::FloatRect boundariesOffset, DESCRIPTIONTYPE descriptionType, const std::string& title, const std::string& description) override;
+	void increaseStatsOnEquip(std::map<std::string, int>& stats, std::map<std::string, int>& resistances);
+	void descreaseStatsOnUnequip(std::map<std::string, int>& stats, std::map<std::string, int>& resistances);
+
 
 	bool updatePollEvent(sf::Event& ev) override;
 	bool update(const sf::Vector2i& mousePositionWindow) override;
 	void render(sf::RenderTarget& target) override;
 
+	void setPosition(const sf::Vector2f& position);
+
 	const sf::FloatRect getItemGlobalBoundaries() const override;
 	const ITEMTYPE& getItemType() const override;
 	const Button& getButton() const override;
+	const std::string& getName()const override;
+	const std::string& getDescription()const override;
+	Item* getNewItem() override;
 
 private:
 	
@@ -32,6 +40,22 @@ private:
 
 	ITEMTYPE item_Type_;
 
+	std::string name_;
+	std::string description_;
+
+	int health_Max_;
+	int mana_Max_;
+	int strength_;
+	int dexerity_;
+	int constitution_;
+	int intelligence_;
+	int perception_;
+	int wisdom_;
+
+	int cold_;
+	int fire_;
+	int lightning_;
+	int poison_;
 };
 
 #endif // !ITEMTEST_H

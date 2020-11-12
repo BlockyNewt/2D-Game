@@ -124,6 +124,11 @@ void Button::setIsVisible(bool isVisible)
 	this->is_Visible_ = isVisible;
 }
 
+void Button::setPosition(const sf::Vector2f& position)
+{
+	this->button_.setPosition(position);
+}
+
 const sf::Vector2f& Button::getPosition() const
 {
 	return this->button_.getPosition();

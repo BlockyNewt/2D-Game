@@ -23,8 +23,9 @@ public:
 	virtual void update(const sf::Vector2f& mousePositionView, const sf::Vector2i& mousePositionWindow, sf::FloatRect playerBounds, const Camera& camera, PlayerTest& playerTest) = 0;
 	virtual void render(sf::RenderTarget& target) = 0;
 
-
+	
 private:
+	virtual void updatePollEventQuest(sf::Event& ev, PlayerTest& playerTest, Quest* quest) = 0;
 
 private:
 };

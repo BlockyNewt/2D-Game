@@ -20,6 +20,7 @@ public:
 	void render(sf::RenderTarget& target) override;
 
 private:
+	void updatePollEventQuest(sf::Event& ev, PlayerTest& playerTest, Quest* quest) override;
 
 private:
 	sf::RectangleShape npc_Model_;

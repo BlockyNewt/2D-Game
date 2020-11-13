@@ -2,8 +2,6 @@
 
 NpcTest::NpcTest()
 {
-	this->quest_ = new QuestTest();
-
 	this->dialog_Box_Str_ = "This is the first quest. Click the expand button to see more of what this quest has to offer.";
 	
 	this->npc_Model_.setSize(sf::Vector2f(30.f, 30.f));
@@ -19,10 +17,13 @@ NpcTest::NpcTest()
 	this->dialog_Box_.setSettings(300.f, 200.f, this->npc_Model_.getPosition().x - 300.f / 2.f, this->npc_Model_.getPosition().y - 205, sf::Color::Blue, 1.f, sf::Color::Magenta, this->dialog_Box_Str_, false);
 	this->dialog_Box_.setString(this->dialog_Box_Str_);
 
-	this->npc_Name_ = "Test NPC";
+	this->npc_Name_ = "N.P.C One";
 	this->name_.setSettings("Font/arial.ttf", 18, this->npc_Name_, sf::Vector2f(this->npc_Model_.getGlobalBounds().left - 25.f, this->npc_Model_.getGlobalBounds().top - 25.f), true);
 
 	this->is_Within_Range_ = false;
+	
+	this->quest_ = new QuestTest();
+	this->quest_->setNpcName("N.P.C Two");
 
 	this->camera_ = new Camera(0.f, 0.f);
 }
@@ -39,117 +40,142 @@ void NpcTest::setSettings(const sf::Vector2u& windowSize)
 	this->quest_Box_.setString(this->quest_->getQuestTitle() + "\n\n" + this->quest_->getQuestSummary());
 }
 
-void NpcTest::updatePollEvent(sf::Event& ev, PlayerTest& playerTest)
+void NpcTest::updatePollEventQuest(sf::Event& ev, PlayerTest& playerTest, Quest* quest)
 {
-	if (this->is_Within_Range_)
+	/*
+	
+	FOR SPEAK TO DIFFERENT NPC QUESTS WE WILL HAVE TO CHANGE THIS A TAD BIT FOR THE TURN IN NPC
+
+	REFERENCE FOR LATER:
+	HIDE EXPAND BUTTON
+	CHANGE DIALOG BOX STRING TO SOME OTHER DIALOG UNTIL QUEST IS TAKEN
+	ONCE QUEST IS TAKEN UPDATE RECEIVING NPCS DIALOG 
+	SHOW EXPAND BUTTON
+	
+	*/
+	if (!quest->getIsQuestTurnedIn())
 	{
-		if (this->dialog_Box_.updatePollEvent(ev))
+		playerTest.setPlayerQuest().isThisQuestTaken(*quest);
+	}
+
+	if (this->dialog_Box_.updatePollEvent(ev))
+	{
+		
+		if (!this->quest_Box_.getIsVisible())
 		{
-			if (!this->quest_Box_.getIsVisible())
+			if (quest->getQuestType() == QUESTTYPE::SPEAKTOSAMENPC)
 			{
 				//std::cout << "enabling" << std::endl;
 				this->dialog_Box_.setIsVisible(false);
 				this->quest_Box_.setIsVisible(true);
 			}
-			else
+
+			else if (quest->getQuestType() == QUESTTYPE::SPEAKTODIFFERENTNPC)
 			{
-				/*
-					IF QUEST IS TAKEN, COMPLETED AND THE TYPE IS THE SAME OF THE NPCS QUEST THE SHOW QUEST BOX
-				*/
-				if (this->quest_->getIsQuestTaken() &&
-					!playerTest.setPlayerQuest().isQuestTaskCompleted(*this->quest_) &&
-					this->quest_->getQuestType() == QUESTTYPE::SPEAK)
-				{
-					this->dialog_Box_.setIsVisible(false);
-					this->quest_Box_.setIsVisible(true);
-				}
+				this->dialog_Box_.setIsVisible(false);
+				this->quest_Box_.setIsVisible(true);
 			}
 		}
+	}
 
-		/*
-			IF QUEST BOXS ACCEPT BUTTON IS CLICKED
-		*/
-		if (this->quest_Box_.updateAcceptPollEvent(ev))
+	if (playerTest.setPlayerQuest().getSelectedQuest() != NULL)
+	{
+		if (playerTest.setPlayerQuest().getSelectedQuest()->getNpcName() == this->npc_Name_)
 		{
-			/*
-				IF THE QUEST CONTAINER IS NOT EMPTY
-			*/
-			if (!playerTest.setPlayerQuest().getQuest().empty())
+			this->quest_Box_.setIsAccepted(true);
+		}
+	}
+
+	if (!quest->getIsQuestTurnedIn())
+	{
+		if (this->quest_Box_.getIsVisible())
+		{
+			if (this->quest_Box_.updateAcceptPollEvent(ev))
 			{
-				/*
-					IF THE QUEST WE HAVE NOT YET TAKEN THE NPCS QUEST
-				*/
-				if (!playerTest.setPlayerQuest().isThisQuestTaken(*this->quest_))
+				if (quest->getQuestType() == QUESTTYPE::SPEAKTOSAMENPC)
 				{
-					/*
-						SET NPCS QUEST TAKEN TO TRUE
-					*/
-					this->quest_->setIsQuestTaken(true);
+					quest->setIsQuestTaken(true);
+					quest->setIsTaskCompleted(true);
 
-					/*
-						ADD QUEST TO PLAYERS QUEST CONTAINER
-					*/
-					playerTest.setPlayerQuest().addQuest(*this->quest_);
+					playerTest.addQuest(*quest);
 
-					/*
-						HIDE QUEST BOX AND SHOW DIALOG BOX 
-					*/
+					this->dialog_Box_.setString("Quest has been accepted. Expand again to turn it in.");
+					this->quest_Box_.setString(quest->getQuestTitle() + "\n" + quest->getQuestFinishedSummary());
+
+					this->quest_Box_.setIsVisible(false);
+					this->dialog_Box_.setIsVisible(true);
+				}
+
+				else if (quest->getQuestType() == QUESTTYPE::SPEAKTODIFFERENTNPC)
+				{
+					quest->setIsQuestTaken(true);
+					quest->setIsTaskCompleted(true);
+
+					playerTest.addQuest(*quest);
+
+					this->dialog_Box_.setString("You must talk to another npc to complete this quest.");
+					this->quest_Box_.setString(quest->getQuestTitle() + "\n" + quest->getQuestFinishedSummary());
+
 					this->quest_Box_.setIsVisible(false);
 					this->dialog_Box_.setIsVisible(true);
 
-					/*
-						CHANGE THE DIALOG BOX STRING TO SHOW THAT THE QUEST HAS BEEN ACCEPTED
-					*/
-					this->dialog_Box_.setString("You have accepted the quest");
+					this->dialog_Box_.setExpandButtonVisibility(false);
 				}
 			}
-			else
+
+			if (this->quest_Box_.updateDeclinePollEvent(ev))
 			{
-				/*
-					ELSE IF THE CONTAINER IS NOT EMPTY JUST PUSH BACK THE QUEST
-				*/
+				if (quest->getQuestType() == QUESTTYPE::SPEAKTOSAMENPC)
+				{
+					this->quest_Box_.setIsVisible(false);
+					this->dialog_Box_.setIsVisible(true);
+				}
 
-				this->quest_->setIsQuestTaken(true);
+				else if (quest->getQuestType() == QUESTTYPE::SPEAKTODIFFERENTNPC)
+				{
+					this->quest_Box_.setIsVisible(false);
+					this->dialog_Box_.setIsVisible(true);
+				}
+			}
 
-				playerTest.setPlayerQuest().addQuest(*this->quest_);
+			if (this->quest_Box_.updateCompletePollEvent(ev))
+			{
+				if (quest->getQuestType() == QUESTTYPE::SPEAKTOSAMENPC)
+				{
+					playerTest.setPlayerQuest().setSelectedQuest()->setIsQuestTurnedIn(true);
+					this->quest_->setIsQuestTurnedIn(true);
 
-				this->dialog_Box_.setIsVisible(true);
-				this->quest_Box_.setIsVisible(false);
+					this->quest_Box_.setIsVisible(false);
+					this->dialog_Box_.setIsVisible(true);
 
-				this->dialog_Box_.setString("You have accepted the quest");
+					this->dialog_Box_.setExpandButtonVisibility(false);
+
+					this->dialog_Box_.setString("You have already completed the quest.");
+				}
+
+				else if (quest->getQuestType() == QUESTTYPE::SPEAKTODIFFERENTNPC)
+				{
+					playerTest.setPlayerQuest().setSelectedQuest()->setIsQuestTurnedIn(true);
+					quest->setIsQuestTurnedIn(true);
+
+					this->quest_Box_.setIsVisible(false);
+					this->dialog_Box_.setIsVisible(true);
+
+					this->dialog_Box_.setExpandButtonVisibility(false);
+
+					this->dialog_Box_.setString("You have already completed the quest.");
+				}
 			}
 		}
+	}
+}
 
-		/*
-			IF QUEST BOXS DECLINE BUTTON IS CLICKED
-		*/
-		if (this->quest_Box_.updateDeclinePollEvent(ev))
-		{
-			/*
-				HID QUEST BOX AND SHOW DIALOG BOX
-			*/
-			this->dialog_Box_.setIsVisible(true);
-			this->quest_Box_.setIsVisible(false);
-		}
-
-		/*
-			IF QUEST BOXS COMPLETE BUTTON IS CLICKED
-		*/
-		if (this->quest_Box_.updateCompletePollEvent(ev))
-		{
-			/*
-				CHANGE COMPLETED QUEST BOOL OF THE QUEST INSIDE OF THE VECTOR
-			*/
-			playerTest.setPlayerQuest().completeQuest(*this->quest_);
-
-			/*
-				SET THE NPCS QUEST TURNED IN BOOL TO TRUE AS WELL SO WE CAN NOT RETAKE
-			*/
-			this->quest_->setIsQuestTurnedIn(true);
-			
-			this->dialog_Box_.setIsVisible(true);
-			this->quest_Box_.setIsVisible(false);
-		}
+void NpcTest::updatePollEvent(sf::Event& ev, PlayerTest& playerTest)
+{
+	if (this->is_Within_Range_)
+	{
+		//START RECREATING HERE
+		this->updatePollEventQuest(ev, playerTest, this->quest_);
 	}
 	else
 	{
@@ -167,7 +193,7 @@ void NpcTest::update(const sf::Vector2f& mousePositionView, const sf::Vector2i& 
 		//std::cout << "WITHIN RANGE OF NPC" << std::endl;
 		this->is_Within_Range_ = true;
 
-
+		
 
 		if (!this->quest_Box_.getIsVisible())
 		{
@@ -181,61 +207,6 @@ void NpcTest::update(const sf::Vector2f& mousePositionView, const sf::Vector2i& 
 			this->quest_Box_.update(mousePositionWindow);
 		}
 
-
-		/*
-			IF QUEST IS NOT TURNED IN
-		*/
-		if (!playerTest.setPlayerQuest().isQuestTurnedInCompleted(*this->quest_))
-		{
-			/*
-				IF THE QUEST IS TAKEN AND THE QUEST TASK IS NOT COMPLETED
-			*/
-			if (this->quest_->getIsQuestTaken() && !playerTest.setPlayerQuest().isQuestTaskCompleted(*this->quest_))
-			{
-				/*
-					HIDE THE DIALOG BOXS EXPAND BUTTON
-				*/
-				this->dialog_Box_.setExpandButtonVisibility(false);
-			}
-
-			/*
-				IF QUEST IS TAKEN AND THE QUEST TYPE EQUALS TARGETED TYPE 
-			*/
-			if (this->quest_->getIsQuestTaken() && this->quest_->getQuestType() == QUESTTYPE::SPEAK)
-			{
-				/*
-					LET PLAYER TALK TO NPC TO COMPLETE TASK
-				*/
-				this->dialog_Box_.setIsVisible(true);
-				this->dialog_Box_.setExpandButtonVisibility(true);
-
-				this->dialog_Box_.setString("Click the expand button and turn it in");
-				this->quest_Box_.setString(this->quest_->getQuestTitle() + "\n" + this->quest_->getQuestFinishedSummary());
-			}
-
-			/*
-				IF QUEST INSIDE PLAYERS QUEST VECTOR IS COMPLETED
-			*/
-			if (playerTest.setPlayerQuest().isQuestTaskCompleted(*this->quest_))
-			{
-				/*
-					ALLOW PLAYER TO TURN IN QUEST 
-				*/
-				this->dialog_Box_.setIsVisible(true);
-				this->dialog_Box_.setExpandButtonVisibility(true);
-
-				this->dialog_Box_.setString("The task for this quest has been completed. Click the expand button and turn it in.");
-				this->quest_Box_.setString(this->quest_->getQuestTitle() + "\n" + this->quest_->getQuestFinishedSummary());
-			}
-		}
-		else
-		{
-			/*
-				IF QUEST IS ALREADY COMPLETED THEN SHOW THAT IN NPCS DIALOG BOX
-			*/
-			this->dialog_Box_.setString("You have already completed this quest.");
-			this->dialog_Box_.setExpandButtonVisibility(false);
-		}
 	}
 	else
 	{

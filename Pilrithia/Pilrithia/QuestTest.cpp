@@ -11,8 +11,6 @@ QuestTest::QuestTest()
 	this->max_Kill_Count_ = 0;
 	this->current_Kill_Count_ = 0;
 	
-	this->talked_To_Npc_ = false;
-
 	this->is_Task_Completed_ = false;
 
 	this->is_Quest_Turned_In_ = false;
@@ -20,7 +18,8 @@ QuestTest::QuestTest()
 	this->is_Quest_Taken_ = false;
 
 	this->quest_Name_ = QUESTNAME::TEST;
-	this->quest_Type_ = QUESTTYPE::SPEAK;
+	this->quest_Type_ = QUESTTYPE::SPEAKTOSAMENPC;
+	//this->quest_Type_ = QUESTTYPE::SPEAKTODIFFERENTNPC;
 }
 
 QuestTest::~QuestTest()
@@ -54,15 +53,6 @@ void QuestTest::setKillCount()
 	this->current_Kill_Count_++;
 }
 
-void QuestTest::setTalkedToNpc(bool talkedToNpc)
-{
-	//MAYBE WANT AN NPC ENUM TYPE THAT WILL MATCH WITH THE QUEST NPC ENUM
-
-	//IF NPCS MATCH THEN THE QUEST IT COMPLETE
-
-	this->talked_To_Npc_ = true;
-}
-
 void QuestTest::setTextPosition(float posX, float posY)
 {
 	this->t_A_.setPosition(posX, posY);
@@ -81,6 +71,11 @@ void QuestTest::setIsTaskCompleted(bool isTaskCompleted)
 void QuestTest::setIsQuestTurnedIn(bool isQuestTurnedIn)
 {
 	this->is_Quest_Turned_In_ = isQuestTurnedIn;
+}
+
+void QuestTest::setNpcName(const std::string& npcName)
+{
+	this->npc_Name_ = npcName;
 }
 
 const Text& QuestTest::getText() const
@@ -126,4 +121,9 @@ const bool& QuestTest::getIsQuestTurnedIn() const
 const QUESTTYPE& QuestTest::getQuestType() const
 {
 	return this->quest_Type_;
+}
+
+const std::string& QuestTest::getNpcName() const
+{
+	return this->npc_Name_;
 }

@@ -29,12 +29,14 @@ public:
 
 	void addQuest(Quest& quest);
 
+
 	void setPosition(float x, float y);
 	void setVelocityX(float x);
 	void setVelocityY(float y);
 	void setIsFalling(bool isFalling);
 	void setIsJumping(bool isJumping);
 	PlayerQuest& setPlayerQuest();
+	void setStat(const std::string& stat, int value);
 
 	sf::RectangleShape& getPlayerModel();
 	const sf::Vector2f& getVelocity() const;
@@ -47,9 +49,10 @@ public:
 	const PlayerBag& getPlayerBag() const;
 	const PlayerQuest& getPlayerQuest() const;
 	const PlayerSkillTree& getPlayerSkillTree() const;
+	const int getStat(const std::string& stat) const;
 
 private:
-	void initializeHud();
+	void levelUp();
 
 private:
 	Camera* camera_;
@@ -81,8 +84,11 @@ private:
 	bool is_Jumping_;
 
 	int level_;
-	float max_Exp_;
-	float exp_;
+	int max_Exp_;
+	int exp_;
+
+	int skill_Points_;
+
 
 };
 

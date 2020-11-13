@@ -2,6 +2,17 @@
 
 PlayerSkillTree::PlayerSkillTree()
 {
+	/*
+	
+		NOTES FOR THINGS TO ADD LATER DOWN THE LINE...
+
+		MAKE A BOOL THAT WILL PERMANENTLY MAKE CHANGES ON ACCEPT BUTTON CLICK.
+		THAT BOOL WILL BECOME TRUE AGAIN ON LEVEL UP.
+		IF THE PLAYER HAS UNALLOCATED SKILLS POINTS OR THE BOOL IS TRUE THEN THE USER CAN ALLOCATE POINTS FREELY
+
+	*/
+
+
 	this->is_Hiding_Skill_Tree_ = true;
 
 	this->x_A_.setSettings(1280, 720, 0.f, 0.f, sf::Color::Green, 1.f, sf::Color::White, true);
@@ -9,9 +20,9 @@ PlayerSkillTree::PlayerSkillTree()
 	this->b_B_.setSettings(50.f, 50.f, 1230.f, this->x_A_.getTopPosition(), sf::Color::Red, 1.f, sf::Color::White, true);
 
 	
-	this->defence_B_A_.setSettings(20, 0.f, 150.f, sf::Color::Red, 1.f, sf::Color::White, "Skill", "Test description", STATNAME::CONSTITUTION, 1);
-	this->defence_B_B_.setSettings(20, this->defence_B_A_.getRightPosition(true, 40.f), this->defence_B_A_.getTopPosition(), sf::Color::Red, 1.f, sf::Color::White, "Skill", "Test description", STATNAME::CONSTITUTION, 1);
-	this->defence_B_C_.setSettings(20, this->defence_B_B_.getRightPosition(true, 40.f), this->defence_B_A_.getTopPosition(), sf::Color::Red, 1.f, sf::Color::White, "Skill", "Test description", STATNAME::CONSTITUTION, 1);
+	this->defence_B_A_.setSettings(20, 0.f, 150.f, sf::Color::Red, 1.f, sf::Color::White, STATNAME::CONSTITUTION, 1);
+	this->defence_B_B_.setSettings(20, this->defence_B_A_.getRightPosition(true, 40.f), this->defence_B_A_.getTopPosition(), sf::Color::Red, 1.f, sf::Color::White, STATNAME::HEALTH, 1);
+	this->defence_B_C_.setSettings(20, this->defence_B_B_.getRightPosition(true, 40.f), this->defence_B_A_.getTopPosition(), sf::Color::Red, 1.f, sf::Color::White, STATNAME::STRENGTH, 1);
 
 	this->t_A_.setSettings("Font/arial.ttf", 28, "Skill Tree", sf::Vector2f(this->x_A_.getLeftPosition(true, 350.f), this->x_A_.getTopPosition(true, 10.f)), true);
 	this->t_B_.setSettings("Font/arial.ttf", 18, "Close", sf::Vector2f(this->b_B_.getLeftPosition(true, 10.f), this->b_B_.getTopPosition(true, 10.f)), true);

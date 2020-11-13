@@ -171,6 +171,11 @@ void QuestBox::setString(const std::string& string)
 	this->quest_Text_.wrapText(this->quest_Box_.getGlobalBounds());
 }
 
+void QuestBox::setIsAccepted(bool isAccepted)
+{
+	this->is_Accepted_ = isAccepted;
+}
+
 const bool& QuestBox::getIsVisible() const
 {
 	return this->is_Visible_;

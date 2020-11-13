@@ -31,7 +31,7 @@ public:
 	void update(const sf::Vector2i& mousePositionWindow, const Camera& camera, const sf::Vector2f& playerPosition);
 	void render(sf::RenderTarget& target);
 
-	void setWidthOfHealthBar(const int& healthMax, int& health);
+	void setWidthOfBars(const int& healthMax, int& health, const int& manaMax, int& mana, const int& expMax, int& exp);
 
 	const float percentToPixel(const float size);
 
@@ -70,6 +70,8 @@ private:
 	Text skill_T_C_;
 
 	HoverDescription skill_D_A_;
+
+	HoverDescription experience_D_A_;
 
 	bool is_Hiding_Hud_;
 

@@ -1,56 +1,92 @@
-﻿  ItemDropDownList.cpp
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\ItemDropDownList.cpp(129,86): warning C4244: 'argument': conversion from 'const T' to 'T', possible loss of data
+﻿  Engine.cpp
+  Npc.cpp
+  NpcTest.cpp
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\NpcTest.cpp(28,34): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\NpcTest.cpp(28,29): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+  PlayerTest.cpp
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(35,29): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(43,34): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(43,29): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(312,30): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(317,37): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(318,35): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(319,39): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(320,39): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(321,42): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(322,43): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(323,41): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(324,37): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+  StateEditor.cpp
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\StateEditor.cpp(527,85): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
-              T=int
+              T=unsigned int
           ]
-          and
-          [
-              T=float
-          ]
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\ItemDropDownList.cpp(129,63): warning C4244: 'argument': conversion from 'const T' to 'T', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\StateEditor.cpp(527,55): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
-              T=int
+              T=unsigned int
           ]
-          and
-          [
-              T=float
-          ]
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\ItemDropDownList.cpp(136,91): warning C4244: 'argument': conversion from 'const T' to 'T', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\StateEditor.cpp(532,88): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
-              T=int
+              T=unsigned int
           ]
-          and
-          [
-              T=float
-          ]
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\ItemDropDownList.cpp(136,68): warning C4244: 'argument': conversion from 'const T' to 'T', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\StateEditor.cpp(532,58): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
-              T=int
+              T=unsigned int
           ]
-          and
-          [
-              T=float
-          ]
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\ItemDropDownList.cpp(142,91): warning C4244: 'argument': conversion from 'const T' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-          and
-          [
-              T=float
-          ]
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\ItemDropDownList.cpp(142,68): warning C4244: 'argument': conversion from 'const T' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-          and
-          [
-              T=float
-          ]
+  StateMainMenu.cpp
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\StateMainMenu.cpp(18,64): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+  StateTestZone.cpp
+  Tilemap.cpp
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(26,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(28,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(33,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(44,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(46,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(111,26): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(213,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(215,19): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(215,29): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(217,16): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(217,26): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(241,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(243,19): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(243,29): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(245,23): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(245,33): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(247,16): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(247,26): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(287,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(289,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(291,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(339,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(341,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(346,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(356,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(358,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(407,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(409,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(414,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(427,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(429,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(434,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(444,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(446,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(469,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(471,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(488,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(490,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(518,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(520,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(525,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(535,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(537,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(566,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(568,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(570,23): warning C4018: '<': signed/unsigned mismatch
+  main.cpp
+  Generating Code...
   Pilrithia.vcxproj -> C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Debug\Pilrithia.exe

@@ -16,11 +16,11 @@ public:
 	void wrapText(const sf::FloatRect boundaries) override;
 
 	void setKillCount() override;
-	void setTalkedToNpc(bool talkedToNpc) override;
 	void setTextPosition(float posX, float posY) override;
 	void setIsQuestTaken(bool isQuestTaken) override;
 	void setIsTaskCompleted(bool isTaskCompleted) override;
 	void setIsQuestTurnedIn(bool isQuestTurnedIn) override;
+	void setNpcName(const std::string& npcName) override;
 
 	const Text& getText() const override;
 	const QUESTNAME& getQuestName() const override;
@@ -31,6 +31,7 @@ public:
 	const bool& getIsTaskCompleted() const override;
 	const bool& getIsQuestTurnedIn() const override;
 	const QUESTTYPE& getQuestType() const override;
+	const std::string& getNpcName() const override;
 
 
 private:
@@ -47,8 +48,6 @@ private:
 	int max_Kill_Count_;
 	int current_Kill_Count_;
 
-	bool talked_To_Npc_;
-
 	bool is_Task_Completed_;
 
 	bool is_Quest_Turned_In_;
@@ -57,6 +56,8 @@ private:
 
 	QUESTNAME quest_Name_;
 	QUESTTYPE quest_Type_;
+
+	std::string npc_Name_;
 };
 
 #endif // !QUESTTEST_H

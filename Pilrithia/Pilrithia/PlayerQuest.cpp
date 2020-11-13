@@ -2,6 +2,8 @@
 
 PlayerQuest::PlayerQuest()
 {
+	this->selected_Quest_ = NULL;
+
 	this->is_Hiding_Quest_ = true;
 	this->max_Quest_ = 5;
 	this->current_Quest_ = 0;
@@ -16,6 +18,7 @@ PlayerQuest::PlayerQuest()
 
 PlayerQuest::~PlayerQuest()
 {
+	delete this->selected_Quest_;
 }
 
 bool PlayerQuest::isThisQuestTaken(Quest& quest)
@@ -33,6 +36,8 @@ bool PlayerQuest::isThisQuestTaken(Quest& quest)
 		{
 			questAlreadyAccepted = true;
 
+			this->selected_Quest_ = this->quests_[i];
+
 			break;
 		}
 	}
@@ -44,51 +49,6 @@ bool PlayerQuest::isThisQuestTaken(Quest& quest)
 	else
 	{
 		return false;
-	}
-}
-
-bool PlayerQuest::isQuestTaskCompleted(Quest& quest)
-{
-	/*
-		PASS NPCS QUEST AND CHECK IF THE TASK IS COMPLETED. IF NOT BREAK
-		OUT OF LOOP
-	*/
-	for (int i = 0; i < this->quests_.size(); ++i)
-	{
-		if (this->quests_[i]->getQuestName() == quest.getQuestName() &&
-			this->quests_[i]->getIsTaskCompleted())
-		{
-			//std::cout << "Quest task has been completed. " << std::endl;
-
-			break;
-
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-}
-
-bool PlayerQuest::isQuestTurnedInCompleted(Quest& quest)
-{
-	
-	for (int i = 0; i < this->quests_.size(); ++i)
-	{
-		if (this->quests_[i]->getQuestName() == quest.getQuestName() &&
-			this->quests_[i]->getIsQuestTurnedIn())
-		{
-			//std::cout << "Quest task has been completed. " << std::endl;
-
-			break;
-
-			return true;
-		}
-		else
-		{
-			return false;
-		}
 	}
 }
 
@@ -107,21 +67,6 @@ void PlayerQuest::addQuest(Quest& quest)
 
 	this->quests_.back()->setTextPosition(this->x_A_.getLeftPosition(true, 10.f), this->x_A_.getTopPosition(true, 10.f) + this->current_Quest_ * 30.f);
 	this->quests_.back()->wrapText(this->x_A_.getGlobalBounds());
-}
-
-void PlayerQuest::completeQuest(Quest& quest)
-{
-	/*
-		PASS NPCS QUEST TO FIND THE CORRECT ONE WITH THE PLAYERS OWNED QUEST AND 
-		CHANGE TURNED IN BOOL TO TRUE
-	*/
-	for (int i = 0; i < this->quests_.size(); ++i)
-	{
-		if (this->quests_[i]->getQuestName() == quest.getQuestName())
-		{
-			this->quests_[i]->setIsQuestTurnedIn(true);
-		}
-	}
 }
 
 void PlayerQuest::updatePollEvent(sf::Event& ev)
@@ -174,6 +119,11 @@ void PlayerQuest::setIsHidingQuest(bool isHidingQuest)
 	this->is_Hiding_Quest_ = isHidingQuest;
 }
 
+Quest* PlayerQuest::setSelectedQuest()
+{
+	return this->selected_Quest_;
+}
+
 const bool& PlayerQuest::getIsHidingQuest() const
 {
 	return this->is_Hiding_Quest_;
@@ -182,4 +132,9 @@ const bool& PlayerQuest::getIsHidingQuest() const
 const std::vector<Quest*>& PlayerQuest::getQuest() const
 {
 	return this->quests_;
+}
+
+const Quest* PlayerQuest::getSelectedQuest() const
+{
+	return this->selected_Quest_;
 }

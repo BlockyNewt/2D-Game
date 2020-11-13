@@ -32,8 +32,11 @@ PlayerTest::PlayerTest()
 	this->is_Jumping_ = false;
 
 	this->level_ = 1;
-	this->max_Exp_ = 3 * (std::pow(this->level_, 2.5f)) * 1.5;
-	this->exp_ = 0.f;
+	this->max_Exp_ = std::floor(3 * ((std::pow(this->level_, 2.3))) * 1.5);
+	std::cout << "MAX EXP: " << this->max_Exp_ << std::endl;
+	this->exp_ = 0;
+
+	this->skill_Points_ = 0;
 
 	//TESTING ONLY FIX LATER
 	this->player_Bag_.initializeBag();
@@ -96,10 +99,6 @@ void PlayerTest::initializeCharacter(Race* race, const std::string& name)
 		std::cout << std::to_string(this->stats_.at("health")) << std::endl;
 
 	}
-}
-
-void PlayerTest::initializeHud()
-{
 }
 
 void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
@@ -191,6 +190,16 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 			this->velocity_.x += this->movement_Speed_ * dt;
 		}
 
+		if (ev.type == sf::Event::KeyPressed)
+		{
+			if (ev.key.code == sf::Keyboard::F5)
+			{
+				this->exp_ += 500;
+
+				std::cout << "EXP: " << this->exp_ << std::endl;
+			}
+		}
+
 		/*
 			JUMP POLL UPDATE
 		*/
@@ -245,12 +254,12 @@ void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& c
 
 
 	//MUST USE THIS TO BE ABLE TO PASS MAP VALUE INTO FUNCTION
-	auto pos = this->stats_.find("health");
-	if (pos != this->stats_.end())
-	{
-		const int jack = pos->second;
-		this->player_Hud_->setWidthOfHealthBar(jack, this->race_->getPlayerClass().setHealth());
-	}
+
+	this->player_Hud_->setWidthOfBars(this->getStat("health"), this->race_->getPlayerClass().setHealth(), this->getStat("mana"), this->race_->getPlayerClass().setMana(), this->max_Exp_, this->exp_);
+
+
+	//CHECK IF THERE IS A LEVEL UP
+	this->levelUp();
 }
 
 void PlayerTest::renderHudItems(sf::RenderTarget& target)
@@ -278,6 +287,56 @@ void PlayerTest::renderPlayerModel(sf::RenderTarget& target)
 void PlayerTest::addQuest(Quest& quest)
 {
 	this->player_Quest_.addQuest(quest);
+}
+
+void PlayerTest::setStat(const std::string& stat, int value)
+{
+	auto findPos = this->stats_.find(stat);
+	int statValue = 0;
+	if (findPos != this->stats_.end())
+	{
+		statValue = findPos->second + value;
+		this->stats_.find(stat)->second = statValue;
+		this->race_->getPlayerClass().setHealth() = statValue;
+	}
+}
+
+void PlayerTest::levelUp()
+{
+	if (this->exp_ >= this->max_Exp_)
+	{
+		int excessExp = this->exp_ - this->max_Exp_;
+
+		this->level_++;
+
+		this->max_Exp_ = std::floor(3 * ((std::pow(this->level_, 2.3))) * 1.5);
+		this->exp_ = 0;
+		this->exp_ += excessExp;
+
+		
+		this->setStat("health", std::floor(2.0 * 1.2 + (std::pow(this->level_, 1.2))));
+		this->setStat("mana", std::floor(2.0 * 1.2 + (std::pow(this->level_, 1.2))));
+		this->setStat("strength", std::floor((std::pow(this->level_ / 2.f, 1.2)) / 2.f));
+		this->setStat("dexerity", std::floor((std::pow(this->level_ / 2.f, 1.2)) / 2.f));
+		this->setStat("consitution", std::floor((std::pow(this->level_ / 2.f, 1.2)) / 2.f));
+		this->setStat("intelligence", std::floor((std::pow(this->level_ / 2.f, 1.2)) / 2.f));
+		this->setStat("perception", std::floor((std::pow(this->level_ / 2.f, 1.2)) / 2.f));
+		this->setStat("wisdom", std::floor((std::pow(this->level_ / 2.f, 1.2)) / 2.f));
+
+
+		std::cout << std::endl;
+		std::cout << "LEVEL: " << this->level_ << std::endl;
+		std::cout << "MAX EXP: " << this->max_Exp_ << std::endl;
+		std::cout << "EXP: " << this->exp_ << std::endl;
+		std::cout << "HEALTH: " << this->stats_.find("health")->second << std::endl;
+		std::cout << "MANA: " << this->stats_.find("mana")->second << std::endl;
+		std::cout << "STRENGTH: " << this->stats_.find("strength")->second << std::endl;
+		std::cout << "DEXERITY: " << this->stats_.at("dexerity") << std::endl;
+		std::cout << "CONSITUTION: " << this->stats_.at("constitution") << std::endl;
+		std::cout << "INTELLIGENCE: " << this->stats_.at("intelligence") << std::endl;
+		std::cout << "PERCEPTION: " << this->stats_.at("perception") << std::endl;
+		std::cout << "WISDOM: " << this->stats_.at("wisdom") << std::endl;
+	}
 }
 
 void PlayerTest::setPosition(float x, float y)
@@ -363,4 +422,20 @@ const PlayerQuest& PlayerTest::getPlayerQuest() const
 const PlayerSkillTree& PlayerTest::getPlayerSkillTree() const
 {
 	return this->player_Skill_Tree_;
+}
+
+const int PlayerTest::getStat(const std::string& stat) const
+{
+	auto findPos = this->stats_.find(stat);
+	int statValue = 0;
+	if (findPos != this->stats_.end())
+	{
+		statValue = findPos->second;
+
+		return statValue;
+	}
+	else
+	{
+		return 0;
+	}
 }

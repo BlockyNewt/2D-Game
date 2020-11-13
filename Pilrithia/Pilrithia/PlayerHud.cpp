@@ -20,7 +20,7 @@ PlayerHud::PlayerHud(unsigned int windowSizeX, unsigned int windowSizeY)
 	this->health_Bar_Front_.setOutlineColor(sf::Color::Green);
 
 	this->mana_Bar_Back_.setPosition(sf::Vector2f(this->health_Bar_Back_.getPosition().x, this->health_Bar_Back_.getGlobalBounds().top + this->health_Bar_Back_.getGlobalBounds().height + 10.f));
-	this->mana_Bar_Back_.setSize(sf::Vector2f(this->health_Bar_Back_.getSize().x, this->health_Bar_Back_.getSize().y));
+	this->mana_Bar_Back_.setSize(sf::Vector2f(300.f, 20.f));
 	this->mana_Bar_Back_.setFillColor(sf::Color::White);
 	this->mana_Bar_Back_.setOutlineThickness(1.f);
 	this->mana_Bar_Back_.setOutlineColor(sf::Color::White);
@@ -32,7 +32,7 @@ PlayerHud::PlayerHud(unsigned int windowSizeX, unsigned int windowSizeY)
 	this->mana_Bar_Front_.setOutlineColor(sf::Color::Blue);
 
 	this->experience_Bar_Back_.setPosition(sf::Vector2f(this->mana_Bar_Back_.getPosition().x, this->mana_Bar_Back_.getGlobalBounds().top + this->mana_Bar_Back_.getGlobalBounds().height + 10.f));
-	this->experience_Bar_Back_.setSize(sf::Vector2f(this->mana_Bar_Back_.getSize().x, this->mana_Bar_Back_.getSize().y));
+	this->experience_Bar_Back_.setSize(sf::Vector2f(300.f, 20.f));
 	this->experience_Bar_Back_.setFillColor(sf::Color::White);
 	this->experience_Bar_Back_.setOutlineThickness(1.f);
 	this->experience_Bar_Back_.setOutlineColor(sf::Color::White);
@@ -63,6 +63,8 @@ PlayerHud::PlayerHud(unsigned int windowSizeX, unsigned int windowSizeY)
 	this->skill_T_C_.setSettings("Font/arial.ttf", 12, "Skill 3", sf::Vector2f(this->skill_B_C_.getLeftPosition(), this->skill_B_C_.getTopPosition()), true);
 
 	this->skill_D_A_.setHoverBoundaries(HOVERPOSITION::TOP, this->skill_B_A_.getGlobalBounds(), this->skill_B_A_.getGlobalBounds());
+
+	this->experience_D_A_.setHoverBoundaries(HOVERPOSITION::BOTTOM, this->experience_Bar_Back_.getGlobalBounds(), this->experience_Bar_Back_.getGlobalBounds());
 
 	this->is_Hiding_Hud_ = true;
 }
@@ -170,7 +172,7 @@ void PlayerHud::updatePollEvent(sf::Event& ev, int& health, const int& healthMax
 
 		if (ev.key.code == sf::Keyboard::F8)
 		{
-			std::cout << "Minus health" << std::endl;
+			std::cout << "Plus health" << std::endl;
 			health += 2;
 			std::cout << "Health: " << health << std::endl;
 
@@ -201,6 +203,8 @@ void PlayerHud::update(const sf::Vector2i& mousePositionWindow, const Camera& ca
 		this->skill_B_C_.updateBoundaries(mousePositionWindow);
 
 		this->skill_D_A_.update(mousePositionWindow);
+
+		this->experience_D_A_.update(mousePositionWindow);
 	}
 }
 
@@ -215,6 +219,9 @@ void PlayerHud::render(sf::RenderTarget& target)
 
 		target.draw(this->mana_Bar_Back_);
 		target.draw(this->mana_Bar_Front_);
+
+		target.draw(this->experience_Bar_Back_);
+		target.draw(this->experience_Bar_Front_);
 
 		this->character_B_A_.render(target);
 		this->character_B_B_.render(target);
@@ -236,6 +243,8 @@ void PlayerHud::render(sf::RenderTarget& target)
 
 		this->skill_D_A_.render(target);
 
+		this->experience_D_A_.render(target);
+
 
 
 		target.setView(this->camera_->getView());
@@ -246,13 +255,27 @@ void PlayerHud::render(sf::RenderTarget& target)
 	}
 }
 
-void PlayerHud::setWidthOfHealthBar(const int& healthMax, int& health)
+void PlayerHud::setWidthOfBars(const int& healthMax, int& health, const int& manaMax, int& mana, const int& expMax, int& exp)
 {
-	std::cout << "health max: " << healthMax << std::endl;
+	//std::cout << "health max: " << healthMax << std::endl;
+
 	float healthMaxToFloat = static_cast<float>(healthMax);
 	float healthToFloat = static_cast<float>(health);
+	std::cout << "healthMAX: " << healthMax << std::endl;
 
 	this->health_Bar_Front_.setSize(sf::Vector2f((healthToFloat / healthMaxToFloat) * 300.f, this->health_Bar_Back_.getSize().y - 10.f));
+
+	float manaMaxToFloat = static_cast<float>(manaMax);
+	float manaToFloat = static_cast<float>(mana);
+
+	this->mana_Bar_Front_.setSize(sf::Vector2f((manaToFloat / manaMaxToFloat) * 300.f, this->mana_Bar_Back_.getSize().y - 10.f));
+
+	float expMaxToFloat = static_cast<float>(expMax);
+	float expToFloat = static_cast<float>(exp);
+
+	this->experience_Bar_Front_.setSize(sf::Vector2f((expToFloat / expMaxToFloat) * 300.f, this->experience_Bar_Back_.getSize().y - 10.f));
+
+	this->experience_D_A_.setString(DESCRIPTIONTYPE::SKILL, "Experience", std::to_string(exp) + " / " + std::to_string(expMax));
 }
 
 const float PlayerHud::percentToPixel(const float size)

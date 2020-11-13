@@ -1,190 +1,22 @@
-﻿  Button.cpp
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Button.cpp(65,102): warning C4244: 'argument': conversion from 'const T' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-          and
-          [
-              T=float
-          ]
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Button.cpp(65,79): warning C4244: 'argument': conversion from 'const T' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-          and
-          [
-              T=float
-          ]
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Button.cpp(85,102): warning C4244: 'argument': conversion from 'const T' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-          and
-          [
-              T=float
-          ]
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Button.cpp(85,79): warning C4244: 'argument': conversion from 'const T' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-          and
-          [
-              T=float
-          ]
-  DialogBox.cpp
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\DialogBox.cpp(55,93): warning C4244: 'argument': conversion from 'const T' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-          and
-          [
-              T=int
-          ]
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\DialogBox.cpp(55,72): warning C4244: 'argument': conversion from 'const T' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-          and
-          [
-              T=int
-          ]
-  Engine.cpp
-  Item.cpp
-  ItemDropDownList.cpp
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\ItemDropDownList.cpp(129,86): warning C4244: 'argument': conversion from 'const T' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-          and
-          [
-              T=float
-          ]
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\ItemDropDownList.cpp(129,63): warning C4244: 'argument': conversion from 'const T' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-          and
-          [
-              T=float
-          ]
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\ItemDropDownList.cpp(136,91): warning C4244: 'argument': conversion from 'const T' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-          and
-          [
-              T=float
-          ]
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\ItemDropDownList.cpp(136,68): warning C4244: 'argument': conversion from 'const T' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-          and
-          [
-              T=float
-          ]
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\ItemDropDownList.cpp(142,91): warning C4244: 'argument': conversion from 'const T' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-          and
-          [
-              T=float
-          ]
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\ItemDropDownList.cpp(142,68): warning C4244: 'argument': conversion from 'const T' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-          and
-          [
-              T=float
-          ]
-  ItemTest.cpp
-  MenuCharacterCreation.cpp
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\MenuCharacterCreation.cpp(68,49): warning C4244: 'argument': conversion from 'const unsigned int' to 'float', possible loss of data
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\MenuCharacterCreation.cpp(68,36): warning C4244: 'argument': conversion from 'const unsigned int' to 'float', possible loss of data
-  MenuPause.cpp
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\MenuPause.cpp(7,63): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\MenuPause.cpp(7,42): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
-  MenuSetting.cpp
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\MenuSetting.cpp(7,63): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\MenuSetting.cpp(7,42): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
+﻿  Engine.cpp
   Npc.cpp
   NpcTest.cpp
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\NpcTest.cpp(27,34): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\NpcTest.cpp(27,29): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
-  PlayerBag.cpp
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerBag.cpp(36,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerBag.cpp(38,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerBag.cpp(65,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerBag.cpp(67,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerBag.cpp(96,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerBag.cpp(98,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\NpcTest.cpp(28,34): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\NpcTest.cpp(28,29): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
   PlayerHud.cpp
-  PlayerInventory.cpp
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerInventory.cpp(247,22): warning C4018: '<': signed/unsigned mismatch
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerInventory.cpp(249,23): warning C4018: '<': signed/unsigned mismatch
-  PlayerQuest.cpp
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerQuest.cpp(30,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerQuest.cpp(56,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerQuest.cpp(77,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerQuest.cpp(118,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerQuest.cpp(145,20): warning C4018: '<': signed/unsigned mismatch
-  PlayerSkillTree.cpp
   PlayerTest.cpp
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(35,54): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(40,34): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(40,29): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
-  QuestBox.cpp
-  SkillButton.cpp
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\SkillButton.cpp(150,102): warning C4244: 'argument': conversion from 'const T' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-          and
-          [
-              T=float
-          ]
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\SkillButton.cpp(150,79): warning C4244: 'argument': conversion from 'const T' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-          and
-          [
-              T=float
-          ]
-  State.cpp
-  Compiling...
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(35,29): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(43,34): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(43,29): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(312,30): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(317,37): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(318,35): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(319,39): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(320,39): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(321,42): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(322,43): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(323,41): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(324,37): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
   StateEditor.cpp
 C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\StateEditor.cpp(527,85): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
@@ -258,8 +90,8 @@ C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp
 C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(570,23): warning C4018: '<': signed/unsigned mismatch
   main.cpp
   Generating code
-  304 of 1355 functions (22.4%) were compiled, the rest were copied from previous compilation.
-    32 functions were new in current compilation
-    203 functions had inline decision re-evaluated but remain unchanged
+  4 of 1366 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
+    1 functions were new in current compilation
+    25 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Pilrithia.vcxproj -> C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Release\Pilrithia.exe

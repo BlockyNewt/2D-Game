@@ -25,6 +25,7 @@ public:
 
 	void setIsVisible(bool isVisible);
 	void setString(const std::string& string);
+	void setIsAccepted(bool isAccepted);
 
 	const bool& getIsVisible() const;
 

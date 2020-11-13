@@ -9,6 +9,9 @@ enum class STATNAME
 {
 	DEFUALT = 0,
 
+	HEALTH,
+	MANA,
+
 	STRENGTH,
 	DEXERITY,
 	CONSTITUTION,
@@ -24,7 +27,7 @@ public:
 	SkillButton();
 	~SkillButton();
 
-	void setSettings(float radius, float x, float y, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, const std::string& title, const std::string& description, STATNAME statName, int statIncrease);
+	void setSettings(float radius, float x, float y, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, STATNAME statName, int statIncrease);
 	void manageStatAllocation(bool pOrM, std::map<std::string, int>& stats);
 
 	void updatePollEvent(sf::Event& ev, std::map<std::string, int>& stats);

@@ -20,19 +20,18 @@ public:
 	~PlayerQuest();
 
 	bool isThisQuestTaken(Quest& quest);
-	bool isQuestTaskCompleted(Quest& quest);
-	bool isQuestTurnedInCompleted(Quest& quest);
 	void addQuest(Quest& quest);
-	void completeQuest(Quest& quest);
 
 	void updatePollEvent(sf::Event& ev);
 	void update(const sf::Vector2i& mousePositionWindow);
 	void render(sf::RenderTarget& target);
 
 	void setIsHidingQuest(bool isHidingQuest);
+	Quest* setSelectedQuest();
 
 	const bool& getIsHidingQuest() const;
 	const std::vector<Quest*>& getQuest() const;
+	const Quest* getSelectedQuest() const;
 
 private:
 
@@ -51,6 +50,8 @@ private:
 	std::vector<Quest*> quests_;
 
 	bool is_Hiding_Quest_;
+
+	Quest* selected_Quest_;
 };
 
 #endif // !

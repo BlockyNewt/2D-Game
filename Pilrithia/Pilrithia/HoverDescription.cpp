@@ -30,7 +30,7 @@ void HoverDescription::setHoverBoundaries(HOVERPOSITION hoverPosition, const sf:
 	}
 	else if (hoverPosition == HOVERPOSITION::BOTTOM)
 	{
-		this->description_Box_.setPosition(this->boundaries_Offset_.left, this->boundaries_Offset_.top + this->description_Box_.getGlobalBounds().height);
+		this->description_Box_.setPosition(this->boundaries_Offset_.left, this->boundaries_Offset_.top + this->boundaries_Offset_.height);
 
 	}
 	else if (hoverPosition == HOVERPOSITION::LEFT)

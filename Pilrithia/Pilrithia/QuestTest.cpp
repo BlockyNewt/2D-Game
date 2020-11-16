@@ -73,7 +73,7 @@ void QuestTest::setIsQuestTurnedIn(bool isQuestTurnedIn)
 	this->is_Quest_Turned_In_ = isQuestTurnedIn;
 }
 
-void QuestTest::setNpcName(const std::string& npcName)
+void QuestTest::setTargetNpcName(const std::string& npcName)
 {
 	this->npc_Name_ = npcName;
 }
@@ -123,7 +123,7 @@ const QUESTTYPE& QuestTest::getQuestType() const
 	return this->quest_Type_;
 }
 
-const std::string& QuestTest::getNpcName() const
+const std::string& QuestTest::getTargetNpcName() const
 {
 	return this->npc_Name_;
 }

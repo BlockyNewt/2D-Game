@@ -236,7 +236,9 @@ void StateTestZone::update()
 
 		this->tilemap_->update(*this->camera_);
 
-		this->tilemap_->playerCollision(this->player_Test_);
+		this->tilemap_->mapCollision(this->player_Test_, this->enemy_Test_);
+
+		this->enemy_Test_.update(this->dt_);
 
 		this->player_Test_.update(this->mouse_Position_Window_, *this->camera_);
 
@@ -269,6 +271,8 @@ void StateTestZone::render(sf::RenderTarget& target)
 	this->player_Test_.renderPlayerModel(target);
 
 	this->npc_Test_.render(target);
+
+	this->enemy_Test_.render(target);
 
 	this->player_Test_.renderHudItems(target);
 

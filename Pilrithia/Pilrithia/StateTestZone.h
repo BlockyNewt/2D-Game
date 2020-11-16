@@ -12,6 +12,8 @@
 #include "Npc.h"
 #include "NpcTest.h"
 
+#include "EnemyTest.h"
+
 class StateTestZone
 	: public State
 {
@@ -67,6 +69,7 @@ private:
 	MenuCharacterCreation* menu_Character_Creation_;
 	PlayerTest player_Test_;
 	NpcTest npc_Test_;
+	EnemyTest enemy_Test_;
 };
 
 #endif // !STATETESTZONE_H

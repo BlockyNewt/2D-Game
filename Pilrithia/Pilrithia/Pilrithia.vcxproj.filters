@@ -55,6 +55,24 @@
     <Filter Include="Source Files\Skills">
       <UniqueIdentifier>{4532e693-42b8-4683-ae11-bf58318889d3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Npc">
+      <UniqueIdentifier>{e120eaca-61d3-4d7e-a307-b07021a8025b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Quest">
+      <UniqueIdentifier>{cea01492-ebf3-4385-a00b-81a5c1c49e5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Item">
+      <UniqueIdentifier>{957af804-2b81-41e4-bf4f-fc060a0e44bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Npc">
+      <UniqueIdentifier>{1312e291-ade7-46fd-9e52-716e42ce1e64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Quest">
+      <UniqueIdentifier>{6d52931c-69c8-4716-84ec-adf70bdc9036}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Item">
+      <UniqueIdentifier>{e5e7f4c3-a5db-4503-861a-9cd2bc3c9f93}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -70,12 +88,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Npc.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NpcTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Box.cpp">
@@ -168,31 +180,43 @@
     <ClCompile Include="SkillStabyWab.cpp">
       <Filter>Source Files\Skills</Filter>
     </ClCompile>
-    <ClCompile Include="Item.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ItemTest.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ItemDropDownList.cpp">
       <Filter>Source Files\Gui</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerQuest.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="QuestTest.cpp">
+      <Filter>Source Files\Quest</Filter>
     </ClCompile>
     <ClCompile Include="Quest.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Quest</Filter>
     </ClCompile>
-    <ClCompile Include="QuestTest.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Npc.cpp">
+      <Filter>Source Files\Npc</Filter>
+    </ClCompile>
+    <ClCompile Include="NpcTest.cpp">
+      <Filter>Source Files\Npc</Filter>
     </ClCompile>
     <ClCompile Include="PlayerSkillTree.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerQuest.cpp">
+      <Filter>Source Files\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Source Files\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemTest.cpp">
+      <Filter>Source Files\Item</Filter>
     </ClCompile>
     <ClCompile Include="CircleButton.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Gui</Filter>
     </ClCompile>
     <ClCompile Include="SkillButton.cpp">
+      <Filter>Source Files\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -204,12 +228,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Tile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Npc.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NpcTest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Box.h">
@@ -305,31 +323,43 @@
     <ClInclude Include="HoverDescription.h">
       <Filter>Header Files\Gui</Filter>
     </ClInclude>
-    <ClInclude Include="Item.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemTest.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ItemDropDownList.h">
       <Filter>Header Files\Gui</Filter>
     </ClInclude>
     <ClInclude Include="PlayerQuest.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Quest.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="QuestTest.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Player</Filter>
     </ClInclude>
     <ClInclude Include="PlayerSkillTree.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Player</Filter>
     </ClInclude>
-    <ClInclude Include="CircleButton.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="QuestTest.h">
+      <Filter>Header Files\Quest</Filter>
+    </ClInclude>
+    <ClInclude Include="Quest.h">
+      <Filter>Header Files\Quest</Filter>
+    </ClInclude>
+    <ClInclude Include="NpcTest.h">
+      <Filter>Header Files\Npc</Filter>
+    </ClInclude>
+    <ClInclude Include="Npc.h">
+      <Filter>Header Files\Npc</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemTest.h">
+      <Filter>Header Files\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Header Files\Item</Filter>
     </ClInclude>
     <ClInclude Include="SkillButton.h">
+      <Filter>Header Files\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="CircleButton.h">
+      <Filter>Header Files\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyTest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

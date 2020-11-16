@@ -23,7 +23,7 @@ NpcTest::NpcTest()
 	this->is_Within_Range_ = false;
 	
 	this->quest_ = new QuestTest();
-	this->quest_->setNpcName("N.P.C Two");
+	this->quest_->setTargetNpcName("N.P.C Two");
 
 	this->camera_ = new Camera(0.f, 0.f);
 }
@@ -80,7 +80,7 @@ void NpcTest::updatePollEventQuest(sf::Event& ev, PlayerTest& playerTest, Quest*
 
 	if (playerTest.setPlayerQuest().getSelectedQuest() != NULL)
 	{
-		if (playerTest.setPlayerQuest().getSelectedQuest()->getNpcName() == this->npc_Name_)
+		if (playerTest.setPlayerQuest().getSelectedQuest()->getTargetNpcName() == this->npc_Name_)
 		{
 			this->quest_Box_.setIsAccepted(true);
 		}

@@ -550,7 +550,7 @@ void Tilemap::resizeTileSize(float tileSizeXY)
 	this->tile_Size_X_Y_ = tileSizeXY;
 }
 
-void Tilemap::playerCollision(PlayerTest& playerTest)
+void Tilemap::mapCollision(PlayerTest& playerTest, Enemy& enemy)
 {
 	/*
 		RESET AFTER EVERY ITERATION 
@@ -562,6 +562,7 @@ void Tilemap::playerCollision(PlayerTest& playerTest)
 	if (this->is_Tilemap_Loaded_)
 	{
 		this->is_Bottom_Colliding_ = false;
+		enemy.setIsBottomColliding(false);
 
 		for (int x = 0; x < this->grid_Max_Size_X_; ++x)
 		{
@@ -583,6 +584,13 @@ void Tilemap::playerCollision(PlayerTest& playerTest)
 						NextPosition = playerBounds;
 						NextPosition.left += playerTest.getVelocity().x;
 						NextPosition.top += playerTest.getVelocity().y;
+
+						sf::FloatRect enemyBounds = enemy.getEnemyGlobalBounds();
+						sf::FloatRect NextPositionEnemy = enemy.getNextPositionGlobalBounds();
+
+						NextPositionEnemy = enemyBounds;
+						NextPositionEnemy.left += enemy.getVelocity().x;
+						NextPositionEnemy.top += enemy.getVelocity().y;
 
 						/*
 							IF THE TILE IS BOUNDARY THEN UPDATE ITS COLLISION
@@ -645,6 +653,86 @@ void Tilemap::playerCollision(PlayerTest& playerTest)
 
 
 							}
+
+
+
+
+
+							/*
+							
+							
+							ENEMY COLLISION TESTING. 
+							
+							WILL WANT TO PUT THIS SOMEWHERE ELSE
+							
+							*/
+							if (this->grid_[x][y][z]->getGlobalBounds().intersects(NextPositionEnemy))
+							{
+								//RIGHT COLLISION
+								if (enemyBounds.left < this->grid_[x][y][z]->getLeftPosition() &&
+									enemyBounds.left + enemyBounds.width < this->grid_[x][y][z]->getRightPosition() &&
+									enemyBounds.top < this->grid_[x][y][z]->getBottomPosition() &&
+									enemyBounds.top + enemyBounds.height > this->grid_[x][y][z]->getTopPosition())
+								{
+									std::cout << "Right ";
+
+									//enemy.setDirection(DIRECTION::LEFT);
+
+									enemy.setVelocityX(0.f);
+
+									enemy.getEnemyModel().setPosition(sf::Vector2f(this->grid_[x][y][z]->getLeftPosition() - enemy.getEnemyGlobalBounds().width, enemy.getEnemyGlobalBounds().top));
+								}
+
+								//LEFT COLLISION
+								else if (enemyBounds.left > this->grid_[x][y][z]->getLeftPosition() &&
+									enemyBounds.left + enemyBounds.width > this->grid_[x][y][z]->getRightPosition() &&
+									enemyBounds.top < this->grid_[x][y][z]->getBottomPosition() &&
+									enemyBounds.top + enemyBounds.height > this->grid_[x][y][z]->getTopPosition())
+								{
+									std::cout << "Left ";
+
+									//enemy.setDirection(DIRECTION::RIGHT);
+
+									enemy.setVelocityX(0.f);
+
+									enemy.getEnemyModel().setPosition(sf::Vector2f(this->grid_[x][y][z]->getRightPosition(), enemy.getEnemyGlobalBounds().top));
+								}
+
+								//TOP COLLISION
+								if (enemyBounds.top > this->grid_[x][y][z]->getTopPosition() &&
+									enemyBounds.top + enemyBounds.height > this->grid_[x][y][z]->getBottomPosition() &&
+									enemyBounds.left < this->grid_[x][y][z]->getRightPosition() &&
+									enemyBounds.left + enemyBounds.width > this->grid_[x][y][z]->getLeftPosition())
+								{
+									//std::cout << "Top " << std::endl;
+									enemy.setVelocityY(enemy.getGravity());
+
+									enemy.getEnemyModel().setPosition(sf::Vector2f(enemy.getEnemyGlobalBounds().left, this->grid_[x][y][z]->getBottomPosition()));
+								}
+
+								//BOTTOM COLLISION	
+								else if (enemyBounds.top < this->grid_[x][y][z]->getTopPosition() &&
+									enemyBounds.top + enemyBounds.height < this->grid_[x][y][z]->getBottomPosition() &&
+									enemyBounds.left < this->grid_[x][y][z]->getRightPosition() &&
+									enemyBounds.left + enemyBounds.width > this->grid_[x][y][z]->getLeftPosition())
+								{
+									std::cout << "Bottom " << std::endl;
+
+									
+									enemy.setDirection(DIRECTION::RIGHT);
+
+									enemy.setIsBottomColliding(true);
+
+									enemy.setVelocityY(0.f);
+
+									enemy.getEnemyModel().setPosition(sf::Vector2f(enemy.getEnemyGlobalBounds().left, this->grid_[x][y][z]->getTopPosition() - enemy.getEnemyGlobalBounds().height));
+								}
+							}
+
+
+
+
+
 						}
 					}
 					else
@@ -652,7 +740,11 @@ void Tilemap::playerCollision(PlayerTest& playerTest)
 						if (!this->is_Bottom_Colliding_ && !playerTest.getIsJumping())
 						{
 							playerTest.setVelocityY(playerTest.getGravity());
+						}
 
+						if (!enemy.getIsBottomColliding())
+						{
+							enemy.setVelocityY(enemy.getGravity());
 						}
 					}
 				}

@@ -5,6 +5,8 @@
 #include "Camera.h"
 #include "PlayerTest.h"
 
+#include "Enemy.h"
+
 #include <iostream>
 #include <fstream>
 
@@ -40,7 +42,7 @@ public:
 	const bool& getIsTilemapLoaded() const;
 
 	//TESTING 
-	void playerCollision(PlayerTest& playerTest);
+	void mapCollision(PlayerTest& playerTest, Enemy& enemy);
 
 
 private:

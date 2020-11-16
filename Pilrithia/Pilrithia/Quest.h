@@ -38,7 +38,7 @@ public:
 	virtual void setIsQuestTaken(bool isQuestTaken) = 0;
 	virtual void setIsTaskCompleted(bool isTaskCompleted) = 0;
 	virtual void setIsQuestTurnedIn(bool isQuestTurnedIn) = 0;
-	virtual void setNpcName(const std::string& npcName) = 0;
+	virtual void setTargetNpcName(const std::string& npcName) = 0;
 
 	virtual const Text& getText() const = 0;
 	virtual const QUESTNAME& getQuestName() const = 0;
@@ -49,7 +49,7 @@ public:
 	virtual const bool& getIsTaskCompleted() const = 0;
 	virtual const bool& getIsQuestTurnedIn() const = 0;
 	virtual const QUESTTYPE& getQuestType() const = 0;
-	virtual const std::string& getNpcName() const = 0;
+	virtual const std::string& getTargetNpcName() const = 0;
 
 };
 

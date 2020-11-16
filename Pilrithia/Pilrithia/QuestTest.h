@@ -20,7 +20,7 @@ public:
 	void setIsQuestTaken(bool isQuestTaken) override;
 	void setIsTaskCompleted(bool isTaskCompleted) override;
 	void setIsQuestTurnedIn(bool isQuestTurnedIn) override;
-	void setNpcName(const std::string& npcName) override;
+	void setTargetNpcName(const std::string& npcName) override;
 
 	const Text& getText() const override;
 	const QUESTNAME& getQuestName() const override;
@@ -31,7 +31,7 @@ public:
 	const bool& getIsTaskCompleted() const override;
 	const bool& getIsQuestTurnedIn() const override;
 	const QUESTTYPE& getQuestType() const override;
-	const std::string& getNpcName() const override;
+	const std::string& getTargetNpcName() const override;
 
 
 private:

@@ -11,6 +11,15 @@ StateTestZone::StateTestZone(std::stack<State*>* states, sf::RenderWindow* windo
 
 	this->npc_Test_.setSettings(this->window_->getSize());
 
+	this->max_Enemies_ = 3;
+	this->enemy_Test_ = new EnemyTest(sf::Vector2f(600.f, 120.f), 3);
+	this->enemy_Test_One_ = new EnemyTest(sf::Vector2f(120.f, 180.f), 5);
+	this->enemy_Test_Two_ = new EnemyTest(sf::Vector2f(300.f, 180.f), 8);
+
+	this->enemies_.push_back(this->enemy_Test_);
+	this->enemies_.push_back(this->enemy_Test_One_);
+	this->enemies_.push_back(this->enemy_Test_Two_);
+
 
 	this->load_X_A_.setSettings(800.f, 400.f, this->window_->getSize().x / 2.f - 800.f / 2.f, this->window_->getSize().y / 2.f - 600.f / 2.f, sf::Color::Green, 1.f, sf::Color::Red, true);
 
@@ -208,12 +217,64 @@ void StateTestZone::updatePollEvent(sf::Event& ev)
 				this->camera_->updatePollEvent(ev);
 			}
 
+
+			for (auto& e : this->enemies_)
+			{
+				this->player_Test_.updateSkillsPollEvent(ev);
+			}
+
 			this->player_Test_.updatePollEvent(ev, this->dt_);
 
 			this->npc_Test_.updatePollEvent(ev, this->player_Test_);
 
 			this->window_->setKeyRepeatEnabled(true);
 		}
+	}
+}
+
+void StateTestZone::updateEnemy()
+{
+	//ENEMY HANDLING
+	for (int i = 0; i < this->enemies_.size(); ++i)
+	{
+		this->tilemap_->EnemyCollision(*this->enemies_[i]);
+
+		this->enemies_[i]->update(this->player_Test_.getPlayerGlobalBounds(), this->dt_, this->player_Test_.getStatForChange("health"));
+
+		this->player_Test_.updateEnemyAutoSelector(this->enemies_[i]);
+
+		if (this->enemies_[i]->getIsDead())
+		{
+			delete this->enemies_[i];
+			this->enemies_.erase(this->enemies_.begin() + i);
+		}
+
+	}
+
+	if (this->enemies_.size() < this->max_Enemies_)
+	{
+		this->enemies_.push_back(new EnemyTest(sf::Vector2f(600.f, 120.f), 8));
+	}
+}
+
+void StateTestZone::updateCharacterCreation()
+{
+	if (this->menu_Character_Creation_->getIsCreatingCharacter())
+	{
+		this->menu_Character_Creation_->update(this->mouse_Position_Window_);
+
+		this->character_Creation_B_B_.updateBoundaries(this->mouse_Position_Window_);
+		this->character_Creation_B_C_.updateBoundaries(this->mouse_Position_Window_);
+	}
+}
+
+void StateTestZone::updateLoadTilemap()
+{
+	if (this->load_X_A_.getIsVisible() && !this->menu_Character_Creation_->getIsCreatingCharacter())
+	{
+		this->load_B_A_.updateBoundaries(this->mouse_Position_Window_);
+		this->load_B_B_.updateBoundaries(this->mouse_Position_Window_);
+		this->load_I_A_.update(this->mouse_Position_Window_);
 	}
 }
 
@@ -236,29 +297,18 @@ void StateTestZone::update()
 
 		this->tilemap_->update(*this->camera_);
 
-		this->tilemap_->mapCollision(this->player_Test_, this->enemy_Test_);
+		this->updateEnemy();
 
-		this->enemy_Test_.update(this->dt_);
+
+		this->tilemap_->PlayerCollision(this->player_Test_);
 
 		this->player_Test_.update(this->mouse_Position_Window_, *this->camera_);
 
 		this->npc_Test_.update(this->mouse_Position_View_, this->mouse_Position_Window_, this->player_Test_.getPlayerGlobalBounds(), *this->camera_, this->player_Test_);
 
-
-		if (this->menu_Character_Creation_->getIsCreatingCharacter())
-		{
-			this->menu_Character_Creation_->update(this->mouse_Position_Window_);
-
-			this->character_Creation_B_B_.updateBoundaries(this->mouse_Position_Window_);
-			this->character_Creation_B_C_.updateBoundaries(this->mouse_Position_Window_);
-		}
-
-		if (this->load_X_A_.getIsVisible() && !this->menu_Character_Creation_->getIsCreatingCharacter())
-		{
-			this->load_B_A_.updateBoundaries(this->mouse_Position_Window_);
-			this->load_B_B_.updateBoundaries(this->mouse_Position_Window_);
-			this->load_I_A_.update(this->mouse_Position_Window_);
-		}
+		this->updateCharacterCreation();
+	
+		this->updateLoadTilemap();
 	}
 }
 
@@ -272,7 +322,11 @@ void StateTestZone::render(sf::RenderTarget& target)
 
 	this->npc_Test_.render(target);
 
-	this->enemy_Test_.render(target);
+	for (auto& e : this->enemies_)
+	{
+		e->render(target);
+
+	}
 
 	this->player_Test_.renderHudItems(target);
 

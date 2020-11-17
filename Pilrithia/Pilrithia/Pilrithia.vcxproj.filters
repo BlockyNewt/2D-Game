@@ -73,6 +73,12 @@
     <Filter Include="Header Files\Item">
       <UniqueIdentifier>{e5e7f4c3-a5db-4503-861a-9cd2bc3c9f93}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Enemy">
+      <UniqueIdentifier>{3622cbb5-6cf0-48c6-90f2-fbd330203f1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Enemy">
+      <UniqueIdentifier>{59280707-72d1-4eca-a2e6-87f5e7f97ca6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -213,11 +219,11 @@
     <ClCompile Include="SkillButton.cpp">
       <Filter>Source Files\Gui</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="EnemyTest.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source Files\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -357,10 +363,10 @@
       <Filter>Header Files\Gui</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="EnemyTest.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

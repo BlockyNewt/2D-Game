@@ -28,7 +28,6 @@ PlayerTest::PlayerTest()
 	this->jump_Speed_ = 200.f;
 	this->max_Jump_Height_ = 60.f;
 
-	this->is_Falling_ = false;
 	this->is_Jumping_ = false;
 
 	this->level_ = 1;
@@ -41,6 +40,8 @@ PlayerTest::PlayerTest()
 	//TESTING ONLY FIX LATER
 	this->player_Bag_.initializeBag();
 	this->camera_ = new Camera(0.f, 0.f);
+	//this->selected_Enemy_ = new EnemyTest();
+	this->selected_Enemy_ = NULL;
 }
 
 PlayerTest::~PlayerTest()
@@ -62,8 +63,10 @@ void PlayerTest::initializeCharacter(Race* race, const std::string& name)
 
 	if (this->stats_.empty())
 	{
-		this->stats_.insert(std::make_pair("health", this->race_->getPlayerClass().getHealthMax()));
-		this->stats_.insert(std::make_pair("mana", this->race_->getPlayerClass().getManaMax()));
+		this->stats_.insert(std::make_pair("healthMax", this->race_->getPlayerClass().getHealthMax()));
+		this->stats_.insert(std::make_pair("health", this->race_->getPlayerClass().getHealth()));
+		this->stats_.insert(std::make_pair("manaMax", this->race_->getPlayerClass().getManaMax()));
+		this->stats_.insert(std::make_pair("mana", this->race_->getPlayerClass().getMana()));
 		this->stats_.insert(std::make_pair("strength", this->race_->getPlayerClass().getStrength()));
 		this->stats_.insert(std::make_pair("dexerity", this->race_->getPlayerClass().getDexerity()));
 		this->stats_.insert(std::make_pair("constitution", this->race_->getPlayerClass().getConstitution()));
@@ -78,12 +81,13 @@ void PlayerTest::initializeCharacter(Race* race, const std::string& name)
 
 		std::cout << std::to_string(this->stats_.at("strength")) << std::endl;
 		std::cout << std::to_string(this->stats_.at("health")) << std::endl;
-
 	}
 	else
 	{
-		this->stats_.at("health") = this->race_->getPlayerClass().getHealthMax();
-		this->stats_.at("mana") = this->race_->getPlayerClass().getManaMax();
+		this->stats_.at("healthMax") = this->race_->getPlayerClass().getHealthMax();
+		this->stats_.at("health") = this->race_->getPlayerClass().getHealth();
+		this->stats_.at("manaMax") = this->race_->getPlayerClass().getManaMax();
+		this->stats_.at("mana") = this->race_->getPlayerClass().getMana();
 		this->stats_.at("strength") = this->race_->getPlayerClass().getStrength();
 		this->stats_.at("dexerity") = this->race_->getPlayerClass().getDexerity();
 		this->stats_.at("constitution") = this->race_->getPlayerClass().getConstitution();
@@ -97,7 +101,17 @@ void PlayerTest::initializeCharacter(Race* race, const std::string& name)
 		this->resistances_.at("poison") = this->race_->getPlayerClass().getPoison();
 
 		std::cout << std::to_string(this->stats_.at("health")) << std::endl;
+	}
+}
 
+void PlayerTest::updateSkillsPollEvent(sf::Event& ev)
+{
+	if (this->selected_Enemy_ != NULL)
+	{
+		if (this->player_Hud_->updateSkillOnePollEvent(ev))
+		{
+			this->selected_Enemy_->setHealth() -= 2;
+		}
 	}
 }
 
@@ -122,7 +136,7 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 			
 			this->player_Inventory_.realignEquipment();
 
-			this->player_Inventory_.initializeInventory(this->name_, this->race_->getPlayerClass().getName(), this->stats_, this->resistances_);
+			this->player_Inventory_.initializeInventory(this->name_, this->level_, this->race_->getPlayerClass().getName(), this->stats_, this->resistances_);
 		}
 	}
 
@@ -215,6 +229,29 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 	
 }
 
+void PlayerTest::updateEnemyAutoSelector(Enemy* enemy)
+{
+	if (this->selected_Enemy_ == NULL)
+	{
+		if (this->player_Model_.getGlobalBounds().intersects(enemy->getEnemyGlobalBounds()))
+		{
+			this->selected_Enemy_ = enemy;
+
+			std::cout << "enemy has been selected." << std::endl;
+		}
+	}
+
+	if (this->selected_Enemy_ != NULL)
+	{
+		//std::cout << "A" << std::endl;
+		if (this->selected_Enemy_->getIsDead())
+		{
+			std::cout << "enemy died. Can no reselect a new enemy. " << std::endl;
+			this->selected_Enemy_ = NULL;
+		}
+	}
+}
+
 void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& camera)
 {
 	if (this->player_Inventory_.getIsHidingInventory() &&
@@ -222,7 +259,7 @@ void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& c
 		this->player_Quest_.getIsHidingQuest() &&
 		this->player_Skill_Tree_.getIsHidingSkillTree())
 	{
-		player_Model_.move(this->velocity_);
+		this->player_Model_.move(this->velocity_);
 
 		this->next_Position_Bounds_ = this->player_Model_.getGlobalBounds();
 		this->next_Position_Bounds_.left += this->velocity_.x;
@@ -253,9 +290,24 @@ void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& c
 	this->player_Skill_Tree_.update(mousePositionWindow);
 
 
+
+
+
 	//MUST USE THIS TO BE ABLE TO PASS MAP VALUE INTO FUNCTION
 
-	this->player_Hud_->setWidthOfBars(this->getStat("health"), this->race_->getPlayerClass().setHealth(), this->getStat("mana"), this->race_->getPlayerClass().setMana(), this->max_Exp_, this->exp_);
+	this->player_Hud_->setWidthOfBars(this->getStat("healthMax"), this->getStatForChange("health"), this->getStat("manaMax"), this->getStatForChange("mana"), this->max_Exp_, this->exp_);
+
+	if (this->getStat("health") <= 0)
+	{
+		this->getStatForChange("health") = 0;
+	}
+
+	if (this->getStat("mana") <= 0)
+	{
+		this->getStatForChange("mana") = 0;
+	}
+
+	//std::cout << "my health: " << this->getStat("health") << std::endl;
 
 
 	//CHECK IF THERE IS A LEVEL UP
@@ -314,8 +366,10 @@ void PlayerTest::levelUp()
 		this->exp_ += excessExp;
 
 		
-		this->setStat("health", std::floor(2.0 * 1.2 + (std::pow(this->level_, 1.2))));
-		this->setStat("mana", std::floor(2.0 * 1.2 + (std::pow(this->level_, 1.2))));
+		this->setStat("healthMax", std::floor(2.0 * 1.2 + (std::pow(this->level_, 1.2))));
+		this->getStatForChange("health") = this->getStat("healthMax");
+		this->setStat("manaMax", std::floor(2.0 * 1.2 + (std::pow(this->level_, 1.2))));
+		this->getStatForChange("mana") = this->getStat("manaMax");
 		this->setStat("strength", std::floor((std::pow(this->level_ / 2.f, 1.2)) / 2.f));
 		this->setStat("dexerity", std::floor((std::pow(this->level_ / 2.f, 1.2)) / 2.f));
 		this->setStat("consitution", std::floor((std::pow(this->level_ / 2.f, 1.2)) / 2.f));
@@ -328,7 +382,9 @@ void PlayerTest::levelUp()
 		std::cout << "LEVEL: " << this->level_ << std::endl;
 		std::cout << "MAX EXP: " << this->max_Exp_ << std::endl;
 		std::cout << "EXP: " << this->exp_ << std::endl;
+		std::cout << "HEALTH MAX: " << this->stats_.find("healthMax")->second << std::endl;
 		std::cout << "HEALTH: " << this->stats_.find("health")->second << std::endl;
+		std::cout << "MANA MAX: " << this->stats_.find("manaMax")->second << std::endl;
 		std::cout << "MANA: " << this->stats_.find("mana")->second << std::endl;
 		std::cout << "STRENGTH: " << this->stats_.find("strength")->second << std::endl;
 		std::cout << "DEXERITY: " << this->stats_.at("dexerity") << std::endl;
@@ -352,11 +408,6 @@ void PlayerTest::setVelocityX(float x)
 void PlayerTest::setVelocityY(float y)
 {
 	this->velocity_.y = y;
-}
-
-void PlayerTest::setIsFalling(bool isFalling)
-{
-	this->is_Falling_ = isFalling;
 }
 
 void PlayerTest::setIsJumping(bool isJumping)
@@ -394,11 +445,6 @@ const sf::FloatRect PlayerTest::getNextPositionGlobalBounds() const
 	return this->next_Position_Bounds_;
 }
 
-const bool& PlayerTest::getIsFalling() const
-{
-	return this->is_Falling_;
-}
-
 const bool& PlayerTest::getIsJumping() const
 {
 	return this->is_Jumping_;
@@ -424,7 +470,7 @@ const PlayerSkillTree& PlayerTest::getPlayerSkillTree() const
 	return this->player_Skill_Tree_;
 }
 
-const int PlayerTest::getStat(const std::string& stat) const
+const int& PlayerTest::getStat(const std::string& stat) const
 {
 	auto findPos = this->stats_.find(stat);
 	int statValue = 0;
@@ -432,10 +478,24 @@ const int PlayerTest::getStat(const std::string& stat) const
 	{
 		statValue = findPos->second;
 
-		return statValue;
+		return this->stats_.find(stat)->second;
 	}
 	else
 	{
-		return 0;
+		return statValue;
+	}
+}
+
+int& PlayerTest::getStatForChange(const std::string& stat)
+{
+	auto findPos = this->stats_.find(stat);
+	int statValue = 0;
+	if (findPos != this->stats_.end())
+	{
+		return this->stats_.find(stat)->second;
+	}
+	else
+	{
+		return statValue;
 	}
 }

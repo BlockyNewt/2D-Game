@@ -87,8 +87,8 @@ void ItemTest::increaseStatsOnEquip(std::map<std::string, int>& stats, std::map<
 {
 	if (!stats.empty())
 	{
-		stats.find("health")->second += this->health_Max_;
-		stats.find("mana")->second += this->mana_Max_;
+		stats.find("healthMax")->second += this->health_Max_;
+		stats.find("manaMax")->second += this->mana_Max_;
 		stats.find("strength")->second += this->strength_;
 		stats.find("dexerity")->second += this->dexerity_;
 		stats.find("constitution")->second += this->constitution_;
@@ -110,8 +110,18 @@ void ItemTest::descreaseStatsOnUnequip(std::map<std::string, int>& stats, std::m
 {
 	if (!stats.empty())
 	{
-		stats.find("health")->second -= this->health_Max_;
-		stats.find("mana")->second -= this->mana_Max_;
+		stats.find("healthMax")->second -= this->health_Max_;
+		if (stats.find("health")->second >= stats.find("healthMax")->second)
+		{
+			stats.find("health")->second = stats.find("healthMax")->second;
+		}
+
+		stats.find("manaMax")->second -= this->mana_Max_;
+		if (stats.find("mana")->second >= stats.find("manaMax")->second)
+		{
+			stats.find("mana")->second = stats.find("manaMax")->second;
+		}
+
 		stats.find("strength")->second -= this->strength_;
 		stats.find("dexerity")->second -= this->dexerity_;
 		stats.find("constitution")->second -= this->constitution_;
@@ -134,7 +144,7 @@ bool ItemTest::updatePollEvent(sf::Event& ev)
 	if (this->b_A_.updatePollEvent(ev))
 	{
 		//OPEN MENU
-		std::cout << "Clicked item" << std::endl;
+		//std::cout << "Clicked item" << std::endl;
 		return true;
 	}
 	else

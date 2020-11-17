@@ -3,6 +3,9 @@
 
 #include "Text.h"
 
+#include "Enemy.h"
+#include "EnemyTest.h"
+
 #include <iostream>
 #include <string>
 

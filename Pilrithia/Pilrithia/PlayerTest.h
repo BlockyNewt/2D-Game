@@ -9,7 +9,7 @@
 #include "PlayerQuest.h"
 #include "PlayerSkillTree.h"
 
-#include "QuestTest.h"
+
 
 #include <math.h>
 
@@ -21,7 +21,9 @@ public:
 
 	void initializeCharacter(Race* race, const std::string& name);
 
+	void updateSkillsPollEvent(sf::Event& ev);
 	void updatePollEvent(sf::Event& ev, const float& dt);
+	void updateEnemyAutoSelector(Enemy* enemy);
 	void update(const sf::Vector2i& mousePositionWindow, const Camera& camera);
 	void renderHudItems(sf::RenderTarget& target);
 	void renderPlayerModel(sf::RenderTarget& target);
@@ -33,7 +35,6 @@ public:
 	void setPosition(float x, float y);
 	void setVelocityX(float x);
 	void setVelocityY(float y);
-	void setIsFalling(bool isFalling);
 	void setIsJumping(bool isJumping);
 	PlayerQuest& setPlayerQuest();
 	void setStat(const std::string& stat, int value);
@@ -43,13 +44,14 @@ public:
 	const float& getGravity() const;
 	const sf::FloatRect getPlayerGlobalBounds() const;
 	const sf::FloatRect getNextPositionGlobalBounds() const;
-	const bool& getIsFalling() const;
 	const bool& getIsJumping() const;
 	const PlayerInventory& getPlayerInventory() const;
 	const PlayerBag& getPlayerBag() const;
 	const PlayerQuest& getPlayerQuest() const;
 	const PlayerSkillTree& getPlayerSkillTree() const;
-	const int getStat(const std::string& stat) const;
+	const int& getStat(const std::string& stat) const;
+	int& getStatForChange(const std::string& stat);
+	
 
 private:
 	void levelUp();
@@ -80,7 +82,6 @@ private:
 	float jump_Speed_;
 	float max_Jump_Height_;
 
-	bool is_Falling_;
 	bool is_Jumping_;
 
 	int level_;
@@ -89,6 +90,8 @@ private:
 
 	int skill_Points_;
 
+
+	Enemy* selected_Enemy_;
 
 };
 

@@ -12,8 +12,6 @@
 #include "Npc.h"
 #include "NpcTest.h"
 
-#include "EnemyTest.h"
-
 class StateTestZone
 	: public State
 {
@@ -28,6 +26,10 @@ public:
 private:
 	void updateLoadPollEvent(sf::Event& ev);
 	void updateCharacterCreationPollEvent(sf::Event& ev);
+
+	void updateEnemy();
+	void updateCharacterCreation();
+	void updateLoadTilemap();
 
 
 private:
@@ -69,7 +71,12 @@ private:
 	MenuCharacterCreation* menu_Character_Creation_;
 	PlayerTest player_Test_;
 	NpcTest npc_Test_;
-	EnemyTest enemy_Test_;
+	EnemyTest* enemy_Test_;
+	EnemyTest* enemy_Test_One_;
+	EnemyTest* enemy_Test_Two_;
+
+	int max_Enemies_;
+	std::vector<Enemy*> enemies_;
 };
 
 #endif // !STATETESTZONE_H

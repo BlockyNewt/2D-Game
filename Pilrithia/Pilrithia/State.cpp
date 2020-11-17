@@ -53,7 +53,11 @@ void State::updateDeltaClock()
 		UPDATE DELTA TIME
 	*/
 
+	/*float frameRate = 1.f / this->dt_;
+	std::cout << frameRate << std::endl;*/
+
 	this->dt_ = this->dt_Clock_.restart().asSeconds();
+
 
 	//std::cout << "DEBUG::STATE::UPDATEDELTACLOCK() -> SECONDS: " << this->dt_ << std::endl;
 }

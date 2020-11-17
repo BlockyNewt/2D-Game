@@ -54,25 +54,11 @@ void PlayerInventory::initializeResistances()
 	this->resistances_D_E_.setString(DESCRIPTIONTYPE::STAT, "", "Increase resistance to anything that's poison");
 }
 
-PlayerInventory::PlayerInventory()
+void PlayerInventory::initializeIcons()
 {
-	this->x_A_.setSettings(800.f, 500.f, 0.f, 0.f, sf::Color::Cyan, 1.f, sf::Color::White, true);
-	this->x_B_.setSettings(225.f, 400.f, this->x_A_.getLeftPosition(true, 10.f), this->x_A_.getTopPosition(true, 95.f), sf::Color::Black, 1.f, sf::Color::Red, true);
-
-	this->b_B_.setSettings(50.f, 50.f, this->x_A_.getRightPosition(false, 50.f), this->x_A_.getTopPosition(), sf::Color::Red, 1.f, sf::Color::White, true);
-
-	this->t_A_.setSettings("Font/arial.ttf", 28, "Inventory", sf::Vector2f(this->x_A_.getLeftPosition(true, 350.f), this->x_A_.getTopPosition(true, 10.f)), true);
-	this->t_B_.setSettings("Font/arial.ttf", 18, "Close", sf::Vector2f(this->b_B_.getLeftPosition(true, 10.f), this->b_B_.getTopPosition(true, 10.f)), true);
-	this->t_C_.setSettings("Font/arial.ttf", 18, "Name: ", sf::Vector2f(this->x_B_.getLeftPosition(true, 10.f), this->x_B_.getTopPosition(false, 60.f)), true);
-	this->t_D_.setSettings("Font/arial.ttf", 18, "Class: ", sf::Vector2f(this->x_B_.getLeftPosition(true, 10.f), this->x_B_.getTopPosition(false, 30.f)), true);
-	
-	this->initializeStats();
-	this->initializeResistances();
-
-	this->is_Hiding_Inventory_ = true;
-
-	this->selected_Equipment_ = 0;
-
+	/*
+		INITIALIZE INVENTORY SLOT ICONS
+	*/
 	this->helm_Icon_.setPosition(sf::Vector2f(this->x_B_.getLeftPosition(true, 10.f), this->x_B_.getTopPosition(true, 25.f)));
 	this->helm_Icon_.setSize(sf::Vector2f(50.f, 50.f));
 	this->helm_Icon_.setFillColor(sf::Color::Red);
@@ -108,6 +94,28 @@ PlayerInventory::PlayerInventory()
 	this->feet_Icon_.setFillColor(sf::Color::Red);
 	this->feet_Icon_.setOutlineThickness(1.f);
 	this->feet_Icon_.setOutlineColor(sf::Color::White);
+}
+
+PlayerInventory::PlayerInventory()
+{
+	this->x_A_.setSettings(800.f, 500.f, 0.f, 0.f, sf::Color::Cyan, 1.f, sf::Color::White, true);
+	this->x_B_.setSettings(225.f, 400.f, this->x_A_.getLeftPosition(true, 10.f), this->x_A_.getTopPosition(true, 95.f), sf::Color::Black, 1.f, sf::Color::Red, true);
+
+	this->b_B_.setSettings(50.f, 50.f, this->x_A_.getRightPosition(false, 50.f), this->x_A_.getTopPosition(), sf::Color::Red, 1.f, sf::Color::White, true);
+
+	this->t_A_.setSettings("Font/arial.ttf", 28, "Inventory", sf::Vector2f(this->x_A_.getLeftPosition(true, 350.f), this->x_A_.getTopPosition(true, 10.f)), true);
+	this->t_B_.setSettings("Font/arial.ttf", 18, "Close", sf::Vector2f(this->b_B_.getLeftPosition(true, 10.f), this->b_B_.getTopPosition(true, 10.f)), true);
+	this->t_C_.setSettings("Font/arial.ttf", 18, "Name: ", sf::Vector2f(this->x_B_.getLeftPosition(true, 10.f), this->x_B_.getTopPosition(false, 80.f)), true);
+	this->t_D_.setSettings("Font/arial.ttf", 18, "Class: ", sf::Vector2f(this->x_B_.getLeftPosition(true, 10.f), this->x_B_.getTopPosition(false, 55.f)), true);
+	this->t_E_.setSettings("Font/arial.ttf", 18, "Level: ", sf::Vector2f(this->x_B_.getLeftPosition(true, 10.f), this->x_B_.getTopPosition(false, 30.f)), true);
+	
+	this->initializeStats();
+	this->initializeResistances();
+	this->initializeIcons();
+
+	this->is_Hiding_Inventory_ = true;
+
+	this->selected_Equipment_ = 0;
 
 	this->equipment_.resize(6, NULL);
 }
@@ -116,7 +124,7 @@ PlayerInventory::~PlayerInventory()
 {
 }
 
-void PlayerInventory::initializeInventory(const std::string& name, const std::string& className, const std::map<std::string, int>& stats, const std::map<std::string, int>& resistances)
+void PlayerInventory::initializeInventory(const std::string& name, const int& level, const std::string& className, const std::map<std::string, int>& stats, const std::map<std::string, int>& resistances)
 {
 	/*
 		ON INVENTORY BUTTON CLICK SET ALL STATS AND RESISTANCES
@@ -126,12 +134,13 @@ void PlayerInventory::initializeInventory(const std::string& name, const std::st
 	{
 		this->t_C_.setString("Name: " + name);
 		this->t_D_.setString("Class: " + className);
+		this->t_E_.setString("Level: " + std::to_string(level));
 
 
 		if (!stats.empty())
 		{
-			this->stats_T_B_.setString("Health: " + std::to_string(stats.find("health")->second));
-			this->stats_T_C_.setString("Mana: " + std::to_string(stats.find("mana")->second));
+			this->stats_T_B_.setString("Health: " + std::to_string(stats.find("health")->second) + " / " + std::to_string(stats.find("healthMax")->second));
+			this->stats_T_C_.setString("Mana: " + std::to_string(stats.find("mana")->second) + " / " + std::to_string(stats.find("manaMax")->second));
 			this->stats_T_D_.setString("Strength: " + std::to_string(stats.find("strength")->second));
 			this->stats_T_E_.setString("Dexerity: " + std::to_string(stats.find("dexerity")->second));
 			this->stats_T_F_.setString("Constitution: " + std::to_string(stats.find("constitution")->second));
@@ -188,8 +197,8 @@ void PlayerInventory::updateText(std::map<std::string, int>& stats, std::map<std
 {
 	if (!stats.empty())
 	{
-		this->stats_T_B_.setString("Health: " + std::to_string(stats.find("health")->second));
-		this->stats_T_C_.setString("Mana: " + std::to_string(stats.find("mana")->second));
+		this->stats_T_B_.setString("Health: " + std::to_string(stats.find("health")->second) + " / " + std::to_string(stats.find("healthMax")->second));
+		this->stats_T_C_.setString("Mana: " + std::to_string(stats.find("mana")->second) + " / " + std::to_string(stats.find("manaMax")->second));
 		this->stats_T_D_.setString("Strength: " + std::to_string(stats.find("strength")->second));
 		this->stats_T_E_.setString("Dexerity: " + std::to_string(stats.find("dexerity")->second));
 		this->stats_T_F_.setString("Constitution: " + std::to_string(stats.find("constitution")->second));
@@ -235,11 +244,19 @@ void PlayerInventory::updatePollEvent(sf::Event& ev, std::map<std::string, int>&
 			}
 		}
 
+
+
+		/*
+			EQUIP BUTTON POLL EVENT
+		*/
 		if (this->l_A_.updateEquipPollEvent(ev))
 		{
 
 		}
 
+		/*
+			UNEQUIP BUTTON POLL EVENT
+		*/
 		if (this->l_A_.updateUnequipPollEvent(ev))
 		{
 			bool isBreaking = false;
@@ -275,6 +292,9 @@ void PlayerInventory::updatePollEvent(sf::Event& ev, std::map<std::string, int>&
 			this->l_A_.setIsHovering(false);
 		}
 
+		/*
+			DELETE BUTTON POLL EVENT
+		*/
 		if (this->l_A_.updateDeletePollEvent(ev))
 		{
 			this->equipment_[this->selected_Equipment_]->descreaseStatsOnUnequip(stats, resistances);
@@ -311,6 +331,9 @@ void PlayerInventory::update(const sf::Vector2i& mousePositionWindow)
 		this->resistances_D_E_.update(mousePositionWindow);
 
 
+		/*
+			SET DESCRIPTION BOX SETTINGS ON ITEM HOVER
+		*/
 		for (auto& x : this->equipment_)
 		{
 			if (x != NULL)
@@ -322,6 +345,9 @@ void PlayerInventory::update(const sf::Vector2i& mousePositionWindow)
 			}
 		}
 
+		/*
+			SET DROP DOWN LIST SETTINGS IF AN ITEM HAS BEEN CLICKED
+		*/
 		if (this->l_A_.getIsVisible())
 		{
 			if (this->equipment_[this->selected_Equipment_] != NULL)
@@ -349,6 +375,7 @@ void PlayerInventory::render(sf::RenderTarget& target)
 		this->t_B_.render(target);
 		this->t_C_.render(target);
 		this->t_D_.render(target);
+		this->t_E_.render(target);
 
 
 		target.draw(this->helm_Icon_);

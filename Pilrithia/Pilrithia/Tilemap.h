@@ -42,7 +42,8 @@ public:
 	const bool& getIsTilemapLoaded() const;
 
 	//TESTING 
-	void mapCollision(PlayerTest& playerTest, Enemy& enemy);
+	void PlayerCollision(PlayerTest& playerTest);
+	void EnemyCollision(Enemy& enemy);
 
 
 private:

@@ -141,6 +141,18 @@ bool PlayerHud::updateSkillTreePollEvent(sf::Event& ev)
 	}
 }
 
+bool PlayerHud::updateSkillOnePollEvent(sf::Event& ev)
+{
+	if (this->skill_B_A_.updatePollEvent(ev))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 void PlayerHud::updatePollEvent(sf::Event& ev, int& health, const int& healthMax)
 {
 	/*
@@ -261,7 +273,7 @@ void PlayerHud::setWidthOfBars(const int& healthMax, int& health, const int& man
 
 	float healthMaxToFloat = static_cast<float>(healthMax);
 	float healthToFloat = static_cast<float>(health);
-	//std::cout << "healthMAX: " << healthMax << std::endl;
+	//std::cout << "health: " << health << std::endl;
 
 	this->health_Bar_Front_.setSize(sf::Vector2f((healthToFloat / healthMaxToFloat) * 300.f, this->health_Bar_Back_.getSize().y - 10.f));
 

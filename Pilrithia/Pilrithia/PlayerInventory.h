@@ -23,7 +23,7 @@ public:
 	PlayerInventory();
 	~PlayerInventory();
 
-	void initializeInventory(const std::string& name, const std::string& className, const std::map<std::string, int>& stats, const std::map<std::string, int>& resistances);
+	void initializeInventory(const std::string& name, const int& level, const std::string& className, const std::map<std::string, int>& stats, const std::map<std::string, int>& resistances);
 	void realignEquipment();
 	void updateText(std::map<std::string, int>& stats, std::map<std::string, int>& resistances);
 
@@ -41,6 +41,7 @@ public:
 private:
 	void initializeStats();
 	void initializeResistances();
+	void initializeIcons();
 
 private:
 	Box x_A_;
@@ -52,6 +53,7 @@ private:
 	Text t_B_;
 	Text t_C_;
 	Text t_D_;
+	Text t_E_;
 	
 	Text stats_T_A_;
 	Text stats_T_B_;

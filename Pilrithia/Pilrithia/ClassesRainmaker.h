@@ -12,20 +12,13 @@ public:
 	ClassesRainmaker();
 	virtual ~ClassesRainmaker();
 
-	int& setHealthMax() override;
-	int& setHealth() override;
-	int& setManaMax() override;
-	int& setMana() override;
-	int& setStrength() override;
-	int& setDexerity() override;
-	int& setConstitution() override;
-	int& setIntelligence() override;
-	int& setPerception() override;
-	int& setWisdom() override;
+	void setIsSelected(bool isSelected) override;
+	const bool& getIsSelected() const override;
 
 	const std::string& getName() const override;
 	const std::string& getSummary() const override;
-	Skill& getSkillOne() const override;
+	Skill* getSkillOne() const override;
+
 	const int& getHealthMax() const override;
 	const int& getHealth() const override;
 	const int& getManaMax() const override;
@@ -36,13 +29,6 @@ public:
 	const int& getIntelligence() const override;
 	const int& getPerception() const override;
 	const int& getWisdom() const override;
-
-
-
-	void setCold(int& value) override;
-	void setFire(int& value) override;
-	void setLightning(int& value) override;
-	void setPoison(int& value) override;
 
 	const int& getCold() const override;
 	const int& getFire() const override;
@@ -75,6 +61,7 @@ private:
 
 	Skill* skill_One_;
 
+	bool is_Selected_;
 };
 
 #endif // !CLASSESRAINMAKER_H

@@ -5,21 +5,37 @@ RaceOrc::RaceOrc()
 	this->name_ = "Orc";
 	this->summary_ = "Green, huge, terrifying, and also a bit dim witted. They fight with pure strength and show no sign of weakness making one on one battles challenging for their opponents. Just their battlecrys and screams alone can bring terror into the most intellectual of warriors. They do not stop until their last breath and will wreak havoc on anything in their way before then. \n\nOrcs may be savages but when it comes to the people of their clan they show much care and affection towards one another.";
 
-	this->classes_One_ = new ClassesSavage();
+	this->health_Max_ = 12;
+	this->health_ = this->health_Max_;
+	this->mana_Max_ = 14;
+	this->mana_ = this->mana_Max_;
+	this->strength_ = 0;
+	this->dexerity_ = 0;
+	this->constitution_ = 4;
+	this->intelligence_ = 5;
+	this->perception_ = 0;
+	this->wisdom_ = 5;
+
+	this->cold_ = 0;
+	this->fire_ = 0;
+	this->lightning_ = 0;
+	this->poison_ = 0;
+
+	/*this->classes_One_ = new ClassesSavage();
 	this->classes_One_Advanced_ = NULL;
 
 	this->classes_Two_ = new ClassesRainmaker();
 	this->classes_Two_Advanced_ = NULL;
 
-	this->player_Classes_ = NULL;
+	this->player_Classes_ = NULL;*/
 }
 
 RaceOrc::~RaceOrc()
 {
-	delete this->classes_One_;
+	/*delete this->classes_One_;
 	delete this->classes_One_Advanced_;
 	delete this->classes_Two_;
-	delete this->classes_Two_Advanced_;
+	delete this->classes_Two_Advanced_;*/
 
 	//delete this->player_Classes_;
 }
@@ -33,10 +49,10 @@ void RaceOrc::initializeRace(const float& posX, const float& posY)
 	this->model_.setOutlineColor(sf::Color::Red);
 }
 
-void RaceOrc::setPlayerClasses(Classes& classes)
-{
-	this->player_Classes_ = &classes;
-}
+//void RaceOrc::setPlayerClasses(Classes& classes)
+//{
+//	this->player_Classes_ = &classes;
+//}
 
 const std::string RaceOrc::getName() const
 {
@@ -53,17 +69,157 @@ const sf::RectangleShape& RaceOrc::getModel() const
 	return this->model_;
 }
 
-Classes& RaceOrc::getClassesOne() const
+int& RaceOrc::setHealthMax()
 {
-	return *this->classes_One_;
+	return this->health_Max_;
 }
 
-Classes& RaceOrc::getClassesTwo() const
+int& RaceOrc::setHealth()
 {
-	return *this->classes_Two_;
+	return this->health_;
 }
 
-Classes& RaceOrc::getPlayerClass() const
+int& RaceOrc::setManaMax()
 {
-	return *this->player_Classes_;
+	return this->mana_Max_;
 }
+
+int& RaceOrc::setMana()
+{
+	return this->mana_;
+}
+
+int& RaceOrc::setStrength()
+{
+	return this->strength_;
+}
+
+int& RaceOrc::setDexerity()
+{
+	return this->dexerity_;
+}
+
+int& RaceOrc::setConstitution()
+{
+	return this->constitution_;
+}
+
+int& RaceOrc::setIntelligence()
+{
+	return this->intelligence_;
+}
+
+int& RaceOrc::setPerception()
+{
+	return this->perception_;
+}
+
+int& RaceOrc::setWisdom()
+{
+	return this->wisdom_;
+}
+
+const int& RaceOrc::getHealthMax() const
+{
+	return this->health_Max_;
+}
+
+const int& RaceOrc::getHealth() const
+{
+	return this->health_;
+}
+
+const int& RaceOrc::getManaMax() const
+{
+	return this->mana_Max_;
+}
+
+const int& RaceOrc::getMana() const
+{
+	return this->mana_;
+}
+
+const int& RaceOrc::getStrength() const
+{
+	return this->strength_;
+}
+
+const int& RaceOrc::getDexerity() const
+{
+	return this->dexerity_;
+}
+
+const int& RaceOrc::getConstitution() const
+{
+	return this->constitution_;
+}
+
+const int& RaceOrc::getIntelligence() const
+{
+	return this->intelligence_;
+}
+
+const int& RaceOrc::getPerception() const
+{
+	return this->perception_;
+}
+
+const int& RaceOrc::getWisdom() const
+{
+	return this->wisdom_;
+}
+
+int& RaceOrc::setCold()
+{
+	return this->cold_;	
+}
+
+int& RaceOrc::setFire()
+{
+	return this->fire_;	
+}
+
+int& RaceOrc::setLightning()
+{
+	return this->lightning_;
+}
+
+int& RaceOrc::setPoison()
+{
+	return this->poison_;
+}
+
+const int& RaceOrc::getCold() const
+{
+	return this->cold_;
+}
+
+const int& RaceOrc::getFire() const
+{
+	return this->fire_;
+}
+
+const int& RaceOrc::getLightning() const
+{
+	return this->lightning_;
+}
+
+const int& RaceOrc::getPoison() const
+{
+	return this->poison_;
+}
+
+//Classes& RaceOrc::getClassesOne() const
+//{
+//	return *this->classes_One_;
+//}
+//
+//Classes& RaceOrc::getClassesTwo() const
+//{
+//	return *this->classes_Two_;
+//}
+//
+//Classes& RaceOrc::getPlayerClass() const
+//{
+//	return *this->player_Classes_;
+//}

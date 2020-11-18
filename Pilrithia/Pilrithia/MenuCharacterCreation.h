@@ -11,9 +11,7 @@
 
 #include "Race.h"
 #include "RaceOrc.h"
-#include "RaceHuman.h"
-#include "RaceDwarf.h"
-#include "RaceElf.h"
+
 
 
 class MenuCharacterCreation
@@ -23,7 +21,6 @@ public:
 	~MenuCharacterCreation();
 
 	void updateRacePollEvent(sf::Event& ev);
-	void updateClassPollEvent(sf::Event& ev);
 	bool updatePollEvent(sf::Event& ev);
 	void update(const sf::Vector2i& mousePositionWindow);
 	void render(sf::RenderTarget& target);
@@ -38,15 +35,11 @@ public:
 private:
 	void initializeNameGui();
 	void initializeRaceGui();
-	void initializeClassGui();
 
 private:
 	//TESTING 
 	Race* race_;
 	RaceOrc race_Orc_;
-	RaceHuman race_Human_;
-	RaceDwarf race_Dwarf_;
-	RaceElf race_Elf_;
 
 	sf::RectangleShape race_Model_;
 
@@ -82,25 +75,6 @@ private:
 	Text race_T_F_;
 	Text race_T_G_;
 
-
-	//CLASS
-	Button class_B_B_;
-	Button class_B_C_;
-	Button class_B_F_;
-
-	Text class_T_A_;
-	Text class_T_B_;
-	Text class_T_C_;
-	Text class_T_D_;
-	Text class_T_E_;
-	Text class_T_F_;
-
-	HoverDescription class_D_A_;
-
-
-
-
-	
 
 
 	bool is_Creating_Character_;

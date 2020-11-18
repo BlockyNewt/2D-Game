@@ -5,35 +5,20 @@
 #include "Text.h"
 #include "HoverDescription.h"
 
-enum class STATNAME
-{
-	DEFUALT = 0,
-
-	HEALTH,
-	MANA,
-
-	STRENGTH,
-	DEXERITY,
-	CONSTITUTION,
-
-	INTELLIGENCE,
-	PERCEPTION,
-	WISDOM
-};
-
 class SkillButton
 {
 public:
 	SkillButton();
 	~SkillButton();
 
-	void setSettings(float radius, float x, float y, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, STATNAME statName, int statIncrease);
-	void manageStatAllocation(bool pOrM, std::map<std::string, int>& stats);
+	void setSettings(float radius, float x, float y, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, int maxAllocation);
+	void setHoverDescription(const std::string& skillName, const std::string& skillSummary);
 
-	void updatePollEvent(sf::Event& ev, std::map<std::string, int>& stats);
+	void updatePollEvent(sf::Event& ev, int& playerSkillPoints);
 	void update(const sf::Vector2i& mousePositionWindow);
 	void render(sf::RenderTarget& target);
 
+	const int& getAmount() const;
 	const float getLeftPosition(bool pOrM = true, float offset = 0) const;
 	const float getRightPosition(bool pOrM = true, float offset = 0) const;
 	const float getTopPosition(bool pOrM = true, float offset = 0) const;
@@ -45,10 +30,6 @@ private:
 	//AMOUNT OF POINTS YOU CAN PUT INTO THE SKILL
 	int max_Amount_;
 	int amount_;
-	//HOW MUCH ONE POINT INVESTMENT WILL INCREASE THE STAT
-	int stat_Increase_;
-
-	int cost_;
 
 	//CircleButton c_A_;
 	sf::CircleShape button_;
@@ -58,8 +39,6 @@ private:
 	HoverDescription h_A_;
 
 	sf::Color fill_Color_;
-
-	STATNAME stat_Name_;
 
 	bool is_Hovering_;
 };

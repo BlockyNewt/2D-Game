@@ -13,6 +13,10 @@ public:
 	const std::string& getName() const override;
 	const std::string& getSummary() const override;
 
+	void setIsUnlocked(bool isUnlocked) override;
+
+	const bool& getIsUnlocked() const override;
+
 private:
 
 private:
@@ -20,6 +24,8 @@ private:
 private:
 	std::string name_;
 	std::string summary_;
+
+	bool is_Unlocked_;
 };
 
 #endif // !SKILLPOISONRAIN_H

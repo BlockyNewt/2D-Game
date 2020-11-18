@@ -7,23 +7,9 @@ ClassesRainmaker::ClassesRainmaker()
 
 	this->class_Type_ = CLASSTYPE::MENTAL;
 
-	this->health_Max_ = 12;
-	this->health_ = this->health_Max_;
-	this->mana_Max_ = 14;
-	this->mana_ = this->mana_Max_;
-	this->strength_ = 0;
-	this->dexerity_ = 0;
-	this->constitution_ = 4;
-	this->intelligence_ = 5;
-	this->perception_ = 0;
-	this->wisdom_ = 5;
-
-	this->cold_ = 0;
-	this->fire_ = 0;
-	this->lightning_ = 0;
-	this->poison_ = 0;
-
 	this->skill_One_ = new SkillPoisonRain();
+
+	this->is_Selected_ = false;
 }
 
 ClassesRainmaker::~ClassesRainmaker()
@@ -31,74 +17,14 @@ ClassesRainmaker::~ClassesRainmaker()
 	delete this->skill_One_;
 }
 
-int& ClassesRainmaker::setHealthMax()
+void ClassesRainmaker::setIsSelected(bool isSelected)
 {
-	return this->health_Max_;
+	this->is_Selected_ = isSelected;
 }
 
-int& ClassesRainmaker::setHealth()
+const bool& ClassesRainmaker::getIsSelected() const
 {
-	return this->health_;
-}
-
-int& ClassesRainmaker::setManaMax()
-{
-	return this->mana_Max_;
-}
-
-int& ClassesRainmaker::setMana()
-{
-	return this->mana_;
-}
-
-int& ClassesRainmaker::setStrength()
-{
-	return this->strength_;
-}
-
-int& ClassesRainmaker::setDexerity()
-{
-	return this->dexerity_;
-}
-
-int& ClassesRainmaker::setConstitution()
-{
-	return this->constitution_;
-}
-
-int& ClassesRainmaker::setIntelligence()
-{
-	return this->intelligence_;
-}
-
-int& ClassesRainmaker::setPerception()
-{
-	return this->perception_;
-}
-
-int& ClassesRainmaker::setWisdom()
-{
-	return this->wisdom_;
-}
-
-void ClassesRainmaker::setCold(int& value)
-{
-	this->cold_ = value;
-}
-
-void ClassesRainmaker::setFire(int& value)
-{
-	this->fire_ = value;
-}
-
-void ClassesRainmaker::setLightning(int& value)
-{
-	this->lightning_ = value;
-}
-
-void ClassesRainmaker::setPoison(int& value)
-{
-	this->poison_ = value;
+	return this->is_Selected_;
 }
 
 const int& ClassesRainmaker::getCold() const
@@ -131,9 +57,9 @@ const std::string& ClassesRainmaker::getSummary() const
 	return this->summary_;
 }
 
-Skill& ClassesRainmaker::getSkillOne() const
+Skill* ClassesRainmaker::getSkillOne() const
 {
-	return *this->skill_One_;
+	return this->skill_One_;
 }
 
 const int& ClassesRainmaker::getHealthMax() const

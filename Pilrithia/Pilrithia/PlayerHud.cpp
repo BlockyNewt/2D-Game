@@ -67,6 +67,8 @@ PlayerHud::PlayerHud(unsigned int windowSizeX, unsigned int windowSizeY)
 	this->experience_D_A_.setHoverBoundaries(HOVERPOSITION::BOTTOM, this->experience_Bar_Back_.getGlobalBounds(), this->experience_Bar_Back_.getGlobalBounds());
 
 	this->is_Hiding_Hud_ = true;
+
+	this->skill_One_ = NULL;
 }
 
 PlayerHud::~PlayerHud()
@@ -74,20 +76,32 @@ PlayerHud::~PlayerHud()
 	delete this->camera_;
 }
 
-void PlayerHud::intializeHud(const std::string& name, const Classes* classes, const int& healthMax, const int& health, const int& manaMax, const int& mana)
+void PlayerHud::intializeHud(const std::string& name, const int& healthMax, const int& health, const int& manaMax, const int& mana, const int& expMax, const int& exp)
 {
 	this->character_T_E_.setString(name);
 
-	if (classes != NULL)
+	this->setWidthOfBars(healthMax, health, manaMax, mana, expMax, exp);
+}
+
+void PlayerHud::initializeSkills(Classes* playerClass)
+{
+	if (&playerClass != NULL)
 	{
-		this->skill_T_A_.setString(classes->getSkillOne().getName());
-		this->skill_D_A_.setString(DESCRIPTIONTYPE::SKILL, classes->getSkillOne().getName(), classes->getSkillOne().getSummary());
+		//SET SETTINGS FOR SKILL DROP DOWN HERE
+		this->skill_Dropdown_List_.setSettings(this->skill_B_A_.getGlobalBounds(), playerClass);
 
-		this->health_Bar_Back_.setSize(sf::Vector2f((health / healthMax) * 300.f + 10.f, 20.f));
-		this->health_Bar_Front_.setSize(sf::Vector2f((health / healthMax) * 300.f, this->health_Bar_Back_.getSize().y - 10.f));
+		this->skill_Dropdown_List_.setIsVisible(true);
 
-		this->mana_Bar_Back_.setSize(sf::Vector2f((mana / manaMax) * 300.f + 10.f, 20.f));
-		this->mana_Bar_Front_.setSize(sf::Vector2f((mana / manaMax) * 300.f, this->mana_Bar_Back_.getSize().y - 10.f));
+		/*if (playerClass->getSkillOne().getIsUnlocked())
+		{
+			this->skill_T_A_.setString(playerClass->getSkillOne().getName());
+			this->skill_D_A_.setString(DESCRIPTIONTYPE::SKILL, playerClass->getSkillOne().getName(), playerClass->getSkillOne().getSummary());
+		}
+		else
+		{
+			this->skill_T_A_.setString("Skill 1");
+			this->skill_D_A_.setString(DESCRIPTIONTYPE::SKILL, "", "");
+		}*/
 	}
 }
 
@@ -153,7 +167,7 @@ bool PlayerHud::updateSkillOnePollEvent(sf::Event& ev)
 	}
 }
 
-void PlayerHud::updatePollEvent(sf::Event& ev, int& health, const int& healthMax)
+void PlayerHud::updatePollEvent(sf::Event& ev, int& health, const int& healthMax, Classes* playerClass)
 {
 	/*
 		MAY WANT TO MAKE THIS FUNCTION A RETURN A STRING ON BUTTON PRESSES  BACK TO THE PLAYERTEST SO THAT WE DONT HAVE TO
@@ -189,7 +203,23 @@ void PlayerHud::updatePollEvent(sf::Event& ev, int& health, const int& healthMax
 			std::cout << "Health: " << health << std::endl;
 
 		}
+
+		
 	}
+
+	if (&playerClass != NULL)
+	{
+		this->skill_Dropdown_List_.updatePollEvent(ev, playerClass, &this->skill_One_);
+
+		if (this->skill_One_ != NULL)
+		{
+			std::cout << this->skill_One_->getName() << std::endl;
+			this->skill_T_A_.setString(this->skill_One_->getName());
+		}
+	}
+
+	
+
 }
 
 void PlayerHud::updateNamePosition(const sf::Vector2f& playerPosition)
@@ -217,6 +247,8 @@ void PlayerHud::update(const sf::Vector2i& mousePositionWindow, const Camera& ca
 		this->skill_D_A_.update(mousePositionWindow);
 
 		this->experience_D_A_.update(mousePositionWindow);
+
+		this->skill_Dropdown_List_.update(mousePositionWindow, this->skill_B_A_.getGlobalBounds());
 	}
 }
 
@@ -253,11 +285,11 @@ void PlayerHud::render(sf::RenderTarget& target)
 		this->skill_T_B_.render(target);
 		this->skill_T_C_.render(target);
 
-		this->skill_D_A_.render(target);
+		//this->skill_D_A_.render(target);
 
 		this->experience_D_A_.render(target);
 
-
+		this->skill_Dropdown_List_.render(target);
 
 		target.setView(this->camera_->getView());
 
@@ -267,7 +299,7 @@ void PlayerHud::render(sf::RenderTarget& target)
 	}
 }
 
-void PlayerHud::setWidthOfBars(const int& healthMax, int& health, const int& manaMax, int& mana, const int& expMax, int& exp)
+void PlayerHud::setWidthOfBars(const int& healthMax, const int& health, const int& manaMax, const int& mana, const int& expMax, const int& exp)
 {
 	//std::cout << "health max: " << healthMax << std::endl;
 

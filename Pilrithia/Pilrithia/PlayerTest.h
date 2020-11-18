@@ -3,6 +3,8 @@
 
 #include "RaceOrc.h"
 
+#include "Classes.h"
+
 #include "PlayerHud.h"
 #include "PlayerInventory.h"
 #include "PlayerBag.h"
@@ -64,6 +66,9 @@ private:
 	PlayerBag player_Bag_;
 	PlayerQuest player_Quest_;
 	PlayerSkillTree player_Skill_Tree_;
+
+	Classes* class_One_;
+	Classes* class_Two_;
 
 	std::string name_;
 	std::map<std::string, int> stats_;

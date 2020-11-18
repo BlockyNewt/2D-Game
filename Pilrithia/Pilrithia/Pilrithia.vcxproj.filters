@@ -135,19 +135,7 @@
     <ClCompile Include="ClassesRainmaker.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
-    <ClCompile Include="ClassesSavage.cpp">
-      <Filter>Source Files\Classes</Filter>
-    </ClCompile>
     <ClCompile Include="Race.cpp">
-      <Filter>Source Files\Race</Filter>
-    </ClCompile>
-    <ClCompile Include="RaceDwarf.cpp">
-      <Filter>Source Files\Race</Filter>
-    </ClCompile>
-    <ClCompile Include="RaceElf.cpp">
-      <Filter>Source Files\Race</Filter>
-    </ClCompile>
-    <ClCompile Include="RaceHuman.cpp">
       <Filter>Source Files\Race</Filter>
     </ClCompile>
     <ClCompile Include="RaceOrc.cpp">
@@ -181,9 +169,6 @@
       <Filter>Source Files\Skills</Filter>
     </ClCompile>
     <ClCompile Include="SkillPoisonRain.cpp">
-      <Filter>Source Files\Skills</Filter>
-    </ClCompile>
-    <ClCompile Include="SkillStabyWab.cpp">
       <Filter>Source Files\Skills</Filter>
     </ClCompile>
     <ClCompile Include="ItemDropDownList.cpp">
@@ -224,6 +209,12 @@
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="StatButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillDropDownList.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -278,19 +269,7 @@
     <ClInclude Include="ClassesRainmaker.h">
       <Filter>Header Files\Classes</Filter>
     </ClInclude>
-    <ClInclude Include="ClassesSavage.h">
-      <Filter>Header Files\Classes</Filter>
-    </ClInclude>
     <ClInclude Include="Race.h">
-      <Filter>Header Files\Race</Filter>
-    </ClInclude>
-    <ClInclude Include="RaceDwarf.h">
-      <Filter>Header Files\Race</Filter>
-    </ClInclude>
-    <ClInclude Include="RaceElf.h">
-      <Filter>Header Files\Race</Filter>
-    </ClInclude>
-    <ClInclude Include="RaceHuman.h">
       <Filter>Header Files\Race</Filter>
     </ClInclude>
     <ClInclude Include="RaceOrc.h">
@@ -312,9 +291,6 @@
       <Filter>Header Files\Skills</Filter>
     </ClInclude>
     <ClInclude Include="SkillPoisonRain.h">
-      <Filter>Header Files\Skills</Filter>
-    </ClInclude>
-    <ClInclude Include="SkillStabyWab.h">
       <Filter>Header Files\Skills</Filter>
     </ClInclude>
     <ClInclude Include="MenuCharacterCreation.h">
@@ -367,6 +343,12 @@
     </ClInclude>
     <ClInclude Include="EnemyTest.h">
       <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="StatButton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillDropDownList.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

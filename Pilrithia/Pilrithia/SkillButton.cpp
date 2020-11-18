@@ -2,19 +2,15 @@
 
 SkillButton::SkillButton()
 {
-	this->max_Amount_ = 3;
+	this->max_Amount_ = 0;
 	this->amount_ = 0;
-
-	this->stat_Increase_ = 0;
-
-	this->cost_ = 0;
 }
 
 SkillButton::~SkillButton()
 {
 }
 
-void SkillButton::setSettings(float radius, float x, float y, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, STATNAME statName, int statIncrease)
+void SkillButton::setSettings(float radius, float x, float y, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, int maxAllocation)
 {
 	this->button_.setRadius(radius);
 	this->button_.setPosition(sf::Vector2f(x, y));
@@ -24,126 +20,23 @@ void SkillButton::setSettings(float radius, float x, float y, const sf::Color& f
 
 	this->fill_Color_ = fillColor;
 
-	this->stat_Name_ = statName;
-
-	this->stat_Increase_ = statIncrease;
+	this->max_Amount_ = maxAllocation;
 
 	std::string title = "";
 	std::string description = "";
 
-	switch (this->stat_Name_)
-	{
-	case STATNAME::HEALTH:
-		title = "Health";
-		break;
-	case STATNAME::MANA:
-		title = "Mana";
-		break;
-	case STATNAME::STRENGTH:
-		title = "Strength";
-		break;
-	case STATNAME::DEXERITY:
-		title = "Dexerity";
-		break;
-	case STATNAME::CONSTITUTION:
-		title = "Constitution";
-		break;
-	case STATNAME::INTELLIGENCE:
-		title = "Intelligence";
-		break;
-	case STATNAME::PERCEPTION:
-		title = "Perception";
-		break;
-	case STATNAME::WISDOM:
-		title = "Wisdom";
-		break;
-	default:
-		title = "Something went terribly fucking wrong for this to display.";
-		break;
-	}
-	
-	description = "Increase stat by +" + std::to_string(this->stat_Increase_) + ".";
-
 	this->t_A_.setSettings("Font/arial.ttf", 18, std::to_string(this->amount_), sf::Vector2f(this->getRightPosition(true, 10.f), this->getBottomPosition(false, 20.f)), true);
 	this->h_A_.setHoverBoundaries(HOVERPOSITION::TOP, this->button_.getGlobalBounds(), this->button_.getGlobalBounds());
 	this->h_A_.setString(DESCRIPTIONTYPE::SKILL, title, description);
+	
 }
 
-void SkillButton::manageStatAllocation(bool pOrM, std::map<std::string, int>& stats)
+void SkillButton::setHoverDescription(const std::string& skillName, const std::string& skillSummary)
 {
-	if (pOrM)
-	{
-		if (this->stat_Name_ == STATNAME::HEALTH)
-		{
-			stats.at("health") += this->stat_Increase_;
-		}
-		else if (this->stat_Name_ == STATNAME::MANA)
-		{
-			stats.at("mana") += this->stat_Increase_;
-		}
-		else if (this->stat_Name_ == STATNAME::STRENGTH)
-		{
-			stats.at("strength") += this->stat_Increase_;
-		}
-		else if (this->stat_Name_ == STATNAME::DEXERITY)
-		{
-			stats.at("dexerity") += this->stat_Increase_;
-		}
-		else if (this->stat_Name_ == STATNAME::CONSTITUTION)
-		{
-			stats.at("constitution") += this->stat_Increase_;
-		}
-		else if (this->stat_Name_ == STATNAME::INTELLIGENCE)
-		{
-			stats.at("intelligence") += this->stat_Increase_;
-		}
-		else if (this->stat_Name_ == STATNAME::PERCEPTION)
-		{
-			stats.at("perception") += this->stat_Increase_;
-		}
-		else if (this->stat_Name_ == STATNAME::WISDOM)
-		{
-			stats.at("wisdom") += this->stat_Increase_;
-		}
-	}
-	else
-	{
-		if (this->stat_Name_ == STATNAME::HEALTH)
-		{
-			stats.at("health") -= this->stat_Increase_;
-		}
-		else if (this->stat_Name_ == STATNAME::MANA)
-		{
-			stats.at("mana") -= this->stat_Increase_;
-		}
-		else if (this->stat_Name_ == STATNAME::STRENGTH)
-		{
-			stats.at("strength") -= this->stat_Increase_;
-		}
-		else if (this->stat_Name_ == STATNAME::DEXERITY)
-		{
-			stats.at("dexerity") -= this->stat_Increase_;
-		}
-		else if (this->stat_Name_ == STATNAME::CONSTITUTION)
-		{
-			stats.at("constitution") -= this->stat_Increase_;
-		}
-		else if (this->stat_Name_ == STATNAME::INTELLIGENCE)
-		{
-			stats.at("intelligence") -= this->stat_Increase_;
-		}
-		else if (this->stat_Name_ == STATNAME::PERCEPTION)
-		{
-			stats.at("perception") -= this->stat_Increase_;
-		}
-		else if (this->stat_Name_ == STATNAME::WISDOM)
-		{
-			stats.at("wisdom") -= this->stat_Increase_;
-		}
-	}
+	this->h_A_.setString(DESCRIPTIONTYPE::SKILL, skillName, skillSummary);
 }
 
-void SkillButton::updatePollEvent(sf::Event& ev, std::map<std::string, int>& stats)
+void SkillButton::updatePollEvent(sf::Event& ev, int& playerSkillPoints)
 {
 	/*
 		IF YOU ARE HOVERING THEN YOU CANT CLICK THE BUTTON
@@ -159,9 +52,9 @@ void SkillButton::updatePollEvent(sf::Event& ev, std::map<std::string, int>& sta
 				{
 					this->amount_++;
 
-					this->is_Hovering_ = false;
+					playerSkillPoints--;
 
-					this->manageStatAllocation(true, stats);
+					this->is_Hovering_ = false;
 				}
 			}
 
@@ -171,7 +64,7 @@ void SkillButton::updatePollEvent(sf::Event& ev, std::map<std::string, int>& sta
 				{
 					this->is_Hovering_ = false;
 
-					this->manageStatAllocation(false, stats);
+					playerSkillPoints++;
 
 					this->amount_--;
 				}
@@ -211,6 +104,11 @@ void SkillButton::render(sf::RenderTarget& target)
 	this->t_A_.render(target);
 
 	this->h_A_.render(target);
+}
+
+const int& SkillButton::getAmount() const
+{
+	return this->amount_;
 }
 
 const float SkillButton::getLeftPosition(bool pOrM, float offset) const

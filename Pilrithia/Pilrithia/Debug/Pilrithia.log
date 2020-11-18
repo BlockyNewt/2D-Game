@@ -1,25 +1,32 @@
-﻿  EnemyTest.cpp
+﻿  Classes.cpp
+  ClassesRainmaker.cpp
   Engine.cpp
+  MenuCharacterCreation.cpp
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\MenuCharacterCreation.cpp(46,49): warning C4244: 'argument': conversion from 'const unsigned int' to 'float', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\MenuCharacterCreation.cpp(46,36): warning C4244: 'argument': conversion from 'const unsigned int' to 'float', possible loss of data
   Npc.cpp
   NpcTest.cpp
 C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\NpcTest.cpp(28,34): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
 C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\NpcTest.cpp(28,29): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
-  PlayerInventory.cpp
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerInventory.cpp(264,22): warning C4018: '<': signed/unsigned mismatch
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerInventory.cpp(266,23): warning C4018: '<': signed/unsigned mismatch
+  PlayerHud.cpp
+  PlayerSkillTree.cpp
   PlayerTest.cpp
 C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(34,29): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
 C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(42,34): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
 C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(42,29): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(364,30): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(369,40): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(371,38): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(373,39): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(365,30): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(370,40): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(372,38): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
 C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(374,39): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(375,42): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(376,43): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(377,41): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(378,37): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(375,39): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(376,42): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(377,43): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(378,41): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(379,37): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+  RaceOrc.cpp
+  Skill.cpp
+  SkillDropDownList.cpp
+  SkillPoisonRain.cpp
   StateEditor.cpp
 C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\StateEditor.cpp(527,85): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
@@ -98,6 +105,6 @@ C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp
 C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(681,23): warning C4018: '<': signed/unsigned mismatch
   main.cpp
   Generating Code...
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(499): warning C4172: returning address of local variable or temporary: statValue
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(485): warning C4172: returning address of local variable or temporary: statValue
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(500): warning C4172: returning address of local variable or temporary: statValue
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(486): warning C4172: returning address of local variable or temporary: statValue
   Pilrithia.vcxproj -> C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Debug\Pilrithia.exe

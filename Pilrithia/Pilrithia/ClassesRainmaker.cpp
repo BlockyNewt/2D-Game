@@ -9,6 +9,8 @@ ClassesRainmaker::ClassesRainmaker()
 
 	this->skill_One_ = new SkillPoisonRain();
 
+	this->available_Skills_.push_back(this->skill_One_);
+
 	this->is_Selected_ = false;
 }
 
@@ -25,6 +27,16 @@ void ClassesRainmaker::setIsSelected(bool isSelected)
 const bool& ClassesRainmaker::getIsSelected() const
 {
 	return this->is_Selected_;
+}
+
+std::vector<Skill*>& ClassesRainmaker::setAvailableSkills()
+{
+	return this->available_Skills_;
+}
+
+Skill* ClassesRainmaker::setSkillOne()
+{
+	return this->skill_One_;
 }
 
 const int& ClassesRainmaker::getCold() const
@@ -57,9 +69,14 @@ const std::string& ClassesRainmaker::getSummary() const
 	return this->summary_;
 }
 
-Skill* ClassesRainmaker::getSkillOne() const
+const Skill* ClassesRainmaker::getSkillOne() const
 {
 	return this->skill_One_;
+}
+
+const std::vector<Skill*>& ClassesRainmaker::getAvailableSkills() const
+{
+	return this->available_Skills_;
 }
 
 const int& ClassesRainmaker::getHealthMax() const

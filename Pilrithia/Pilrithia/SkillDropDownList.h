@@ -21,21 +21,23 @@ public:
 
 	void setSettings(const sf::FloatRect itemBoundaries, Classes* playerClasses);
 
-	void updatePollEvent(sf::Event& ev, Classes* playerClasses, Skill** hudSkillOne);
+	void updatePollEvent(sf::Event& ev, Classes* playerClasses, Skill** hudSkillSlot);
 	void update(const sf::Vector2i& mousePositionWindow, const sf::FloatRect itemBoundaries);
 	void render(sf::RenderTarget& target);
 
 
 	void setIsVisible(bool isVisible);
 
+	const bool& getIsVisible() const;
+
 private:
 
 private:
-	Button b_A_;
-	Text t_A_;
-
 	bool is_Visible_;
 	bool is_Hovering_;
+
+	std::vector<Button*> buttons_;
+	std::vector<Text*> texts_;
 
 
 };

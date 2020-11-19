@@ -14,10 +14,14 @@ public:
 
 	void setIsSelected(bool isSelected) override;
 	const bool& getIsSelected() const override;
+	std::vector<Skill*>& setAvailableSkills() override;
+	Skill* setSkillOne() override;
+
 
 	const std::string& getName() const override;
 	const std::string& getSummary() const override;
-	Skill* getSkillOne() const override;
+	const Skill* getSkillOne() const override;
+	const std::vector<Skill*>& getAvailableSkills() const override;
 
 	const int& getHealthMax() const override;
 	const int& getHealth() const override;
@@ -62,6 +66,8 @@ private:
 	Skill* skill_One_;
 
 	bool is_Selected_;
+
+	std::vector<Skill*> available_Skills_;
 };
 
 #endif // !CLASSESRAINMAKER_H

@@ -22,10 +22,14 @@ public:
 
 	virtual void setIsSelected(bool isSelected) = 0;
 	virtual const bool& getIsSelected() const = 0;
+	virtual std::vector<Skill*>& setAvailableSkills() = 0;
+	virtual Skill* setSkillOne() = 0;
 
 	virtual const std::string& getName() const = 0;
 	virtual const std::string& getSummary() const = 0;
-	virtual Skill* getSkillOne() const = 0;
+	virtual const std::vector<Skill*>& getAvailableSkills() const = 0;
+
+	virtual const Skill* getSkillOne() const = 0;
 
 	/*
 		BASE STAT GETTERS

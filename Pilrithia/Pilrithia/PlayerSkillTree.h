@@ -39,11 +39,14 @@ public:
 private:
 	void initializeClassOneSelect();
 
+	void resizeProgressBar();
 private:
 	Box x_A_;
 
 	Button b_A_;
 	Text t_A_;
+	Text t_B_;
+	Text t_D_;
 
 
 	Button b_C_;

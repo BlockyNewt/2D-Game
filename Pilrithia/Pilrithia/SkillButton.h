@@ -5,6 +5,10 @@
 #include "Text.h"
 #include "HoverDescription.h"
 
+#include "Skill.h"
+
+#include <vector>
+
 class SkillButton
 {
 public:
@@ -14,7 +18,7 @@ public:
 	void setSettings(float radius, float x, float y, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, int maxAllocation);
 	void setHoverDescription(const std::string& skillName, const std::string& skillSummary);
 
-	void updatePollEvent(sf::Event& ev, int& playerSkillPoints);
+	void updatePollEvent(sf::Event& ev, int& playerSkillPoints, Skill* skill);
 	void update(const sf::Vector2i& mousePositionWindow);
 	void render(sf::RenderTarget& target);
 

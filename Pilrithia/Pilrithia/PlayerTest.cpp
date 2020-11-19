@@ -108,15 +108,7 @@ void PlayerTest::initializeCharacter(Race* race, const std::string& name)
 
 void PlayerTest::updateSkillsPollEvent(sf::Event& ev)
 {
-	if (this->selected_Enemy_ != NULL)
-	{
-		if (this->player_Hud_->updateSkillOnePollEvent(ev))
-		{
-			this->selected_Enemy_->setHealth() -= 2;
-
-			this->player_Hud_->initializeSkills(this->player_Skill_Tree_.setClassesOne());
-		}
-	}
+	this->player_Hud_->updateSkillOnePollEvent(ev, this->player_Skill_Tree_.setClassesOne(), this->selected_Enemy_);
 }
 
 void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
@@ -125,7 +117,7 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 		PLAYER HUD POLL UPDATES
 	*/
 	
-	this->player_Hud_->updatePollEvent(ev, this->race_->setHealth(), this->race_->getHealthMax(), this->player_Skill_Tree_.setClassesOne());
+	this->player_Hud_->updatePollEvent(ev, this->race_->setHealth(), this->race_->getHealthMax());
 	this->player_Inventory_.updatePollEvent(ev, this->stats_, this->resistances_, this->player_Bag_.setItem(), this->player_Bag_.getBagSizeX(), this->player_Bag_.getBagSizeY());
 	this->player_Bag_.updatePollEvent(ev, this->player_Inventory_.setEquipment(), this->stats_, this->resistances_);
 	this->player_Quest_.updatePollEvent(ev);
@@ -350,7 +342,6 @@ void PlayerTest::setStat(const std::string& stat, int value)
 	{
 		statValue = findPos->second + value;
 		this->stats_.find(stat)->second = statValue;
-		//this->race_->getPlayerClass().setHealth() = statValue;
 	}
 }
 
@@ -366,7 +357,7 @@ void PlayerTest::levelUp()
 		this->exp_ = 0;
 		this->exp_ += excessExp;
 
-		
+
 		this->setStat("healthMax", std::floor(2.0 * 1.2 + (std::pow(this->level_, 1.2))));
 		this->getStatForChange("health") = this->getStat("healthMax");
 		this->setStat("manaMax", std::floor(2.0 * 1.2 + (std::pow(this->level_, 1.2))));

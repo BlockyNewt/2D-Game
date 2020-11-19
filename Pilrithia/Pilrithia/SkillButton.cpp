@@ -28,7 +28,6 @@ void SkillButton::setSettings(float radius, float x, float y, const sf::Color& f
 	this->t_A_.setSettings("Font/arial.ttf", 18, std::to_string(this->amount_), sf::Vector2f(this->getRightPosition(true, 10.f), this->getBottomPosition(false, 20.f)), true);
 	this->h_A_.setHoverBoundaries(HOVERPOSITION::TOP, this->button_.getGlobalBounds(), this->button_.getGlobalBounds());
 	this->h_A_.setString(DESCRIPTIONTYPE::SKILL, title, description);
-	
 }
 
 void SkillButton::setHoverDescription(const std::string& skillName, const std::string& skillSummary)
@@ -36,7 +35,7 @@ void SkillButton::setHoverDescription(const std::string& skillName, const std::s
 	this->h_A_.setString(DESCRIPTIONTYPE::SKILL, skillName, skillSummary);
 }
 
-void SkillButton::updatePollEvent(sf::Event& ev, int& playerSkillPoints)
+void SkillButton::updatePollEvent(sf::Event& ev, int& playerSkillPoints, Skill* skill)
 {
 	/*
 		IF YOU ARE HOVERING THEN YOU CANT CLICK THE BUTTON
@@ -54,6 +53,11 @@ void SkillButton::updatePollEvent(sf::Event& ev, int& playerSkillPoints)
 
 					playerSkillPoints--;
 
+					if (this->amount_ > 0)
+					{
+						skill->setIsUnlocked(true);
+					}
+
 					this->is_Hovering_ = false;
 				}
 			}
@@ -67,6 +71,11 @@ void SkillButton::updatePollEvent(sf::Event& ev, int& playerSkillPoints)
 					playerSkillPoints++;
 
 					this->amount_--;
+
+					if (this->amount_ == 0)
+					{
+						skill->setIsUnlocked(false);
+					}
 				}
 			}
 		}

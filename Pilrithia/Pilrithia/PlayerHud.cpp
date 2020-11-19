@@ -85,24 +85,10 @@ void PlayerHud::intializeHud(const std::string& name, const int& healthMax, cons
 
 void PlayerHud::initializeSkills(Classes* playerClass)
 {
-	if (&playerClass != NULL)
-	{
-		//SET SETTINGS FOR SKILL DROP DOWN HERE
-		this->skill_Dropdown_List_.setSettings(this->skill_B_A_.getGlobalBounds(), playerClass);
+	//SET SETTINGS FOR SKILL DROP DOWN HERE
+	this->skill_Dropdown_List_.setSettings(this->skill_B_A_.getGlobalBounds(), playerClass);
 
-		this->skill_Dropdown_List_.setIsVisible(true);
-
-		/*if (playerClass->getSkillOne().getIsUnlocked())
-		{
-			this->skill_T_A_.setString(playerClass->getSkillOne().getName());
-			this->skill_D_A_.setString(DESCRIPTIONTYPE::SKILL, playerClass->getSkillOne().getName(), playerClass->getSkillOne().getSummary());
-		}
-		else
-		{
-			this->skill_T_A_.setString("Skill 1");
-			this->skill_D_A_.setString(DESCRIPTIONTYPE::SKILL, "", "");
-		}*/
-	}
+	this->skill_Dropdown_List_.setIsVisible(true);
 }
 
 bool PlayerHud::updateInventoryPollEvent(sf::Event& ev)
@@ -155,19 +141,51 @@ bool PlayerHud::updateSkillTreePollEvent(sf::Event& ev)
 	}
 }
 
-bool PlayerHud::updateSkillOnePollEvent(sf::Event& ev)
+void PlayerHud::updateSkillOnePollEvent(sf::Event& ev, Classes* playerClass, Enemy* selectedEnemy)
 {
-	if (this->skill_B_A_.updatePollEvent(ev))
+	if (selectedEnemy != NULL)
 	{
-		return true;
+		if (this->skill_One_ != NULL)
+		{
+			if (this->skill_B_A_.updatePollEvent(ev))
+			{
+				selectedEnemy->setHealth() -= 2;
+			}
+		}
 	}
-	else
+
+	if (playerClass != NULL)
 	{
-		return false;
+		if (this->skill_B_A_.updateRightClickPollEvent(ev))
+		{
+			std::cout << "Pressed" << std::endl;
+			this->initializeSkills(playerClass);
+			std::cout << "Done" << std::endl;
+
+		}
+
+		if (this->skill_Dropdown_List_.getIsVisible())
+		{
+			this->skill_Dropdown_List_.updatePollEvent(ev, playerClass, &this->skill_One_);
+		}
+
+		if (this->skill_One_ != NULL)
+		{
+
+			if (this->skill_One_->getIsUnlocked())
+			{
+				this->skill_T_A_.setString(this->skill_One_->getName());
+			}
+			else
+			{
+				this->skill_One_ = NULL;
+				this->skill_T_A_.setString("Skill 1");
+			}
+		}
 	}
 }
 
-void PlayerHud::updatePollEvent(sf::Event& ev, int& health, const int& healthMax, Classes* playerClass)
+void PlayerHud::updatePollEvent(sf::Event& ev, int& health, const int& healthMax)
 {
 	/*
 		MAY WANT TO MAKE THIS FUNCTION A RETURN A STRING ON BUTTON PRESSES  BACK TO THE PLAYERTEST SO THAT WE DONT HAVE TO
@@ -203,23 +221,7 @@ void PlayerHud::updatePollEvent(sf::Event& ev, int& health, const int& healthMax
 			std::cout << "Health: " << health << std::endl;
 
 		}
-
-		
 	}
-
-	if (&playerClass != NULL)
-	{
-		this->skill_Dropdown_List_.updatePollEvent(ev, playerClass, &this->skill_One_);
-
-		if (this->skill_One_ != NULL)
-		{
-			std::cout << this->skill_One_->getName() << std::endl;
-			this->skill_T_A_.setString(this->skill_One_->getName());
-		}
-	}
-
-	
-
 }
 
 void PlayerHud::updateNamePosition(const sf::Vector2f& playerPosition)
@@ -302,22 +304,21 @@ void PlayerHud::render(sf::RenderTarget& target)
 void PlayerHud::setWidthOfBars(const int& healthMax, const int& health, const int& manaMax, const int& mana, const int& expMax, const int& exp)
 {
 	//std::cout << "health max: " << healthMax << std::endl;
-
 	float healthMaxToFloat = static_cast<float>(healthMax);
 	float healthToFloat = static_cast<float>(health);
 	//std::cout << "health: " << health << std::endl;
 
-	this->health_Bar_Front_.setSize(sf::Vector2f((healthToFloat / healthMaxToFloat) * 300.f, this->health_Bar_Back_.getSize().y - 10.f));
+	this->health_Bar_Front_.setSize(sf::Vector2f((healthToFloat / healthMaxToFloat) * 290.f, this->health_Bar_Back_.getSize().y - 10.f));
 
 	float manaMaxToFloat = static_cast<float>(manaMax);
 	float manaToFloat = static_cast<float>(mana);
 
-	this->mana_Bar_Front_.setSize(sf::Vector2f((manaToFloat / manaMaxToFloat) * 300.f, this->mana_Bar_Back_.getSize().y - 10.f));
+	this->mana_Bar_Front_.setSize(sf::Vector2f((manaToFloat / manaMaxToFloat) * 290.f, this->mana_Bar_Back_.getSize().y - 10.f));
 
 	float expMaxToFloat = static_cast<float>(expMax);
 	float expToFloat = static_cast<float>(exp);
 
-	this->experience_Bar_Front_.setSize(sf::Vector2f((expToFloat / expMaxToFloat) * 300.f, this->experience_Bar_Back_.getSize().y - 10.f));
+	this->experience_Bar_Front_.setSize(sf::Vector2f((expToFloat / expMaxToFloat) * 290.f, this->experience_Bar_Back_.getSize().y - 10.f));
 
 	this->experience_D_A_.setString(DESCRIPTIONTYPE::SKILL, "Experience", std::to_string(exp) + " / " + std::to_string(expMax));
 }

@@ -57,6 +57,39 @@ bool Button::updatePollEvent(sf::Event& ev)
 	}
 }
 
+bool Button::updateRightClickPollEvent(sf::Event& ev)
+{
+	/*
+		IF YOU ARE HOVERING THEN YOU CANT CLICK THE BUTTON
+	*/
+	if (this->is_Hovering_)
+	{
+		if (ev.type == sf::Event::MouseButtonPressed)
+		{
+			if (ev.key.code == sf::Mouse::Right)
+			{
+				//std::cout << "Left mouse button is being pressed" << std::endl;
+
+				this->is_Hovering_ = false;
+
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
+			return false;
+		}
+	}
+	else
+	{
+		return false;
+	}
+}
+
 void Button::updateBoundaries(const sf::Vector2i& mousePositionWindow)
 {
 	/*

@@ -14,6 +14,7 @@ public:
 	void setSettings(float sizeX, float sizeY, float posX, float posY, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, bool isVisible);
 
 	bool updatePollEvent(sf::Event& ev);
+	bool updateRightClickPollEvent(sf::Event& ev);
 
 	void updateBoundaries(const sf::Vector2i& mousePositionWindow);
 	bool updateBoundariesValue(const sf::Vector2i& mousePositionWindow);

@@ -12,19 +12,82 @@ SkillDropDownList::~SkillDropDownList()
 
 void SkillDropDownList::setSettings(const sf::FloatRect itemBoundaries, Classes* playerClasses)
 {
-	if (playerClasses->getSkillOne()->getIsUnlocked())
+	if (this->buttons_.empty())
 	{
-		this->b_A_.setSettings(200.f, 40.f, itemBoundaries.left - 40.f, itemBoundaries.top - 40.f, sf::Color::Yellow, 1.f, sf::Color::White, true);
+		std::cout << "size: " << playerClasses->getAvailableSkills().size() << std::endl;
 
-		this->t_A_.setSettings("Font/arial.ttf", 18, playerClasses->getSkillOne()->getName(), sf::Vector2f(this->b_A_.getLeftPosition(true, 10.f), this->b_A_.getTopPosition(true, 10.f)), true);
+		for (int x = 0; x < playerClasses->getAvailableSkills().size(); ++x)
+		{
+			if (playerClasses->getAvailableSkills()[x]->getIsUnlocked())
+			{
+				//std::cout << "x: " << x << std::endl;
+				Button* button = new Button();
+				button->setSettings(200.f, 40.f, itemBoundaries.left - 40.f, itemBoundaries.top - 40.f, sf::Color::Yellow, 1.f, sf::Color::White, true);
+
+				Text* text = new Text();
+				text->setSettings("Font/arial.ttf", 18, playerClasses->getAvailableSkills()[x]->getName(), sf::Vector2f(button->getLeftPosition(true, 10.f), button->getTopPosition(true, 10.f)), true);
+
+				this->buttons_.push_back(button);
+				this->texts_.push_back(text);
+			}
+		}
+
+		std::cout << "size: " << this->buttons_.size() << std::endl;
+
+	}
+	else
+	{
+		for (int i = 0; i < this->buttons_.size(); ++i)
+		{
+			delete this->buttons_[i];
+			this->buttons_.erase(this->buttons_.begin() + i);
+
+			delete this->texts_[i];
+			this->texts_.erase(this->texts_.begin() + i);
+		}
+
+		this->buttons_.clear();
+		this->texts_.clear();
+
+		//std::cout << "size: " << this->buttons_.size() << std::endl;
+
+		for (int x = 0; x < playerClasses->getAvailableSkills().size(); ++x)
+		{
+			if (playerClasses->getAvailableSkills()[x]->getIsUnlocked())
+			{
+				Button* button = new Button();
+				button->setSettings(200.f, 40.f, itemBoundaries.left - 40.f, itemBoundaries.top - 40.f, sf::Color::Yellow, 1.f, sf::Color::White, true);
+
+				Text* text = new Text();
+				text->setSettings("Font/arial.ttf", 18, playerClasses->getAvailableSkills()[x]->getName(), sf::Vector2f(button->getLeftPosition(true, 10.f), button->getTopPosition(true, 10.f)), true);
+
+				this->buttons_.push_back(button);
+				this->texts_.push_back(text);
+			}
+		}
 	}
 }
 
-void SkillDropDownList::updatePollEvent(sf::Event& ev, Classes* playerClasses, Skill** hudSkillOne)
+void SkillDropDownList::updatePollEvent(sf::Event& ev, Classes* playerClasses, Skill** hudSkillSlot)
 {
-	if (this->b_A_.updatePollEvent(ev))
+	if (!playerClasses->getAvailableSkills().empty())
 	{
-		*hudSkillOne = playerClasses->getSkillOne();
+		for (int i = 0; i < this->buttons_.size(); ++i)
+		{
+			if (this->buttons_[i]->updatePollEvent(ev))
+			{
+				if (playerClasses->getAvailableSkills()[i]->getIsUnlocked())
+				{
+					*hudSkillSlot = playerClasses->getAvailableSkills()[i];
+
+					this->is_Visible_ = false;
+				}
+			}
+		}
+	}
+	else
+	{
+		this->is_Visible_ = false;
 	}
 }
 
@@ -32,7 +95,20 @@ void SkillDropDownList::update(const sf::Vector2i& mousePositionWindow, const sf
 {
 	if (this->is_Visible_)
 	{
-		this->b_A_.updateBoundaries(mousePositionWindow);
+		for (auto& b : this->buttons_)
+		{
+			b->updateBoundaries(mousePositionWindow);
+
+			if (itemBoundaries.contains(sf::Vector2f(mousePositionWindow.x, mousePositionWindow.y)) || b->getIsHovering())
+			{
+				this->is_Hovering_ = true;
+			}
+			else
+			{
+				this->is_Hovering_ = false;
+				this->is_Visible_ = false;
+			}
+		}
 	}
 	else
 	{
@@ -44,12 +120,20 @@ void SkillDropDownList::render(sf::RenderTarget& target)
 {
 	if (this->is_Visible_)
 	{
-		this->b_A_.render(target);
-		this->t_A_.render(target);
+		for (int i = 0; i < this->buttons_.size(); ++i)
+		{
+			this->buttons_[i]->render(target);
+			this->texts_[i]->render(target);
+		}
 	}
 }
 
 void SkillDropDownList::setIsVisible(bool isVisible)
 {
 	this->is_Visible_ = isVisible;
+}
+
+const bool& SkillDropDownList::getIsVisible() const
+{
+	return this->is_Visible_;
 }

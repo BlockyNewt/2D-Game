@@ -12,6 +12,9 @@
 #include "SkillDropDownList.h"
 
 #include "SkillPoisonRain.h"
+
+#include "Enemy.h"
+
 #include <iostream>	
 #include <string>
 
@@ -29,8 +32,8 @@ public:
 	bool updateBagPollEvent(sf::Event& ev);
 	bool updateQuestPollEvent(sf::Event& ev);
 	bool updateSkillTreePollEvent(sf::Event& ev);
-	bool updateSkillOnePollEvent(sf::Event& ev);
-	void updatePollEvent(sf::Event& ev, int& health, const int& healthMax, Classes* playerClass);
+	void updateSkillOnePollEvent(sf::Event& ev, Classes* playerClass, Enemy* selectedEnemy);
+	void updatePollEvent(sf::Event& ev, int& health, const int& healthMax);
 	void updateNamePosition(const sf::Vector2f& playerPosition);
 	void update(const sf::Vector2i& mousePositionWindow, const Camera& camera, const sf::Vector2f& playerPosition);
 	void render(sf::RenderTarget& target);

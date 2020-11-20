@@ -6,6 +6,14 @@ SkillPoisonRain::SkillPoisonRain()
 	this->summary_ = "Make infectious poison rain from dark clouds.";
 
 	this->is_Unlocked_ = false;
+
+	this->mana_Cost_ = 4;
+
+	this->min_Damage_ = 1;
+	this->max_Damage_ = 3;
+	this->damage_ = 0;
+
+	this->skill_Type_ = SKILLTYPE::STRENGTH;
 }
 
 SkillPoisonRain::~SkillPoisonRain()
@@ -30,4 +38,22 @@ void SkillPoisonRain::setIsUnlocked(bool isUnlocked)
 const bool& SkillPoisonRain::getIsUnlocked() const
 {
 	return this->is_Unlocked_;
+}
+
+const int& SkillPoisonRain::getDamage(const int& playerStrength, const int& playerIntelligence, const int& playerWisdom)
+{
+	if (this->skill_Type_ == SKILLTYPE::STRENGTH)
+	{
+		this->damage_ = std::floor((std::pow(playerStrength, 1.2) - this->min_Damage_ * playerStrength + this->max_Damage_));
+	}
+	else if (this->skill_Type_ == SKILLTYPE::STRENGTH)
+	{
+		this->damage_ = std::floor((std::pow(playerIntelligence, 1.2) - this->min_Damage_ * playerIntelligence + this->max_Damage_));
+	}
+	else if (this->skill_Type_ == SKILLTYPE::STRENGTH)
+	{
+		this->damage_ = std::floor((std::pow(playerWisdom, 1.2) - this->min_Damage_ * playerWisdom + this->max_Damage_));
+	}
+
+	return this->damage_;
 }

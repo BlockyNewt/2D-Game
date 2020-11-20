@@ -8,9 +8,9 @@ void MenuCharacterCreation::initializeNameGui()
 
 	this->name_T_A_.setSettings("Font/arial.ttf", 24, "Name:", sf::Vector2f(150.f, 100.f), true);
 
-	this->name_I_A_.setSettings(400.f, 40.f, this->name_T_A_.getRightPosition(true, 10.f), this->name_T_A_.getTopPosition(), sf::Color::Red, 1.f, sf::Color::White, true, false, 20);
+	this->name_I_A_.setSettings(400.f, 40.f, this->name_T_A_.getRightPosition(true, 10.f), this->name_T_A_.getTopPosition(), sf::Color(174, 90, 65), 1.f, sf::Color::White, true, false, 20);
 
-	this->name_B_B_.setSettings(150.f, 40.f, this->name_I_A_.getRightPosition(true, 10.f), this->name_I_A_.getTopPosition(), sf::Color::Red, 1.f, sf::Color::White, true);
+	this->name_B_B_.setSettings(150.f, 40.f, this->name_I_A_.getRightPosition(true, 10.f), this->name_I_A_.getTopPosition(), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
 	this->name_T_B_.setSettings("Font/arial.ttf", 18, "Complete", sf::Vector2f(this->name_B_B_.getLeftPosition(true, 10.f), this->name_B_B_.getTopPosition(true, 10.f)), true);
 }
 
@@ -20,13 +20,13 @@ void MenuCharacterCreation::initializeRaceGui()
 		SET SETTINGS FOR RACE RELATED OBJECTS
 	*/
 
-	this->race_X_A_.setSettings(800.f, 555, this->name_T_A_.getLeftPosition(), this->model_Preview_X_A_.getTopPosition(true, 50.f), sf::Color::Black, 1.f, sf::Color::White, true);
+	this->race_X_A_.setSettings(800.f, 555, this->name_T_A_.getLeftPosition(), this->model_Preview_X_A_.getTopPosition(true, 50.f), sf::Color(90, 82, 85), 1.f, sf::Color::White, true);
 
-	this->race_B_A_.setSettings(80.f, 80.f, this->race_X_A_.getLeftPosition(false, 115.f), this->race_X_A_.getTopPosition(true, 60.f), sf::Color::Red, 1.f, sf::Color::White, true);
-	this->race_B_B_.setSettings(80.f, 80.f, this->race_B_A_.getLeftPosition(), this->race_B_A_.getBottomPosition(true, 10.f), sf::Color::Red, 1.f, sf::Color::White, true);
-	this->race_B_C_.setSettings(80.f, 80.f, this->race_B_A_.getLeftPosition(), this->race_B_B_.getBottomPosition(true, 10.f), sf::Color::Red, 1.f, sf::Color::White, true);
-	this->race_B_D_.setSettings(80.f, 80.f, this->race_B_A_.getLeftPosition(), this->race_B_C_.getBottomPosition(true, 10.f), sf::Color::Red, 1.f, sf::Color::White, true);
-	this->race_B_E_.setSettings(80.f, 80.f, this->race_B_D_.getLeftPosition(), this->race_B_D_.getBottomPosition(true, 10.f), sf::Color::Red, 1.f, sf::Color::White, true);
+	this->race_B_A_.setSettings(80.f, 80.f, this->race_X_A_.getLeftPosition(false, 115.f), this->race_X_A_.getTopPosition(true, 60.f), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
+	this->race_B_B_.setSettings(80.f, 80.f, this->race_B_A_.getLeftPosition(), this->race_B_A_.getBottomPosition(true, 10.f), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
+	this->race_B_C_.setSettings(80.f, 80.f, this->race_B_A_.getLeftPosition(), this->race_B_B_.getBottomPosition(true, 10.f), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
+	this->race_B_D_.setSettings(80.f, 80.f, this->race_B_A_.getLeftPosition(), this->race_B_C_.getBottomPosition(true, 10.f), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
+	this->race_B_E_.setSettings(80.f, 80.f, this->race_B_D_.getLeftPosition(), this->race_B_D_.getBottomPosition(true, 10.f), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
 
 	this->race_T_A_.setSettings("Font/arial.ttf", 18, this->race_Orc_.getName(), sf::Vector2f(this->race_B_A_.getLeftPosition(true, 10.f), this->race_B_A_.getTopPosition(true, 10.f)), true);
 	/*this->race_T_B_.setSettings("Font/arial.ttf", 18, this->race_Human_.getName(), sf::Vector2f(this->race_B_B_.getLeftPosition(true, 10.f), this->race_B_B_.getTopPosition(true, 10.f)), true);
@@ -43,8 +43,8 @@ MenuCharacterCreation::MenuCharacterCreation(const unsigned int windowSizeX, con
 
 	this->title_T_A_.setSettings("Font/arial.ttf", 50, "Character Creation", sf::Vector2f(windowSizeX / 2.f - 200.f, 10.f), true);
 
-	this->background_X_A_.setSettings(windowSizeX, windowSizeY, 0.f, 0.f, sf::Color::Black, 1.f, sf::Color::Black, true);
-	this->model_Preview_X_A_.setSettings(300.f, 600.f, windowSizeX - 310.f, 100.f, sf::Color::Black, 1.f, sf::Color::White, true);
+	this->background_X_A_.setSettings(windowSizeX, windowSizeY, 0.f, 0.f, sf::Color::Black, 1.f, sf::Color(90, 82, 85), true);
+	this->model_Preview_X_A_.setSettings(300.f, 600.f, windowSizeX - 310.f, 100.f, sf::Color(90, 82, 85), 1.f, sf::Color::White, true);
 
 	this->initializeNameGui();
 	this->initializeRaceGui();

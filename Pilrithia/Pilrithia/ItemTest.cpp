@@ -9,7 +9,7 @@ ItemTest::ItemTest()
 
 ItemTest::ItemTest(float posX, float posY, ITEMTYPE itemType, const std::string& name, const std::string& description)
 {
-	this->b_A_.setSettings(50.f, 50.f, posX, posY, sf::Color::Blue, 1.f, sf::Color::White, true);
+	this->b_A_.setSettings(50.f, 50.f, posX, posY, sf::Color(27, 133, 184), 1.f, sf::Color::White, true);
 
 	this->t_A_.setSettings("Font/arial.ttf", 18, "", sf::Vector2f(this->b_A_.getLeftPosition(true, 10.f), this->b_A_.getTopPosition(true, 10.f)), true);
 

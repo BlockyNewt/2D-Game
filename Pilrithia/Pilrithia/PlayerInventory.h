@@ -60,7 +60,6 @@ private:
 	Text stats_T_C_;
 	Text stats_T_D_;
 	Text stats_T_E_;
-	Text stats_T_F_;
 	Text stats_T_G_;
 	Text stats_T_H_;
 	Text stats_T_I_;
@@ -69,7 +68,6 @@ private:
 	HoverDescription stats_D_C_;
 	HoverDescription stats_D_D_;
 	HoverDescription stats_D_E_;
-	HoverDescription stats_D_F_;
 	HoverDescription stats_D_G_;
 	HoverDescription stats_D_H_;
 	HoverDescription stats_D_I_;

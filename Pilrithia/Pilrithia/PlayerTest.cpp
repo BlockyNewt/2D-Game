@@ -108,7 +108,7 @@ void PlayerTest::initializeCharacter(Race* race, const std::string& name)
 
 void PlayerTest::updateSkillsPollEvent(sf::Event& ev)
 {
-	this->player_Hud_->updateSkillOnePollEvent(ev, this->player_Skill_Tree_.setClassesOne(), this->selected_Enemy_);
+	this->player_Hud_->updateSkillOnePollEvent(ev, this->player_Skill_Tree_.setClassesOne(), this->selected_Enemy_, this->stats_);
 }
 
 void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
@@ -343,6 +343,11 @@ void PlayerTest::setStat(const std::string& stat, int value)
 		statValue = findPos->second + value;
 		this->stats_.find(stat)->second = statValue;
 	}
+}
+
+PlayerBag& PlayerTest::setPlayerBag()
+{
+	return this->player_Bag_;
 }
 
 void PlayerTest::levelUp()

@@ -3,6 +3,10 @@
 
 #include "SFML/Graphics.hpp"
 
+#include "Camera.h"
+
+#include "LootWindow.h"
+
 #include <iostream>
 #include <string>
 
@@ -23,14 +27,15 @@ public:
 	Enemy(const sf::Vector2f& position, const int& range);
 	virtual ~Enemy();
 
-	virtual void update(const sf::FloatRect playerBounds, const float& dt, int& playerHealth) = 0;
+	virtual void updatePollEvent(sf::Event& ev, std::vector<std::vector<Item*>>& playerBag, const int& maxBagSizeX, const int& maxBagSizeY) = 0;
+	virtual void update(const sf::Vector2i& mousePositionWindow, Camera** camera, const sf::FloatRect playerBounds, const float& dt, int& playerHealth) = 0;
 	virtual void render(sf::RenderTarget& target) = 0;
 
 	virtual void setVelocityX(float x) = 0;
 	virtual void setVelocityY(float y) = 0;
 	virtual void setDirection(DIRECTION direction) = 0;
 	virtual void setIsBottomColliding(bool isBottomColliding) = 0;
-	virtual int& setHealth() = 0;
+	virtual void setHealth(const int& damage) = 0;
 
 
 	virtual sf::RectangleShape& getEnemyModel() = 0;
@@ -53,7 +58,6 @@ private:
 
 
 private:
-
 };
 
 #endif // !1

@@ -161,6 +161,7 @@
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="ItemDropDownList.cpp" />
     <ClCompile Include="ItemTest.cpp" />
+    <ClCompile Include="LootWindow.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuCharacterCreation.cpp" />
     <ClCompile Include="MenuPause.cpp" />
@@ -208,6 +209,7 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="ItemDropDownList.h" />
     <ClInclude Include="ItemTest.h" />
+    <ClInclude Include="LootWindow.h" />
     <ClInclude Include="MenuCharacterCreation.h" />
     <ClInclude Include="MenuPause.h" />
     <ClInclude Include="MenuSetting.h" />

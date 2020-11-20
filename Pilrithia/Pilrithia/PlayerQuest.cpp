@@ -8,9 +8,9 @@ PlayerQuest::PlayerQuest()
 	this->max_Quest_ = 5;
 	this->current_Quest_ = 0;
 
-	this->x_A_.setSettings(800.f, 500.f, 0.f, 0.f, sf::Color::Yellow, 1.f, sf::Color::White, true);
+	this->x_A_.setSettings(800.f, 500.f, 0.f, 0.f, sf::Color(195, 203, 113), 1.f, sf::Color::White, true);
 
-	this->b_B_.setSettings(50.f, 50.f, this->x_A_.getRightPosition(false, 50.f), this->x_A_.getTopPosition(), sf::Color::Red, 1.f, sf::Color::White, true);
+	this->b_B_.setSettings(50.f, 50.f, this->x_A_.getRightPosition(false, 50.f), this->x_A_.getTopPosition(), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
 	
 	this->t_A_.setSettings("Font/arial.ttf", 28, "Quests", sf::Vector2f(this->x_A_.getLeftPosition(true, 350.f), this->x_A_.getTopPosition(true, 10.f)), true);
 	this->t_B_.setSettings("Font/arial.ttf", 18, "Close", sf::Vector2f(this->b_B_.getLeftPosition(true, 10.f), this->b_B_.getTopPosition(true, 10.f)), true);

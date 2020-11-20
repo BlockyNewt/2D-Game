@@ -14,7 +14,7 @@ NpcTest::NpcTest()
 	this->npc_Range_.setOutlineThickness(1.f);
 	this->npc_Range_.setOutlineColor(sf::Color::Red);
 
-	this->dialog_Box_.setSettings(300.f, 200.f, this->npc_Model_.getPosition().x - 300.f / 2.f, this->npc_Model_.getPosition().y - 205, sf::Color::Blue, 1.f, sf::Color::Magenta, this->dialog_Box_Str_, false);
+	this->dialog_Box_.setSettings(300.f, 200.f, this->npc_Model_.getPosition().x - 300.f / 2.f, this->npc_Model_.getPosition().y - 205, sf::Color(27, 133, 184), 1.f, sf::Color::Magenta, this->dialog_Box_Str_, false);
 	this->dialog_Box_.setString(this->dialog_Box_Str_);
 
 	this->npc_Name_ = "N.P.C One";
@@ -36,7 +36,7 @@ NpcTest::~NpcTest()
 void NpcTest::setSettings(const sf::Vector2u& windowSize)
 {
 	//this->quest_Box_.setSettings(windowSize.x / 2.f, windowSize.y / 2.f, sf::Color::Red, 1.f, sf::Color::Green, false);
-	this->quest_Box_.setSettings(windowSize.x / 2.f, windowSize.y / 2.f, sf::Color::Red, 1.f, sf::Color::Green, this->quest_->getQuestTitle() + "\n\n" + this->quest_->getQuestSummary());
+	this->quest_Box_.setSettings(windowSize.x / 2.f, windowSize.y / 2.f, sf::Color(174, 90, 65), 1.f, sf::Color::Green, this->quest_->getQuestTitle() + "\n\n" + this->quest_->getQuestSummary());
 	this->quest_Box_.setString(this->quest_->getQuestTitle() + "\n\n" + this->quest_->getQuestSummary());
 }
 

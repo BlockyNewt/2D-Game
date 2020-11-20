@@ -216,6 +216,9 @@
     <ClCompile Include="SkillDropDownList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LootWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -348,6 +351,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SkillDropDownList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LootWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

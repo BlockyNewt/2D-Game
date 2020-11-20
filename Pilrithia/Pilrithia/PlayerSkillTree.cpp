@@ -4,13 +4,13 @@ void PlayerSkillTree::initializeClassOneSelect()
 {
 	this->class_T_A_.setSettings("Font/arial.ttf", 28, "Select a class", sf::Vector2f(this->x_A_.getLeftPosition(true, 350.f), this->x_A_.getTopPosition(true, 10.f)), true);
 
-	this->class_B_A_.setSettings(50.f, 20.f, 100.f, sf::Color::Red, 1.f, sf::Color::White, true);
-	this->class_B_B_.setSettings(50.f, this->class_B_A_.getRightPosition(), this->class_B_A_.getTopPosition(), sf::Color::Red, 1.f, sf::Color::White, true);
-	this->class_B_C_.setSettings(50.f, this->class_B_A_.getLeftPosition(), this->class_B_A_.getBottomPosition(), sf::Color::Red, 1.f, sf::Color::White, true);
-	this->class_B_D_.setSettings(50.f, this->class_B_B_.getLeftPosition(), this->class_B_C_.getTopPosition(), sf::Color::Red, 1.f, sf::Color::White, true);
+	this->class_B_A_.setSettings(50.f, 20.f, 100.f, sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
+	this->class_B_B_.setSettings(50.f, this->class_B_A_.getRightPosition(), this->class_B_A_.getTopPosition(), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
+	this->class_B_C_.setSettings(50.f, this->class_B_A_.getLeftPosition(), this->class_B_A_.getBottomPosition(), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
+	this->class_B_D_.setSettings(50.f, this->class_B_B_.getLeftPosition(), this->class_B_C_.getTopPosition(), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
 
-	this->class_X_A_.setSettings(600.f, 600.f, this->class_B_B_.getRightPosition(true, 20.f), this->class_B_B_.getTopPosition(), sf::Color::Yellow, 1.f, sf::Color::White, true);
-	this->class_X_B_.setSettings(400.f, 600.f, this->class_X_A_.getRightPosition(true, 20.f), this->class_X_A_.getTopPosition(), sf::Color::Yellow, 1.f, sf::Color::White, true);
+	this->class_X_A_.setSettings(600.f, 600.f, this->class_B_B_.getRightPosition(true, 20.f), this->class_B_B_.getTopPosition(), sf::Color(195,203,113), 1.f, sf::Color::White, true);
+	this->class_X_B_.setSettings(400.f, 600.f, this->class_X_A_.getRightPosition(true, 20.f), this->class_X_A_.getTopPosition(), sf::Color(195,203,113), 1.f, sf::Color::White, true);
 
 	this->class_T_B_.setSettings("Font/arial.ttf", 28, "Class Summary", sf::Vector2f(this->class_X_A_.getLeftPosition(true, 100.f), this->class_X_A_.getTopPosition(true, 10.f)), true);
 	this->class_T_C_.setSettings("Font/arial.ttf", 18, "class summary goes here", sf::Vector2f(this->class_X_A_.getLeftPosition(true, 20.f), this->class_X_A_.getTopPosition(true, 80.f)), true);
@@ -44,7 +44,7 @@ PlayerSkillTree::PlayerSkillTree()
 
 	this->x_A_.setSettings(1280, 720, 0.f, 0.f, sf::Color::Black, 1.f, sf::Color::White, true);
 
-	this->b_A_.setSettings(50.f, 50.f, 1230.f, this->x_A_.getTopPosition(), sf::Color::Red, 1.f, sf::Color::White, true);
+	this->b_A_.setSettings(50.f, 50.f, 1230.f, this->x_A_.getTopPosition(), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
 
 	
 	this->initializeClassOneSelect();
@@ -59,14 +59,14 @@ PlayerSkillTree::PlayerSkillTree()
 
 	this->speccing_Progress_Bar_Front_.setSize(sf::Vector2f(this->speccing_Progress_Bar_Back_.getSize().x - 10.f, this->speccing_Progress_Bar_Back_.getSize().y - 10.f));
 	this->speccing_Progress_Bar_Front_.setPosition(sf::Vector2f(this->speccing_Progress_Bar_Back_.getGlobalBounds().left + 5.f, this->speccing_Progress_Bar_Back_.getGlobalBounds().top + this->speccing_Progress_Bar_Back_.getGlobalBounds().height - 5.f));
-	this->speccing_Progress_Bar_Front_.setFillColor(sf::Color::Black);
+	this->speccing_Progress_Bar_Front_.setFillColor(sf::Color(90, 82, 85));
 	this->speccing_Progress_Bar_Front_.setOutlineThickness(1.f);
 	this->speccing_Progress_Bar_Front_.setOutlineColor(sf::Color::Black);
 
-	this->speccing_B_A_.setSettings(50.f, 50.f, this->speccing_Progress_Bar_Back_.getGlobalBounds().left, this->speccing_Progress_Bar_Back_.getGlobalBounds().top + this->speccing_Progress_Bar_Back_.getGlobalBounds().height, sf::Color::Red, 1.f, sf::Color::Blue, true);
+	this->speccing_B_A_.setSettings(50.f, 50.f, this->speccing_Progress_Bar_Back_.getGlobalBounds().left, this->speccing_Progress_Bar_Back_.getGlobalBounds().top + this->speccing_Progress_Bar_Back_.getGlobalBounds().height, sf::Color(174, 90, 65), 1.f, sf::Color::Blue, true);
 
 
-	this->speccing_B_B_.setSettings(20.f, 150.f, 600.f, sf::Color::Yellow, 1.f, sf::Color::Blue, 1);
+	this->speccing_B_B_.setSettings(20.f, 150.f, 600.f, sf::Color(195, 203, 113), 1.f, sf::Color::Blue, 1);
 
 
 
@@ -76,7 +76,7 @@ PlayerSkillTree::PlayerSkillTree()
 
 	this->t_A_.setSettings("Font/arial.ttf", 18, "Close", sf::Vector2f(this->b_A_.getLeftPosition(true, 10.f), this->b_A_.getTopPosition(true, 10.f)), true);
 
-	this->b_C_.setSettings(150.f, 40.f, this->class_X_A_.getLeftPosition(false, 200), this->class_X_A_.getBottomPosition(false, 40), sf::Color::Red, 1.f, sf::Color::White, true);
+	this->b_C_.setSettings(150.f, 40.f, this->class_X_A_.getLeftPosition(false, 200), this->class_X_A_.getBottomPosition(false, 40), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
 	this->t_C_.setSettings("Font/arial.ttf", 18, "Select", sf::Vector2f(this->b_C_.getLeftPosition(true, 10.f), this->b_C_.getTopPosition(true, 10.f)), true);
 
 

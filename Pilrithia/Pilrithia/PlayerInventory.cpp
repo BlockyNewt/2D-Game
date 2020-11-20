@@ -11,8 +11,7 @@ void PlayerInventory::initializeStats()
 	this->stats_T_C_.setSettings("Font/arial.ttf", 18, "Mana: ", sf::Vector2f(this->stats_T_A_.getLeftPosition(false, 50.f), this->stats_T_B_.getTopPosition(true, 40.f)), true);
 	this->stats_T_D_.setSettings("Font/arial.ttf", 18, "Strength: ", sf::Vector2f(this->stats_T_A_.getLeftPosition(false, 50.f), this->stats_T_C_.getTopPosition(true, 40.f)), true);
 	this->stats_T_E_.setSettings("Font/arial.ttf", 18, "Dexerity: ", sf::Vector2f(this->stats_T_B_.getLeftPosition(), this->stats_T_D_.getTopPosition(true, 40.f)), true);
-	this->stats_T_F_.setSettings("Font/arial.ttf", 18, "Constitution: ", sf::Vector2f(this->stats_T_B_.getLeftPosition(), this->stats_T_E_.getTopPosition(true, 40.f)), true);
-	this->stats_T_G_.setSettings("Font/arial.ttf", 18, "Intelligence: ", sf::Vector2f(this->stats_T_B_.getLeftPosition(), this->stats_T_F_.getTopPosition(true, 40.f)), true);
+	this->stats_T_G_.setSettings("Font/arial.ttf", 18, "Intelligence: ", sf::Vector2f(this->stats_T_B_.getLeftPosition(), this->stats_T_E_.getTopPosition(true, 40.f)), true);
 	this->stats_T_H_.setSettings("Font/arial.ttf", 18, "Perception: ", sf::Vector2f(this->stats_T_B_.getLeftPosition(), this->stats_T_G_.getTopPosition(true, 40.f)), true);
 	this->stats_T_I_.setSettings("Font/arial.ttf", 18, "Wisdom: ", sf::Vector2f(this->stats_T_B_.getLeftPosition(), this->stats_T_H_.getTopPosition(true, 40.f)), true);
 
@@ -20,15 +19,17 @@ void PlayerInventory::initializeStats()
 	this->stats_D_C_.setHoverBoundaries(HOVERPOSITION::TOP, this->stats_T_C_.getGlobalBounds(), this->stats_T_C_.getGlobalBounds());
 	this->stats_D_D_.setHoverBoundaries(HOVERPOSITION::TOP, this->stats_T_D_.getGlobalBounds(), this->stats_T_D_.getGlobalBounds());
 	this->stats_D_E_.setHoverBoundaries(HOVERPOSITION::TOP, this->stats_T_E_.getGlobalBounds(), this->stats_T_E_.getGlobalBounds());
-	this->stats_D_F_.setHoverBoundaries(HOVERPOSITION::TOP, this->stats_T_F_.getGlobalBounds(), this->stats_T_F_.getGlobalBounds());
 	this->stats_D_G_.setHoverBoundaries(HOVERPOSITION::TOP, this->stats_T_G_.getGlobalBounds(), this->stats_T_G_.getGlobalBounds());
+	this->stats_D_H_.setHoverBoundaries(HOVERPOSITION::TOP, this->stats_T_H_.getGlobalBounds(), this->stats_T_H_.getGlobalBounds());
+	this->stats_D_I_.setHoverBoundaries(HOVERPOSITION::TOP, this->stats_T_I_.getGlobalBounds(), this->stats_T_I_.getGlobalBounds());
 
-	this->stats_D_B_.setString(DESCRIPTIONTYPE::STAT, "", "Increase physical damage, and carry capcity");
-	this->stats_D_C_.setString(DESCRIPTIONTYPE::STAT, "", "Increase attack speed and dodge");
-	this->stats_D_D_.setString(DESCRIPTIONTYPE::STAT, "", "Increase health");
-	this->stats_D_E_.setString(DESCRIPTIONTYPE::STAT, "", "Increase damage done with magic spells");
-	this->stats_D_F_.setString(DESCRIPTIONTYPE::STAT, "", "Increase detection of traps and clues, increase accuracy of ranges attacks");
-	this->stats_D_G_.setString(DESCRIPTIONTYPE::STAT, "", "Increase restoration spell effects");
+	this->stats_D_B_.setString(DESCRIPTIONTYPE::STAT, "", "Increase hit points");
+	this->stats_D_C_.setString(DESCRIPTIONTYPE::STAT, "", "Increase energy pool");
+	this->stats_D_D_.setString(DESCRIPTIONTYPE::STAT, "", "Increase physical damage, and carry capcity");
+	this->stats_D_E_.setString(DESCRIPTIONTYPE::STAT, "", "Increase attack speed and dodge");
+	this->stats_D_G_.setString(DESCRIPTIONTYPE::STAT, "", "Increase mana and damage done with magic spells");
+	this->stats_D_H_.setString(DESCRIPTIONTYPE::STAT, "", "Increase detection of traps and clues, increase accuracy of ranges attacks");
+	this->stats_D_I_.setString(DESCRIPTIONTYPE::STAT, "", "Increase restoration spell effects");
 }
 
 void PlayerInventory::initializeResistances()
@@ -61,47 +62,47 @@ void PlayerInventory::initializeIcons()
 	*/
 	this->helm_Icon_.setPosition(sf::Vector2f(this->x_B_.getLeftPosition(true, 10.f), this->x_B_.getTopPosition(true, 25.f)));
 	this->helm_Icon_.setSize(sf::Vector2f(50.f, 50.f));
-	this->helm_Icon_.setFillColor(sf::Color::Red);
+	this->helm_Icon_.setFillColor(sf::Color(174, 90, 65));
 	this->helm_Icon_.setOutlineThickness(1.f);
 	this->helm_Icon_.setOutlineColor(sf::Color::White);
 
 	this->shoulder_Icon_.setPosition(sf::Vector2f(this->x_B_.getLeftPosition(true, 10.f), this->helm_Icon_.getGlobalBounds().top + this->helm_Icon_.getGlobalBounds().height + 10.f));
 	this->shoulder_Icon_.setSize(sf::Vector2f(50.f, 50.f));
-	this->shoulder_Icon_.setFillColor(sf::Color::Red);
+	this->shoulder_Icon_.setFillColor(sf::Color(174, 90, 65));
 	this->shoulder_Icon_.setOutlineThickness(1.f);
 	this->shoulder_Icon_.setOutlineColor(sf::Color::White);
 
 	this->chest_Icon_.setPosition(sf::Vector2f(this->x_B_.getLeftPosition(true, 10.f), this->shoulder_Icon_.getGlobalBounds().top + this->shoulder_Icon_.getGlobalBounds().height + 10.f));
 	this->chest_Icon_.setSize(sf::Vector2f(50.f, 50.f));
-	this->chest_Icon_.setFillColor(sf::Color::Red);
+	this->chest_Icon_.setFillColor(sf::Color(174, 90, 65));
 	this->chest_Icon_.setOutlineThickness(1.f);
 	this->chest_Icon_.setOutlineColor(sf::Color::White);
 
 	this->glove_Icon_.setPosition(sf::Vector2f(this->x_B_.getLeftPosition(true, 10.f), this->chest_Icon_.getGlobalBounds().top + this->chest_Icon_.getGlobalBounds().height + 10.f));
 	this->glove_Icon_.setSize(sf::Vector2f(50.f, 50.f));
-	this->glove_Icon_.setFillColor(sf::Color::Red);
+	this->glove_Icon_.setFillColor(sf::Color(174, 90, 65));
 	this->glove_Icon_.setOutlineThickness(1.f);
 	this->glove_Icon_.setOutlineColor(sf::Color::White);
 
 	this->leg_Icon_.setPosition(sf::Vector2f(this->x_B_.getLeftPosition(true, 10.f), this->glove_Icon_.getGlobalBounds().top + this->glove_Icon_.getGlobalBounds().height + 10.f));
 	this->leg_Icon_.setSize(sf::Vector2f(50.f, 50.f));
-	this->leg_Icon_.setFillColor(sf::Color::Red);
+	this->leg_Icon_.setFillColor(sf::Color(174, 90, 65));
 	this->leg_Icon_.setOutlineThickness(1.f);
 	this->leg_Icon_.setOutlineColor(sf::Color::White);
 
 	this->feet_Icon_.setPosition(sf::Vector2f(this->x_B_.getLeftPosition(true, 10.f), this->leg_Icon_.getGlobalBounds().top + this->leg_Icon_.getGlobalBounds().height + 10.f));
 	this->feet_Icon_.setSize(sf::Vector2f(50.f, 50.f));
-	this->feet_Icon_.setFillColor(sf::Color::Red);
+	this->feet_Icon_.setFillColor(sf::Color(174, 90, 65));
 	this->feet_Icon_.setOutlineThickness(1.f);
 	this->feet_Icon_.setOutlineColor(sf::Color::White);
 }
 
 PlayerInventory::PlayerInventory()
 {
-	this->x_A_.setSettings(800.f, 500.f, 0.f, 0.f, sf::Color::Cyan, 1.f, sf::Color::White, true);
+	this->x_A_.setSettings(800.f, 500.f, 0.f, 0.f, sf::Color(27, 133, 184), 1.f, sf::Color(27, 133, 184), true);
 	this->x_B_.setSettings(225.f, 400.f, this->x_A_.getLeftPosition(true, 10.f), this->x_A_.getTopPosition(true, 95.f), sf::Color::Black, 1.f, sf::Color::Red, true);
 
-	this->b_B_.setSettings(50.f, 50.f, this->x_A_.getRightPosition(false, 50.f), this->x_A_.getTopPosition(), sf::Color::Red, 1.f, sf::Color::White, true);
+	this->b_B_.setSettings(50.f, 50.f, this->x_A_.getRightPosition(false, 50.f), this->x_A_.getTopPosition(), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
 
 	this->t_A_.setSettings("Font/arial.ttf", 28, "Inventory", sf::Vector2f(this->x_A_.getLeftPosition(true, 350.f), this->x_A_.getTopPosition(true, 10.f)), true);
 	this->t_B_.setSettings("Font/arial.ttf", 18, "Close", sf::Vector2f(this->b_B_.getLeftPosition(true, 10.f), this->b_B_.getTopPosition(true, 10.f)), true);
@@ -143,7 +144,6 @@ void PlayerInventory::initializeInventory(const std::string& name, const int& le
 			this->stats_T_C_.setString("Mana: " + std::to_string(stats.find("mana")->second) + " / " + std::to_string(stats.find("manaMax")->second));
 			this->stats_T_D_.setString("Strength: " + std::to_string(stats.find("strength")->second));
 			this->stats_T_E_.setString("Dexerity: " + std::to_string(stats.find("dexerity")->second));
-			this->stats_T_F_.setString("Constitution: " + std::to_string(stats.find("constitution")->second));
 			this->stats_T_G_.setString("Intelligence: " + std::to_string(stats.find("intelligence")->second));
 			this->stats_T_H_.setString("Perception: " + std::to_string(stats.find("perception")->second));
 			this->stats_T_I_.setString("Wisdom: " + std::to_string(stats.find("wisdom")->second));
@@ -201,7 +201,6 @@ void PlayerInventory::updateText(std::map<std::string, int>& stats, std::map<std
 		this->stats_T_C_.setString("Mana: " + std::to_string(stats.find("mana")->second) + " / " + std::to_string(stats.find("manaMax")->second));
 		this->stats_T_D_.setString("Strength: " + std::to_string(stats.find("strength")->second));
 		this->stats_T_E_.setString("Dexerity: " + std::to_string(stats.find("dexerity")->second));
-		this->stats_T_F_.setString("Constitution: " + std::to_string(stats.find("constitution")->second));
 		this->stats_T_G_.setString("Intelligence: " + std::to_string(stats.find("intelligence")->second));
 		this->stats_T_H_.setString("Perception: " + std::to_string(stats.find("perception")->second));
 		this->stats_T_I_.setString("Wisdom: " + std::to_string(stats.find("wisdom")->second));
@@ -320,7 +319,6 @@ void PlayerInventory::update(const sf::Vector2i& mousePositionWindow)
 		this->stats_D_C_.update(mousePositionWindow);
 		this->stats_D_D_.update(mousePositionWindow);
 		this->stats_D_E_.update(mousePositionWindow);
-		this->stats_D_F_.update(mousePositionWindow);
 		this->stats_D_G_.update(mousePositionWindow);
 		this->stats_D_H_.update(mousePositionWindow);
 		this->stats_D_I_.update(mousePositionWindow);
@@ -402,7 +400,6 @@ void PlayerInventory::render(sf::RenderTarget& target)
 		this->stats_T_C_.render(target);
 		this->stats_T_D_.render(target);
 		this->stats_T_E_.render(target);
-		this->stats_T_F_.render(target);
 		this->stats_T_G_.render(target);
 		this->stats_T_H_.render(target);
 		this->stats_T_I_.render(target);
@@ -411,7 +408,6 @@ void PlayerInventory::render(sf::RenderTarget& target)
 		this->stats_D_C_.render(target);
 		this->stats_D_D_.render(target);
 		this->stats_D_E_.render(target);
-		this->stats_D_F_.render(target);
 		this->stats_D_G_.render(target);
 		this->stats_D_H_.render(target);
 		this->stats_D_I_.render(target);

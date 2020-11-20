@@ -2,7 +2,7 @@
 
 HoverDescription::HoverDescription()
 {
-	this->description_Box_.setSettings(200.f, 200.f, 0.f, 0.f, sf::Color::Blue, 1.f, sf::Color::White, true);
+	this->description_Box_.setSettings(200.f, 200.f, 0.f, 0.f, sf::Color(90, 82, 85), 1.f, sf::Color::White, true);
 
 	this->title_.setSettings("Font/arial.ttf", 24, "", sf::Vector2f(this->description_Box_.getLeftPosition(), this->description_Box_.getTopPosition()), true);
 	this->description_.setSettings("Font/arial.ttf", 18, "", sf::Vector2f(this->description_Box_.getLeftPosition(), this->description_Box_.getTopPosition()), true);
@@ -35,7 +35,7 @@ void HoverDescription::setHoverBoundaries(HOVERPOSITION hoverPosition, const sf:
 	}
 	else if (hoverPosition == HOVERPOSITION::LEFT)
 	{
-		this->description_Box_.setPosition(this->boundaries_Offset_.left, this->boundaries_Offset_.top);
+		this->description_Box_.setPosition(this->boundaries_Offset_.left - this->description_Box_.getGlobalBounds().width, this->boundaries_Offset_.top);
 
 	}
 	else if (hoverPosition == HOVERPOSITION::RIGHT)

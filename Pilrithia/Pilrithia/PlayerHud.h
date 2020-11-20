@@ -32,7 +32,7 @@ public:
 	bool updateBagPollEvent(sf::Event& ev);
 	bool updateQuestPollEvent(sf::Event& ev);
 	bool updateSkillTreePollEvent(sf::Event& ev);
-	void updateSkillOnePollEvent(sf::Event& ev, Classes* playerClass, Enemy* selectedEnemy);
+	void updateSkillOnePollEvent(sf::Event& ev, Classes* playerClass, Enemy* selectedEnemy, const std::map<std::string, int>& playerStats);
 	void updatePollEvent(sf::Event& ev, int& health, const int& healthMax);
 	void updateNamePosition(const sf::Vector2f& playerPosition);
 	void update(const sf::Vector2i& mousePositionWindow, const Camera& camera, const sf::Vector2f& playerPosition);

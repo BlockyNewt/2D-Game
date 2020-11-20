@@ -21,10 +21,10 @@ StateTestZone::StateTestZone(std::stack<State*>* states, sf::RenderWindow* windo
 	this->enemies_.push_back(this->enemy_Test_Two_);
 
 
-	this->load_X_A_.setSettings(800.f, 400.f, this->window_->getSize().x / 2.f - 800.f / 2.f, this->window_->getSize().y / 2.f - 600.f / 2.f, sf::Color::Green, 1.f, sf::Color::Red, true);
+	this->load_X_A_.setSettings(800.f, 400.f, this->window_->getSize().x / 2.f - 800.f / 2.f, this->window_->getSize().y / 2.f - 600.f / 2.f, sf::Color(85, 158, 131), 1.f, sf::Color::Red, true);
 
-	this->load_B_A_.setSettings(150.f, 50.f, this->load_X_A_.getLeftPosition(true, 250), this->load_X_A_.getBottomPosition(false, 55), sf::Color::Blue, 1, sf::Color::Red, true);
-	this->load_B_B_.setSettings(150.f, 50.f, this->load_B_A_.getRightPosition(true, 20), this->load_B_A_.getTopPosition(), sf::Color::Blue, 1, sf::Color::Red, true);
+	this->load_B_A_.setSettings(150.f, 50.f, this->load_X_A_.getLeftPosition(true, 250), this->load_X_A_.getBottomPosition(false, 55), sf::Color(27, 133, 184), 1, sf::Color::Red, true);
+	this->load_B_B_.setSettings(150.f, 50.f, this->load_B_A_.getRightPosition(true, 20), this->load_B_A_.getTopPosition(), sf::Color(27, 133, 184), 1, sf::Color::Red, true);
 
 	this->load_T_A_.setSettings("Font/arial.ttf", 35, "Load a tilemap", sf::Vector2f(this->load_X_A_.getLeftPosition(true, 250.f), this->load_X_A_.getTopPosition(true, 10.f)), true);
 	this->load_T_B_.setSettings("Font/arial.ttf", 25, "Filename: ", sf::Vector2f(this->load_X_A_.getLeftPosition(true, 10.f), this->load_X_A_.getTopPosition(true, 200.f)), true);
@@ -34,14 +34,7 @@ StateTestZone::StateTestZone(std::stack<State*>* states, sf::RenderWindow* windo
 	this->load_I_A_.setSettings(500.f, 40.f, this->load_T_B_.getRightPosition(true, 10.f), this->load_T_B_.getTopPosition(), sf::Color::Black, 1.f, sf::Color::Red, true, false, 30);
 
 
-	this->character_Creation_X_A_.setSettings(800.f, 400.f, this->window_->getSize().x / 2.f - 800.f / 2.f, this->window_->getSize().y / 2.f - 600.f / 2.f, sf::Color::Green, 1.f, sf::Color::Red, true);
-
-	this->character_Creation_B_B_.setSettings(150.f, 50.f, this->character_Creation_X_A_.getLeftPosition(true, 250), this->character_Creation_X_A_.getBottomPosition(false, 55), sf::Color::Blue, 1, sf::Color::Red, true);
-	this->character_Creation_B_C_.setSettings(150.f, 50.f, this->character_Creation_B_B_.getRightPosition(true, 20), this->character_Creation_B_B_.getTopPosition(), sf::Color::Blue, 1, sf::Color::Red, true);
 		  
-	this->character_Creation_T_A_.setSettings("Font/arial.ttf", 35, "Would you like to create a character? \n\nThis is just another test feature. Not needed to do \nfurther testing.", sf::Vector2f(this->load_X_A_.getLeftPosition(true, 10.f), this->character_Creation_X_A_.getTopPosition(true, 10.f)), true);
-	this->character_Creation_T_B_.setSettings("Font/arial.ttf", 25, "Yes", sf::Vector2f(this->character_Creation_B_B_.getLeftPosition(true, 10.f), this->character_Creation_B_B_.getTopPosition(true, 10.f)), true);
-	this->character_Creation_T_C_.setSettings("Font/arial.ttf", 25, "No", sf::Vector2f(this->character_Creation_B_C_.getLeftPosition(true, 10.f), this->character_Creation_B_C_.getTopPosition(true, 10.f)), true);
 }
 
 StateTestZone::~StateTestZone()
@@ -147,41 +140,9 @@ void StateTestZone::updateCharacterCreationPollEvent(sf::Event& ev)
 		/*
 			IF THE POLL EVENT COMES BACK TRUE THEN UPDATE OUR PLAYER
 		*/
-		if (!this->character_Creation_X_A_.getIsVisible())
+		if (this->menu_Character_Creation_->updatePollEvent(ev))
 		{
-			if (this->menu_Character_Creation_->updatePollEvent(ev))
-			{
-				this->player_Test_.initializeCharacter(&this->menu_Character_Creation_->getRace(), this->menu_Character_Creation_->getName());
-			}
-		}
-		
-
-		
-		if (this->character_Creation_X_A_.getIsVisible())
-		{
-			/*
-				IF WE DO NEED TO CREATE A CHARACTER, CLOSE THE TESTING BOX FOR CHARACTER CREATION
-			*/
-			if (this->character_Creation_B_B_.updatePollEvent(ev))
-			{
-				this->menu_Character_Creation_->setIsCreatingCharacter(true);
-
-				this->character_Creation_X_A_.setIsVisible(false);
-				this->character_Creation_B_B_.setIsVisible(false);
-				this->character_Creation_B_C_.setIsVisible(false);
-				this->character_Creation_T_A_.setIsVisible(false);
-				this->character_Creation_T_B_.setIsVisible(false);
-				this->character_Creation_T_C_.setIsVisible(false);
-			}
-
-			/*
-				IF WE DO NOT NEED TO CREATE A CHARACTER IN TESTING THEN CLOSE THE CHARACTER
-				CREATION BOX
-			*/
-			if (this->character_Creation_B_C_.updatePollEvent(ev))
-			{
-				this->menu_Character_Creation_->setIsCreatingCharacter(false);
-			}
+			this->player_Test_.initializeCharacter(&this->menu_Character_Creation_->getRace(), this->menu_Character_Creation_->getName());
 		}
 	}
 }
@@ -220,6 +181,8 @@ void StateTestZone::updatePollEvent(sf::Event& ev)
 
 			for (auto& e : this->enemies_)
 			{
+				e->updatePollEvent(ev, this->player_Test_.setPlayerBag().setItem(), this->player_Test_.getPlayerBag().getBagSizeX(), this->player_Test_.getPlayerBag().getBagSizeY());
+
 				this->player_Test_.updateSkillsPollEvent(ev);
 			}
 
@@ -239,7 +202,7 @@ void StateTestZone::updateEnemy()
 	{
 		this->tilemap_->EnemyCollision(*this->enemies_[i]);
 
-		this->enemies_[i]->update(this->player_Test_.getPlayerGlobalBounds(), this->dt_, this->player_Test_.getStatForChange("health"));
+		this->enemies_[i]->update(this->mouse_Position_Window_, &this->camera_, this->player_Test_.getPlayerGlobalBounds(), this->dt_, this->player_Test_.getStatForChange("health"));
 
 		this->player_Test_.updateEnemyAutoSelector(this->enemies_[i]);
 
@@ -262,9 +225,6 @@ void StateTestZone::updateCharacterCreation()
 	if (this->menu_Character_Creation_->getIsCreatingCharacter())
 	{
 		this->menu_Character_Creation_->update(this->mouse_Position_Window_);
-
-		this->character_Creation_B_B_.updateBoundaries(this->mouse_Position_Window_);
-		this->character_Creation_B_C_.updateBoundaries(this->mouse_Position_Window_);
 	}
 }
 
@@ -338,13 +298,6 @@ void StateTestZone::render(sf::RenderTarget& target)
 	if (this->menu_Character_Creation_->getIsCreatingCharacter())
 	{
 		this->menu_Character_Creation_->render(target);
-
-		this->character_Creation_X_A_.render(target);
-		this->character_Creation_B_B_.render(target);
-		this->character_Creation_B_C_.render(target);
-		this->character_Creation_T_A_.render(target);
-		this->character_Creation_T_B_.render(target);
-		this->character_Creation_T_C_.render(target);
 	}
 
 	if (this->load_X_A_.getIsVisible() && !this->menu_Character_Creation_->getIsCreatingCharacter())

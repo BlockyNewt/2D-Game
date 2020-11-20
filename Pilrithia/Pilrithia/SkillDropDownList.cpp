@@ -22,7 +22,7 @@ void SkillDropDownList::setSettings(const sf::FloatRect itemBoundaries, Classes*
 			{
 				//std::cout << "x: " << x << std::endl;
 				Button* button = new Button();
-				button->setSettings(200.f, 40.f, itemBoundaries.left - 40.f, itemBoundaries.top - 40.f, sf::Color::Yellow, 1.f, sf::Color::White, true);
+				button->setSettings(200.f, 40.f, itemBoundaries.left - 40.f, itemBoundaries.top - 40.f, sf::Color(195, 203, 113), 1.f, sf::Color::White, true);
 
 				Text* text = new Text();
 				text->setSettings("Font/arial.ttf", 18, playerClasses->getAvailableSkills()[x]->getName(), sf::Vector2f(button->getLeftPosition(true, 10.f), button->getTopPosition(true, 10.f)), true);

@@ -16,6 +16,7 @@ public:
 	void setIsUnlocked(bool isUnlocked) override;
 
 	const bool& getIsUnlocked() const override;
+	const int& getDamage(const int& playerStrength, const int& playerIntelligence, const int& playerWisdom)  override;
 
 private:
 
@@ -25,7 +26,14 @@ private:
 	std::string name_;
 	std::string summary_;
 
+	int mana_Cost_;
+	int min_Damage_;
+	int max_Damage_;
+	int damage_;
+
 	bool is_Unlocked_;
+
+	SKILLTYPE skill_Type_;
 };
 
 #endif // !SKILLPOISONRAIN_H

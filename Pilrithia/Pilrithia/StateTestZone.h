@@ -49,16 +49,6 @@ private:
 	InputBox load_I_A_;
 
 
-	Box character_Creation_X_A_;
-
-	Button character_Creation_B_B_;
-	Button character_Creation_B_C_;
-	
-	Text character_Creation_T_A_;
-	Text character_Creation_T_B_;
-	Text character_Creation_T_C_;
-
-
 
 	/*
 		OTHER

@@ -6,7 +6,7 @@ void StateEditor::initializeInstructionsPanel()
 		SET SETTINGS FOR ALL OF THE INSTRUCTION PANEL OBJECTS
 	*/
 
-	this->instruction_Panel_X_A_.setSettings(400.f, 700.f, 10.f, 10.f, sf::Color::Green, 1.f, sf::Color::Red, true);
+	this->instruction_Panel_X_A_.setSettings(400.f, 700.f, 10.f, 10.f, sf::Color(85,158,131), 1.f, sf::Color::Red, true);
 
 	std::string instructionsStr = "1.) Press 'Tab' to hide this window. \n\n2.) Press 'Esc' to open pause window \n\n3.) Left click to add tile \n\n4.) Right click to remove tile \n\n5.) WSAD to move camera \n\n6.) Mouse wheel to scroll in and out \n\n7.) '1' and '2' to change tile type \n\n8.) '4' and '5' to change tile layer";
 
@@ -20,12 +20,12 @@ void StateEditor::initializeRightSidePanel()
 		SET SETTINGS FOR ALL OF THE RIGHT SIDE PANEL OBJECTS
 	*/
 
-	this->right_Side_Panel_X_A_.setSettings(50.f, 700.f, this->window_->getSize().x - 60.f, 10.f, sf::Color::Green, 1.f, sf::Color::Red, true);
+	this->right_Side_Panel_X_A_.setSettings(50.f, 700.f, this->window_->getSize().x - 60.f, 10.f, sf::Color(85,158,131), 1.f, sf::Color::Red, true);
 
-	this->right_Side_Panel_B_A_.setSettings(40.f, 40.f, this->right_Side_Panel_X_A_.getLeftPosition(true, 5), this->right_Side_Panel_X_A_.getTopPosition(true, 5), sf::Color::Blue, 1, sf::Color::Red, true);
-	this->right_Side_Panel_B_B_.setSettings(40.f, 40.f, this->right_Side_Panel_X_A_.getLeftPosition(true, 5), this->right_Side_Panel_B_A_.getBottomPosition(true, 5), sf::Color::Blue, 1, sf::Color::Red, true);
-	this->right_Side_Panel_B_C_.setSettings(40.f, 40.f, this->right_Side_Panel_X_A_.getLeftPosition(true, 5), this->right_Side_Panel_B_B_.getBottomPosition(true, 5), sf::Color::Blue, 1, sf::Color::Red, true);
-	this->right_Side_Panel_B_D_.setSettings(40.f, 40.f, this->right_Side_Panel_X_A_.getLeftPosition(true, 5), this->right_Side_Panel_B_C_.getBottomPosition(true, 5), sf::Color::Blue, 1, sf::Color::Red, true);
+	this->right_Side_Panel_B_A_.setSettings(40.f, 40.f, this->right_Side_Panel_X_A_.getLeftPosition(true, 5), this->right_Side_Panel_X_A_.getTopPosition(true, 5), sf::Color(27, 133, 184), 1, sf::Color::Red, true);
+	this->right_Side_Panel_B_B_.setSettings(40.f, 40.f, this->right_Side_Panel_X_A_.getLeftPosition(true, 5), this->right_Side_Panel_B_A_.getBottomPosition(true, 5), sf::Color	(27,133,184), 1, sf::Color::Red, true);
+	this->right_Side_Panel_B_C_.setSettings(40.f, 40.f, this->right_Side_Panel_X_A_.getLeftPosition(true, 5), this->right_Side_Panel_B_B_.getBottomPosition(true, 5), sf::Color	(27,133,184), 1, sf::Color::Red, true);
+	this->right_Side_Panel_B_D_.setSettings(40.f, 40.f, this->right_Side_Panel_X_A_.getLeftPosition(true, 5), this->right_Side_Panel_B_C_.getBottomPosition(true, 5), sf::Color	(27,133,184), 1, sf::Color::Red, true);
 
 	this->right_Side_Panel_T_A_.setSettings("Font/arial.ttf", 12, "Clear", sf::Vector2f(this->right_Side_Panel_B_A_.getLeftPosition(true, 5.f), this->right_Side_Panel_B_A_.getTopPosition(true, 10.f)), true);
 	this->right_Side_Panel_T_B_.setSettings("Font/arial.ttf", 12, "Setting", sf::Vector2f(this->right_Side_Panel_B_B_.getLeftPosition(true, 2.f), this->right_Side_Panel_B_B_.getTopPosition(true, 10.f)), true);
@@ -49,11 +49,11 @@ void StateEditor::initializeTilemapSettings()
 		SET SETTINGS FOR ALL OF THE TILEMAP SETTINGS OBJECTS
 	*/
 
-	this->tilemap_Settings_X_A_.setSettings(800.f, 600.f, this->window_->getSize().x / 2.f - 800.f / 2.f, this->window_->getSize().y / 2.f - 600.f / 2.f, sf::Color::Green, 1.f, sf::Color::Red, false);
+	this->tilemap_Settings_X_A_.setSettings(800.f, 600.f, this->window_->getSize().x / 2.f - 800.f / 2.f, this->window_->getSize().y / 2.f - 600.f / 2.f, sf::Color(85,158,131), 1.f, sf::Color::Red, false);
 	this->tilemap_Settings_T_D_.setSettings("Font/arial.ttf", 35, "Tilemap Settings", sf::Vector2f(this->tilemap_Settings_X_A_.getLeftPosition(true, 300.f), this->tilemap_Settings_X_A_.getTopPosition(true, 20.f)), false);
 
-	this->tilemap_Settings_B_A_.setSettings(150.f, 50.f, this->tilemap_Settings_X_A_.getLeftPosition(true, 250), this->tilemap_Settings_X_A_.getBottomPosition(false, 55), sf::Color::Blue, 1, sf::Color::Red, false);
-	this->tilemap_Settings_B_B_.setSettings(150.f, 50.f, this->tilemap_Settings_B_A_.getRightPosition(true, 20), this->tilemap_Settings_B_A_.getTopPosition(), sf::Color::Blue, 1, sf::Color::Red, false);
+	this->tilemap_Settings_B_A_.setSettings(150.f, 50.f, this->tilemap_Settings_X_A_.getLeftPosition(true, 250), this->tilemap_Settings_X_A_.getBottomPosition(false, 55), sf::Color(27,133,184), 1, sf::Color::Red, false);
+	this->tilemap_Settings_B_B_.setSettings(150.f, 50.f, this->tilemap_Settings_B_A_.getRightPosition(true, 20), this->tilemap_Settings_B_A_.getTopPosition(), sf::Color(27,133,184), 1, sf::Color::Red, false);
 
 	this->tilemap_Settings_T_A_.setSettings("Font/arial.ttf", 25, "Max Grid Size X", sf::Vector2f(this->tilemap_Settings_X_A_.getLeftPosition(true, 10.f), this->tilemap_Settings_X_A_.getTopPosition(true, 100.f)), false);
 	this->tilemap_Settings_T_B_.setSettings("Font/arial.ttf", 25, "Max Grid Size Y", sf::Vector2f(this->tilemap_Settings_X_A_.getLeftPosition(true, 10.f), this->tilemap_Settings_T_A_.getTopPosition(true, 50.f)), false);
@@ -75,10 +75,10 @@ void StateEditor::initializeSave()
 		SET SETTINGS FOR ALL OF THE SAVE OBJECTS
 	*/
 
-	this->save_X_A_.setSettings(800.f, 400.f, this->window_->getSize().x / 2.f - 800.f / 2.f, this->window_->getSize().y / 2.f - 600.f / 2.f, sf::Color::Green, 1.f, sf::Color::Red, false);
+	this->save_X_A_.setSettings(800.f, 400.f, this->window_->getSize().x / 2.f - 800.f / 2.f, this->window_->getSize().y / 2.f - 600.f / 2.f, sf::Color(85,158,131), 1.f, sf::Color::Red, false);
 
-	this->save_B_A_.setSettings(150.f, 50.f, this->save_X_A_.getLeftPosition(true, 250), this->save_X_A_.getBottomPosition(false, 55), sf::Color::Blue, 1, sf::Color::Red, false);
-	this->save_B_B_.setSettings(150.f, 50.f, this->save_B_A_.getRightPosition(true, 20), this->save_B_A_.getTopPosition(), sf::Color::Blue, 1, sf::Color::Red, false);
+	this->save_B_A_.setSettings(150.f, 50.f, this->save_X_A_.getLeftPosition(true, 250), this->save_X_A_.getBottomPosition(false, 55), sf::Color(27,133,184), 1, sf::Color::Red, false);
+	this->save_B_B_.setSettings(150.f, 50.f, this->save_B_A_.getRightPosition(true, 20), this->save_B_A_.getTopPosition(), sf::Color(27,133,184), 1, sf::Color::Red, false);
 
 	this->save_T_A_.setSettings("Font/arial.ttf", 35, "Save current tilemap", sf::Vector2f(this->save_X_A_.getLeftPosition(true, 250.f), this->save_X_A_.getTopPosition(true, 10.f)), false);
 	this->save_T_B_.setSettings("Font/arial.ttf", 25, "Filename: ", sf::Vector2f(this->save_X_A_.getLeftPosition(true, 10.f), this->tilemap_Settings_X_A_.getTopPosition(true, 200.f)), false);
@@ -94,10 +94,10 @@ void StateEditor::initializeLoad()
 		SET SETTINGS FOR ALL OF THE LOAD OBJECTS
 	*/
 
-	this->load_X_A_.setSettings(800.f, 400.f, this->window_->getSize().x / 2.f - 800.f / 2.f, this->window_->getSize().y / 2.f - 600.f / 2.f, sf::Color::Green, 1.f, sf::Color::Red, false);
+	this->load_X_A_.setSettings(800.f, 400.f, this->window_->getSize().x / 2.f - 800.f / 2.f, this->window_->getSize().y / 2.f - 600.f / 2.f, sf::Color(85,158,131), 1.f, sf::Color::Red, false);
 
-	this->load_B_A_.setSettings(150.f, 50.f, this->load_X_A_.getLeftPosition(true, 250), this->load_X_A_.getBottomPosition(false, 55), sf::Color::Blue, 1, sf::Color::Red, false);
-	this->load_B_B_.setSettings(150.f, 50.f, this->load_B_A_.getRightPosition(true, 20), this->load_B_A_.getTopPosition(), sf::Color::Blue, 1, sf::Color::Red, false);
+	this->load_B_A_.setSettings(150.f, 50.f, this->load_X_A_.getLeftPosition(true, 250), this->load_X_A_.getBottomPosition(false, 55), sf::Color(27,133,184), 1, sf::Color::Red, false);
+	this->load_B_B_.setSettings(150.f, 50.f, this->load_B_A_.getRightPosition(true, 20), this->load_B_A_.getTopPosition(), sf::Color(27,133,184), 1, sf::Color::Red, false);
 
 	this->load_T_A_.setSettings("Font/arial.ttf", 35, "Load a tilemap", sf::Vector2f(this->load_X_A_.getLeftPosition(true, 250.f), this->load_X_A_.getTopPosition(true, 10.f)), false);
 	this->load_T_B_.setSettings("Font/arial.ttf", 25, "Filename: ", sf::Vector2f(this->load_X_A_.getLeftPosition(true, 10.f), this->tilemap_Settings_X_A_.getTopPosition(true, 200.f)), false);

@@ -40,6 +40,7 @@ public:
 	void setIsJumping(bool isJumping);
 	PlayerQuest& setPlayerQuest();
 	void setStat(const std::string& stat, int value);
+	PlayerBag& setPlayerBag();
 
 	sf::RectangleShape& getPlayerModel();
 	const sf::Vector2f& getVelocity() const;

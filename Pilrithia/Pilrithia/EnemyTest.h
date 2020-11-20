@@ -5,6 +5,7 @@
 
 #include "Text.h"
 
+
 class EnemyTest
 	: public Enemy
 {
@@ -13,14 +14,15 @@ public:
 	EnemyTest(const sf::Vector2f& position, const int& range);
 	virtual ~EnemyTest();
 
-	void update(const sf::FloatRect playerBounds, const float& dt, int& playerHealth) override;
+	void updatePollEvent(sf::Event& ev, std::vector<std::vector<Item*>>& playerBag, const int& maxBagSizeX, const int& maxBagSizeY) override;
+	void update(const sf::Vector2i& mousePositionWindow, Camera** camera, const sf::FloatRect playerBounds, const float& dt, int& playerHealth) override;
 	void render(sf::RenderTarget& target) override;
 
 	void setVelocityX(float x) override;
 	void setVelocityY(float y) override;
 	void setDirection(DIRECTION direction) override;
 	void setIsBottomColliding(bool isBottomColliding) override;
-	int& setHealth() override;
+	void setHealth(const int& damage) override;
 
 	sf::RectangleShape& getEnemyModel() override;
 	const sf::FloatRect getEnemyGlobalBounds() const override;
@@ -89,6 +91,19 @@ private:
 
 
 	bool is_Dead_;
+	sf::Clock loot_Timer_;
+	float loot_Timer_Max_;
+	bool has_Loot_Timer_Started_;
+
+	LootWindow loot_Window_;
+	Camera* camera_;
+
+
+	//TESTING
+	Item* item_One_;
+	Item* item_Two_;
+	std::vector<Item*> items_;
+
 };
 
 #endif // !ENEMYTEST_H

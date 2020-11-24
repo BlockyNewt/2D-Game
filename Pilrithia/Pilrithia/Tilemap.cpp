@@ -48,6 +48,7 @@ Tilemap::Tilemap(const unsigned gridSizeX, const unsigned gridSizeY, const unsig
 			this->outline_[x][y] = new Tile(static_cast<float>(x * this->tile_Size_X_Y_), static_cast<float>(y * this->tile_Size_X_Y_), static_cast<float>(this->tile_Size_X_Y_), 0);
 		}
 	}
+
 }
 
 Tilemap::~Tilemap()
@@ -392,6 +393,16 @@ void Tilemap::load(const std::string fileName)
 		CLOSE FILE
 	*/
 	inFromFile.close();
+}
+
+void Tilemap::loadTexture(const std::string& fileName)
+{
+	if (!this->texture_.loadFromFile("Texture/" + fileName))
+	{
+		std::cout << "DEBUG::TILEMAP::LOADTEXTURE() -> Error loading tilemap " << fileName << " from file." << std::endl;
+	}
+
+	this->texture_Sprite_.setTexture(this->texture_);
 }
 
 void Tilemap::clearGrid(const bool& isGridEnabled)
@@ -782,6 +793,11 @@ void Tilemap::EnemyCollision(Enemy& enemy)
 	}
 }
 
+sf::Sprite& Tilemap::setTextureSprite()
+{
+	return this->texture_Sprite_;
+}
+
 const float& Tilemap::getTileSizeXY() const
 {
 	return this->tile_Size_X_Y_;
@@ -800,4 +816,9 @@ const std::string& Tilemap::getTileLayerStr() const
 const bool& Tilemap::getIsTilemapLoaded() const
 {
 	return this->is_Tilemap_Loaded_;
+}
+
+const sf::Sprite& Tilemap::getTextureSprite() const
+{
+	return this->texture_Sprite_;
 }

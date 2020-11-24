@@ -26,21 +26,25 @@ void StateEditor::initializeRightSidePanel()
 	this->right_Side_Panel_B_B_.setSettings(40.f, 40.f, this->right_Side_Panel_X_A_.getLeftPosition(true, 5), this->right_Side_Panel_B_A_.getBottomPosition(true, 5), sf::Color	(27,133,184), 1, sf::Color::Red, true);
 	this->right_Side_Panel_B_C_.setSettings(40.f, 40.f, this->right_Side_Panel_X_A_.getLeftPosition(true, 5), this->right_Side_Panel_B_B_.getBottomPosition(true, 5), sf::Color	(27,133,184), 1, sf::Color::Red, true);
 	this->right_Side_Panel_B_D_.setSettings(40.f, 40.f, this->right_Side_Panel_X_A_.getLeftPosition(true, 5), this->right_Side_Panel_B_C_.getBottomPosition(true, 5), sf::Color	(27,133,184), 1, sf::Color::Red, true);
+	this->right_Side_Panel_B_E_.setSettings(40.f, 40.f, this->right_Side_Panel_X_A_.getLeftPosition(true, 5), this->right_Side_Panel_B_D_.getBottomPosition(true, 5), sf::Color	(27,133,184), 1, sf::Color::Red, true);
 
 	this->right_Side_Panel_T_A_.setSettings("Font/arial.ttf", 12, "Clear", sf::Vector2f(this->right_Side_Panel_B_A_.getLeftPosition(true, 5.f), this->right_Side_Panel_B_A_.getTopPosition(true, 10.f)), true);
 	this->right_Side_Panel_T_B_.setSettings("Font/arial.ttf", 12, "Setting", sf::Vector2f(this->right_Side_Panel_B_B_.getLeftPosition(true, 2.f), this->right_Side_Panel_B_B_.getTopPosition(true, 10.f)), true);
 	this->right_Side_Panel_T_C_.setSettings("Font/arial.ttf", 12, "Save", sf::Vector2f(this->right_Side_Panel_B_C_.getLeftPosition(true, 2.f), this->right_Side_Panel_B_C_.getTopPosition(true, 10.f)), true);
 	this->right_Side_Panel_T_D_.setSettings("Font/arial.ttf", 12, "Load", sf::Vector2f(this->right_Side_Panel_B_D_.getLeftPosition(true, 2.f), this->right_Side_Panel_B_D_.getTopPosition(true, 10.f)), true);
+	this->right_Side_Panel_T_E_.setSettings("Font/arial.ttf", 12, "Texture", sf::Vector2f(this->right_Side_Panel_B_E_.getLeftPosition(true, 2.f), this->right_Side_Panel_B_E_.getTopPosition(true, 10.f)), true);
 
 	this->right_Side_Panel_Buttons_.push_back(right_Side_Panel_B_A_);
 	this->right_Side_Panel_Buttons_.push_back(right_Side_Panel_B_B_);
 	this->right_Side_Panel_Buttons_.push_back(right_Side_Panel_B_C_);
 	this->right_Side_Panel_Buttons_.push_back(right_Side_Panel_B_D_);
+	this->right_Side_Panel_Buttons_.push_back(right_Side_Panel_B_E_);
 
 	this->right_Side_Panel_Texts_.push_back(right_Side_Panel_T_A_);
 	this->right_Side_Panel_Texts_.push_back(right_Side_Panel_T_B_);
 	this->right_Side_Panel_Texts_.push_back(right_Side_Panel_T_C_);
 	this->right_Side_Panel_Texts_.push_back(right_Side_Panel_T_D_);
+	this->right_Side_Panel_Texts_.push_back(right_Side_Panel_T_E_);
 }
 
 void StateEditor::initializeTilemapSettings()
@@ -103,8 +107,10 @@ void StateEditor::initializeLoad()
 	this->load_T_B_.setSettings("Font/arial.ttf", 25, "Filename: ", sf::Vector2f(this->load_X_A_.getLeftPosition(true, 10.f), this->tilemap_Settings_X_A_.getTopPosition(true, 200.f)), false);
 	this->load_T_C_.setSettings("Font/arial.ttf", 25, "Load", sf::Vector2f(this->load_B_A_.getLeftPosition(true, 10.f), this->load_B_A_.getTopPosition(true, 10.f)), false);
 	this->load_T_D_.setSettings("Font/arial.ttf", 25, "Close", sf::Vector2f(this->load_B_B_.getLeftPosition(true, 10.f), this->load_B_B_.getTopPosition(true, 10.f)), false);
+	this->load_T_E_.setSettings("Font/arial.ttf", 25, "Texture:", sf::Vector2f(this->load_X_A_.getLeftPosition(true, 10.f), this->tilemap_Settings_X_A_.getTopPosition(true, 260.f)), false);
 
 	this->load_I_A_.setSettings(500.f, 40.f, this->load_T_B_.getRightPosition(true, 10.f), this->load_T_B_.getTopPosition(), sf::Color::Black, 1.f, sf::Color::Red, false, false, 30);
+	this->load_I_B_.setSettings(500.f, 40.f, this->load_I_A_.getLeftPosition(), this->load_I_A_.getBottomPosition(true, 10.f), sf::Color::Black, 1.f, sf::Color::Red, false, false, 30);
 }
 
 StateEditor::StateEditor(std::stack<State*>* states, sf::RenderWindow* window, MenuSetting* menuSetting, MenuPause* menuPause)
@@ -127,6 +133,10 @@ StateEditor::StateEditor(std::stack<State*>* states, sf::RenderWindow* window, M
 	this->tile_Type_.setSettings("Font/arial.ttf", 18, "", sf::Vector2f(0.f, 0.f), true);
 	this->tile_Layer_.setSettings("Font/arial.ttf", 18, "", sf::Vector2f(0.f, 0.f), true);
 	this->tile_Box_.setSettings(this->tilemap_->getTileSizeXY(), this->tilemap_->getTileSizeXY(), 0.f, 0.f, sf::Color::Transparent, 1.f, sf::Color::Red, true);
+
+	this->texture_X_A_.setSettings(800.f, 600.f, 0.f, 0.f, sf::Color::Green, 1.f, sf::Color::Red, false);
+	this->tilemap_->setTextureSprite().setPosition(sf::Vector2f(this->texture_X_A_.getLeftPosition(), this->texture_X_A_.getTopPosition()));
+	this->texture_Box_.setSettings(this->tilemap_->getTileSizeXY(), this->tilemap_->getTileSizeXY(), 0.f, 0.f, sf::Color::Transparent, 1.f, sf::Color::Blue, true);
 
 	this->initializeInstructionsPanel();
 	this->initializeRightSidePanel();
@@ -280,7 +290,9 @@ void StateEditor::rightPanelPollEvent(sf::Event& ev)
 			this->load_T_B_.setIsVisible(true);
 			this->load_T_C_.setIsVisible(true);
 			this->load_T_D_.setIsVisible(true);
+			this->load_T_E_.setIsVisible(true);
 			this->load_I_A_.setIsVisible(true);
+			this->load_I_B_.setIsVisible(true);
 		}
 		else
 		{
@@ -291,7 +303,36 @@ void StateEditor::rightPanelPollEvent(sf::Event& ev)
 			this->load_T_B_.setIsVisible(false);
 			this->load_T_C_.setIsVisible(false);
 			this->load_T_D_.setIsVisible(false);
+			this->load_T_E_.setIsVisible(false);
 			this->load_I_A_.setIsVisible(false);
+			this->load_I_B_.setIsVisible(false);
+		}
+	}
+
+	if (this->right_Side_Panel_Buttons_[4].updatePollEvent(ev))
+	{
+		if (!texture_X_A_.getIsVisible())
+		{
+			this->texture_X_A_.setIsVisible(true);
+		}
+		else
+		{
+			this->texture_X_A_.setIsVisible(false);
+		}
+	}
+
+	if (ev.type == sf::Event::KeyPressed)
+	{
+		if (ev.key.code == sf::Keyboard::LShift)
+		{
+			if (!this->texture_X_A_.getIsVisible())
+			{
+				this->texture_X_A_.setIsVisible(true);
+			}
+			else
+			{
+				this->texture_X_A_.setIsVisible(false);
+			}
 		}
 	}
 }
@@ -452,6 +493,7 @@ void StateEditor::loadPollEvent(sf::Event& ev)
 	if (this->load_X_A_.getIsVisible())
 	{
 		this->load_I_A_.updatePollEvent(ev);
+		this->load_I_B_.updatePollEvent(ev);
 
 		/*
 			IF LOAD BUTTON IS CLICKED AND THE INPUTBOX HAS MORE THAN
@@ -464,6 +506,13 @@ void StateEditor::loadPollEvent(sf::Event& ev)
 				this->tilemap_->load(this->load_I_A_.getString());
 
 				this->load_I_A_.clearString();
+			}
+
+			if (this->load_I_B_.getString().length() > 0)
+			{
+				this->tilemap_->loadTexture(this->load_I_B_.getString());
+
+				this->load_I_B_.clearString();
 			}
 		}
 
@@ -480,7 +529,9 @@ void StateEditor::loadPollEvent(sf::Event& ev)
 			this->load_T_B_.setIsVisible(false);
 			this->load_T_C_.setIsVisible(false);
 			this->load_T_D_.setIsVisible(false);
+			this->load_T_E_.setIsVisible(false);
 			this->load_I_A_.setIsVisible(false);
+			this->load_I_B_.setIsVisible(false);
 		}
 	}
 }
@@ -540,7 +591,14 @@ void StateEditor::update()
 	/*
 		UPDATE MOUSE POSITIONS
 	*/
-	this->updateMousePosition(&this->camera_->getView(), this->tilemap_->getTileSizeXY());
+	if (!this->texture_X_A_.getIsVisible())
+	{
+		this->updateMousePosition(&this->camera_->getView(), this->tilemap_->getTileSizeXY());
+	}
+	else
+	{
+		this->updateMousePosition(&this->window_->getDefaultView(), this->tilemap_->getTileSizeXY());
+	}
 
 	/*
 		UPDATE PAUSE MENU
@@ -549,6 +607,9 @@ void StateEditor::update()
 	
 	if (!this->menu_Pause_->getIsPaused())
 	{
+		
+
+
 		/*
 			UPDATE TILEMAP 
 		*/
@@ -558,6 +619,18 @@ void StateEditor::update()
 			UPDATE TILE BOX POSITION BASED ON MOUSE GRID POSITION
 		*/
 		this->tile_Box_.setPosition(static_cast<float>(this->mouse_Position_Grid_.x * this->tilemap_->getTileSizeXY()), static_cast<float>(this->mouse_Position_Grid_.y * this->tilemap_->getTileSizeXY()));
+
+		
+		
+		
+		/*
+			UPDATE TEXTURE BOX BASED ON POSITION IN TEXTURE SELECT WINDOW
+		*/
+		this->texture_Box_.setPosition(this->mouse_Position_Grid_.x * this->tilemap_->getTileSizeXY(),this->mouse_Position_Grid_.y * this->tilemap_->getTileSizeXY());
+
+
+
+
 
 
 		/*
@@ -619,6 +692,7 @@ void StateEditor::update()
 			this->load_B_B_.updateBoundaries(this->mouse_Position_Window_);
 
 			this->load_I_A_.update(this->mouse_Position_Window_);
+			this->load_I_B_.update(this->mouse_Position_Window_);
 		}
 	}
 }
@@ -631,7 +705,10 @@ void StateEditor::render(sf::RenderTarget& target)
 	target.setView(this->camera_->getView());
 
 	this->tilemap_->render(target);
-	this->tile_Box_.render(target);
+	if (!this->texture_X_A_.getIsVisible())
+	{
+		this->tile_Box_.render(target);
+	}
 
 	/*
 		SET VIEW BACK TO DEFUALT 
@@ -692,7 +769,22 @@ void StateEditor::render(sf::RenderTarget& target)
 	this->load_T_B_.render(target);
 	this->load_T_C_.render(target);
 	this->load_T_D_.render(target);
+	this->load_T_E_.render(target);
 	this->load_I_A_.render(target);
+	this->load_I_B_.render(target);
+
+
+	/*
+		RENDER TEXTURE RELATED OBJECTS HERE
+	*/
+	this->texture_X_A_.render(target);
+	if (this->texture_X_A_.getIsVisible())
+	{
+		target.draw(this->tilemap_->getTextureSprite());
+
+		this->texture_Box_.render(target);
+	}
+
 
 	/*
 		RENDER RIGHT SIDE PANEL BUTTONS AND TEXT HERE

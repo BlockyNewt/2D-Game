@@ -248,6 +248,8 @@ void PlayerSkillTree::render(sf::RenderTarget& target)
 
 		target.setView(target.getDefaultView());
 	}
+
+	
 }
 
 void PlayerSkillTree::setIsHidingSkillTree(bool value)

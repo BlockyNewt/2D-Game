@@ -14,10 +14,31 @@ SkillPoisonRain::SkillPoisonRain()
 	this->damage_ = 0;
 
 	this->skill_Type_ = SKILLTYPE::STRENGTH;
+
+	this->range_Box_.setSize(sf::Vector2f(125.f, 50.f));
+	this->range_Box_.setPosition(sf::Vector2f(0.f, 0.f));
+	this->range_Box_.setFillColor(sf::Color::Transparent);
+	this->range_Box_.setOutlineThickness(1.f);
+	this->range_Box_.setOutlineColor(sf::Color::Magenta);
+
+	this->is_Visible_ = false;
 }
 
 SkillPoisonRain::~SkillPoisonRain()
 {
+}
+
+void SkillPoisonRain::update(const sf::Vector2f& playerPosition, const sf::FloatRect playerBoundaries)
+{
+	this->range_Box_.setPosition(sf::Vector2f(playerBoundaries.left - this->range_Box_.getSize().x / 2.f + playerBoundaries.width / 2.f, playerBoundaries.top));
+}
+
+void SkillPoisonRain::render(sf::RenderTarget& target)
+{
+	if (this->is_Visible_)
+	{
+		target.draw(this->range_Box_);
+	}
 }
 
 const std::string& SkillPoisonRain::getName() const
@@ -33,6 +54,11 @@ const std::string& SkillPoisonRain::getSummary() const
 void SkillPoisonRain::setIsUnlocked(bool isUnlocked)
 {
 	this->is_Unlocked_ = isUnlocked;
+}
+
+void SkillPoisonRain::setIsVisible(bool isVisible)
+{
+	this->is_Visible_ = isVisible;
 }
 
 const bool& SkillPoisonRain::getIsUnlocked() const
@@ -56,4 +82,14 @@ const int& SkillPoisonRain::getDamage(const int& playerStrength, const int& play
 	}
 
 	return this->damage_;
+}
+
+const sf::FloatRect SkillPoisonRain::getSkillBoundaries() const
+{
+	return this->range_Box_.getGlobalBounds();
+}
+
+const bool& SkillPoisonRain::getIsVisible() const
+{
+	return this->is_Visible_;
 }

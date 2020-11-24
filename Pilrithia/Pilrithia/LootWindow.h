@@ -27,6 +27,9 @@ public:
 
 	void setIsVisible(bool isVisible);
 
+	const int& getSize() const;
+	const bool& getIsVisible() const;
+
 private:
 
 private:

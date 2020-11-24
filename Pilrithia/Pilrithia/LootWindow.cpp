@@ -11,6 +11,7 @@ LootWindow::LootWindow()
 	this->is_Visible_ = false;
 
 	this->selected_Item_X_ = 0;
+
 }
 
 LootWindow::~LootWindow()
@@ -79,6 +80,8 @@ void LootWindow::updatePollEvent(sf::Event& ev, std::vector<std::vector<Item*>>&
 
 						delete this->loot_[this->selected_Item_X_];
 						this->loot_[this->selected_Item_X_] = NULL;
+
+						this->loot_.erase(this->loot_.begin() + this->selected_Item_X_);
 
 						isBreaking = true;
 
@@ -153,4 +156,14 @@ void LootWindow::setIsVisible(bool isVisible)
 {
 	this->is_Visible_ = isVisible;
 
+}
+
+const int& LootWindow::getSize() const
+{
+	return this->loot_.size();
+}
+
+const bool& LootWindow::getIsVisible() const
+{
+	return this->is_Visible_;
 }

@@ -14,7 +14,7 @@ public:
 	EnemyTest(const sf::Vector2f& position, const int& range);
 	virtual ~EnemyTest();
 
-	void updatePollEvent(sf::Event& ev, std::vector<std::vector<Item*>>& playerBag, const int& maxBagSizeX, const int& maxBagSizeY) override;
+	void updatePollEvent(sf::Event& ev, std::vector<std::vector<Item*>>& playerBag, const int& maxBagSizeX, const int& maxBagSizeY, const sf::FloatRect playerBoundaries) override;
 	void update(const sf::Vector2i& mousePositionWindow, Camera** camera, const sf::FloatRect playerBounds, const float& dt, int& playerHealth) override;
 	void render(sf::RenderTarget& target) override;
 
@@ -31,7 +31,9 @@ public:
 	const float& getGravity() const override;
 	const DIRECTION& getDirection() override;
 	const bool& getIsBottomColliding() const override;
+	const bool& getHasLootTimerStarted() const;
 	const bool& getIsDead() const override;
+
 
 private:
 	void initializeStats() override;

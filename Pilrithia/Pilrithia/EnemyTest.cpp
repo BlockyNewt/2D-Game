@@ -95,7 +95,7 @@ EnemyTest::EnemyTest(const sf::Vector2f& position, const int& range)
 	this->is_attack_Cooldown_ = false;
 	this->is_Dead_ = false;
 	
-	this->loot_Timer_Max_ = 10.f;
+	this->loot_Timer_Max_ = 5.f;
 	this->has_Loot_Timer_Started_ = false;
 
 	this->camera_ = NULL;
@@ -113,21 +113,28 @@ EnemyTest::~EnemyTest()
 	
 }
 
-void EnemyTest::updatePollEvent(sf::Event& ev, std::vector<std::vector<Item*>>& playerBag, const int& maxBagSizeX, const int& maxBagSizeY)
+void EnemyTest::updatePollEvent(sf::Event& ev, std::vector<std::vector<Item*>>& playerBag, const int& maxBagSizeX, const int& maxBagSizeY, const sf::FloatRect playerBoundaries)
 {
 	if (this->has_Loot_Timer_Started_)
 	{
-		//LOOT SHIT GOES HERE
-		if (ev.type == sf::Event::KeyPressed)
+		if (playerBoundaries.intersects(this->enemy_Model_.getGlobalBounds()))
 		{
-			if (ev.key.code == sf::Keyboard::E)
+			//LOOT SHIT GOES HERE
+			if (ev.type == sf::Event::KeyPressed)
 			{
-				std::cout << "fucking pressing e bitch" << std::endl;
-				this->loot_Window_.setIsVisible(true);
+				if (ev.key.code == sf::Keyboard::E)
+				{
+					std::cout << "fucking pressing e bitch" << std::endl;
+					this->loot_Window_.setIsVisible(true);
+				}
 			}
-		}
 
-		this->loot_Window_.updatePollEvent(ev, playerBag, maxBagSizeX, maxBagSizeY);
+			this->loot_Window_.updatePollEvent(ev, playerBag, maxBagSizeX, maxBagSizeY);
+		}
+		else
+		{
+			this->loot_Window_.setIsVisible(false);
+		}
 	}
 }
 
@@ -173,27 +180,30 @@ void EnemyTest::updateHealth()
 	if (this->health_ <= 0 && !this->has_Loot_Timer_Started_)
 	{
 		this->health_ = 0;
-		//std::cout << "enemy has died." << std::endl;
-		/*this->is_Dead_ = true;*/
+
 		this->has_Loot_Timer_Started_ = true;
 		this->loot_Timer_.restart();
 	}
-	
 
-	if (this->has_Loot_Timer_Started_)
-	{
-		//std::cout << "Loot timer: " << this->loot_Timer_.getElapsedTime().asSeconds() << std::endl;
-	}
 
-	if (this->has_Loot_Timer_Started_ && 
-		this->loot_Timer_.getElapsedTime().asSeconds() >= this->loot_Timer_Max_)
+	if (this->loot_Window_.getSize() == 0)
 	{
-		std::cout << "enemy is now dead" << std::endl;
 		this->is_Dead_ = true;
 	}
 
+	if (!this->loot_Window_.getIsVisible())
+	{
+		if (this->has_Loot_Timer_Started_ &&
+			this->loot_Timer_.getElapsedTime().asSeconds() >= this->loot_Timer_Max_)
+		{
+			//std::cout << "enemy is now dead" << std::endl;
+			this->is_Dead_ = true;
+		}
+	}
 	
 
+
+	
 	/*
 		MUST USE THIS FOR THE HEALTH BAR VALUES TO WORK
 	*/
@@ -204,6 +214,7 @@ void EnemyTest::updateHealth()
 
 	this->health_Bar_Back_.setPosition(sf::Vector2f(this->enemy_Model_.getGlobalBounds().left - this->health_Bar_Back_.getSize().x / 2.f + 10.f, this->enemy_Model_.getGlobalBounds().top - this->health_Bar_Back_.getGlobalBounds().height - 5.f));
 	this->health_Bar_Front_.setPosition(sf::Vector2f(this->health_Bar_Back_.getPosition().x + 2.f, this->health_Bar_Back_.getPosition().y + 2.f));
+	
 }
 
 void EnemyTest::update(const sf::Vector2i& mousePositionWindow, Camera** camera, const sf::FloatRect playerBounds, const float& dt, int& playerHealth)
@@ -221,7 +232,7 @@ void EnemyTest::update(const sf::Vector2i& mousePositionWindow, Camera** camera,
 			*/
 			if (!this->is_attack_Cooldown_)
 			{
-				playerHealth -= 4;
+				playerHealth -= 1;
 
 				this->is_attack_Cooldown_ = true;
 			}
@@ -337,6 +348,11 @@ const DIRECTION& EnemyTest::getDirection()
 const bool& EnemyTest::getIsBottomColliding() const
 {
 	return this->is_Bottom_Colliding_;
+}
+
+const bool& EnemyTest::getHasLootTimerStarted() const
+{
+	return this->has_Loot_Timer_Started_;
 }
 
 const bool& EnemyTest::getIsDead() const

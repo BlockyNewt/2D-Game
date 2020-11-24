@@ -67,12 +67,14 @@ private:
 	Button right_Side_Panel_B_B_;
 	Button right_Side_Panel_B_C_;
 	Button right_Side_Panel_B_D_;
+	Button right_Side_Panel_B_E_;
 	std::vector<Button> right_Side_Panel_Buttons_;
 
 	Text right_Side_Panel_T_A_;
 	Text right_Side_Panel_T_B_;
 	Text right_Side_Panel_T_C_;
 	Text right_Side_Panel_T_D_;
+	Text right_Side_Panel_T_E_;
 	std::vector<Text> right_Side_Panel_Texts_;
 
 
@@ -127,8 +129,19 @@ private:
 	Text load_T_B_;
 	Text load_T_C_;
 	Text load_T_D_;
+	Text load_T_E_;
 
 	InputBox load_I_A_;
+	InputBox load_I_B_;
+
+	/*
+		TEXTURE SELECTOR
+	*/
+	Box texture_X_A_;
+
+	Box texture_Box_;
+
+
 };
 
 

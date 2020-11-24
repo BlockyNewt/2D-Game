@@ -23,9 +23,9 @@ public:
 
 	void initializeCharacter(Race* race, const std::string& name);
 
-	void updateSkillsPollEvent(sf::Event& ev);
+	void updateSkillsPollEvent(sf::Event& ev, std::vector<Enemy*>& enemies);
 	void updatePollEvent(sf::Event& ev, const float& dt);
-	void updateEnemyAutoSelector(Enemy* enemy);
+	//void updateEnemyAutoSelector(Enemy* enemy);
 	void update(const sf::Vector2i& mousePositionWindow, const Camera& camera);
 	void renderHudItems(sf::RenderTarget& target);
 	void renderPlayerModel(sf::RenderTarget& target);

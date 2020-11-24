@@ -141,17 +141,23 @@ bool PlayerHud::updateSkillTreePollEvent(sf::Event& ev)
 	}
 }
 
-void PlayerHud::updateSkillOnePollEvent(sf::Event& ev, Classes* playerClass, Enemy* selectedEnemy, const std::map<std::string, int>& playerStats)
+void PlayerHud::updateSkillOnePollEvent(sf::Event& ev, Classes* playerClass, std::vector<Enemy*>& enemies, const std::map<std::string, int>& playerStats)
 {
-	if (selectedEnemy != NULL)
+	
+	if (this->skill_One_ != NULL)
 	{
-		if (this->skill_One_ != NULL)
+		if (this->skill_B_A_.updatePollEvent(ev))
 		{
-			if (this->skill_B_A_.updatePollEvent(ev))
+			for (int i = 0; i < enemies.size(); ++i)
 			{
-				selectedEnemy->setHealth(this->skill_One_->getDamage(playerStats.find("strength")->second, playerStats.find("intelligence")->second, playerStats.find("wisdom")->second));
+				if (enemies[i] != NULL)
+				{
+					if (this->skill_One_->getSkillBoundaries().intersects(enemies[i]->getEnemyGlobalBounds()))
+					{
+						enemies[i]->setHealth(this->skill_One_->getDamage(playerStats.find("strength")->second, playerStats.find("intelligence")->second, playerStats.find("wisdom")->second));
+					}
+				}
 
-				//std::cout << this->skill_One_->getDamage(playerStats.find("strength")->second, playerStats.find("intelligence")->second, playerStats.find("wisdom")->second) << std::endl;
 			}
 		}
 	}
@@ -212,7 +218,7 @@ void PlayerHud::updateNamePosition(const sf::Vector2f& playerPosition)
 	this->character_T_E_.setPosition(playerPosition.x, playerPosition.y - 22.f);
 }
 
-void PlayerHud::update(const sf::Vector2i& mousePositionWindow, const Camera& camera, const sf::Vector2f& playerPosition)
+void PlayerHud::update(const sf::Vector2i& mousePositionWindow, const Camera& camera, const sf::Vector2f& playerPosition, const sf::FloatRect playerBoundaries)
 {
 	if (this->is_Hiding_Hud_)
 	{
@@ -228,6 +234,20 @@ void PlayerHud::update(const sf::Vector2i& mousePositionWindow, const Camera& ca
 		this->skill_B_A_.updateBoundaries(mousePositionWindow);
 		this->skill_B_B_.updateBoundaries(mousePositionWindow);
 		this->skill_B_C_.updateBoundaries(mousePositionWindow);
+
+		if (this->skill_One_ != NULL)
+		{
+			if (this->skill_B_A_.getIsHovering())
+			{
+				this->skill_One_->setIsVisible(true);
+			}
+			else
+			{
+				this->skill_One_->setIsVisible(false);
+			}
+
+			this->skill_One_->update(playerPosition, playerBoundaries);
+		}
 
 		this->skill_D_A_.update(mousePositionWindow);
 
@@ -309,5 +329,10 @@ void PlayerHud::setWidthOfBars(const int& healthMax, const int& health, const in
 const float PlayerHud::percentToPixel(const float size)
 {
 	return std::floor(static_cast<float>(this->window_Size_X_)) * (size / 100.f);
+}
+
+Skill& PlayerHud::setSkillOne()
+{
+	return *this->skill_One_;
 }
 

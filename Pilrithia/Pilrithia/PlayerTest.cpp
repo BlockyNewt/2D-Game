@@ -106,9 +106,9 @@ void PlayerTest::initializeCharacter(Race* race, const std::string& name)
 	this->player_Hud_->intializeHud(this->name_, this->getStat("healthMax"), this->getStat("health"), this->getStat("manaMax"), this->getStat("mana"), this->max_Exp_, this->exp_);
 }
 
-void PlayerTest::updateSkillsPollEvent(sf::Event& ev)
+void PlayerTest::updateSkillsPollEvent(sf::Event& ev, std::vector<Enemy*>& enemies)
 {
-	this->player_Hud_->updateSkillOnePollEvent(ev, this->player_Skill_Tree_.setClassesOne(), this->selected_Enemy_, this->stats_);
+	this->player_Hud_->updateSkillOnePollEvent(ev, this->player_Skill_Tree_.setClassesOne(), enemies, this->stats_);
 }
 
 void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
@@ -224,29 +224,39 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 	}
 	
 }
-
-void PlayerTest::updateEnemyAutoSelector(Enemy* enemy)
-{
-	if (this->selected_Enemy_ == NULL)
-	{
-		if (this->player_Model_.getGlobalBounds().intersects(enemy->getEnemyGlobalBounds()))
-		{
-			this->selected_Enemy_ = enemy;
-
-			std::cout << "enemy has been selected." << std::endl;
-		}
-	}
-
-	if (this->selected_Enemy_ != NULL)
-	{
-		//std::cout << "A" << std::endl;
-		if (this->selected_Enemy_->getIsDead())
-		{
-			std::cout << "enemy died. Can no reselect a new enemy. " << std::endl;
-			this->selected_Enemy_ = NULL;
-		}
-	}
-}
+//
+//void PlayerTest::updateEnemyAutoSelector(Enemy* enemy)
+//{
+//	if (this->selected_Enemy_ == NULL)
+//	{
+//		if (this->player_Model_.getGlobalBounds().intersects(enemy->getEnemyGlobalBounds()))
+//		{
+//			this->selected_Enemy_ = enemy;
+//
+//			std::cout << "enemy has been selected." << std::endl;
+//		}
+//	}
+//
+//	if (this->selected_Enemy_ != NULL)
+//	{
+//		if (!this->player_Model_.getGlobalBounds().intersects(this->selected_Enemy_->getEnemyGlobalBounds()))
+//		{
+//			this->selected_Enemy_ = NULL;
+//
+//			std::cout << "enemy has been set to null due to it leaving range." << std::endl;
+//		}
+//	}
+//
+//	if (this->selected_Enemy_ != NULL)
+//	{
+//		//std::cout << "A" << std::endl;
+//		if (this->selected_Enemy_->getIsDead() || this->selected_Enemy_->getHasLootTimerStarted())
+//		{
+//			//std::cout << "enemy died. Can no reselect a new enemy. " << std::endl;
+//			this->selected_Enemy_ = NULL;
+//		}
+//	}
+//}
 
 void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& camera)
 {
@@ -279,12 +289,17 @@ void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& c
 		*this->camera_ = camera;
 	}
 	
-	this->player_Hud_->update(mousePositionWindow, camera, this->player_Model_.getPosition());
+	this->player_Hud_->update(mousePositionWindow, camera, this->player_Model_.getPosition(), this->player_Model_.getGlobalBounds());
 	this->player_Inventory_.update(mousePositionWindow);
 	this->player_Bag_.update(mousePositionWindow);
 	this->player_Quest_.update(mousePositionWindow);
 	this->player_Skill_Tree_.update(mousePositionWindow, this->skill_Points_);
 
+	
+	if (&this->player_Hud_->setSkillOne() != NULL)
+	{
+		this->player_Hud_->setSkillOne().update(this->player_Model_.getPosition(), this->player_Model_.getGlobalBounds());
+	}
 
 	//MUST USE THIS TO BE ABLE TO PASS MAP VALUE INTO FUNCTION
 
@@ -327,6 +342,11 @@ void PlayerTest::renderPlayerModel(sf::RenderTarget& target)
 
 	target.draw(this->next_Position_);
 	target.draw(this->player_Model_);
+
+	if (&this->player_Hud_->setSkillOne() != NULL)
+	{
+		this->player_Hud_->setSkillOne().render(target);
+	}
 }
 
 void PlayerTest::addQuest(Quest& quest)

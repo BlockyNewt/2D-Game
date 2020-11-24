@@ -181,10 +181,10 @@ void StateTestZone::updatePollEvent(sf::Event& ev)
 
 			for (auto& e : this->enemies_)
 			{
-				e->updatePollEvent(ev, this->player_Test_.setPlayerBag().setItem(), this->player_Test_.getPlayerBag().getBagSizeX(), this->player_Test_.getPlayerBag().getBagSizeY());
-
-				this->player_Test_.updateSkillsPollEvent(ev);
+				e->updatePollEvent(ev, this->player_Test_.setPlayerBag().setItem(), this->player_Test_.getPlayerBag().getBagSizeX(), this->player_Test_.getPlayerBag().getBagSizeY(), this->player_Test_.getPlayerModel().getGlobalBounds());
 			}
+
+			this->player_Test_.updateSkillsPollEvent(ev, this->enemies_);
 
 			this->player_Test_.updatePollEvent(ev, this->dt_);
 
@@ -204,14 +204,13 @@ void StateTestZone::updateEnemy()
 
 		this->enemies_[i]->update(this->mouse_Position_Window_, &this->camera_, this->player_Test_.getPlayerGlobalBounds(), this->dt_, this->player_Test_.getStatForChange("health"));
 
-		this->player_Test_.updateEnemyAutoSelector(this->enemies_[i]);
+		//this->player_Test_.updateEnemyAutoSelector(this->enemies_[i]);
 
 		if (this->enemies_[i]->getIsDead())
 		{
 			delete this->enemies_[i];
 			this->enemies_.erase(this->enemies_.begin() + i);
 		}
-
 	}
 
 	if (this->enemies_.size() < this->max_Enemies_)

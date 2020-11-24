@@ -27,6 +27,7 @@ public:
 	void removeTile(float gridPosX, float gridPosY);
 	void save(const std::string fileName);
 	void load(const std::string fileName);
+	void loadTexture(const std::string& fileName);
 
 	void clearGrid(const bool& isGridEnabled = false);
 	void enableGrid(const bool& isGridEnabled = false);
@@ -36,10 +37,13 @@ public:
 	void resizeTileSize(float tileSizeXY);
 
 
+	sf::Sprite& setTextureSprite();
+
 	const float& getTileSizeXY() const;
 	const std::string& getTileTypeStr() const;
 	const std::string& getTileLayerStr() const;
 	const bool& getIsTilemapLoaded() const;
+	const sf::Sprite& getTextureSprite() const;
 
 	//TESTING 
 	void PlayerCollision(PlayerTest& playerTest);
@@ -80,7 +84,8 @@ private:
 	float camera_Top_Position;
 	float camera_Bottom_Position;
 
-
+	sf::Texture texture_;
+	sf::Sprite texture_Sprite_;
 
 	
 };

@@ -12,7 +12,7 @@ public:
 	Text();
 	~Text();
 
-	void setSettings(std::string fontFilePath, unsigned int characterSize, std::string text, sf::Vector2f position, bool isVisible);
+	void setSettings(const sf::Font& font, unsigned int characterSize, std::string text, sf::Vector2f position, bool isVisible);
 
 	void render(sf::RenderTarget& target);
 

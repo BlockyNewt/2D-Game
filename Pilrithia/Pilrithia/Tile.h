@@ -18,6 +18,7 @@ class Tile
 {
 public:
 	Tile(float positionX, float positionY, float tileSizeXY, int type);
+	Tile(float positionX, float positionY, float tileSizeXY, const sf::Texture& texture, const sf::IntRect& textureBounds, int type);
 	~Tile();
 
 	void render(sf::RenderTarget& target);
@@ -34,6 +35,7 @@ public:
 	const float getTopPosition() const;
 	const float getBottomPosition() const;
 	const sf::RectangleShape& getTile() const;
+	const sf::IntRect& getTextureBounds() const;
 
 private:
 

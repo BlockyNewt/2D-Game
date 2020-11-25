@@ -18,6 +18,9 @@ Tilemap::Tilemap(const unsigned gridSizeX, const unsigned gridSizeY, const unsig
 
 	this->is_Tilemap_Loaded_ = false;
 
+	this->texture_Bounds_.left = 0.f;
+	this->texture_Bounds_.top = 0.f;
+
 	/*
 		RESIZE GRID AND THE OUTLINE GRID 
 	*/
@@ -48,7 +51,6 @@ Tilemap::Tilemap(const unsigned gridSizeX, const unsigned gridSizeY, const unsig
 			this->outline_[x][y] = new Tile(static_cast<float>(x * this->tile_Size_X_Y_), static_cast<float>(y * this->tile_Size_X_Y_), static_cast<float>(this->tile_Size_X_Y_), 0);
 		}
 	}
-
 }
 
 Tilemap::~Tilemap()
@@ -75,10 +77,9 @@ void Tilemap::updatePollEvent(sf::Event& ev)
 	{
 		if (ev.key.code == sf::Keyboard::Num1)
 		{
-			if (this->tile_Type_ > 0)
+			if (this->tile_Type_ > 1)
 			{
 				this->tile_Type_--;
-
 			}
 		}
 
@@ -87,7 +88,6 @@ void Tilemap::updatePollEvent(sf::Event& ev)
 			if (this->tile_Type_ < 2)
 			{
 				this->tile_Type_++;
-
 			}
 		}
 	}
@@ -144,9 +144,9 @@ void Tilemap::updateTileType()
 
 	switch (this->tile_Type_)
 	{
-	case 0:
+	/*case 0:
 		this->tile_Type_Str_ = "Default";
-		break;
+		break;*/
 	case 1:
 		this->tile_Type_Str_ = "Boundary";
 		break;
@@ -215,7 +215,8 @@ void Tilemap::addTile(float gridPosX, float gridPosY)
 	{
 		if (this->grid_[gridPosX][gridPosY][this->tile_Layer_] == NULL)
 		{
-			this->grid_[gridPosX][gridPosY][this->tile_Layer_] = new Tile(gridPosX * this->tile_Size_X_Y_, gridPosY * this->tile_Size_X_Y_, this->tile_Size_X_Y_, this->tile_Type_);
+			std::cout << "LEFT: " << this->texture_Bounds_.left << " TOP: " << this->texture_Bounds_.top << std::endl;
+			this->grid_[gridPosX][gridPosY][this->tile_Layer_] = new Tile(gridPosX * this->tile_Size_X_Y_, gridPosY * this->tile_Size_X_Y_, this->tile_Size_X_Y_, this->texture_, this->texture_Bounds_, this->tile_Type_);
 		}
 		else
 		{
@@ -265,7 +266,9 @@ void Tilemap::save(const std::string fileName)
 
 			TILE SIZE XY
 
-			POSITION X, POSITION Y, TILESIZE XY, TYPE CONVERSION
+			TEXTURE FILE NAME
+
+			POSITION X, POSITION Y, TILESIZE XY, TEXTURE BOUNDS X, TEXTURE BOUNDS Y, TYPE CONVERSION
 	
 	*/
 
@@ -280,7 +283,7 @@ void Tilemap::save(const std::string fileName)
 		/*
 			WRITE THINGS TO FILE
 		*/
-		outToFile << this->grid_Max_Size_X_ << "\n" << this->grid_Max_Size_Y_ << "\n" << this->tile_Size_X_Y_ << "\n";
+		outToFile << this->grid_Max_Size_X_ << "\n" << this->grid_Max_Size_Y_ << "\n" << this->grid_Max_Size_Z_ << "\n" << this->tile_Size_X_Y_ << "\n" << this->texture_File_Name_ << "\n";
 
 		/*
 			WRITE EACH TILE INSIDE OF GRID AND IT'S SETTINGS TO FILE 
@@ -293,7 +296,7 @@ void Tilemap::save(const std::string fileName)
 				{
 					if (this->grid_[x][y][z])
 					{
-						outToFile << x << " " << y << " " << z << " " << this->grid_[x][y][z]->getTypeConversion() << " ";
+						outToFile << x << " " << y << " " << z << " " << this->grid_[x][y][z]->getTextureBounds().left << " " << this->grid_[x][y][z]->getTextureBounds().top << " " << this->grid_[x][y][z]->getTextureBounds().width << " " << this->grid_[x][y][z]->getTextureBounds().height << " " << this->grid_[x][y][z]->getTypeConversion() << " ";
 					}
 				}
 			}
@@ -330,7 +333,16 @@ void Tilemap::load(const std::string fileName)
 		/*
 			LOAD SOME THINGS FROM THE FILE 
 		*/
-		inFromFile >> this->grid_Max_Size_X_ >> this->grid_Max_Size_Y_ >> this->tile_Size_X_Y_;
+		inFromFile >> this->grid_Max_Size_X_ >> this->grid_Max_Size_Y_ >> this->grid_Max_Size_Z_ >> this->tile_Size_X_Y_ >> this->texture_File_Name_;
+		std::cout << "TilesizeXY: " << this->tile_Size_X_Y_ << std::endl;
+		std::cout << "Filename: " << this->texture_File_Name_ << std::endl;
+		//this->loadTexture(this->texture_File_Name_);
+		if (!this->texture_.loadFromFile("Texture/" + this->texture_File_Name_))
+		{
+			std::cout << "couldnt load texture file" << std::endl;
+		}
+
+		this->texture_Sprite_.setTexture(this->texture_);
 
 		/*
 			RESIZE GRID AND OUTLINE GRID
@@ -368,15 +380,16 @@ void Tilemap::load(const std::string fileName)
 		unsigned x = 0;
 		unsigned y = 0;
 		unsigned z = 0;
-
+		
 		int typeConversion = 0;
 
-		while (inFromFile >> x >> y >> z >> typeConversion)
+		while (inFromFile >> x >> y >> z >> this->texture_Bounds_.left >> this->texture_Bounds_.top >> this->texture_Bounds_.width >> this->texture_Bounds_.height >> typeConversion)
 		{
 			/*
 				READ TILE DATA FROM FILE AND ADD IT TO THE GID
 			*/
-			this->grid_[x][y][z] = new Tile(x * this->tile_Size_X_Y_, y * this->tile_Size_X_Y_,  this->tile_Size_X_Y_, typeConversion);
+
+			this->grid_[x][y][z] = new Tile(x * this->tile_Size_X_Y_, y * this->tile_Size_X_Y_,  this->tile_Size_X_Y_, this->texture_, this->texture_Bounds_, typeConversion);
 		}
 
 
@@ -401,6 +414,8 @@ void Tilemap::loadTexture(const std::string& fileName)
 	{
 		std::cout << "DEBUG::TILEMAP::LOADTEXTURE() -> Error loading tilemap " << fileName << " from file." << std::endl;
 	}
+
+	this->texture_File_Name_ = fileName;
 
 	this->texture_Sprite_.setTexture(this->texture_);
 }
@@ -798,6 +813,11 @@ sf::Sprite& Tilemap::setTextureSprite()
 	return this->texture_Sprite_;
 }
 
+void Tilemap::setTextureBounds(const sf::IntRect& bounds)
+{
+	this->texture_Bounds_ = bounds;
+}
+
 const float& Tilemap::getTileSizeXY() const
 {
 	return this->tile_Size_X_Y_;
@@ -821,4 +841,9 @@ const bool& Tilemap::getIsTilemapLoaded() const
 const sf::Sprite& Tilemap::getTextureSprite() const
 {
 	return this->texture_Sprite_;
+}
+
+const sf::IntRect& Tilemap::getTextureBounds() const
+{
+	return this->texture_Bounds_;
 }

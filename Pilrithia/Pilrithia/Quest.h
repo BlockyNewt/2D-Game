@@ -6,6 +6,8 @@
 #include "Enemy.h"
 #include "EnemyTest.h"
 
+#include "ResourceFont.h"
+
 #include <iostream>
 #include <string>
 
@@ -29,6 +31,7 @@ class Quest
 {
 public:
 	Quest();
+	Quest(const ResourceFont& resourceFont);
 	virtual ~Quest();
 
 	virtual void update() = 0;

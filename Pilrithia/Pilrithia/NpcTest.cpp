@@ -2,6 +2,10 @@
 
 NpcTest::NpcTest()
 {
+}
+
+NpcTest::NpcTest(const ResourceFont& resourceFont)
+{
 	this->dialog_Box_Str_ = "This is the first quest. Click the expand button to see more of what this quest has to offer.";
 	
 	this->npc_Model_.setSize(sf::Vector2f(30.f, 30.f));
@@ -14,15 +18,15 @@ NpcTest::NpcTest()
 	this->npc_Range_.setOutlineThickness(1.f);
 	this->npc_Range_.setOutlineColor(sf::Color::Red);
 
-	this->dialog_Box_.setSettings(300.f, 200.f, this->npc_Model_.getPosition().x - 300.f / 2.f, this->npc_Model_.getPosition().y - 205, sf::Color(27, 133, 184), 1.f, sf::Color::Magenta, this->dialog_Box_Str_, false);
+	this->dialog_Box_.setSettings(300.f, 200.f, this->npc_Model_.getPosition().x - 300.f / 2.f, this->npc_Model_.getPosition().y - 205, sf::Color(27, 133, 184), 1.f, sf::Color::Magenta, this->dialog_Box_Str_, resourceFont, false);
 	this->dialog_Box_.setString(this->dialog_Box_Str_);
 
 	this->npc_Name_ = "N.P.C One";
-	this->name_.setSettings("Font/arial.ttf", 18, this->npc_Name_, sf::Vector2f(this->npc_Model_.getGlobalBounds().left - 25.f, this->npc_Model_.getGlobalBounds().top - 25.f), true);
+	this->name_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, this->npc_Name_, sf::Vector2f(this->npc_Model_.getGlobalBounds().left - 25.f, this->npc_Model_.getGlobalBounds().top - 25.f), true);
 
 	this->is_Within_Range_ = false;
 	
-	this->quest_ = new QuestTest();
+	this->quest_ = new QuestTest(resourceFont);
 	this->quest_->setTargetNpcName("N.P.C Two");
 
 	this->camera_ = new Camera(0.f, 0.f);
@@ -33,10 +37,10 @@ NpcTest::~NpcTest()
 	delete this->camera_;
 }
 
-void NpcTest::setSettings(const sf::Vector2u& windowSize)
+void NpcTest::setSettings(const sf::Vector2u& windowSize, const ResourceFont& resourceFont)
 {
 	//this->quest_Box_.setSettings(windowSize.x / 2.f, windowSize.y / 2.f, sf::Color::Red, 1.f, sf::Color::Green, false);
-	this->quest_Box_.setSettings(windowSize.x / 2.f, windowSize.y / 2.f, sf::Color(174, 90, 65), 1.f, sf::Color::Green, this->quest_->getQuestTitle() + "\n\n" + this->quest_->getQuestSummary());
+	this->quest_Box_.setSettings(windowSize.x / 2.f, windowSize.y / 2.f, sf::Color(174, 90, 65), 1.f, sf::Color::Green, this->quest_->getQuestTitle() + "\n\n" + this->quest_->getQuestSummary(), resourceFont);
 	this->quest_Box_.setString(this->quest_->getQuestTitle() + "\n\n" + this->quest_->getQuestSummary());
 }
 

@@ -210,13 +210,16 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Source Files\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="StatButton.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="LootWindow.cpp">
+      <Filter>Source Files\Gui</Filter>
     </ClCompile>
     <ClCompile Include="SkillDropDownList.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Gui</Filter>
     </ClCompile>
-    <ClCompile Include="LootWindow.cpp">
+    <ClCompile Include="StatButton.cpp">
+      <Filter>Source Files\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceFont.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -348,12 +351,15 @@
       <Filter>Header Files\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="StatButton.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Gui</Filter>
     </ClInclude>
     <ClInclude Include="SkillDropDownList.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Gui</Filter>
     </ClInclude>
     <ClInclude Include="LootWindow.h">
+      <Filter>Header Files\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceFont.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

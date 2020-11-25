@@ -3,6 +3,8 @@
 
 #include "SFML/Graphics.hpp"
 
+#include "ResourceFont.h"
+
 #include "Text.h"
 
 #include <iostream>
@@ -14,7 +16,7 @@ public:
 	InputBox();
 	~InputBox();
 
-	void setSettings(float sizeX, float sizeY, float posX, float posY, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, bool isVisible, bool isInputting, int inputStringMaxSize);
+	void setSettings(float sizeX, float sizeY, float posX, float posY, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, bool isVisible, bool isInputting, int inputStringMaxSize, const ResourceFont& resourceFont);
 
 	void updatePollEvent(sf::Event& ev);
 

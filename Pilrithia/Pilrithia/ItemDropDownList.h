@@ -3,6 +3,8 @@
 
 #include "SFML/Graphics.hpp"
 
+#include "ResourceFont.h"
+
 #include "Button.h"
 #include "Text.h"
 
@@ -24,7 +26,7 @@ public:
 	ItemDropDownList();
 	~ItemDropDownList();
 
-	void setSettings(LISTUSE listUse, const sf::FloatRect itemBoundaries);
+	void setSettings(LISTUSE listUse, const sf::FloatRect itemBoundaries, const ResourceFont& resourceFont);
 
 	bool updateEquipPollEvent(sf::Event& ev);
 	bool updateUnequipPollEvent(sf::Event& ev);

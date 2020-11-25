@@ -1,6 +1,8 @@
 #ifndef MENUPAUSE_H
 #define MENUPAUSE_H
 
+#include "ResourceFont.h"
+
 #include "Button.h"
 #include "Text.h"
 #include "Box.h"
@@ -15,7 +17,7 @@
 class MenuPause
 {
 public:
-	MenuPause(sf::RenderWindow* window);
+	MenuPause(sf::RenderWindow* window, const ResourceFont& resourceFont);
 	~MenuPause();
 
 	bool updatePollEvent(sf::Event& ev);

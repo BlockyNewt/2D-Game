@@ -5,6 +5,8 @@
 
 #include "Camera.h"
 
+#include "ResourceFont.h"
+
 #include "Box.h"
 #include "Button.h"
 #include "Text.h"
@@ -21,8 +23,9 @@
 class PlayerHud
 {
 public:
-	PlayerHud(unsigned int windowSizeX, unsigned int windowSizeY);
+	PlayerHud(unsigned int windowSizeX, unsigned int windowSizeY, const ResourceFont& resourceFont);
 	~PlayerHud();
+
 
 	//ONLY FOR TESTING
 	void intializeHud(const std::string& name, const int& healthMax, const int& health, const int& manaMax, const int& mana, const int& expMax, const int& exp);
@@ -91,6 +94,8 @@ private:
 	SkillDropDownList skill_Dropdown_List_;
 
 	Skill* skill_One_;
+
+	ResourceFont resource_Font_;
 };
 
 #endif // !PLAYERHUD_H

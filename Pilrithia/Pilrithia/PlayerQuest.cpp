@@ -1,6 +1,6 @@
 #include "PlayerQuest.h"
 
-PlayerQuest::PlayerQuest()
+PlayerQuest::PlayerQuest(const ResourceFont& resourceFont)
 {
 	this->selected_Quest_ = NULL;
 
@@ -12,8 +12,8 @@ PlayerQuest::PlayerQuest()
 
 	this->b_B_.setSettings(50.f, 50.f, this->x_A_.getRightPosition(false, 50.f), this->x_A_.getTopPosition(), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
 	
-	this->t_A_.setSettings("Font/arial.ttf", 28, "Quests", sf::Vector2f(this->x_A_.getLeftPosition(true, 350.f), this->x_A_.getTopPosition(true, 10.f)), true);
-	this->t_B_.setSettings("Font/arial.ttf", 18, "Close", sf::Vector2f(this->b_B_.getLeftPosition(true, 10.f), this->b_B_.getTopPosition(true, 10.f)), true);
+	this->t_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 28, "Quests", sf::Vector2f(this->x_A_.getLeftPosition(true, 350.f), this->x_A_.getTopPosition(true, 10.f)), true);
+	this->t_B_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Close", sf::Vector2f(this->b_B_.getLeftPosition(true, 10.f), this->b_B_.getTopPosition(true, 10.f)), true);
 }
 
 PlayerQuest::~PlayerQuest()

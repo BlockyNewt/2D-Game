@@ -97,6 +97,11 @@ void CircleButton::setIsVisible(bool isVisible)
 	this->is_Visible_ = isVisible;
 }
 
+void CircleButton::setTexture(const sf::Texture& texture)
+{
+	this->button_.setTexture(&texture);
+}
+
 const sf::Vector2f& CircleButton::getPosition() const
 {
 	return this->button_.getPosition();

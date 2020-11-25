@@ -21,6 +21,7 @@ public:
 
 	const sf::Vector2f& setPositionOfText(sf::Text& text);
 	void setIsVisible(bool isVisible);
+	void setTexture(const sf::Texture& texture);
 
 
 	const sf::Vector2f& getPosition() const;

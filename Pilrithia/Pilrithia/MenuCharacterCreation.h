@@ -3,6 +3,8 @@
 
 #include "SFML/Graphics.hpp"
 
+#include "ResourceFont.h"
+
 #include "Box.h"
 #include "Button.h"
 #include "Text.h"
@@ -17,7 +19,7 @@
 class MenuCharacterCreation
 {
 public:
-	MenuCharacterCreation(const unsigned int windowSizeX, const unsigned int windowSizeY);
+	MenuCharacterCreation(const unsigned int windowSizeX, const unsigned int windowSizeY, const ResourceFont& resourceFont);
 	~MenuCharacterCreation();
 
 	void updateRacePollEvent(sf::Event& ev);
@@ -33,8 +35,8 @@ public:
 	const std::string& getName() const;
 
 private:
-	void initializeNameGui();
-	void initializeRaceGui();
+	void initializeNameGui(const ResourceFont& resourceFont);
+	void initializeRaceGui(const ResourceFont& resourceFont);
 
 private:
 	//TESTING 

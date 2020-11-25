@@ -16,7 +16,7 @@ class StateTestZone
 	: public State
 {
 public:
-	StateTestZone(std::stack<State*>* states, sf::RenderWindow* window, MenuSetting* menuSetting = nullptr, MenuPause* menuPause = nullptr);
+	StateTestZone(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont* resourceFont = nullptr, MenuSetting* menuSetting = nullptr, MenuPause* menuPause = nullptr);
 	virtual ~StateTestZone();
 	
 	void updatePollEvent(sf::Event& ev) override;
@@ -59,8 +59,8 @@ private:
 
 	//TESTING
 	MenuCharacterCreation* menu_Character_Creation_;
-	PlayerTest player_Test_;
-	NpcTest npc_Test_;
+	PlayerTest* player_Test_;
+	NpcTest* npc_Test_;
 	EnemyTest* enemy_Test_;
 	EnemyTest* enemy_Test_One_;
 	EnemyTest* enemy_Test_Two_;

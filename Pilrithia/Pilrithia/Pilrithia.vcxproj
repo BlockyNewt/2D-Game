@@ -179,6 +179,7 @@
     <ClCompile Include="QuestTest.cpp" />
     <ClCompile Include="Race.cpp" />
     <ClCompile Include="RaceOrc.cpp" />
+    <ClCompile Include="ResourceFont.cpp" />
     <ClCompile Include="Skill.cpp" />
     <ClCompile Include="SkillButton.cpp" />
     <ClCompile Include="SkillDropDownList.cpp" />
@@ -226,6 +227,7 @@
     <ClInclude Include="QuestTest.h" />
     <ClInclude Include="Race.h" />
     <ClInclude Include="RaceOrc.h" />
+    <ClInclude Include="ResourceFont.h" />
     <ClInclude Include="Skill.h" />
     <ClInclude Include="SkillButton.h" />
     <ClInclude Include="SkillDropDownList.h" />

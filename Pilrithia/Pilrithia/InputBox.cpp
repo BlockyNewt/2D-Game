@@ -13,7 +13,7 @@ InputBox::~InputBox()
 {
 }
 
-void InputBox::setSettings(float sizeX, float sizeY, float posX, float posY, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, bool isVisible, bool isInputting, int inputStringMaxSize)
+void InputBox::setSettings(float sizeX, float sizeY, float posX, float posY, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, bool isVisible, bool isInputting, int inputStringMaxSize, const ResourceFont& resourceFont)
 {
 	/*
 		SET SETTINGS FOR INPUTBOX
@@ -31,7 +31,7 @@ void InputBox::setSettings(float sizeX, float sizeY, float posX, float posY, con
 	this->is_Visible_ = isVisible;
 	this->is_Inputting_ = isInputting;
 
-	this->input_Text_.setSettings("Font/arial.ttf", 25, "Editor Instructions", sf::Vector2f(this->getLeftPosition(true, 5.f), this->getTopPosition(true, 5.f)), true);
+	this->input_Text_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 25, "Editor Instructions", sf::Vector2f(this->getLeftPosition(true, 5.f), this->getTopPosition(true, 5.f)), true);
 }
 
 void InputBox::updateEnablePollEvent(sf::Event& ev)

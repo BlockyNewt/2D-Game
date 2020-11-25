@@ -1,19 +1,21 @@
 #include "PlayerBag.h"
 
-PlayerBag::PlayerBag()
+PlayerBag::PlayerBag(const ResourceFont& resourceFont)
 {
 	this->is_Hiding_Bag_ = true;
 
+	this->resource_Font_ = resourceFont;
 
 	this->x_A_.setSettings(800.f, 500.f, 0.f, 0.f, sf::Color(85, 158, 131), 1.f, sf::Color::White, true);
 
 	this->b_A_.setSettings(50.f, 50.f, this->x_A_.getRightPosition(false, 50.f), this->x_A_.getTopPosition(), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
 
-	this->t_A_.setSettings("Font/arial.ttf", 18, "Close", sf::Vector2f(this->b_A_.getLeftPosition(true, 10.f), this->b_A_.getTopPosition(true, 10.f)), true);
-	this->t_B_.setSettings("Font/arial.ttf", 28, "Bag", sf::Vector2f(this->x_A_.getLeftPosition(true, 400.f), this->x_A_.getTopPosition(true, 10.f)), true);
-	this->t_C_.setSettings("Font/arial.ttf", 28, "Gold", sf::Vector2f(this->x_A_.getLeftPosition(true, 10.f), this->x_A_.getBottomPosition(false, 40.f)), true);
-	this->t_D_.setSettings("Font/arial.ttf", 28, "Silver", sf::Vector2f(this->t_C_.getRightPosition(true, 200.f), this->x_A_.getBottomPosition(false, 40.f)), true);
-	this->t_E_.setSettings("Font/arial.ttf", 28, "Copper", sf::Vector2f(this->t_D_.getRightPosition(true, 200.f), this->x_A_.getBottomPosition(false, 40.f)), true);
+	this->t_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Close", sf::Vector2f(this->b_A_.getLeftPosition(true, 10.f), this->b_A_.getTopPosition(true, 10.f)), true);
+	this->t_B_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 28, "Bag", sf::Vector2f(this->x_A_.getLeftPosition(true, 400.f), this->x_A_.getTopPosition(true, 10.f)), true);
+	this->t_C_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 28, "Gold", sf::Vector2f(this->x_A_.getLeftPosition(true, 10.f), this->x_A_.getBottomPosition(false, 40.f)), true);
+	this->t_D_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 28, "Silver", sf::Vector2f(this->t_C_.getRightPosition(true, 200.f), this->x_A_.getBottomPosition(false, 40.f)), true);
+	this->t_E_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 28, "Copper", sf::Vector2f(this->t_D_.getRightPosition(true, 200.f), this->x_A_.getBottomPosition(false, 40.f)), true);
+
 
 	this->selected_Item_X_ = 0;
 	this->selected_Item_Y_ = 0;
@@ -49,14 +51,14 @@ void PlayerBag::initializeBag()
 		}
 	}*/
 
-	this->items_[0][0] = new ItemTest(this->x_A_.getLeftPosition(true, 14.f) + 0 * 60.f, this->x_A_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::HELM, "Steel helmet", "Made from scrap steel");
-	this->items_[1][0] = new ItemTest(this->x_A_.getLeftPosition(true, 14.f) + 1 * 60.f, this->x_A_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::SHOULDER, "Steel helmet", "Made from scrap steel");
-	this->items_[2][0] = new ItemTest(this->x_A_.getLeftPosition(true, 14.f) + 2 * 60.f, this->x_A_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::CHEST, "Steel helmet", "Made from scrap steel");
-	this->items_[3][0] = new ItemTest(this->x_A_.getLeftPosition(true, 14.f) + 3 * 60.f, this->x_A_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::GLOVE, "Steel helmet", "Made from scrap steel");
-	this->items_[4][0] = new ItemTest(this->x_A_.getLeftPosition(true, 14.f) + 4 * 60.f, this->x_A_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::LEG, "Steel helmet", "Made from scrap steel");
-	this->items_[5][0] = new ItemTest(this->x_A_.getLeftPosition(true, 14.f) + 5 * 60.f, this->x_A_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::FEET, "Steel helmet", "Made from scrap steel");
-	this->items_[6][0] = new ItemTest(this->x_A_.getLeftPosition(true, 14.f) + 6 * 60.f, this->x_A_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::HELM, "Steel helmet", "Made from scrap steel");
-	this->items_[7][0] = new ItemTest(this->x_A_.getLeftPosition(true, 14.f) + 7 * 60.f, this->x_A_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::HELM, "Steel helmet", "Made from scrap steel");
+	this->items_[0][0] = new ItemTest(this->x_A_.getLeftPosition(true, 14.f) + 0 * 60.f, this->x_A_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::HELM, "Steel helmet", "Made from scrap steel", this->resource_Font_);
+	this->items_[1][0] = new ItemTest(this->x_A_.getLeftPosition(true, 14.f) + 1 * 60.f, this->x_A_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::SHOULDER, "Steel helmet", "Made from scrap steel", this->resource_Font_);
+	this->items_[2][0] = new ItemTest(this->x_A_.getLeftPosition(true, 14.f) + 2 * 60.f, this->x_A_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::CHEST, "Steel helmet", "Made from scrap steel", this->resource_Font_);
+	this->items_[3][0] = new ItemTest(this->x_A_.getLeftPosition(true, 14.f) + 3 * 60.f, this->x_A_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::GLOVE, "Steel helmet", "Made from scrap steel", this->resource_Font_);
+	this->items_[4][0] = new ItemTest(this->x_A_.getLeftPosition(true, 14.f) + 4 * 60.f, this->x_A_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::LEG, "Steel helmet", "Made from scrap steel", this->resource_Font_);
+	this->items_[5][0] = new ItemTest(this->x_A_.getLeftPosition(true, 14.f) + 5 * 60.f, this->x_A_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::FEET, "Steel helmet", "Made from scrap steel", this->resource_Font_);
+	this->items_[6][0] = new ItemTest(this->x_A_.getLeftPosition(true, 14.f) + 6 * 60.f, this->x_A_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::HELM, "Steel helmet", "Made from scrap steel", this->resource_Font_);
+	this->items_[7][0] = new ItemTest(this->x_A_.getLeftPosition(true, 14.f) + 7 * 60.f, this->x_A_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::HELM, "Steel helmet", "Made from scrap steel", this->resource_Font_);
 
 }
 
@@ -103,7 +105,7 @@ void PlayerBag::updatePollEvent(sf::Event& ev, std::vector<Item*>& equipment, st
 					{
 						if (!this->l_A_.getIsHovering())
 						{
-							this->l_A_.setSettings(LISTUSE::BAG , this->items_[x][y]->getItemGlobalBoundaries());
+							this->l_A_.setSettings(LISTUSE::BAG , this->items_[x][y]->getItemGlobalBoundaries(), this->resource_Font_);
 							this->l_A_.setIsVisible(true);
 
 							this->selected_Item_X_ = x;

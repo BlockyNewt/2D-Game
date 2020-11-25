@@ -8,6 +8,8 @@
 
 #include "Camera.h"
 
+#include "ResourceFont.h"
+
 #include "Box.h"
 #include "Button.h"
 #include "Text.h"
@@ -21,7 +23,7 @@
 class PlayerBag
 {
 public:
-	PlayerBag();
+	PlayerBag(const ResourceFont& resourceFont);
 	~PlayerBag();
 
 	void initializeBag();
@@ -66,6 +68,7 @@ private:
 
 	bool is_Hiding_Bag_;
 
+	ResourceFont resource_Font_;
 };
 
 #endif // !PLAYERBAG_H

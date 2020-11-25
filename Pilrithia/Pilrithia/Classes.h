@@ -28,6 +28,7 @@ public:
 	virtual const std::string& getName() const = 0;
 	virtual const std::string& getSummary() const = 0;
 	virtual const std::vector<Skill*>& getAvailableSkills() const = 0;
+	virtual const sf::Texture& getClassIcon() const = 0;
 
 	virtual const Skill* getSkillOne() const = 0;
 

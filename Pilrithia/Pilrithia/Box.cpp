@@ -59,6 +59,11 @@ const sf::FloatRect Box::getGlobalBounds() const
 	return this->box_.getGlobalBounds();
 }
 
+const sf::Vector2f& Box::getSize() const
+{
+	return this->box_.getSize();
+}
+
 const float Box::getLeftPosition(bool pOrM, float offset) const
 {
 	/*

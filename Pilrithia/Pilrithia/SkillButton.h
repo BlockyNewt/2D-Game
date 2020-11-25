@@ -1,6 +1,8 @@
 #ifndef SKILLBUTTON_H
 #define SKILLBUTTON_H
 
+#include "ResourceFont.h"
+
 #include "CircleButton.h"
 #include "Text.h"
 #include "HoverDescription.h"
@@ -15,7 +17,7 @@ public:
 	SkillButton();
 	~SkillButton();
 
-	void setSettings(float radius, float x, float y, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, int maxAllocation);
+	void setSettings(float radius, float x, float y, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, int maxAllocation, const ResourceFont& resourceFont);
 	void setHoverDescription(const std::string& skillName, const std::string& skillSummary);
 
 	void updatePollEvent(sf::Event& ev, int& playerSkillPoints, Skill* skill);

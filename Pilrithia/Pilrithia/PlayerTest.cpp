@@ -1,8 +1,12 @@
 #include "PlayerTest.h"
 
-PlayerTest::PlayerTest()
+PlayerTest::PlayerTest(const ResourceFont& resourceFont)
 {
-	this->player_Hud_ = new PlayerHud(1280, 720);
+	this->player_Bag_ = new PlayerBag(resourceFont);
+	this->player_Hud_ = new PlayerHud(1280, 720, resourceFont);
+	this->player_Inventory_ = new PlayerInventory(resourceFont);
+	this->player_Quest_ = new PlayerQuest(resourceFont);
+	this->player_Skill_Tree_ = new PlayerSkillTree(resourceFont);
 
 	this->race_ = new RaceOrc();
 	this->race_->initializeRace(0.f, 0.f);
@@ -38,7 +42,7 @@ PlayerTest::PlayerTest()
 	this->skill_Points_ = 99;
 
 	//TESTING ONLY FIX LATER
-	this->player_Bag_.initializeBag();
+	this->player_Bag_->initializeBag();
 	this->camera_ = new Camera(0.f, 0.f);
 	//this->selected_Enemy_ = new EnemyTest();
 	this->selected_Enemy_ = NULL;
@@ -106,9 +110,18 @@ void PlayerTest::initializeCharacter(Race* race, const std::string& name)
 	this->player_Hud_->intializeHud(this->name_, this->getStat("healthMax"), this->getStat("health"), this->getStat("manaMax"), this->getStat("mana"), this->max_Exp_, this->exp_);
 }
 
+void PlayerTest::setTextFont(const ResourceFont& resourceFont)
+{
+	/*
+	
+		SET RESOURCE FONT FOR ALL OTHER CLASSES THAT NEED IT HERE 
+
+	*/
+}
+
 void PlayerTest::updateSkillsPollEvent(sf::Event& ev, std::vector<Enemy*>& enemies)
 {
-	this->player_Hud_->updateSkillOnePollEvent(ev, this->player_Skill_Tree_.setClassesOne(), enemies, this->stats_);
+	this->player_Hud_->updateSkillOnePollEvent(ev, this->player_Skill_Tree_->setClassesOne(), enemies, this->stats_);
 }
 
 void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
@@ -118,59 +131,59 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 	*/
 	
 	this->player_Hud_->updatePollEvent(ev, this->race_->setHealth(), this->race_->getHealthMax());
-	this->player_Inventory_.updatePollEvent(ev, this->stats_, this->resistances_, this->player_Bag_.setItem(), this->player_Bag_.getBagSizeX(), this->player_Bag_.getBagSizeY());
-	this->player_Bag_.updatePollEvent(ev, this->player_Inventory_.setEquipment(), this->stats_, this->resistances_);
-	this->player_Quest_.updatePollEvent(ev);
-	this->player_Skill_Tree_.updatePollEvent(ev, this->stats_, this->skill_Points_);
+	this->player_Inventory_->updatePollEvent(ev, this->stats_, this->resistances_, this->player_Bag_->setItem(), this->player_Bag_->getBagSizeX(), this->player_Bag_->getBagSizeY());
+	this->player_Bag_->updatePollEvent(ev, this->player_Inventory_->setEquipment(), this->stats_, this->resistances_);
+	this->player_Quest_->updatePollEvent(ev);
+	this->player_Skill_Tree_->updatePollEvent(ev, this->stats_, this->skill_Points_);
 
 
 	if (this->player_Hud_->updateInventoryPollEvent(ev))
 	{
-		if (this->player_Inventory_.getIsHidingInventory())
+		if (this->player_Inventory_->getIsHidingInventory())
 		{
-			this->player_Inventory_.setIsHidingInventory(false);
+			this->player_Inventory_->setIsHidingInventory(false);
 			
-			this->player_Inventory_.realignEquipment();
+			this->player_Inventory_->realignEquipment();
 
-			this->player_Inventory_.initializeInventory(this->name_, this->level_, this->race_->getName(), this->stats_, this->resistances_);
+			this->player_Inventory_->initializeInventory(this->name_, this->level_, this->race_->getName(), this->stats_, this->resistances_);
 		}
 	}
 
 
 	if (this->player_Hud_->updateBagPollEvent(ev))
 	{
-		if (this->player_Bag_.getIsHidingBag())
+		if (this->player_Bag_->getIsHidingBag())
 		{
-			this->player_Bag_.setIsHidingBag(false);
+			this->player_Bag_->setIsHidingBag(false);
 		
-			this->player_Bag_.realignItems();
+			this->player_Bag_->realignItems();
 		}
 	}
 
 
 	if (this->player_Hud_->updateQuestPollEvent(ev))
 	{
-		if (this->player_Quest_.getIsHidingQuest())
+		if (this->player_Quest_->getIsHidingQuest())
 		{
-			this->player_Quest_.setIsHidingQuest(false);
+			this->player_Quest_->setIsHidingQuest(false);
 		}
 	}
 
 	if (this->player_Hud_->updateSkillTreePollEvent(ev))
 	{
-		if (this->player_Skill_Tree_.getIsHidingSkillTree())
+		if (this->player_Skill_Tree_->getIsHidingSkillTree())
 		{
-			this->player_Skill_Tree_.setIsHidingSkillTree(false);
+			this->player_Skill_Tree_->setIsHidingSkillTree(false);
 		}
 	}
 
 
 	
 
-	if (this->player_Inventory_.getIsHidingInventory() &&  
-		this->player_Bag_.getIsHidingBag() && 
-		this->player_Quest_.getIsHidingQuest() && 
-		this->player_Skill_Tree_.getIsHidingSkillTree())
+	if (this->player_Inventory_->getIsHidingInventory() &&  
+		this->player_Bag_->getIsHidingBag() && 
+		this->player_Quest_->getIsHidingQuest() && 
+		this->player_Skill_Tree_->getIsHidingSkillTree())
 	{
 		if (!this->is_Jumping_)
 		{
@@ -260,10 +273,10 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 
 void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& camera)
 {
-	if (this->player_Inventory_.getIsHidingInventory() &&
-		this->player_Bag_.getIsHidingBag() &&
-		this->player_Quest_.getIsHidingQuest() &&
-		this->player_Skill_Tree_.getIsHidingSkillTree())
+	if (this->player_Inventory_->getIsHidingInventory() &&
+		this->player_Bag_->getIsHidingBag() &&
+		this->player_Quest_->getIsHidingQuest() &&
+		this->player_Skill_Tree_->getIsHidingSkillTree())
 	{
 		this->player_Model_.move(this->velocity_);
 
@@ -290,10 +303,10 @@ void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& c
 	}
 	
 	this->player_Hud_->update(mousePositionWindow, camera, this->player_Model_.getPosition(), this->player_Model_.getGlobalBounds());
-	this->player_Inventory_.update(mousePositionWindow);
-	this->player_Bag_.update(mousePositionWindow);
-	this->player_Quest_.update(mousePositionWindow);
-	this->player_Skill_Tree_.update(mousePositionWindow, this->skill_Points_);
+	this->player_Inventory_->update(mousePositionWindow);
+	this->player_Bag_->update(mousePositionWindow);
+	this->player_Quest_->update(mousePositionWindow);
+	this->player_Skill_Tree_->update(mousePositionWindow, this->skill_Points_);
 
 	
 	if (&this->player_Hud_->setSkillOne() != NULL)
@@ -328,10 +341,10 @@ void PlayerTest::renderHudItems(sf::RenderTarget& target)
 
 	this->player_Hud_->render(target);
 
-	this->player_Inventory_.render(target);
-	this->player_Bag_.render(target);
-	this->player_Quest_.render(target);
-	this->player_Skill_Tree_.render(target);
+	this->player_Inventory_->render(target);
+	this->player_Bag_->render(target);
+	this->player_Quest_->render(target);
+	this->player_Skill_Tree_->render(target);
 
 	target.setView(this->camera_->getView());
 }
@@ -351,7 +364,7 @@ void PlayerTest::renderPlayerModel(sf::RenderTarget& target)
 
 void PlayerTest::addQuest(Quest& quest)
 {
-	this->player_Quest_.addQuest(quest);
+	this->player_Quest_->addQuest(quest);
 }
 
 void PlayerTest::setStat(const std::string& stat, int value)
@@ -367,7 +380,7 @@ void PlayerTest::setStat(const std::string& stat, int value)
 
 PlayerBag& PlayerTest::setPlayerBag()
 {
-	return this->player_Bag_;
+	return *this->player_Bag_;
 }
 
 void PlayerTest::levelUp()
@@ -434,7 +447,7 @@ void PlayerTest::setIsJumping(bool isJumping)
 
 PlayerQuest& PlayerTest::setPlayerQuest()
 {
-	return this->player_Quest_;
+	return *this->player_Quest_;
 }
 
 sf::RectangleShape& PlayerTest::getPlayerModel()
@@ -469,22 +482,22 @@ const bool& PlayerTest::getIsJumping() const
 
 const PlayerInventory& PlayerTest::getPlayerInventory() const
 {
-	return this->player_Inventory_;
+	return *this->player_Inventory_;
 }
 
 const PlayerBag& PlayerTest::getPlayerBag() const
 {
-	return this->player_Bag_;
+	return *this->player_Bag_;
 }
 
 const PlayerQuest& PlayerTest::getPlayerQuest() const
 {
-	return this->player_Quest_;
+	return *this->player_Quest_;
 }
 
 const PlayerSkillTree& PlayerTest::getPlayerSkillTree() const
 {
-	return this->player_Skill_Tree_;
+	return *this->player_Skill_Tree_;
 }
 
 const int& PlayerTest::getStat(const std::string& stat) const

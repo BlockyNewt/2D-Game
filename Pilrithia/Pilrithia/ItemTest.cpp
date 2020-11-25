@@ -7,11 +7,11 @@ ItemTest::ItemTest()
 	*/
 }
 
-ItemTest::ItemTest(float posX, float posY, ITEMTYPE itemType, const std::string& name, const std::string& description)
+ItemTest::ItemTest(float posX, float posY, ITEMTYPE itemType, const std::string& name, const std::string& description, const ResourceFont& resourceFont)
 {
 	this->b_A_.setSettings(50.f, 50.f, posX, posY, sf::Color(27, 133, 184), 1.f, sf::Color::White, true);
 
-	this->t_A_.setSettings("Font/arial.ttf", 18, "", sf::Vector2f(this->b_A_.getLeftPosition(true, 10.f), this->b_A_.getTopPosition(true, 10.f)), true);
+	this->t_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "", sf::Vector2f(this->b_A_.getLeftPosition(true, 10.f), this->b_A_.getTopPosition(true, 10.f)), true);
 
 	this->item_Type_ = itemType;
 
@@ -71,6 +71,8 @@ ItemTest::ItemTest(float posX, float posY, ITEMTYPE itemType, const std::string&
 	this->fire_ = 5;
 	this->lightning_ = 5;
 	this->poison_ = 5;
+
+	this->resource_Font_ = resourceFont;
 }
 
 ItemTest::~ItemTest()
@@ -80,6 +82,7 @@ ItemTest::~ItemTest()
 void ItemTest::setItemHoverDescriptionSettings(HOVERPOSITION hoverPosition, const sf::FloatRect boundaries, const sf::FloatRect boundariesOffset, DESCRIPTIONTYPE descriptionType, const std::string& title, const std::string& description)
 {
 	this->d_A_.setHoverBoundaries(hoverPosition, boundaries, boundariesOffset);
+	this->d_A_.setTextFont(this->resource_Font_);
 	this->d_A_.setString(descriptionType, title, description);
 }
 
@@ -210,5 +213,5 @@ const std::string& ItemTest::getDescription() const
 
 Item* ItemTest::getNewItem()
 {
-	return new ItemTest(0.f, 0.f, this->item_Type_, this->name_, this->description_);
+	return new ItemTest(0.f, 0.f, this->item_Type_, this->name_, this->description_, this->resource_Font_);
 }

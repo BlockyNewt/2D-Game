@@ -8,15 +8,15 @@ DialogBox::~DialogBox()
 {
 }
 
-void DialogBox::setSettings(float sizeX, float sizeY, float posX, float posY, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, const std::string& dialogText, bool isVisible)
+void DialogBox::setSettings(float sizeX, float sizeY, float posX, float posY, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, const std::string& dialogText, const ResourceFont& resourceFont, bool isVisible)
 {
 	this->dialog_Background_.setSettings(300.f, 200.f, posX, posY, fillColor, outlineThickness, outlineColor, true);
 
-	this->dialog_Text_.setSettings("Font/arial.ttf", 18, dialogText, sf::Vector2f(this->dialog_Background_.getLeftPosition(), this->dialog_Background_.getTopPosition(true, 10.f)), true);
+	this->dialog_Text_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, dialogText, sf::Vector2f(this->dialog_Background_.getLeftPosition(), this->dialog_Background_.getTopPosition(true, 10.f)), true);
 
 	this->expand_Button_.setSettings(150.f, 40.f, this->dialog_Background_.getLeftPosition(true, 300.f / 2.f - 75.f), this->dialog_Background_.getBottomPosition(false, 45.f), sf::Color(174, 90, 65), outlineThickness, outlineColor, true);
 
-	this->expand_Button_Text_.setSettings("Font/arial.ttf", 18, "Expand", sf::Vector2f(this->expand_Button_.getLeftPosition(true, 10.f), this->expand_Button_.getTopPosition(true, 10.f)), true);
+	this->expand_Button_Text_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Expand", sf::Vector2f(this->expand_Button_.getLeftPosition(true, 10.f), this->expand_Button_.getTopPosition(true, 10.f)), true);
 }
 
 bool DialogBox::updatePollEvent(sf::Event& ev)

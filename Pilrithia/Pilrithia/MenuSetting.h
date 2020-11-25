@@ -1,6 +1,8 @@
 #ifndef MENUSETTING_H
 #define MENUSETTING_H
 
+#include "ResourceFont.h"
+
 #include "Button.h"
 #include "Text.h"
 #include "Box.h"
@@ -14,7 +16,7 @@
 class MenuSetting
 {
 public:
-	MenuSetting(sf::RenderWindow* window);
+	MenuSetting(sf::RenderWindow* window, const ResourceFont& resourceFont);
 	~MenuSetting();
 
 	void updatePollEvent(sf::Event& ev, sf::RenderWindow* window);

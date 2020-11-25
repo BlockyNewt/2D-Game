@@ -3,6 +3,8 @@
 
 #include "SFML/Graphics.hpp"
 
+#include "ResourceFont.h"
+
 #include "Box.h"
 #include "Text.h"
 #include "Button.h"
@@ -18,7 +20,7 @@
 class PlayerSkillTree
 {
 public:
-	PlayerSkillTree();
+	PlayerSkillTree(const ResourceFont& resourceFont);
 	~PlayerSkillTree();
 
 	void updateClassOneSelectPollEvent(sf::Event& ev, std::map<std::string, int>& stats, int& playerSkillPoints);
@@ -37,7 +39,7 @@ public:
 	const Classes* getClassesTwo() const;
 
 private:
-	void initializeClassOneSelect();
+	void initializeClassOneSelect(const ResourceFont& resourceFont);
 
 	void resizeProgressBar();
 private:

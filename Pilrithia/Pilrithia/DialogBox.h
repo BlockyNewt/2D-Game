@@ -3,6 +3,8 @@
 
 #include "SFML/Graphics.hpp"
 
+#include "ResourceFont.h"
+
 #include "Box.h"
 #include "Button.h"
 #include "Text.h"
@@ -15,7 +17,7 @@ public:
 	DialogBox();
 	~DialogBox();
 
-	void setSettings(float sizeX, float sizeY, float posX, float posY, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, const std::string& dialogText, bool isVisible);
+	void setSettings(float sizeX, float sizeY, float posX, float posY, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, const std::string& dialogText, const ResourceFont& resourceFont, bool isVisible);
 
 	bool updatePollEvent(sf::Event& ev);
 

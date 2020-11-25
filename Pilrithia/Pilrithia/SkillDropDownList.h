@@ -5,6 +5,8 @@
 
 #include "Classes.h"
 
+#include "ResourceFont.h"
+
 #include "Button.h"
 #include "Text.h"
 
@@ -19,7 +21,7 @@ public:
 	SkillDropDownList();
 	~SkillDropDownList();
 
-	void setSettings(const sf::FloatRect itemBoundaries, Classes* playerClasses);
+	void setSettings(const sf::FloatRect itemBoundaries, Classes* playerClasses, const ResourceFont& resourceFont);
 
 	void updatePollEvent(sf::Event& ev, Classes* playerClasses, Skill** hudSkillSlot);
 	void update(const sf::Vector2i& mousePositionWindow, const sf::FloatRect itemBoundaries);

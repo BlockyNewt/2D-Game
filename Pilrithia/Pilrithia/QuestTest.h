@@ -8,6 +8,7 @@ class QuestTest
 {
 public:
 	QuestTest();
+	QuestTest(const ResourceFont& resourceFont);
 	virtual ~QuestTest();
 
 	void update() override;

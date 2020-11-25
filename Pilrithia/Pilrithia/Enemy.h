@@ -3,6 +3,8 @@
 
 #include "SFML/Graphics.hpp"
 
+#include "ResourceFont.h"
+
 #include "Camera.h"
 
 #include "LootWindow.h"
@@ -24,7 +26,7 @@ class Enemy
 {
 public:
 	Enemy();
-	Enemy(const sf::Vector2f& position, const int& range);
+	Enemy(const sf::Vector2f& position, const int& range, const ResourceFont& resourceFont);
 	virtual ~Enemy();
 
 	virtual void updatePollEvent(sf::Event& ev, std::vector<std::vector<Item*>>& playerBag, const int& maxBagSizeX, const int& maxBagSizeY, const sf::FloatRect playerBoundaries) = 0;

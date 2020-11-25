@@ -11,7 +11,7 @@ class EnemyTest
 {
 public:
 	EnemyTest();
-	EnemyTest(const sf::Vector2f& position, const int& range);
+	EnemyTest(const sf::Vector2f& position, const int& range, const ResourceFont& resourceFont);
 	virtual ~EnemyTest();
 
 	void updatePollEvent(sf::Event& ev, std::vector<std::vector<Item*>>& playerBag, const int& maxBagSizeX, const int& maxBagSizeY, const sf::FloatRect playerBoundaries) override;
@@ -97,7 +97,7 @@ private:
 	float loot_Timer_Max_;
 	bool has_Loot_Timer_Started_;
 
-	LootWindow loot_Window_;
+	LootWindow* loot_Window_;
 	Camera* camera_;
 
 

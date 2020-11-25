@@ -1,8 +1,10 @@
 #include "PlayerHud.h"
 
-PlayerHud::PlayerHud(unsigned int windowSizeX, unsigned int windowSizeY)
+PlayerHud::PlayerHud(unsigned int windowSizeX, unsigned int windowSizeY, const ResourceFont& resourceFont)
 {
 	this->camera_ = new Camera(0, 0);
+	
+	this->resource_Font_ = resourceFont;
 
 	this->window_Size_X_ = windowSizeX;
 	this->window_Size_Y_ = windowSizeY;
@@ -48,23 +50,27 @@ PlayerHud::PlayerHud(unsigned int windowSizeX, unsigned int windowSizeY)
 	this->character_B_C_.setSettings(60.f, 60.f, this->character_B_B_.getRightPosition(true, 10.f), this->character_B_A_.getTopPosition(), sf::Color(27, 133, 184), 1.f, sf::Color::White, true);
 	this->character_B_D_.setSettings(60.f, 60.f, this->character_B_C_.getRightPosition(true, 10.f), this->character_B_A_.getTopPosition(), sf::Color(27, 133, 184), 1.f, sf::Color::White, true);
 
-	this->character_T_A_.setSettings("Font/arial.ttf", 12, "Inventory", sf::Vector2f(this->character_B_A_.getLeftPosition(), this->character_B_A_.getTopPosition()), true);
-	this->character_T_B_.setSettings("Font/arial.ttf", 12, "Bag", sf::Vector2f(this->character_B_B_.getLeftPosition(), this->character_B_B_.getTopPosition()), true);
-	this->character_T_C_.setSettings("Font/arial.ttf", 12, "Quests", sf::Vector2f(this->character_B_C_.getLeftPosition(), this->character_B_C_.getTopPosition()), true);
-	this->character_T_D_.setSettings("Font/arial.ttf", 12, "Skill Tree", sf::Vector2f(this->character_B_D_.getLeftPosition(), this->character_B_D_.getTopPosition()), true);
-	this->character_T_E_.setSettings("Font/arial.ttf", 18, "", sf::Vector2f(0.f, 0.f), true);
+	this->character_T_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 12, "Inventory", sf::Vector2f(this->character_B_A_.getLeftPosition(), this->character_B_A_.getTopPosition()), true);
+	this->character_T_B_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 12, "Bag", sf::Vector2f(this->character_B_B_.getLeftPosition(), this->character_B_B_.getTopPosition()), true);
+	this->character_T_C_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 12, "Quests", sf::Vector2f(this->character_B_C_.getLeftPosition(), this->character_B_C_.getTopPosition()), true);
+	this->character_T_D_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 12, "Skill Tree", sf::Vector2f(this->character_B_D_.getLeftPosition(), this->character_B_D_.getTopPosition()), true);
+	this->character_T_E_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "", sf::Vector2f(0.f, 0.f), true);
 
 	this->skill_B_A_.setSettings(60.f, 60.f, 400.f, 650.f, sf::Color(27, 133, 184), 1.f, sf::Color::White, true);
 	this->skill_B_B_.setSettings(60.f, 60.f, this->skill_B_A_.getRightPosition(true, 10.f), this->skill_B_A_.getTopPosition(), sf::Color(27, 133, 184), 1.f, sf::Color::White, true);
 	this->skill_B_C_.setSettings(60.f, 60.f, this->skill_B_B_.getRightPosition(true, 10.f), this->skill_B_A_.getTopPosition(), sf::Color(27, 133, 184), 1.f, sf::Color::White, true);
 		  
-	this->skill_T_A_.setSettings("Font/arial.ttf", 12, "Skill 1", sf::Vector2f(this->skill_B_A_.getLeftPosition(), this->skill_B_A_.getTopPosition()), true);
-	this->skill_T_B_.setSettings("Font/arial.ttf", 12, "Skill 2", sf::Vector2f(this->skill_B_B_.getLeftPosition(), this->skill_B_B_.getTopPosition()), true);
-	this->skill_T_C_.setSettings("Font/arial.ttf", 12, "Skill 3", sf::Vector2f(this->skill_B_C_.getLeftPosition(), this->skill_B_C_.getTopPosition()), true);
+	this->skill_T_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 12, "Skill 1", sf::Vector2f(this->skill_B_A_.getLeftPosition(), this->skill_B_A_.getTopPosition()), true);
+	this->skill_T_B_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 12, "Skill 2", sf::Vector2f(this->skill_B_B_.getLeftPosition(), this->skill_B_B_.getTopPosition()), true);
+	this->skill_T_C_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 12, "Skill 3", sf::Vector2f(this->skill_B_C_.getLeftPosition(), this->skill_B_C_.getTopPosition()), true);
+
+
 
 	this->skill_D_A_.setHoverBoundaries(HOVERPOSITION::TOP, this->skill_B_A_.getGlobalBounds(), this->skill_B_A_.getGlobalBounds());
+	this->skill_D_A_.setTextFont(resourceFont);
 
 	this->experience_D_A_.setHoverBoundaries(HOVERPOSITION::BOTTOM, this->experience_Bar_Back_.getGlobalBounds(), this->experience_Bar_Back_.getGlobalBounds());
+	this->experience_D_A_.setTextFont(resourceFont);
 
 	this->is_Hiding_Hud_ = true;
 
@@ -86,7 +92,7 @@ void PlayerHud::intializeHud(const std::string& name, const int& healthMax, cons
 void PlayerHud::initializeSkills(Classes* playerClass)
 {
 	//SET SETTINGS FOR SKILL DROP DOWN HERE
-	this->skill_Dropdown_List_.setSettings(this->skill_B_A_.getGlobalBounds(), playerClass);
+	this->skill_Dropdown_List_.setSettings(this->skill_B_A_.getGlobalBounds(), playerClass, this->resource_Font_);
 
 	this->skill_Dropdown_List_.setIsVisible(true);
 }

@@ -11,9 +11,10 @@ class NpcTest
 {
 public:
 	NpcTest();
+	NpcTest(const ResourceFont& resourceFont);
 	virtual ~NpcTest();
 
-	void setSettings(const sf::Vector2u& windowSize);
+	void setSettings(const sf::Vector2u& windowSize, const ResourceFont& resourceFont);
 
 	void updatePollEvent(sf::Event& ev, PlayerTest& playerTest) override;
 	void update(const sf::Vector2f& mousePositionView, const sf::Vector2i& mousePositionWindow, sf::FloatRect playerBounds, const Camera& camera, PlayerTest& playerTest) override;

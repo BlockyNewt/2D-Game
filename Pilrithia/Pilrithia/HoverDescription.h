@@ -3,6 +3,8 @@
 
 #include "SFML/Graphics.hpp"
 
+#include "ResourceFont.h"
+
 #include "Box.h"
 #include "Text.h"
 
@@ -33,6 +35,8 @@ class HoverDescription
 public:
 	HoverDescription();
 	~HoverDescription();
+
+	void setTextFont(const ResourceFont& resourceFont);
 
 	void setHoverBoundaries(HOVERPOSITION hoverPosition, const sf::FloatRect itemBoundaries, const sf::FloatRect itemBoundariesOffset);
 	void setString(DESCRIPTIONTYPE descriptionType, const std::string& title, const std::string& description);

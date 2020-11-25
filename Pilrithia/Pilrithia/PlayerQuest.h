@@ -16,8 +16,9 @@
 class PlayerQuest
 {
 public:
-	PlayerQuest();
+	PlayerQuest(const ResourceFont& resourceFont);
 	~PlayerQuest();
+
 
 	bool isThisQuestTaken(Quest& quest);
 	void addQuest(Quest& quest);

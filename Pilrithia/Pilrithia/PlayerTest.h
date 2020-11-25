@@ -18,10 +18,12 @@
 class PlayerTest
 {	
 public:
-	PlayerTest();
+	PlayerTest(const ResourceFont& resourceFont);
 	~PlayerTest();
 
 	void initializeCharacter(Race* race, const std::string& name);
+
+	void setTextFont(const ResourceFont& resourceFont);
 
 	void updateSkillsPollEvent(sf::Event& ev, std::vector<Enemy*>& enemies);
 	void updatePollEvent(sf::Event& ev, const float& dt);
@@ -63,10 +65,10 @@ private:
 	Camera* camera_;
 	Race* race_;
 	PlayerHud* player_Hud_;
-	PlayerInventory player_Inventory_;
-	PlayerBag player_Bag_;
-	PlayerQuest player_Quest_;
-	PlayerSkillTree player_Skill_Tree_;
+	PlayerInventory* player_Inventory_;
+	PlayerBag* player_Bag_;
+	PlayerQuest* player_Quest_;
+	PlayerSkillTree* player_Skill_Tree_;
 
 	Classes* class_One_;
 	Classes* class_Two_;

@@ -10,7 +10,7 @@ SkillButton::~SkillButton()
 {
 }
 
-void SkillButton::setSettings(float radius, float x, float y, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, int maxAllocation)
+void SkillButton::setSettings(float radius, float x, float y, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, int maxAllocation, const ResourceFont& resourceFont)
 {
 	this->button_.setRadius(radius);
 	this->button_.setPosition(sf::Vector2f(x, y));
@@ -25,8 +25,9 @@ void SkillButton::setSettings(float radius, float x, float y, const sf::Color& f
 	std::string title = "";
 	std::string description = "";
 
-	this->t_A_.setSettings("Font/arial.ttf", 18, std::to_string(this->amount_), sf::Vector2f(this->getRightPosition(true, 10.f), this->getBottomPosition(false, 20.f)), true);
+	this->t_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, std::to_string(this->amount_), sf::Vector2f(this->getRightPosition(true, 10.f), this->getBottomPosition(false, 20.f)), true);
 	this->h_A_.setHoverBoundaries(HOVERPOSITION::TOP, this->button_.getGlobalBounds(), this->button_.getGlobalBounds());
+	this->h_A_.setTextFont(resourceFont);
 	this->h_A_.setString(DESCRIPTIONTYPE::SKILL, title, description);
 }
 

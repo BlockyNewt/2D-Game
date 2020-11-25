@@ -32,7 +32,7 @@ class Item
 {
 public:
 	Item();
-	Item(float posX, float posY, ITEMTYPE itemType, const std::string& name, const std::string& description);
+	Item(float posX, float posY, ITEMTYPE itemType, const std::string& name, const std::string& description, const ResourceFont& resourceFont);
 	virtual ~Item();
 
 	virtual void setItemHoverDescriptionSettings(HOVERPOSITION hoverPosition, const sf::FloatRect boundaries, const sf::FloatRect boundariesOffset, DESCRIPTIONTYPE descriptionType, const std::string& title, const std::string& description) = 0;

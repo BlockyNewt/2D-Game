@@ -22,6 +22,7 @@ public:
 	const std::string& getSummary() const override;
 	const Skill* getSkillOne() const override;
 	const std::vector<Skill*>& getAvailableSkills() const override;
+	const sf::Texture& getClassIcon() const;
 
 	const int& getHealthMax() const override;
 	const int& getHealth() const override;
@@ -68,6 +69,8 @@ private:
 	bool is_Selected_;
 
 	std::vector<Skill*> available_Skills_;
+
+	sf::Texture class_Icon_;
 };
 
 #endif // !CLASSESRAINMAKER_H

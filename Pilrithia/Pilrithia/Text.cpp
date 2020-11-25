@@ -9,15 +9,12 @@ Text::~Text()
 {
 }
 
-void Text::setSettings(std::string fontFilePath, unsigned int characterSize, std::string text, sf::Vector2f position, bool isVisible)
+void Text::setSettings(const sf::Font& font, unsigned int characterSize, std::string text, sf::Vector2f position, bool isVisible)
 {
 	/*
-		CHECK IF THE FONT FILE IS LOADS 
+		CHECK IF THE FONT FILE IS LOADS
 	*/
-	if (!this->font_.loadFromFile(fontFilePath))
-	{
-		std::cout << "DEBUG::TEXT::SETSETTINGS() -> COULD NOT LOAD FONT FILE " << fontFilePath << " ." << std::endl;
-	}
+	this->font_ = font;
 
 	/*
 		SET SETTINGS FOR TEXT

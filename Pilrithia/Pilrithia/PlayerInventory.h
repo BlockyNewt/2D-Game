@@ -6,6 +6,8 @@
 
 #include "Camera.h"
 
+#include "ResourceFont.h"
+
 #include "Box.h"
 #include "Button.h"
 #include "Text.h"
@@ -20,7 +22,7 @@
 class PlayerInventory
 {
 public:
-	PlayerInventory();
+	PlayerInventory(const ResourceFont& resourceFont);
 	~PlayerInventory();
 
 	void initializeInventory(const std::string& name, const int& level, const std::string& className, const std::map<std::string, int>& stats, const std::map<std::string, int>& resistances);
@@ -39,9 +41,9 @@ public:
 	
 
 private:
-	void initializeStats();
-	void initializeResistances();
-	void initializeIcons();
+	void initializeStats(const ResourceFont& resourceFont);
+	void initializeResistances(const ResourceFont& resourceFont);
+	void initializeIcons(const ResourceFont& resourceFont);
 
 private:
 	Box x_A_;
@@ -98,6 +100,8 @@ private:
 
 	HoverDescription d_A_;
 	ItemDropDownList l_A_;
+
+	ResourceFont resource_Font_;
 };
 
 #endif // !PLAYERINVENTORY_H

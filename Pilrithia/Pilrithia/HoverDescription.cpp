@@ -4,14 +4,19 @@ HoverDescription::HoverDescription()
 {
 	this->description_Box_.setSettings(200.f, 200.f, 0.f, 0.f, sf::Color(90, 82, 85), 1.f, sf::Color::White, true);
 
-	this->title_.setSettings("Font/arial.ttf", 24, "", sf::Vector2f(this->description_Box_.getLeftPosition(), this->description_Box_.getTopPosition()), true);
-	this->description_.setSettings("Font/arial.ttf", 18, "", sf::Vector2f(this->description_Box_.getLeftPosition(), this->description_Box_.getTopPosition()), true);
+	
 
 	this->is_Visible_ = false;
 }
 
 HoverDescription::~HoverDescription()
 {
+}
+
+void HoverDescription::setTextFont(const ResourceFont& resourceFont)
+{
+	this->title_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 24, "", sf::Vector2f(this->description_Box_.getLeftPosition(), this->description_Box_.getTopPosition()), true);
+	this->description_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "", sf::Vector2f(this->description_Box_.getLeftPosition(), this->description_Box_.getTopPosition()), true);
 }
 
 void HoverDescription::setHoverBoundaries(HOVERPOSITION hoverPosition, const sf::FloatRect itemBoundaries, const sf::FloatRect itemBoundariesOffset)

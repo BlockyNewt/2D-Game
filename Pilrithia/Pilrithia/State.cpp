@@ -1,11 +1,21 @@
 #include "State.h"
 
-State::State(std::stack<State*>* states, sf::RenderWindow* window, MenuSetting* menuSetting, MenuPause* menuPause)
+State::State(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont* resourceFont, MenuSetting* menuSetting, MenuPause* menuPause)
 	: states_(states), window_(window)
 {
+	if (resourceFont == nullptr)
+	{
+		this->resource_Font_ = new ResourceFont();
+		this->resource_Font_->loadAllFonts();
+	}
+	else
+	{
+		this->resource_Font_ = resourceFont;
+	}
+
 	if (menuSetting == nullptr)
 	{
-		this->menu_Setting_ = new MenuSetting(this->window_);
+		this->menu_Setting_ = new MenuSetting(this->window_, *this->resource_Font_);
 	}
 	else
 	{
@@ -14,7 +24,7 @@ State::State(std::stack<State*>* states, sf::RenderWindow* window, MenuSetting* 
 
 	if(menuPause == nullptr)
 	{
-		this->menu_Pause_ = new MenuPause(this->window_);
+		this->menu_Pause_ = new MenuPause(this->window_, *this->resource_Font_);
 	}
 	else
 	{
@@ -45,6 +55,20 @@ void State::updateMousePosition(const sf::View* view, float tileSizeXY)
 
 	//std::cout << "X: " << this->mouse_Position_Window_.x << " Y: " << this->mouse_Position_Window_.y << std::endl;
 	//std::cout << "X: " << this->mouse_Position_View_.x << " Y: " << this->mouse_Position_View_.y << std::endl;
+}
+
+void State::updateTextureMousePosition(const sf::View* view, const float tileSizeXY)
+{
+	this->window_->setView(*view);
+
+	this->mouse_Position_Window_ = sf::Mouse::getPosition(*this->window_);
+
+	this->mouse_Position_View_ = this->window_->mapPixelToCoords(this->mouse_Position_Window_);
+
+	this->mouse_Position_Texture_Grid_ = sf::Vector2u(
+		static_cast<unsigned>(this->mouse_Position_View_.x) / static_cast<unsigned>(tileSizeXY),
+		static_cast<unsigned>(this->mouse_Position_View_.y) / static_cast<unsigned>(tileSizeXY));
+
 }
 
 void State::updateDeltaClock()

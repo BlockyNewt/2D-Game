@@ -38,12 +38,14 @@ public:
 
 
 	sf::Sprite& setTextureSprite();
+	void setTextureBounds(const sf::IntRect& bounds);
 
 	const float& getTileSizeXY() const;
 	const std::string& getTileTypeStr() const;
 	const std::string& getTileLayerStr() const;
 	const bool& getIsTilemapLoaded() const;
 	const sf::Sprite& getTextureSprite() const;
+	const sf::IntRect& getTextureBounds() const;
 
 	//TESTING 
 	void PlayerCollision(PlayerTest& playerTest);
@@ -85,8 +87,10 @@ private:
 	float camera_Bottom_Position;
 
 	sf::Texture texture_;
+	std::string texture_File_Name_;
 	sf::Sprite texture_Sprite_;
 
+	sf::IntRect texture_Bounds_;
 	
 };
 

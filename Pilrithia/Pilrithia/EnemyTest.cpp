@@ -80,13 +80,13 @@ EnemyTest::EnemyTest()
 	
 }
 
-EnemyTest::EnemyTest(const sf::Vector2f& position, const int& range)
+EnemyTest::EnemyTest(const sf::Vector2f& position, const int& range, const ResourceFont& resourceFont)
 {
 	this->initializeStats();
 	this->initializeModel(position, range);
 	this->initializeHealthBar();
 
-	this->t_A_.setSettings("Font/arial.ttf", 18, this->name_, sf::Vector2f(this->enemy_Model_.getPosition().x, this->enemy_Model_.getPosition().y), true);
+	this->t_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, this->name_, sf::Vector2f(this->enemy_Model_.getPosition().x, this->enemy_Model_.getPosition().y), true);
 
 	this->direction_ = DIRECTION::RIGHT;
 
@@ -100,17 +100,18 @@ EnemyTest::EnemyTest(const sf::Vector2f& position, const int& range)
 
 	this->camera_ = NULL;
 
-	this->item_One_ = new ItemTest(0.f, 0.f, ITEMTYPE::HELM, "Helm", "Made from strong steel");
-	this->item_Two_ = new ItemTest(0.f, 0.f, ITEMTYPE::LEG, "Leg", "Weaved pants");
+	this->item_One_ = new ItemTest(0.f, 0.f, ITEMTYPE::HELM, "Helm", "Made from strong steel", resourceFont);
+	this->item_Two_ = new ItemTest(0.f, 0.f, ITEMTYPE::LEG, "Leg", "Weaved pants", resourceFont);
 	this->items_.push_back(this->item_One_);
 	this->items_.push_back(this->item_Two_);
 
-	this->loot_Window_.addEnemyItems(this->items_);
+	this->loot_Window_ = new LootWindow(resourceFont);
+	this->loot_Window_->addEnemyItems(this->items_);
 }
 
 EnemyTest::~EnemyTest()
 {
-	
+	delete this->loot_Window_;
 }
 
 void EnemyTest::updatePollEvent(sf::Event& ev, std::vector<std::vector<Item*>>& playerBag, const int& maxBagSizeX, const int& maxBagSizeY, const sf::FloatRect playerBoundaries)
@@ -125,15 +126,15 @@ void EnemyTest::updatePollEvent(sf::Event& ev, std::vector<std::vector<Item*>>& 
 				if (ev.key.code == sf::Keyboard::E)
 				{
 					std::cout << "fucking pressing e bitch" << std::endl;
-					this->loot_Window_.setIsVisible(true);
+					this->loot_Window_->setIsVisible(true);
 				}
 			}
 
-			this->loot_Window_.updatePollEvent(ev, playerBag, maxBagSizeX, maxBagSizeY);
+			this->loot_Window_->updatePollEvent(ev, playerBag, maxBagSizeX, maxBagSizeY);
 		}
 		else
 		{
-			this->loot_Window_.setIsVisible(false);
+			this->loot_Window_->setIsVisible(false);
 		}
 	}
 }
@@ -186,12 +187,12 @@ void EnemyTest::updateHealth()
 	}
 
 
-	if (this->loot_Window_.getSize() == 0)
+	if (this->loot_Window_->getSize() == 0)
 	{
 		this->is_Dead_ = true;
 	}
 
-	if (!this->loot_Window_.getIsVisible())
+	if (!this->loot_Window_->getIsVisible())
 	{
 		if (this->has_Loot_Timer_Started_ &&
 			this->loot_Timer_.getElapsedTime().asSeconds() >= this->loot_Timer_Max_)
@@ -260,7 +261,7 @@ void EnemyTest::update(const sf::Vector2i& mousePositionWindow, Camera** camera,
 	{
 		this->camera_ = *camera;
 
-		this->loot_Window_.update(mousePositionWindow);
+		this->loot_Window_->update(mousePositionWindow);
 	}
 }
 
@@ -281,7 +282,7 @@ void EnemyTest::render(sf::RenderTarget& target)
 	{
 		target.setView(target.getDefaultView());
 
-		this->loot_Window_.render(target);
+		this->loot_Window_->render(target);
 		
 		target.setView(this->camera_->getView());
 	}

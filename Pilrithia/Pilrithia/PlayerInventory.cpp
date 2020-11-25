@@ -1,19 +1,18 @@
 #include "PlayerInventory.h"
 
-void PlayerInventory::initializeStats()
+void PlayerInventory::initializeStats(const ResourceFont& resourceFont)
 {
 	/*
 		SET SETTINGS FOR STAT RELATED OBJECTS
 	*/
-
-	this->stats_T_A_.setSettings("Font/arial.ttf", 28, "Stats", sf::Vector2f(this->x_B_.getRightPosition(true, 80.f), this->x_B_.getTopPosition(true, 10.f)), true);
-	this->stats_T_B_.setSettings("Font/arial.ttf", 18, "Health: ", sf::Vector2f(this->stats_T_A_.getLeftPosition(false, 50.f), this->stats_T_A_.getTopPosition(true, 40.f)), true);
-	this->stats_T_C_.setSettings("Font/arial.ttf", 18, "Mana: ", sf::Vector2f(this->stats_T_A_.getLeftPosition(false, 50.f), this->stats_T_B_.getTopPosition(true, 40.f)), true);
-	this->stats_T_D_.setSettings("Font/arial.ttf", 18, "Strength: ", sf::Vector2f(this->stats_T_A_.getLeftPosition(false, 50.f), this->stats_T_C_.getTopPosition(true, 40.f)), true);
-	this->stats_T_E_.setSettings("Font/arial.ttf", 18, "Dexerity: ", sf::Vector2f(this->stats_T_B_.getLeftPosition(), this->stats_T_D_.getTopPosition(true, 40.f)), true);
-	this->stats_T_G_.setSettings("Font/arial.ttf", 18, "Intelligence: ", sf::Vector2f(this->stats_T_B_.getLeftPosition(), this->stats_T_E_.getTopPosition(true, 40.f)), true);
-	this->stats_T_H_.setSettings("Font/arial.ttf", 18, "Perception: ", sf::Vector2f(this->stats_T_B_.getLeftPosition(), this->stats_T_G_.getTopPosition(true, 40.f)), true);
-	this->stats_T_I_.setSettings("Font/arial.ttf", 18, "Wisdom: ", sf::Vector2f(this->stats_T_B_.getLeftPosition(), this->stats_T_H_.getTopPosition(true, 40.f)), true);
+	this->stats_T_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 28, "Stats", sf::Vector2f(this->x_B_.getRightPosition(true, 80.f), this->x_B_.getTopPosition(true, 10.f)), true);
+	this->stats_T_B_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Health: ", sf::Vector2f(this->stats_T_A_.getLeftPosition(false, 50.f), this->stats_T_A_.getTopPosition(true, 40.f)), true);
+	this->stats_T_C_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Mana: ", sf::Vector2f(this->stats_T_A_.getLeftPosition(false, 50.f), this->stats_T_B_.getTopPosition(true, 40.f)), true);
+	this->stats_T_D_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Strength: ", sf::Vector2f(this->stats_T_A_.getLeftPosition(false, 50.f), this->stats_T_C_.getTopPosition(true, 40.f)), true);
+	this->stats_T_E_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Dexerity: ", sf::Vector2f(this->stats_T_B_.getLeftPosition(), this->stats_T_D_.getTopPosition(true, 40.f)), true);
+	this->stats_T_G_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Intelligence: ", sf::Vector2f(this->stats_T_B_.getLeftPosition(), this->stats_T_E_.getTopPosition(true, 40.f)), true);
+	this->stats_T_H_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Perception: ", sf::Vector2f(this->stats_T_B_.getLeftPosition(), this->stats_T_G_.getTopPosition(true, 40.f)), true);
+	this->stats_T_I_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Wisdom: ", sf::Vector2f(this->stats_T_B_.getLeftPosition(), this->stats_T_H_.getTopPosition(true, 40.f)), true);
 
 	this->stats_D_B_.setHoverBoundaries(HOVERPOSITION::TOP, this->stats_T_B_.getGlobalBounds(), this->stats_T_B_.getGlobalBounds());
 	this->stats_D_C_.setHoverBoundaries(HOVERPOSITION::TOP, this->stats_T_C_.getGlobalBounds(), this->stats_T_C_.getGlobalBounds());
@@ -23,6 +22,14 @@ void PlayerInventory::initializeStats()
 	this->stats_D_H_.setHoverBoundaries(HOVERPOSITION::TOP, this->stats_T_H_.getGlobalBounds(), this->stats_T_H_.getGlobalBounds());
 	this->stats_D_I_.setHoverBoundaries(HOVERPOSITION::TOP, this->stats_T_I_.getGlobalBounds(), this->stats_T_I_.getGlobalBounds());
 
+	this->stats_D_B_.setTextFont(resourceFont);
+	this->stats_D_C_.setTextFont(resourceFont);
+	this->stats_D_D_.setTextFont(resourceFont);
+	this->stats_D_E_.setTextFont(resourceFont);
+	this->stats_D_G_.setTextFont(resourceFont);
+	this->stats_D_H_.setTextFont(resourceFont);
+	this->stats_D_I_.setTextFont(resourceFont);
+
 	this->stats_D_B_.setString(DESCRIPTIONTYPE::STAT, "", "Increase hit points");
 	this->stats_D_C_.setString(DESCRIPTIONTYPE::STAT, "", "Increase energy pool");
 	this->stats_D_D_.setString(DESCRIPTIONTYPE::STAT, "", "Increase physical damage, and carry capcity");
@@ -30,19 +37,19 @@ void PlayerInventory::initializeStats()
 	this->stats_D_G_.setString(DESCRIPTIONTYPE::STAT, "", "Increase mana and damage done with magic spells");
 	this->stats_D_H_.setString(DESCRIPTIONTYPE::STAT, "", "Increase detection of traps and clues, increase accuracy of ranges attacks");
 	this->stats_D_I_.setString(DESCRIPTIONTYPE::STAT, "", "Increase restoration spell effects");
+
 }
 
-void PlayerInventory::initializeResistances()
+void PlayerInventory::initializeResistances(const ResourceFont& resourceFont)
 {
 	/*
 		SET SETTINGS FOR RESISTANCE RELATED OBJECTS
 	*/
-
-	this->resistances_T_A_.setSettings("Font/arial.ttf", 28, "Resistances", sf::Vector2f(this->stats_T_A_.getLeftPosition(true, 250.f), this->x_B_.getTopPosition(true, 10.f)), true);
-	this->resistances_T_B_.setSettings("Font/arial.ttf", 18, "Cold: ", sf::Vector2f(this->resistances_T_A_.getLeftPosition(), this->resistances_T_A_.getTopPosition(true, 40.f)), true);
-	this->resistances_T_C_.setSettings("Font/arial.ttf", 18, "Fire: ", sf::Vector2f(this->resistances_T_B_.getLeftPosition(), this->resistances_T_B_.getTopPosition(true, 40.f)), true);
-	this->resistances_T_D_.setSettings("Font/arial.ttf", 18, "Lightning: ", sf::Vector2f(this->resistances_T_C_.getLeftPosition(), this->resistances_T_C_.getTopPosition(true, 40.f)), true);
-	this->resistances_T_E_.setSettings("Font/arial.ttf", 18, "Poison: ", sf::Vector2f(this->resistances_T_D_.getLeftPosition(), this->resistances_T_D_.getTopPosition(true, 40.f)), true);
+	this->resistances_T_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 28, "Resistances", sf::Vector2f(this->stats_T_A_.getLeftPosition(true, 250.f), this->x_B_.getTopPosition(true, 10.f)), true);
+	this->resistances_T_B_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Cold: ", sf::Vector2f(this->resistances_T_A_.getLeftPosition(), this->resistances_T_A_.getTopPosition(true, 40.f)), true);
+	this->resistances_T_C_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Fire: ", sf::Vector2f(this->resistances_T_B_.getLeftPosition(), this->resistances_T_B_.getTopPosition(true, 40.f)), true);
+	this->resistances_T_D_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Lightning: ", sf::Vector2f(this->resistances_T_C_.getLeftPosition(), this->resistances_T_C_.getTopPosition(true, 40.f)), true);
+	this->resistances_T_E_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Poison: ", sf::Vector2f(this->resistances_T_D_.getLeftPosition(), this->resistances_T_D_.getTopPosition(true, 40.f)), true);
 
 	this->resistances_D_B_.setHoverBoundaries(HOVERPOSITION::TOP, this->resistances_T_B_.getGlobalBounds(), this->resistances_T_B_.getGlobalBounds());
 	this->resistances_D_C_.setHoverBoundaries(HOVERPOSITION::TOP, this->resistances_T_C_.getGlobalBounds(), this->resistances_T_C_.getGlobalBounds());
@@ -55,7 +62,7 @@ void PlayerInventory::initializeResistances()
 	this->resistances_D_E_.setString(DESCRIPTIONTYPE::STAT, "", "Increase resistance to anything that's poison");
 }
 
-void PlayerInventory::initializeIcons()
+void PlayerInventory::initializeIcons(const ResourceFont& resourceFont)
 {
 	/*
 		INITIALIZE INVENTORY SLOT ICONS
@@ -97,28 +104,32 @@ void PlayerInventory::initializeIcons()
 	this->feet_Icon_.setOutlineColor(sf::Color::White);
 }
 
-PlayerInventory::PlayerInventory()
+PlayerInventory::PlayerInventory(const ResourceFont& resourceFont)
 {
 	this->x_A_.setSettings(800.f, 500.f, 0.f, 0.f, sf::Color(27, 133, 184), 1.f, sf::Color(27, 133, 184), true);
 	this->x_B_.setSettings(225.f, 400.f, this->x_A_.getLeftPosition(true, 10.f), this->x_A_.getTopPosition(true, 95.f), sf::Color::Black, 1.f, sf::Color::Red, true);
 
 	this->b_B_.setSettings(50.f, 50.f, this->x_A_.getRightPosition(false, 50.f), this->x_A_.getTopPosition(), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
 
-	this->t_A_.setSettings("Font/arial.ttf", 28, "Inventory", sf::Vector2f(this->x_A_.getLeftPosition(true, 350.f), this->x_A_.getTopPosition(true, 10.f)), true);
-	this->t_B_.setSettings("Font/arial.ttf", 18, "Close", sf::Vector2f(this->b_B_.getLeftPosition(true, 10.f), this->b_B_.getTopPosition(true, 10.f)), true);
-	this->t_C_.setSettings("Font/arial.ttf", 18, "Name: ", sf::Vector2f(this->x_B_.getLeftPosition(true, 10.f), this->x_B_.getTopPosition(false, 80.f)), true);
-	this->t_D_.setSettings("Font/arial.ttf", 18, "Class: ", sf::Vector2f(this->x_B_.getLeftPosition(true, 10.f), this->x_B_.getTopPosition(false, 55.f)), true);
-	this->t_E_.setSettings("Font/arial.ttf", 18, "Level: ", sf::Vector2f(this->x_B_.getLeftPosition(true, 10.f), this->x_B_.getTopPosition(false, 30.f)), true);
+	this->t_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 28, "Inventory", sf::Vector2f(this->x_A_.getLeftPosition(true, 350.f), this->x_A_.getTopPosition(true, 10.f)), true);
+	this->t_B_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Close", sf::Vector2f(this->b_B_.getLeftPosition(true, 10.f), this->b_B_.getTopPosition(true, 10.f)), true);
+	this->t_C_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Name: ", sf::Vector2f(this->x_B_.getLeftPosition(true, 10.f), this->x_B_.getTopPosition(false, 80.f)), true);
+	this->t_D_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Class: ", sf::Vector2f(this->x_B_.getLeftPosition(true, 10.f), this->x_B_.getTopPosition(false, 55.f)), true);
+	this->t_E_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Level: ", sf::Vector2f(this->x_B_.getLeftPosition(true, 10.f), this->x_B_.getTopPosition(false, 30.f)), true);
 	
-	this->initializeStats();
-	this->initializeResistances();
-	this->initializeIcons();
+	this->initializeStats(resourceFont);
+	this->initializeResistances(resourceFont);
+	this->initializeIcons(resourceFont);
 
 	this->is_Hiding_Inventory_ = true;
 
 	this->selected_Equipment_ = 0;
 
 	this->equipment_.resize(6, NULL);
+
+	this->d_A_.setTextFont(resourceFont);
+
+	this->resource_Font_ = resourceFont;
 }
 
 PlayerInventory::~PlayerInventory()
@@ -234,7 +245,7 @@ void PlayerInventory::updatePollEvent(sf::Event& ev, std::map<std::string, int>&
 				{
 					if (!this->l_A_.getIsHovering())
 					{
-						this->l_A_.setSettings(LISTUSE::INVENTORY, this->equipment_[x]->getItemGlobalBoundaries());
+						this->l_A_.setSettings(LISTUSE::INVENTORY, this->equipment_[x]->getItemGlobalBoundaries(), this->resource_Font_);
 						this->l_A_.setIsVisible(true);
 
 						this->selected_Equipment_ = x;

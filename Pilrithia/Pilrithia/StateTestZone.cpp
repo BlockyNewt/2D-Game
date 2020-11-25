@@ -1,20 +1,23 @@
 #include "StateTestZone.h"
 
-StateTestZone::StateTestZone(std::stack<State*>* states, sf::RenderWindow* window, MenuSetting* menuSetting, MenuPause* menuPause)
-	: State(states, window, menuSetting, menuPause)
+StateTestZone::StateTestZone(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont* resourceFont, MenuSetting* menuSetting, MenuPause* menuPause)
+	: State(states, window, resourceFont, menuSetting, menuPause)
 {
-	this->menu_Character_Creation_ = new MenuCharacterCreation(this->window_->getSize().x, this->window_->getSize().y);
+	this->player_Test_ = new PlayerTest(*this->resource_Font_);
+
+	this->menu_Character_Creation_ = new MenuCharacterCreation(this->window_->getSize().x, this->window_->getSize().y, *this->resource_Font_);
 
 	this->camera_ = new Camera(this->window_->getSize().x, this->window_->getSize().y);
 
-	this->tilemap_ = new Tilemap(20, 20, 30 , 2);
+	this->tilemap_ = new Tilemap(20, 20, 50 , 2);
 
-	this->npc_Test_.setSettings(this->window_->getSize());
+	this->npc_Test_ = new NpcTest(*this->resource_Font_);
+	this->npc_Test_->setSettings(this->window_->getSize(), *this->resource_Font_);
 
 	this->max_Enemies_ = 3;
-	this->enemy_Test_ = new EnemyTest(sf::Vector2f(600.f, 120.f), 3);
-	this->enemy_Test_One_ = new EnemyTest(sf::Vector2f(120.f, 180.f), 5);
-	this->enemy_Test_Two_ = new EnemyTest(sf::Vector2f(300.f, 180.f), 8);
+	this->enemy_Test_ = new EnemyTest(sf::Vector2f(600.f, 120.f), 3, *this->resource_Font_);
+	this->enemy_Test_One_ = new EnemyTest(sf::Vector2f(120.f, 180.f), 5, *this->resource_Font_);
+	this->enemy_Test_Two_ = new EnemyTest(sf::Vector2f(300.f, 180.f), 8, *this->resource_Font_);
 
 	this->enemies_.push_back(this->enemy_Test_);
 	this->enemies_.push_back(this->enemy_Test_One_);
@@ -26,12 +29,12 @@ StateTestZone::StateTestZone(std::stack<State*>* states, sf::RenderWindow* windo
 	this->load_B_A_.setSettings(150.f, 50.f, this->load_X_A_.getLeftPosition(true, 250), this->load_X_A_.getBottomPosition(false, 55), sf::Color(27, 133, 184), 1, sf::Color::Red, true);
 	this->load_B_B_.setSettings(150.f, 50.f, this->load_B_A_.getRightPosition(true, 20), this->load_B_A_.getTopPosition(), sf::Color(27, 133, 184), 1, sf::Color::Red, true);
 
-	this->load_T_A_.setSettings("Font/arial.ttf", 35, "Load a tilemap", sf::Vector2f(this->load_X_A_.getLeftPosition(true, 250.f), this->load_X_A_.getTopPosition(true, 10.f)), true);
-	this->load_T_B_.setSettings("Font/arial.ttf", 25, "Filename: ", sf::Vector2f(this->load_X_A_.getLeftPosition(true, 10.f), this->load_X_A_.getTopPosition(true, 200.f)), true);
-	this->load_T_C_.setSettings("Font/arial.ttf", 25, "Load", sf::Vector2f(this->load_B_A_.getLeftPosition(true, 10.f), this->load_B_A_.getTopPosition(true, 10.f)), true);
-	this->load_T_D_.setSettings("Font/arial.ttf", 25, "Close", sf::Vector2f(this->load_B_B_.getLeftPosition(true, 10.f), this->load_B_B_.getTopPosition(true, 10.f)), true);
+	this->load_T_A_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 35, "Load a tilemap", sf::Vector2f(this->load_X_A_.getLeftPosition(true, 250.f), this->load_X_A_.getTopPosition(true, 10.f)), true);
+	this->load_T_B_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 25, "Filename: ", sf::Vector2f(this->load_X_A_.getLeftPosition(true, 10.f), this->load_X_A_.getTopPosition(true, 200.f)), true);
+	this->load_T_C_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 25, "Load", sf::Vector2f(this->load_B_A_.getLeftPosition(true, 10.f), this->load_B_A_.getTopPosition(true, 10.f)), true);
+	this->load_T_D_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 25, "Close", sf::Vector2f(this->load_B_B_.getLeftPosition(true, 10.f), this->load_B_B_.getTopPosition(true, 10.f)), true);
 
-	this->load_I_A_.setSettings(500.f, 40.f, this->load_T_B_.getRightPosition(true, 10.f), this->load_T_B_.getTopPosition(), sf::Color::Black, 1.f, sf::Color::Red, true, false, 30);
+	this->load_I_A_.setSettings(500.f, 40.f, this->load_T_B_.getRightPosition(true, 10.f), this->load_T_B_.getTopPosition(), sf::Color::Black, 1.f, sf::Color::Red, true, false, 30, *this->resource_Font_);
 
 
 		  
@@ -39,6 +42,10 @@ StateTestZone::StateTestZone(std::stack<State*>* states, sf::RenderWindow* windo
 
 StateTestZone::~StateTestZone()
 {
+	delete this->player_Test_;
+
+	delete this->npc_Test_;
+
 	delete this->menu_Character_Creation_;
 	
 	delete this->camera_;
@@ -85,7 +92,7 @@ void StateTestZone::updateLoadPollEvent(sf::Event& ev)
 		{
 			this->tilemap_->load(this->load_I_A_.getString());
 
-			this->player_Test_.setPosition(60.f, 60.f);
+			this->player_Test_->setPosition(60.f, 60.f);
 
 			this->load_X_A_.setIsVisible(false);
 			this->load_B_A_.setIsVisible(false);
@@ -142,7 +149,7 @@ void StateTestZone::updateCharacterCreationPollEvent(sf::Event& ev)
 		*/
 		if (this->menu_Character_Creation_->updatePollEvent(ev))
 		{
-			this->player_Test_.initializeCharacter(&this->menu_Character_Creation_->getRace(), this->menu_Character_Creation_->getName());
+			this->player_Test_->initializeCharacter(&this->menu_Character_Creation_->getRace(), this->menu_Character_Creation_->getName());
 		}
 	}
 }
@@ -170,10 +177,10 @@ void StateTestZone::updatePollEvent(sf::Event& ev)
 		{
 			this->window_->setKeyRepeatEnabled(true);
 
-			if (this->player_Test_.getPlayerInventory().getIsHidingInventory() &&
-				this->player_Test_.getPlayerBag().getIsHidingBag() &&
-				this->player_Test_.getPlayerQuest().getIsHidingQuest() &&
-				this->player_Test_.getPlayerSkillTree().getIsHidingSkillTree())
+			if (this->player_Test_->getPlayerInventory().getIsHidingInventory() &&
+				this->player_Test_->getPlayerBag().getIsHidingBag() &&
+				this->player_Test_->getPlayerQuest().getIsHidingQuest() &&
+				this->player_Test_->getPlayerSkillTree().getIsHidingSkillTree())
 			{
 				this->camera_->updatePollEvent(ev);
 			}
@@ -181,14 +188,14 @@ void StateTestZone::updatePollEvent(sf::Event& ev)
 
 			for (auto& e : this->enemies_)
 			{
-				e->updatePollEvent(ev, this->player_Test_.setPlayerBag().setItem(), this->player_Test_.getPlayerBag().getBagSizeX(), this->player_Test_.getPlayerBag().getBagSizeY(), this->player_Test_.getPlayerModel().getGlobalBounds());
+				e->updatePollEvent(ev, this->player_Test_->setPlayerBag().setItem(), this->player_Test_->getPlayerBag().getBagSizeX(), this->player_Test_->getPlayerBag().getBagSizeY(), this->player_Test_->getPlayerModel().getGlobalBounds());
 			}
 
-			this->player_Test_.updateSkillsPollEvent(ev, this->enemies_);
+			this->player_Test_->updateSkillsPollEvent(ev, this->enemies_);
 
-			this->player_Test_.updatePollEvent(ev, this->dt_);
+			this->player_Test_->updatePollEvent(ev, this->dt_);
 
-			this->npc_Test_.updatePollEvent(ev, this->player_Test_);
+			this->npc_Test_->updatePollEvent(ev, *this->player_Test_);
 
 			this->window_->setKeyRepeatEnabled(true);
 		}
@@ -202,9 +209,9 @@ void StateTestZone::updateEnemy()
 	{
 		this->tilemap_->EnemyCollision(*this->enemies_[i]);
 
-		this->enemies_[i]->update(this->mouse_Position_Window_, &this->camera_, this->player_Test_.getPlayerGlobalBounds(), this->dt_, this->player_Test_.getStatForChange("health"));
+		this->enemies_[i]->update(this->mouse_Position_Window_, &this->camera_, this->player_Test_->getPlayerGlobalBounds(), this->dt_, this->player_Test_->getStatForChange("health"));
 
-		//this->player_Test_.updateEnemyAutoSelector(this->enemies_[i]);
+		//this->player_Test_->updateEnemyAutoSelector(this->enemies_[i]);
 
 		if (this->enemies_[i]->getIsDead())
 		{
@@ -215,7 +222,7 @@ void StateTestZone::updateEnemy()
 
 	if (this->enemies_.size() < this->max_Enemies_)
 	{
-		this->enemies_.push_back(new EnemyTest(sf::Vector2f(600.f, 120.f), 8));
+		this->enemies_.push_back(new EnemyTest(sf::Vector2f(600.f, 120.f), 8, *this->resource_Font_));
 	}
 }
 
@@ -246,12 +253,12 @@ void StateTestZone::update()
 	
 	if (!this->menu_Pause_->getIsPaused())
 	{
-		if (this->player_Test_.getPlayerInventory().getIsHidingInventory() &&
-			this->player_Test_.getPlayerBag().getIsHidingBag() && 
-			this->player_Test_.getPlayerQuest().getIsHidingQuest() && 
-			this->player_Test_.getPlayerSkillTree().getIsHidingSkillTree())
+		if (this->player_Test_->getPlayerInventory().getIsHidingInventory() &&
+			this->player_Test_->getPlayerBag().getIsHidingBag() && 
+			this->player_Test_->getPlayerQuest().getIsHidingQuest() && 
+			this->player_Test_->getPlayerSkillTree().getIsHidingSkillTree())
 		{
-			this->camera_->setCenter(sf::Vector2f(this->player_Test_.getPlayerModel().getPosition().x, this->player_Test_.getPlayerModel().getPosition().y));
+			this->camera_->setCenter(sf::Vector2f(this->player_Test_->getPlayerModel().getPosition().x, this->player_Test_->getPlayerModel().getPosition().y));
 		}
 
 		this->tilemap_->update(*this->camera_);
@@ -259,11 +266,11 @@ void StateTestZone::update()
 		this->updateEnemy();
 
 
-		this->tilemap_->PlayerCollision(this->player_Test_);
+		this->tilemap_->PlayerCollision(*this->player_Test_);
 
-		this->player_Test_.update(this->mouse_Position_Window_, *this->camera_);
+		this->player_Test_->update(this->mouse_Position_Window_, *this->camera_);
 
-		this->npc_Test_.update(this->mouse_Position_View_, this->mouse_Position_Window_, this->player_Test_.getPlayerGlobalBounds(), *this->camera_, this->player_Test_);
+		this->npc_Test_->update(this->mouse_Position_View_, this->mouse_Position_Window_, this->player_Test_->getPlayerGlobalBounds(), *this->camera_, *this->player_Test_);
 
 		this->updateCharacterCreation();
 	
@@ -277,9 +284,9 @@ void StateTestZone::render(sf::RenderTarget& target)
 
 	this->tilemap_->render(target);
 	
-	this->player_Test_.renderPlayerModel(target);
+	this->player_Test_->renderPlayerModel(target);
 
-	this->npc_Test_.render(target);
+	this->npc_Test_->render(target);
 
 	for (auto& e : this->enemies_)
 	{
@@ -287,7 +294,7 @@ void StateTestZone::render(sf::RenderTarget& target)
 
 	}
 
-	this->player_Test_.renderHudItems(target);
+	this->player_Test_->renderHudItems(target);
 
 
 	target.setView(target.getDefaultView());

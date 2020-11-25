@@ -10,7 +10,7 @@ SkillDropDownList::~SkillDropDownList()
 {
 }
 
-void SkillDropDownList::setSettings(const sf::FloatRect itemBoundaries, Classes* playerClasses)
+void SkillDropDownList::setSettings(const sf::FloatRect itemBoundaries, Classes* playerClasses, const ResourceFont& resourceFont)
 {
 	if (this->buttons_.empty())
 	{
@@ -25,7 +25,7 @@ void SkillDropDownList::setSettings(const sf::FloatRect itemBoundaries, Classes*
 				button->setSettings(200.f, 40.f, itemBoundaries.left - 40.f, itemBoundaries.top - 40.f, sf::Color(195, 203, 113), 1.f, sf::Color::White, true);
 
 				Text* text = new Text();
-				text->setSettings("Font/arial.ttf", 18, playerClasses->getAvailableSkills()[x]->getName(), sf::Vector2f(button->getLeftPosition(true, 10.f), button->getTopPosition(true, 10.f)), true);
+				text->setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, playerClasses->getAvailableSkills()[x]->getName(), sf::Vector2f(button->getLeftPosition(true, 10.f), button->getTopPosition(true, 10.f)), true);
 
 				this->buttons_.push_back(button);
 				this->texts_.push_back(text);
@@ -59,7 +59,7 @@ void SkillDropDownList::setSettings(const sf::FloatRect itemBoundaries, Classes*
 				button->setSettings(200.f, 40.f, itemBoundaries.left - 40.f, itemBoundaries.top - 40.f, sf::Color::Yellow, 1.f, sf::Color::White, true);
 
 				Text* text = new Text();
-				text->setSettings("Font/arial.ttf", 18, playerClasses->getAvailableSkills()[x]->getName(), sf::Vector2f(button->getLeftPosition(true, 10.f), button->getTopPosition(true, 10.f)), true);
+				text->setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, playerClasses->getAvailableSkills()[x]->getName(), sf::Vector2f(button->getLeftPosition(true, 10.f), button->getTopPosition(true, 10.f)), true);
 
 				this->buttons_.push_back(button);
 				this->texts_.push_back(text);

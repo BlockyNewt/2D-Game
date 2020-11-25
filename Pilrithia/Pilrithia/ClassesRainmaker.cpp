@@ -12,6 +12,11 @@ ClassesRainmaker::ClassesRainmaker()
 	this->available_Skills_.push_back(this->skill_One_);
 
 	this->is_Selected_ = false;
+
+	if (!this->class_Icon_.loadFromFile("Texture/Elementalist_Icon.png"))
+	{
+		std::cout << "Coult not load rainmaker icon" << std::endl;
+	}
 }
 
 ClassesRainmaker::~ClassesRainmaker()
@@ -77,6 +82,11 @@ const Skill* ClassesRainmaker::getSkillOne() const
 const std::vector<Skill*>& ClassesRainmaker::getAvailableSkills() const
 {
 	return this->available_Skills_;
+}
+
+const sf::Texture& ClassesRainmaker::getClassIcon() const
+{
+	return this->class_Icon_;
 }
 
 const int& ClassesRainmaker::getHealthMax() const

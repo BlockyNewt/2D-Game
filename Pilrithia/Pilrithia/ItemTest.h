@@ -8,7 +8,7 @@ class ItemTest
 {
 public:
 	ItemTest();
-	ItemTest(float posX, float posY, ITEMTYPE itemType, const std::string& name, const std::string& description);
+	ItemTest(float posX, float posY, ITEMTYPE itemType, const std::string& name, const std::string& description, const ResourceFont& resourceFont);
 	virtual ~ItemTest();
 
 	void setItemHoverDescriptionSettings(HOVERPOSITION hoverPosition, const sf::FloatRect boundaries, const sf::FloatRect boundariesOffset, DESCRIPTIONTYPE descriptionType, const std::string& title, const std::string& description) override;
@@ -56,6 +56,8 @@ private:
 	int fire_;
 	int lightning_;
 	int poison_;
+
+	ResourceFont resource_Font_;
 };
 
 #endif // !ITEMTEST_H

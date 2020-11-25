@@ -3,6 +3,8 @@
 
 #include "SFML/Graphics.hpp"
 
+#include "ResourceFont.h"
+
 #include "Box.h"	
 #include "Button.h"
 #include "Text.h"
@@ -15,7 +17,7 @@ public:
 	QuestBox();
 	~QuestBox();
 
-	void setSettings(float posX, float posY, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, const std::string& questText);
+	void setSettings(float posX, float posY, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, const std::string& questText, const ResourceFont& resourceFont);
 
 	bool updateAcceptPollEvent(sf::Event& ev);
 	bool updateDeclinePollEvent(sf::Event& ev);

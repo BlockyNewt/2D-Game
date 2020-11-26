@@ -94,7 +94,6 @@ void ItemTest::increaseStatsOnEquip(std::map<std::string, int>& stats, std::map<
 		stats.find("manaMax")->second += this->mana_Max_;
 		stats.find("strength")->second += this->strength_;
 		stats.find("dexerity")->second += this->dexerity_;
-		stats.find("constitution")->second += this->constitution_;
 		stats.find("intelligence")->second += this->intelligence_;
 		stats.find("perception")->second += this->perception_;
 		stats.find("wisdom")->second += this->wisdom_;
@@ -127,7 +126,6 @@ void ItemTest::descreaseStatsOnUnequip(std::map<std::string, int>& stats, std::m
 
 		stats.find("strength")->second -= this->strength_;
 		stats.find("dexerity")->second -= this->dexerity_;
-		stats.find("constitution")->second -= this->constitution_;
 		stats.find("intelligence")->second -= this->intelligence_;
 		stats.find("perception")->second -= this->perception_;
 		stats.find("wisdom")->second -= this->wisdom_;

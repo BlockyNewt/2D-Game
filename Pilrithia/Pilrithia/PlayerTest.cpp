@@ -41,6 +41,8 @@ PlayerTest::PlayerTest(const ResourceFont& resourceFont)
 
 	this->skill_Points_ = 99;
 
+	this->is_Combat_ = false;
+
 	//TESTING ONLY FIX LATER
 	this->player_Bag_->initializeBag();
 	this->camera_ = new Camera(0.f, 0.f);
@@ -72,7 +74,6 @@ void PlayerTest::initializeCharacter(Race* race, const std::string& name)
 		this->stats_.insert(std::make_pair("mana", this->race_->getMana()));
 		this->stats_.insert(std::make_pair("strength", this->race_->getStrength()));
 		this->stats_.insert(std::make_pair("dexerity", this->race_->getDexerity()));
-		this->stats_.insert(std::make_pair("constitution", this->race_->getConstitution()));
 		this->stats_.insert(std::make_pair("intelligence", this->race_->getIntelligence()));
 		this->stats_.insert(std::make_pair("perception", this->race_->getPerception()));
 		this->stats_.insert(std::make_pair("wisdom", this->race_->getWisdom()));
@@ -93,7 +94,6 @@ void PlayerTest::initializeCharacter(Race* race, const std::string& name)
 		this->stats_.at("mana") = this->race_->getMana();
 		this->stats_.at("strength") = this->race_->getStrength();
 		this->stats_.at("dexerity") = this->race_->getDexerity();
-		this->stats_.at("constitution") = this->race_->getConstitution();
 		this->stats_.at("intelligence") = this->race_->getIntelligence();
 		this->stats_.at("perception") = this->race_->getPerception();
 		this->stats_.at("wisdom") = this->race_->getWisdom();
@@ -121,7 +121,7 @@ void PlayerTest::setTextFont(const ResourceFont& resourceFont)
 
 void PlayerTest::updateSkillsPollEvent(sf::Event& ev, std::vector<Enemy*>& enemies)
 {
-	this->player_Hud_->updateSkillOnePollEvent(ev, this->player_Skill_Tree_->setClassesOne(), enemies, this->stats_);
+	this->player_Hud_->updateSkillOnePollEvent(ev, this->player_Skill_Tree_->setClassesOne(), enemies, this->stats_, this->getStatForChange("mana"), this->is_Combat_);
 }
 
 void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
@@ -145,7 +145,14 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 			
 			this->player_Inventory_->realignEquipment();
 
-			this->player_Inventory_->initializeInventory(this->name_, this->level_, this->race_->getName(), this->stats_, this->resistances_);
+			if (this->player_Skill_Tree_->getClassesOne() != NULL)
+			{
+				this->player_Inventory_->initializeInventory(this->name_, this->race_->getName(), this->player_Skill_Tree_->getClassesOne()->getName(), this->level_, this->stats_, this->resistances_);
+			}
+			else
+			{
+				this->player_Inventory_->initializeInventory(this->name_, this->race_->getName(), "Peasant", this->level_, this->stats_, this->resistances_);
+			}
 		}
 	}
 
@@ -271,7 +278,7 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 //	}
 //}
 
-void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& camera)
+void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& camera, std::vector<Enemy*>& enemies)
 {
 	if (this->player_Inventory_->getIsHidingInventory() &&
 		this->player_Bag_->getIsHidingBag() &&
@@ -302,7 +309,7 @@ void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& c
 		*this->camera_ = camera;
 	}
 	
-	this->player_Hud_->update(mousePositionWindow, camera, this->player_Model_.getPosition(), this->player_Model_.getGlobalBounds());
+	this->player_Hud_->update(mousePositionWindow, camera, this->player_Model_.getPosition(), this->player_Model_.getGlobalBounds(), enemies, this->is_Combat_);
 	this->player_Inventory_->update(mousePositionWindow);
 	this->player_Bag_->update(mousePositionWindow);
 	this->player_Quest_->update(mousePositionWindow);
@@ -318,14 +325,38 @@ void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& c
 
 	this->player_Hud_->setWidthOfBars(this->getStat("healthMax"), this->getStat("health"), this->getStat("manaMax"), this->getStat("mana"), this->max_Exp_, this->exp_);
 
+	if (this->health_Regen_Timer.getElapsedTime().asSeconds() >= 1.f &&
+		!this->is_Combat_)
+	{
+		this->getStatForChange("health")++;
+
+		this->health_Regen_Timer.restart();
+	}
+
+	if (this->mana_Regen_Timer.getElapsedTime().asSeconds() >= 1.f &&
+		!this->is_Combat_)
+	{
+		this->getStatForChange("mana")++;
+
+		this->mana_Regen_Timer.restart();
+	}
+
 	if (this->getStat("health") <= 0)
 	{
 		this->getStatForChange("health") = 0;
+	}
+	else if (this->getStat("health") >= this->getStat("healthMax"))
+	{
+		this->getStatForChange("health") = this->getStat("healthMax");
 	}
 
 	if (this->getStat("mana") <= 0)
 	{
 		this->getStatForChange("mana") = 0;
+	}
+	else if (this->getStat("mana") >= this->getStat("manaMax"))
+	{
+		this->getStatForChange("mana") = this->getStat("manaMax");
 	}
 
 	//std::cout << "my health: " << this->getStat("health") << std::endl;
@@ -383,6 +414,16 @@ PlayerBag& PlayerTest::setPlayerBag()
 	return *this->player_Bag_;
 }
 
+int& PlayerTest::setExp()
+{
+	return this->exp_;
+}
+
+bool& PlayerTest::setIsCombat()
+{
+	return this->is_Combat_;
+}
+
 void PlayerTest::levelUp()
 {
 	if (this->exp_ >= this->max_Exp_)
@@ -402,7 +443,6 @@ void PlayerTest::levelUp()
 		this->getStatForChange("mana") = this->getStat("manaMax");
 		this->setStat("strength", std::floor((std::pow(this->level_ / 2.f, 1.2)) / 2.f));
 		this->setStat("dexerity", std::floor((std::pow(this->level_ / 2.f, 1.2)) / 2.f));
-		this->setStat("consitution", std::floor((std::pow(this->level_ / 2.f, 1.2)) / 2.f));
 		this->setStat("intelligence", std::floor((std::pow(this->level_ / 2.f, 1.2)) / 2.f));
 		this->setStat("perception", std::floor((std::pow(this->level_ / 2.f, 1.2)) / 2.f));
 		this->setStat("wisdom", std::floor((std::pow(this->level_ / 2.f, 1.2)) / 2.f));
@@ -418,7 +458,6 @@ void PlayerTest::levelUp()
 		std::cout << "MANA: " << this->stats_.find("mana")->second << std::endl;
 		std::cout << "STRENGTH: " << this->stats_.find("strength")->second << std::endl;
 		std::cout << "DEXERITY: " << this->stats_.at("dexerity") << std::endl;
-		std::cout << "CONSITUTION: " << this->stats_.at("constitution") << std::endl;
 		std::cout << "INTELLIGENCE: " << this->stats_.at("intelligence") << std::endl;
 		std::cout << "PERCEPTION: " << this->stats_.at("perception") << std::endl;
 		std::cout << "WISDOM: " << this->stats_.at("wisdom") << std::endl;

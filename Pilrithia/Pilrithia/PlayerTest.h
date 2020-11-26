@@ -28,7 +28,7 @@ public:
 	void updateSkillsPollEvent(sf::Event& ev, std::vector<Enemy*>& enemies);
 	void updatePollEvent(sf::Event& ev, const float& dt);
 	//void updateEnemyAutoSelector(Enemy* enemy);
-	void update(const sf::Vector2i& mousePositionWindow, const Camera& camera);
+	void update(const sf::Vector2i& mousePositionWindow, const Camera& camera, std::vector<Enemy*>& enemies);
 	void renderHudItems(sf::RenderTarget& target);
 	void renderPlayerModel(sf::RenderTarget& target);
 
@@ -43,6 +43,8 @@ public:
 	PlayerQuest& setPlayerQuest();
 	void setStat(const std::string& stat, int value);
 	PlayerBag& setPlayerBag();
+	int& setExp();
+	bool& setIsCombat();
 
 	sf::RectangleShape& getPlayerModel();
 	const sf::Vector2f& getVelocity() const;
@@ -97,6 +99,11 @@ private:
 	int exp_;
 
 	int skill_Points_;
+
+	bool is_Combat_;
+	
+	sf::Clock health_Regen_Timer;
+	sf::Clock mana_Regen_Timer;
 
 
 	Enemy* selected_Enemy_;

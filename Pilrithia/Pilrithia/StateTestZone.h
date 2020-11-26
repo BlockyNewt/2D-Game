@@ -63,7 +63,6 @@ private:
 	NpcTest* npc_Test_;
 	EnemyTest* enemy_Test_;
 	EnemyTest* enemy_Test_One_;
-	EnemyTest* enemy_Test_Two_;
 
 	int max_Enemies_;
 	std::vector<Enemy*> enemies_;

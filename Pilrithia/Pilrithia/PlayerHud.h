@@ -35,10 +35,10 @@ public:
 	bool updateBagPollEvent(sf::Event& ev);
 	bool updateQuestPollEvent(sf::Event& ev);
 	bool updateSkillTreePollEvent(sf::Event& ev);
-	void updateSkillOnePollEvent(sf::Event& ev, Classes* playerClass, std::vector<Enemy*>& enemies, const std::map<std::string, int>& playerStats);
+	void updateSkillOnePollEvent(sf::Event& ev, Classes* playerClass, std::vector<Enemy*>& enemies, const std::map<std::string, int>& playerStats, int& playerMana, bool& playerIsCombat);
 	void updatePollEvent(sf::Event& ev, int& health, const int& healthMax);
 	void updateNamePosition(const sf::Vector2f& playerPosition);
-	void update(const sf::Vector2i& mousePositionWindow, const Camera& camera, const sf::Vector2f& playerPosition, const sf::FloatRect playerBoundaries);
+	void update(const sf::Vector2i& mousePositionWindow, const Camera& camera, const sf::Vector2f& playerPosition, const sf::FloatRect playerBoundaries, std::vector<Enemy*>& enemies, bool& playerIsCombat);
 	void render(sf::RenderTarget& target);
 
 	void setWidthOfBars(const int& healthMax, const int& health, const int& manaMax, const int& mana, const int& expMax, const int& exp);
@@ -49,6 +49,7 @@ public:
 	Skill& setSkillOne();
 
 private:
+	void skillCooldownBoxHeight();
 
 private:
 	Camera* camera_;
@@ -78,6 +79,8 @@ private:
 	Button skill_B_B_;
 	Button skill_B_C_;
 
+	Box skill_X_A_;
+
 	Text skill_T_A_;
 	Text skill_T_B_;
 	Text skill_T_C_;
@@ -94,6 +97,12 @@ private:
 	SkillDropDownList skill_Dropdown_List_;
 
 	Skill* skill_One_;
+
+	sf::Clock skill_One_CD_Timer_;
+
+	sf::Clock auto_Attack_Timer_;
+	sf::Clock leave_Combat_Timer_;
+	
 
 	ResourceFont resource_Font_;
 };

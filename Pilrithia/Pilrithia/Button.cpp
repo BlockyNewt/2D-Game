@@ -241,3 +241,8 @@ const bool& Button::getIsHovering() const
 {
 	return this->is_Hovering_;
 }
+
+const sf::Vector2f& Button::getSize() const
+{
+	return this->button_.getSize();
+}

@@ -18,11 +18,15 @@ public:
 
 	void setIsUnlocked(bool isUnlocked) override;
 	void setIsVisible(bool isVisible) override;
+	void setIsCooldown(bool isCooldown) override;
 
 	const bool& getIsUnlocked() const override;
 	const int& getDamage(const int& playerStrength, const int& playerIntelligence, const int& playerWisdom)  override;
 	const sf::FloatRect getSkillBoundaries() const override;
 	const bool& getIsVisible() const override;
+	const float& getCooldown() const override;
+	const bool& getIsCooldown() const override;
+	const int& getManaCost() const override;
 
 private:
 
@@ -37,9 +41,12 @@ private:
 	int max_Damage_;
 	int damage_;
 
+	float cooldown_;
+
 	sf::RectangleShape range_Box_;
 
 	bool is_Unlocked_;
+	bool is_Cooldown_;
 
 	bool is_Visible_;
 

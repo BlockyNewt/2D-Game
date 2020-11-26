@@ -28,6 +28,9 @@ void EnemyTest::initializeStats()
 	this->lightning_ = 0;
 	this->poison_ = 0;
 
+	this->level_ = 1;
+	this->exp_ = std::floor(1.2 * (std::pow(this->level_, 1.4)) * 1.2);
+	this->exp_Tick_ = 0;
 }
 
 void EnemyTest::initializeModel(const sf::Vector2f& position, const int& range)
@@ -107,6 +110,9 @@ EnemyTest::EnemyTest(const sf::Vector2f& position, const int& range, const Resou
 
 	this->loot_Window_ = new LootWindow(resourceFont);
 	this->loot_Window_->addEnemyItems(this->items_);
+
+	this->loot_X_A_.setSettings(50.f, 50.f, 0.f, 0.f, sf::Color::Red, 1.f, sf::Color::White, true);
+	this->loot_T_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "E", sf::Vector2f(0.f, 0.f), true);
 }
 
 EnemyTest::~EnemyTest()
@@ -201,8 +207,11 @@ void EnemyTest::updateHealth()
 			this->is_Dead_ = true;
 		}
 	}
+	else
+	{
+		this->loot_Timer_.restart();
+	}
 	
-
 
 	
 	/*
@@ -218,7 +227,7 @@ void EnemyTest::updateHealth()
 	
 }
 
-void EnemyTest::update(const sf::Vector2i& mousePositionWindow, Camera** camera, const sf::FloatRect playerBounds, const float& dt, int& playerHealth)
+void EnemyTest::update(const sf::Vector2i& mousePositionWindow, Camera** camera, const sf::FloatRect playerBounds, const float& dt, int& playerHealth, int& playerExp, bool& playerIsCombat)
 {
 	if (!this->has_Loot_Timer_Started_)
 	{
@@ -231,6 +240,11 @@ void EnemyTest::update(const sf::Vector2i& mousePositionWindow, Camera** camera,
 			/*
 				IF ATTACK COOLDOWN IS FALSE THEN INFLICT DAMAGE TO PLAYER
 			*/
+			if (!this->has_Loot_Timer_Started_)
+			{
+				playerIsCombat = true;
+			}
+			
 			if (!this->is_attack_Cooldown_)
 			{
 				playerHealth -= 1;
@@ -239,6 +253,8 @@ void EnemyTest::update(const sf::Vector2i& mousePositionWindow, Camera** camera,
 			}
 		}
 	}
+
+	
 	
 	/*
 		AFTER 4 SECONDS ATTACK COMES OFF OF COOLDOWN
@@ -253,15 +269,37 @@ void EnemyTest::update(const sf::Vector2i& mousePositionWindow, Camera** camera,
 
 	this->attack_Range_.setPosition(sf::Vector2f(this->enemy_Model_.getGlobalBounds().left - this->attack_Range_.getSize().x / 2.f + this->enemy_Model_.getSize().x / 2.f, this->enemy_Model_.getGlobalBounds().top));
 
+
 	this->updateHealth();
 
+
 	this->t_A_.setPosition(this->health_Bar_Back_.getGlobalBounds().left, this->enemy_Model_.getGlobalBounds().top - 45.f);
+
+	
 
 	if (this->has_Loot_Timer_Started_)
 	{
 		this->camera_ = *camera;
 
 		this->loot_Window_->update(mousePositionWindow);
+
+		if (playerBounds.intersects(this->enemy_Model_.getGlobalBounds()))
+		{
+			this->loot_X_A_.setIsVisible(true);
+			this->loot_X_A_.setPosition(this->enemy_Model_.getGlobalBounds().left - 10.f, this->enemy_Model_.getGlobalBounds().top - this->loot_X_A_.getSize().x - 50.f);
+			this->loot_T_A_.setPosition(this->loot_X_A_.getLeftPosition(true, 10.f), this->loot_X_A_.getTopPosition(true, 10.f));
+		}
+		else
+		{
+			this->loot_X_A_.setIsVisible(false);
+		}
+		
+		if (this->exp_Tick_ == 0)
+		{
+			playerExp += this->exp_;
+			std::cout << "DEBUG::ENEMYTEST::UPDATE() -> Exp: " << this->exp_ << std::endl;
+			this->exp_Tick_++;
+		}
 	}
 }
 
@@ -280,6 +318,12 @@ void EnemyTest::render(sf::RenderTarget& target)
 
 	if (this->has_Loot_Timer_Started_)
 	{
+		if (this->loot_X_A_.getIsVisible())
+		{
+			this->loot_X_A_.render(target);
+			this->loot_T_A_.render(target);
+		}
+
 		target.setView(target.getDefaultView());
 
 		this->loot_Window_->render(target);
@@ -359,4 +403,9 @@ const bool& EnemyTest::getHasLootTimerStarted() const
 const bool& EnemyTest::getIsDead() const
 {
 	return this->is_Dead_;
+}
+
+const int& EnemyTest::getHealth() const
+{
+	return this->health_;
 }

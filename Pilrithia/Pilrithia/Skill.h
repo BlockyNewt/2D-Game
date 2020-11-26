@@ -31,11 +31,17 @@ public:
 
 	virtual void setIsUnlocked(bool isUnlocked) = 0;
 	virtual void setIsVisible(bool isVisible) = 0;
+	virtual void setIsCooldown(bool isCooldown) = 0;
+
 
 	virtual const bool& getIsUnlocked() const = 0;
 	virtual const int& getDamage(const int& playerStrength, const int& playerIntelligence, const int& playerWisdom)  = 0;
 	virtual const sf::FloatRect getSkillBoundaries() const = 0;
 	virtual const bool& getIsVisible() const = 0;
+	virtual const float& getCooldown() const = 0;
+	virtual const bool& getIsCooldown() const = 0;
+	virtual const int& getManaCost() const = 0;
+
 	
 
 private:

@@ -30,7 +30,6 @@ public:
 	int& setMana() override;
 	int& setStrength() override;
 	int& setDexerity() override;
-	int& setConstitution() override;
 	int& setIntelligence() override;
 	int& setPerception() override;
 	int& setWisdom() override;
@@ -44,7 +43,6 @@ public:
 	const int& getMana() const override;
 	const int& getStrength() const override;
 	const int& getDexerity() const override;
-	const int& getConstitution() const override;
 	const int& getIntelligence() const override;
 	const int& getPerception() const override;
 	const int& getWisdom() const override;
@@ -79,7 +77,6 @@ private:
 	int mana_;
 	int strength_;
 	int dexerity_;
-	int constitution_;
 	int intelligence_;
 	int perception_;
 	int wisdom_;
@@ -88,13 +85,6 @@ private:
 	int fire_;
 	int lightning_;
 	int poison_;
-
-	/*Classes* classes_One_;
-	Classes* classes_One_Advanced_;
-	Classes* classes_Two_;
-	Classes* classes_Two_Advanced_;
-
-	Classes* player_Classes_;*/
 
 };
 

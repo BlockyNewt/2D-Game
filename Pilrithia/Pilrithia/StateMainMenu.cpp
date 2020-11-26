@@ -9,7 +9,7 @@ StateMainMenu::StateMainMenu(std::stack<State*>* states, sf::RenderWindow* windo
 		SET SETTINGS FOR BUTTONS AND TEXT IN CONSTRUCTOR SINCE THERE ARE NOT MANY
 	*/
 
-	this->t_A_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 50, "Title", sf::Vector2f(this->window_->getSize().x /2.f, 10.f), true);
+	this->t_A_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 50, "Dunilidor", sf::Vector2f(this->window_->getSize().x /2.f, 10.f), true);
 
 	/*
 		PERCENT TO PIXEL EXAMPLE with b_B_ & t_B_

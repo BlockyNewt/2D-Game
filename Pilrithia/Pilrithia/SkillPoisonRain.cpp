@@ -7,11 +7,14 @@ SkillPoisonRain::SkillPoisonRain()
 
 	this->is_Unlocked_ = false;
 
-	this->mana_Cost_ = 4;
+	this->mana_Cost_ = 2;
 
 	this->min_Damage_ = 1;
 	this->max_Damage_ = 3;
 	this->damage_ = 0;
+	this->cooldown_ = 2.f;
+
+	this->is_Cooldown_ = false;
 
 	this->skill_Type_ = SKILLTYPE::STRENGTH;
 
@@ -61,6 +64,11 @@ void SkillPoisonRain::setIsVisible(bool isVisible)
 	this->is_Visible_ = isVisible;
 }
 
+void SkillPoisonRain::setIsCooldown(bool isCooldown)
+{
+	this->is_Cooldown_ = isCooldown;
+}
+
 const bool& SkillPoisonRain::getIsUnlocked() const
 {
 	return this->is_Unlocked_;
@@ -92,4 +100,19 @@ const sf::FloatRect SkillPoisonRain::getSkillBoundaries() const
 const bool& SkillPoisonRain::getIsVisible() const
 {
 	return this->is_Visible_;
+}
+
+const float& SkillPoisonRain::getCooldown() const
+{
+	return this->cooldown_;
+}
+
+const bool& SkillPoisonRain::getIsCooldown() const
+{
+	return this->is_Cooldown_;
+}
+
+const int& SkillPoisonRain::getManaCost() const
+{
+	return this->mana_Cost_;
 }

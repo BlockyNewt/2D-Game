@@ -15,7 +15,7 @@ public:
 	virtual ~EnemyTest();
 
 	void updatePollEvent(sf::Event& ev, std::vector<std::vector<Item*>>& playerBag, const int& maxBagSizeX, const int& maxBagSizeY, const sf::FloatRect playerBoundaries) override;
-	void update(const sf::Vector2i& mousePositionWindow, Camera** camera, const sf::FloatRect playerBounds, const float& dt, int& playerHealth) override;
+	void update(const sf::Vector2i& mousePositionWindow, Camera** camera, const sf::FloatRect playerBounds, const float& dt, int& playerHealth, int& playerExp, bool& playerIsCombat) override;
 	void render(sf::RenderTarget& target) override;
 
 	void setVelocityX(float x) override;
@@ -33,6 +33,7 @@ public:
 	const bool& getIsBottomColliding() const override;
 	const bool& getHasLootTimerStarted() const;
 	const bool& getIsDead() const override;
+	const int& getHealth() const override;
 
 
 private:
@@ -105,6 +106,13 @@ private:
 	Item* item_One_;
 	Item* item_Two_;
 	std::vector<Item*> items_;
+
+	Box loot_X_A_;
+	Text loot_T_A_;
+
+	int level_;
+	int exp_;
+	int exp_Tick_;
 
 };
 

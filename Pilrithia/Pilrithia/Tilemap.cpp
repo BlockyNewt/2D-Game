@@ -10,7 +10,7 @@ Tilemap::Tilemap(const unsigned gridSizeX, const unsigned gridSizeY, const unsig
 
 	this->is_Grid_Enabled_ = false;
 
-	this->tile_Type_ = 0;
+	this->tile_Type_ = 1;
 	this->tile_Layer_ = 0;
 	this->tile_Type_Str_ = "";
 

@@ -52,6 +52,7 @@ private:
 
 
 	Box x_A_;
+	Box x_B_;
 
 	Button b_A_;
 	

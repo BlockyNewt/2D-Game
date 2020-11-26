@@ -8,7 +8,8 @@ PlayerQuest::PlayerQuest(const ResourceFont& resourceFont)
 	this->max_Quest_ = 5;
 	this->current_Quest_ = 0;
 
-	this->x_A_.setSettings(800.f, 500.f, 0.f, 0.f, sf::Color(195, 203, 113), 1.f, sf::Color::White, true);
+	this->x_A_.setSettings(800.f, 500.f, 1280.f / 2.f - 800.f / 2.f, 720.f / 2.f - 500.f / 2.f, sf::Color(195, 203, 113), 1.f, sf::Color::White, true);
+	this->x_B_.setSettings(1280.f, 720.f, 0.f, 0.f, sf::Color(0, 0, 0, 200), 1.f, sf::Color::Transparent, true);
 
 	this->b_B_.setSettings(50.f, 50.f, this->x_A_.getRightPosition(false, 50.f), this->x_A_.getTopPosition(), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
 	
@@ -97,6 +98,7 @@ void PlayerQuest::render(sf::RenderTarget& target)
 {
 	if (!this->is_Hiding_Quest_)
 	{
+		this->x_B_.render(target);
 		this->x_A_.render(target);
 
 		this->b_B_.render(target);

@@ -25,7 +25,7 @@ public:
 	PlayerInventory(const ResourceFont& resourceFont);
 	~PlayerInventory();
 
-	void initializeInventory(const std::string& name, const int& level, const std::string& className, const std::map<std::string, int>& stats, const std::map<std::string, int>& resistances);
+	void initializeInventory(const std::string& name, const std::string& raceName, const std::string& className, const int& level, const std::map<std::string, int>& stats, const std::map<std::string, int>& resistances);
 	void realignEquipment();
 	void updateText(std::map<std::string, int>& stats, std::map<std::string, int>& resistances);
 
@@ -48,6 +48,7 @@ private:
 private:
 	Box x_A_;
 	Box x_B_;
+	Box x_C_;
 
 	Button b_B_;
 
@@ -56,6 +57,7 @@ private:
 	Text t_C_;
 	Text t_D_;
 	Text t_E_;
+	Text t_F_;
 	
 	Text stats_T_A_;
 	Text stats_T_B_;

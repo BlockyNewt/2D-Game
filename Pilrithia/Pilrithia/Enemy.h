@@ -30,7 +30,7 @@ public:
 	virtual ~Enemy();
 
 	virtual void updatePollEvent(sf::Event& ev, std::vector<std::vector<Item*>>& playerBag, const int& maxBagSizeX, const int& maxBagSizeY, const sf::FloatRect playerBoundaries) = 0;
-	virtual void update(const sf::Vector2i& mousePositionWindow, Camera** camera, const sf::FloatRect playerBounds, const float& dt, int& playerHealth) = 0;
+	virtual void update(const sf::Vector2i& mousePositionWindow, Camera** camera, const sf::FloatRect playerBounds, const float& dt, int& playerHealth, int& playerExp, bool& playerIsCombat) = 0;
 	virtual void render(sf::RenderTarget& target) = 0;
 
 	virtual void setVelocityX(float x) = 0;
@@ -49,6 +49,7 @@ public:
 	virtual const bool& getIsBottomColliding() const = 0;
 	virtual const bool& getHasLootTimerStarted() const = 0;
 	virtual const bool& getIsDead() const = 0;
+	virtual const int& getHealth() const = 0;
 
 
 private:

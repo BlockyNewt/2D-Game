@@ -28,7 +28,6 @@ public:
 	virtual int& setMana() = 0;
 	virtual int& setStrength() = 0;
 	virtual int& setDexerity() = 0;
-	virtual int& setConstitution() = 0;
 	virtual int& setIntelligence() = 0;
 	virtual int& setPerception() = 0;
 	virtual int& setWisdom() = 0;
@@ -42,7 +41,6 @@ public:
 	virtual const int& getMana() const = 0;
 	virtual const int& getStrength() const = 0;
 	virtual const int& getDexerity() const = 0;
-	virtual const int& getConstitution() const = 0;
 	virtual const int& getIntelligence() const = 0;
 	virtual const int& getPerception() const = 0;
 	virtual const int& getWisdom() const = 0;

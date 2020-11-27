@@ -23,8 +23,6 @@ public:
 
 	void initializeCharacter(Race* race, const std::string& name);
 
-	void setTextFont(const ResourceFont& resourceFont);
-
 	void updateSkillsPollEvent(sf::Event& ev, std::vector<Enemy*>& enemies);
 	void updatePollEvent(sf::Event& ev, const float& dt);
 	//void updateEnemyAutoSelector(Enemy* enemy);
@@ -40,9 +38,10 @@ public:
 	void setVelocityX(float x);
 	void setVelocityY(float y);
 	void setIsJumping(bool isJumping);
-	PlayerQuest& setPlayerQuest();
 	void setStat(const std::string& stat, int value);
+	PlayerQuest& setPlayerQuest();
 	PlayerBag& setPlayerBag();
+	PlayerHud& setPlayerHud();
 	int& setExp();
 	bool& setIsCombat();
 

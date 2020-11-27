@@ -8,7 +8,7 @@ void StateEditor::initializeInstructionsPanel()
 
 	this->instruction_Panel_X_A_.setSettings(400.f, 700.f, 10.f, 10.f, sf::Color(85,158,131), 1.f, sf::Color::Red, true);
 
-	std::string instructionsStr = "1.) Press 'Tab' to hide this window. \n\n2.) Press 'Esc' to open pause window \n\n3.) Left click to add tile \n\n4.) Right click to remove tile \n\n5.) WSAD to move camera \n\n6.) Mouse wheel to scroll in and out \n\n7.) '1' and '2' to change tile type \n\n8.) '4' and '5' to change tile layer";
+	std::string instructionsStr = "1.) Press 'Tab' to hide this window. \n\n2.) Press 'Esc' to open pause window \n\n3.) Left click to add tile \n\n4.) Right click to remove tile \n\n5.) WSAD to move camera \n\n6.) Mouse wheel to scroll in and out \n\n7.) '1' and '2' to change tile type \n\n8.) '4' and '5' to change tile layer \n\n9.) 'Shift' to open texture selector. \n\n10.) To set a texture Left click the spot. \n\n11.) To load texture file click 'Load'";
 
 	this->t_A_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 25, "Editor Instructions", sf::Vector2f(this->instruction_Panel_X_A_.getLeftPosition(true, 100.f), this->instruction_Panel_X_A_.getTopPosition(true, 10.f)), true);
 	this->t_B_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 18, instructionsStr, sf::Vector2f(this->instruction_Panel_X_A_.getLeftPosition(true, 10.f), this->t_A_.getBottomPosition(true, 50.f)), true);

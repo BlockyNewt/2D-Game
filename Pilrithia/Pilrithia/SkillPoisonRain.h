@@ -28,6 +28,9 @@ public:
 	const bool& getIsCooldown() const override;
 	const int& getManaCost() const override;
 
+	//TESTING WILL HAVE TO CHANGE THIS LATER
+	const sf::Texture& getTexture() const;
+
 private:
 
 private:
@@ -51,6 +54,8 @@ private:
 	bool is_Visible_;
 
 	SKILLTYPE skill_Type_;
+
+	sf::Texture icon_Texture_;
 };
 
 #endif // !SKILLPOISONRAIN_H

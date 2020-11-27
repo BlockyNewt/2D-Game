@@ -62,6 +62,9 @@ PlayerTest::~PlayerTest()
 
 void PlayerTest::initializeCharacter(Race* race, const std::string& name)
 {
+	/*
+		THIS IS SET AFTER CHARACTER CREATINO IS COMPLETE
+	*/
 	this->race_ = race;
 	this->player_Model_.setFillColor(this->race_->getModel().getFillColor());
 	this->player_Model_.setOutlineColor(this->race_->getModel().getOutlineColor());
@@ -110,15 +113,6 @@ void PlayerTest::initializeCharacter(Race* race, const std::string& name)
 	this->player_Hud_->intializeHud(this->name_, this->getStat("healthMax"), this->getStat("health"), this->getStat("manaMax"), this->getStat("mana"), this->max_Exp_, this->exp_);
 }
 
-void PlayerTest::setTextFont(const ResourceFont& resourceFont)
-{
-	/*
-	
-		SET RESOURCE FONT FOR ALL OTHER CLASSES THAT NEED IT HERE 
-
-	*/
-}
-
 void PlayerTest::updateSkillsPollEvent(sf::Event& ev, std::vector<Enemy*>& enemies)
 {
 	this->player_Hud_->updateSkillOnePollEvent(ev, this->player_Skill_Tree_->setClassesOne(), enemies, this->stats_, this->getStatForChange("mana"), this->is_Combat_);
@@ -129,7 +123,6 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 	/*
 		PLAYER HUD POLL UPDATES
 	*/
-	
 	this->player_Hud_->updatePollEvent(ev, this->race_->setHealth(), this->race_->getHealthMax());
 	this->player_Inventory_->updatePollEvent(ev, this->stats_, this->resistances_, this->player_Bag_->setItem(), this->player_Bag_->getBagSizeX(), this->player_Bag_->getBagSizeY());
 	this->player_Bag_->updatePollEvent(ev, this->player_Inventory_->setEquipment(), this->stats_, this->resistances_);
@@ -137,6 +130,9 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 	this->player_Skill_Tree_->updatePollEvent(ev, this->stats_, this->skill_Points_);
 
 
+	/*
+		INVENTORY BUTTON
+	*/
 	if (this->player_Hud_->updateInventoryPollEvent(ev))
 	{
 		if (this->player_Inventory_->getIsHidingInventory())
@@ -157,6 +153,9 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 	}
 
 
+	/*
+		BAG BUTTON
+	*/
 	if (this->player_Hud_->updateBagPollEvent(ev))
 	{
 		if (this->player_Bag_->getIsHidingBag())
@@ -168,6 +167,9 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 	}
 
 
+	/*
+		QUEST BUTTON
+	*/
 	if (this->player_Hud_->updateQuestPollEvent(ev))
 	{
 		if (this->player_Quest_->getIsHidingQuest())
@@ -176,6 +178,10 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 		}
 	}
 
+	
+	/*
+		SKILL TREE BUTTON
+	*/
 	if (this->player_Hud_->updateSkillTreePollEvent(ev))
 	{
 		if (this->player_Skill_Tree_->getIsHidingSkillTree())
@@ -309,6 +315,10 @@ void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& c
 		*this->camera_ = camera;
 	}
 	
+
+	/*
+		UPDATE HUD BUTTONS
+	*/
 	this->player_Hud_->update(mousePositionWindow, camera, this->player_Model_.getPosition(), this->player_Model_.getGlobalBounds(), enemies, this->is_Combat_);
 	this->player_Inventory_->update(mousePositionWindow);
 	this->player_Bag_->update(mousePositionWindow);
@@ -316,15 +326,24 @@ void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& c
 	this->player_Skill_Tree_->update(mousePositionWindow, this->skill_Points_);
 
 	
+	/*
+		UPDATE SKILL ONE RANGE POSITION TO REPOSITION TO PLAYER MODEL 
+	*/
 	if (&this->player_Hud_->setSkillOne() != NULL)
 	{
 		this->player_Hud_->setSkillOne().update(this->player_Model_.getPosition(), this->player_Model_.getGlobalBounds());
 	}
 
-	//MUST USE THIS TO BE ABLE TO PASS MAP VALUE INTO FUNCTION
 
+	/*
+		SET WIDTH OF HEALTH, MANA, AND EXP BARS OF THE HUD TO CURRENT VALUES
+	*/
 	this->player_Hud_->setWidthOfBars(this->getStat("healthMax"), this->getStat("health"), this->getStat("manaMax"), this->getStat("mana"), this->max_Exp_, this->exp_);
 
+
+	/*
+		HEALTH AND MANA REGEN
+	*/
 	if (this->health_Regen_Timer.getElapsedTime().asSeconds() >= 1.f &&
 		!this->is_Combat_)
 	{
@@ -341,6 +360,10 @@ void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& c
 		this->mana_Regen_Timer.restart();
 	}
 
+
+	/*
+		IF HEALTH OR MANA IS BELOW OR ABOVE MAX VALUE RESET IT TO 0 OR MAX VALUE
+	*/
 	if (this->getStat("health") <= 0)
 	{
 		this->getStatForChange("health") = 0;
@@ -359,10 +382,10 @@ void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& c
 		this->getStatForChange("mana") = this->getStat("manaMax");
 	}
 
-	//std::cout << "my health: " << this->getStat("health") << std::endl;
 
-
-	//CHECK IF THERE IS A LEVEL UP
+	/*
+		CHECK IF A LEVEL UP HAS HAPPENED
+	*/
 	this->levelUp();
 }
 
@@ -414,6 +437,11 @@ PlayerBag& PlayerTest::setPlayerBag()
 	return *this->player_Bag_;
 }
 
+PlayerHud& PlayerTest::setPlayerHud()
+{
+	return *this->player_Hud_;
+}
+
 int& PlayerTest::setExp()
 {
 	return this->exp_;
@@ -426,6 +454,11 @@ bool& PlayerTest::setIsCombat()
 
 void PlayerTest::levelUp()
 {
+	/*
+		IF EXP IS HIGHER THAN MAX EXP THEN THE PLAYER HAS LEVELED UP. 
+
+		SET STAT INCREASE AND STUFF HERE
+	*/
 	if (this->exp_ >= this->max_Exp_)
 	{
 		int excessExp = this->exp_ - this->max_Exp_;

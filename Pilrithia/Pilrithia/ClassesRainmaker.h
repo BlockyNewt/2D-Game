@@ -22,6 +22,7 @@ public:
 	const std::string& getSummary() const override;
 	const Skill* getSkillOne() const override;
 	const std::vector<Skill*>& getAvailableSkills() const override;
+	//TESTING
 	const sf::Texture& getClassIcon() const;
 
 	const int& getHealthMax() const override;

@@ -50,9 +50,7 @@ private:
 	int current_Kill_Count_;
 
 	bool is_Task_Completed_;
-
 	bool is_Quest_Turned_In_;
-
 	bool is_Quest_Taken_;
 
 	QUESTNAME quest_Name_;

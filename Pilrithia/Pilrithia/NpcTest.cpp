@@ -39,7 +39,9 @@ NpcTest::~NpcTest()
 
 void NpcTest::setSettings(const sf::Vector2u& windowSize, const ResourceFont& resourceFont)
 {
-	//this->quest_Box_.setSettings(windowSize.x / 2.f, windowSize.y / 2.f, sf::Color::Red, 1.f, sf::Color::Green, false);
+	/*
+		MUST CALL THIS SO WE CAN PASS RESOURCE FONT TO SET TEXT FONT OR ELSE WE WILL NOT BE ABLE TO SEE TEXT
+	*/
 	this->quest_Box_.setSettings(windowSize.x / 2.f, windowSize.y / 2.f, sf::Color(174, 90, 65), 1.f, sf::Color::Green, this->quest_->getQuestTitle() + "\n\n" + this->quest_->getQuestSummary(), resourceFont);
 	this->quest_Box_.setString(this->quest_->getQuestTitle() + "\n\n" + this->quest_->getQuestSummary());
 }

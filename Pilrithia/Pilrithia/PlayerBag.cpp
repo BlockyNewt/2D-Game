@@ -52,6 +52,9 @@ void PlayerBag::initializeBag()
 		}
 	}*/
 
+	/*
+		USE THIS WAY FOR NOW SO WE CAN TEST ITEMS
+	*/
 	this->items_[0][0] = new ItemTest(this->x_A_.getLeftPosition(true, 14.f) + 0 * 60.f, this->x_A_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::HELM, "Steel helmet", "Made from scrap steel", this->resource_Font_);
 	this->items_[1][0] = new ItemTest(this->x_A_.getLeftPosition(true, 14.f) + 1 * 60.f, this->x_A_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::SHOULDER, "Steel helmet", "Made from scrap steel", this->resource_Font_);
 	this->items_[2][0] = new ItemTest(this->x_A_.getLeftPosition(true, 14.f) + 2 * 60.f, this->x_A_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::CHEST, "Steel helmet", "Made from scrap steel", this->resource_Font_);
@@ -65,6 +68,9 @@ void PlayerBag::initializeBag()
 
 void PlayerBag::realignItems()
 {
+	/*
+		WHEN OPENING UP BAG ALIGN ITEMS
+	*/
 	for (int x = 0; x < this->max_Bag_Size_X_; ++x)
 	{
 		for (int y = 0; y < this->max_Bag_Size_Y_; ++y)
@@ -168,13 +174,6 @@ void PlayerBag::updatePollEvent(sf::Event& ev, std::vector<Item*>& equipment, st
 			this->l_A_.setIsVisible(false);
 		}
 
-		/*
-			DROP DOWN LIST UNEQUIP POLL EVENT
-		*/
-		if (this->l_A_.updateUnequipPollEvent(ev))
-		{
-			//UNEQUIP ITEM
-		}
 
 		/*
 			DROP DOWN LIST DELETE POLL EVENT
@@ -209,12 +208,6 @@ void PlayerBag::update(const sf::Vector2i& mousePositionWindow)
 				{
 					if (y->update(mousePositionWindow))
 					{
-						//this->d_A_.update(mousePositionWindow);
-						//this->d_A_.setHoverBoundaries(HOVERPOSITION::RIGHT, this->x_A_.getGlobalBounds());
-
-						////SEND ITEM NAME, DESCIPRITON, AND EFFECTS IF ANY HERE
-						//this->d_A_.setString(DESCRIPTIONTYPE::ITEM, "Item", "Test");
-
 						y->setItemHoverDescriptionSettings(HOVERPOSITION::RIGHT, y->getItemGlobalBoundaries(), this->x_A_.getGlobalBounds(), DESCRIPTIONTYPE::ITEM, y->getName(), y->getDescription());
 					}
 				}

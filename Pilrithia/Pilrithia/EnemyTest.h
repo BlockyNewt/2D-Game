@@ -15,7 +15,7 @@ public:
 	virtual ~EnemyTest();
 
 	void updatePollEvent(sf::Event& ev, std::vector<std::vector<Item*>>& playerBag, const int& maxBagSizeX, const int& maxBagSizeY, const sf::FloatRect playerBoundaries) override;
-	void update(const sf::Vector2i& mousePositionWindow, Camera** camera, const sf::FloatRect playerBounds, const float& dt, int& playerHealth, int& playerExp, bool& playerIsCombat) override;
+	void update(const sf::Vector2i& mousePositionWindow, Camera** camera, const sf::FloatRect playerBounds, const float& dt, int& playerHealth, int& playerExp, bool& playerIsCombat, sf::Clock& playerLeaveCombatTimer) override;
 	void render(sf::RenderTarget& target) override;
 
 	void setVelocityX(float x) override;
@@ -47,15 +47,12 @@ private:
 
 private:
 	sf::RectangleShape enemy_Model_;
-
 	sf::RectangleShape next_Position_;
 
 	sf::FloatRect next_Position_Bounds_;
 
 	int range_;
 	sf::RectangleShape attack_Range_;
-
-	std::string name_;
 
 	Text t_A_;
 
@@ -64,14 +61,12 @@ private:
 	float gravity_;
 
 	DIRECTION direction_;
-
-	sf::RectangleShape health_Bar_Back_;
-	sf::RectangleShape health_Bar_Front_;
-
 	bool is_Top_Colliding_;
 	bool is_Bottom_Colliding_;
 	bool is_Left_Colliding_;
 	bool is_Right_Colliding_;
+
+	std::string name_;
 
 	int health_Max_;
 	int health_;
@@ -88,6 +83,13 @@ private:
 	int fire_;
 	int lightning_;
 	int poison_;
+
+	int level_;
+	int exp_;
+	int exp_Tick_;
+
+	sf::RectangleShape health_Bar_Back_;
+	sf::RectangleShape health_Bar_Front_;
 
 	sf::Clock attack_Cooldown_Clock_;
 	bool is_attack_Cooldown_;
@@ -110,9 +112,7 @@ private:
 	Box loot_X_A_;
 	Text loot_T_A_;
 
-	int level_;
-	int exp_;
-	int exp_Tick_;
+	
 
 };
 

@@ -41,12 +41,11 @@ public:
 	void update(const sf::Vector2i& mousePositionWindow, const Camera& camera, const sf::Vector2f& playerPosition, const sf::FloatRect playerBoundaries, std::vector<Enemy*>& enemies, bool& playerIsCombat);
 	void render(sf::RenderTarget& target);
 
-	void setWidthOfBars(const int& healthMax, const int& health, const int& manaMax, const int& mana, const int& expMax, const int& exp);
-
 	const float percentToPixel(const float size);
 
-
+	void setWidthOfBars(const int& healthMax, const int& health, const int& manaMax, const int& mana, const int& expMax, const int& exp);
 	Skill& setSkillOne();
+	sf::Clock& setLeaveCombatTimer();
 
 private:
 	void skillCooldownBoxHeight();

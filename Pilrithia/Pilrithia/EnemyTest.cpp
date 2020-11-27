@@ -192,7 +192,9 @@ void EnemyTest::updateHealth()
 		this->loot_Timer_.restart();
 	}
 
-
+	/*
+		IF ALL THE LOOT HAS BEEN TAKEN MAKE THE ENEMY DEAD AND LET ANOTHER RESPAWN
+	*/
 	if (this->loot_Window_->getSize() == 0)
 	{
 		this->is_Dead_ = true;
@@ -227,7 +229,7 @@ void EnemyTest::updateHealth()
 	
 }
 
-void EnemyTest::update(const sf::Vector2i& mousePositionWindow, Camera** camera, const sf::FloatRect playerBounds, const float& dt, int& playerHealth, int& playerExp, bool& playerIsCombat)
+void EnemyTest::update(const sf::Vector2i& mousePositionWindow, Camera** camera, const sf::FloatRect playerBounds, const float& dt, int& playerHealth, int& playerExp, bool& playerIsCombat, sf::Clock& playerLeaveCombatTimer)
 {
 	if (!this->has_Loot_Timer_Started_)
 	{
@@ -238,13 +240,19 @@ void EnemyTest::update(const sf::Vector2i& mousePositionWindow, Camera** camera,
 		else
 		{
 			/*
-				IF ATTACK COOLDOWN IS FALSE THEN INFLICT DAMAGE TO PLAYER
+				IF THE LOOT TIMER HAS YET TO BE STARTED THEN SET THE PLAYER IN COMBAT AND RESTART
+				THE LEAVE COMBAT TIMER
 			*/
 			if (!this->has_Loot_Timer_Started_)
 			{
 				playerIsCombat = true;
+
+				playerLeaveCombatTimer.restart();
 			}
 			
+			/*
+				IF ATTACK COOLDOWN IS FALSE THEN INFLICT DAMAGE TO PLAYER
+			*/
 			if (!this->is_attack_Cooldown_)
 			{
 				playerHealth -= 1;
@@ -267,22 +275,33 @@ void EnemyTest::update(const sf::Vector2i& mousePositionWindow, Camera** camera,
 	}
 
 
+	/*
+		SET ATTACK RANGE FOR ENEMY
+	*/
 	this->attack_Range_.setPosition(sf::Vector2f(this->enemy_Model_.getGlobalBounds().left - this->attack_Range_.getSize().x / 2.f + this->enemy_Model_.getSize().x / 2.f, this->enemy_Model_.getGlobalBounds().top));
 
 
 	this->updateHealth();
 
-
+	/*
+		SET POSITION OF ENEMIES NAME
+	*/
 	this->t_A_.setPosition(this->health_Bar_Back_.getGlobalBounds().left, this->enemy_Model_.getGlobalBounds().top - 45.f);
 
 	
 
+	/*
+		IF LOOT TIMER HAS BEGUN (MEANING ENEMY HAS 0 LIFE)
+	*/
 	if (this->has_Loot_Timer_Started_)
 	{
 		this->camera_ = *camera;
 
 		this->loot_Window_->update(mousePositionWindow);
 
+		/*
+			IF PLAYER IS WITHIN BOUNDS OF ENEMY THEN SHOW THE LOOT BUTTON 
+		*/
 		if (playerBounds.intersects(this->enemy_Model_.getGlobalBounds()))
 		{
 			this->loot_X_A_.setIsVisible(true);
@@ -294,6 +313,9 @@ void EnemyTest::update(const sf::Vector2i& mousePositionWindow, Camera** camera,
 			this->loot_X_A_.setIsVisible(false);
 		}
 		
+		/*
+			INCREASE PLAYER EXP ONE TIME
+		*/
 		if (this->exp_Tick_ == 0)
 		{
 			playerExp += this->exp_;

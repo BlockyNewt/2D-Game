@@ -574,6 +574,42 @@ void Tilemap::resizeTileSize(float tileSizeXY)
 		CHANGE THE SIZE OF TILES
 	*/
 	this->tile_Size_X_Y_ = tileSizeXY;
+
+
+	/*
+		DELETE ALL TILES 
+	*/
+	for (int x = 0; x < this->grid_Max_Size_X_; ++x)
+	{
+		for (int y = 0; y < this->grid_Max_Size_Y_; ++y)
+		{
+			delete this->outline_[x][y];
+		}
+	}
+
+	/*
+		RESIZE
+	*/
+	this->outline_.resize(this->grid_Max_Size_X_, std::vector<Tile*>());
+	for (int x = 0; x < this->grid_Max_Size_X_; ++x)
+	{
+		for (int y = 0; y < this->grid_Max_Size_Y_; ++y)
+		{
+			this->outline_[x].resize(this->grid_Max_Size_Y_, NULL);
+		}
+	}
+
+
+	/*
+		FILE OUTLINE GRID WITH BLANK TILES
+	*/
+	for (int x = 0; x < grid_Max_Size_X_; ++x)
+	{
+		for (int y = 0; y < grid_Max_Size_Y_; ++y)
+		{
+			this->outline_[x][y] = new Tile(x * this->tile_Size_X_Y_, y * this->tile_Size_X_Y_, this->tile_Size_X_Y_, 0);
+		}
+	}
 }
 
 void Tilemap::PlayerCollision(PlayerTest& playerTest)

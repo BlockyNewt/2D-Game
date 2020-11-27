@@ -145,13 +145,6 @@ void Button::render(sf::RenderTarget& target)
 	}
 }
 
-const sf::Vector2f& Button::setPositionOfText(sf::Text& text)
-{
-	text.setPosition(sf::Vector2f(this->getLeftPosition() + 10.f, this->getTopPosition() + 10.f));
-
-	return text.getPosition();
-}
-
 void Button::setIsVisible(bool isVisible)
 {
 	this->is_Visible_ = isVisible;
@@ -160,6 +153,17 @@ void Button::setIsVisible(bool isVisible)
 void Button::setPosition(const sf::Vector2f& position)
 {
 	this->button_.setPosition(position);
+}
+
+void Button::setTexture(const sf::Texture* texture)
+{
+	this->button_.setTexture(texture);
+}
+
+void Button::setFillColor(const sf::Color& color)
+{
+	this->button_.setFillColor(color);
+	this->fill_Color_ = color;
 }
 
 const sf::Vector2f& Button::getPosition() const

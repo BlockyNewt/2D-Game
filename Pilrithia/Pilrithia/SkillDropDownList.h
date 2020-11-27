@@ -27,7 +27,6 @@ public:
 	void update(const sf::Vector2i& mousePositionWindow, const sf::FloatRect itemBoundaries);
 	void render(sf::RenderTarget& target);
 
-
 	void setIsVisible(bool isVisible);
 
 	const bool& getIsVisible() const;

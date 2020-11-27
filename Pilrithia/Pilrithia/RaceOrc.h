@@ -63,6 +63,10 @@ public:
 	const int& getLightning() const override;
 	const int& getPoison() const override;
 	
+
+	//TESTING WILL HAVE TO CHANGE THIS LATER
+	const sf::Texture& getTexture() const;
+
 private:
 
 private:
@@ -85,6 +89,8 @@ private:
 	int fire_;
 	int lightning_;
 	int poison_;
+
+	sf::Texture icon_Texture_;
 
 };
 

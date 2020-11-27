@@ -10,6 +10,9 @@ DialogBox::~DialogBox()
 
 void DialogBox::setSettings(float sizeX, float sizeY, float posX, float posY, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, const std::string& dialogText, const ResourceFont& resourceFont, bool isVisible)
 {
+	/*
+		SET SETTINGS FOR DIALOG BOX HERE
+	*/
 	this->dialog_Background_.setSettings(300.f, 200.f, posX, posY, fillColor, outlineThickness, outlineColor, true);
 
 	this->dialog_Text_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, dialogText, sf::Vector2f(this->dialog_Background_.getLeftPosition(), this->dialog_Background_.getTopPosition(true, 10.f)), true);

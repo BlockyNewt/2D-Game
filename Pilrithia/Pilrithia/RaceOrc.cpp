@@ -19,6 +19,11 @@ RaceOrc::RaceOrc()
 	this->fire_ = 0;
 	this->lightning_ = 0;
 	this->poison_ = 0;
+
+	if (!this->icon_Texture_.loadFromFile("Texture/Orc_Icon_.png"))
+	{
+		std::cout << "DEBUG::RACEORC::RACEORC() -> Could not load icon for race." << std::endl;
+	}
 }
 
 RaceOrc::~RaceOrc()
@@ -177,6 +182,11 @@ const int& RaceOrc::getLightning() const
 const int& RaceOrc::getPoison() const
 {
 	return this->poison_;
+}
+
+const sf::Texture& RaceOrc::getTexture() const
+{
+	return this->icon_Texture_;
 }
 
 //Classes& RaceOrc::getClassesOne() const

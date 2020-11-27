@@ -26,13 +26,16 @@ LootWindow::~LootWindow()
 		}
 		else
 		{
-			std::cout << "it was null" << std::endl;
+			std::cout << "DEBUG::LOOTWINDOW::~LOOTWINDOW() -> It was null." << std::endl;
 		}
 	}
 }
 
 void LootWindow::addEnemyItems(std::vector<Item*>& enemyItems)
 {
+	/*
+		ADD THE ITEMS THE ENEMY HAS INTO THE LOOT WINDOW (CALL THIS IN ENEMY CONSTRUCTOR
+	*/
 	for (int i = 0; i < enemyItems.size(); ++i)
 	{
 		this->loot_.push_back(enemyItems[i]);
@@ -54,6 +57,9 @@ void LootWindow::updatePollEvent(sf::Event& ev, std::vector<std::vector<Item*>>&
 			this->is_Visible_ = false;
 		}
 
+		/*
+			ITEM DROP DOWN LIST POLL UPDATES
+		*/
 		for (int x = 0; x < this->loot_.size(); ++x)
 		{
 			if (this->loot_[x] != NULL)
@@ -64,11 +70,13 @@ void LootWindow::updatePollEvent(sf::Event& ev, std::vector<std::vector<Item*>>&
 					this->l_A_.setIsVisible(true);
 
 					this->selected_Item_X_ = x;
-					std::cout << "active " << std::endl;
 				}
 			}
 		}
 
+		/*
+			ITEM DROP DOWN LIST TAKE POLL UPDATE
+		*/
 		if (this->l_A_.updateTakePollEvent(ev))
 		{
 			bool isBreaking = false;
@@ -109,6 +117,9 @@ void LootWindow::update(const sf::Vector2i& mousePositionWindow)
 	{
 		this->b_B_.updateBoundaries(mousePositionWindow);
 
+		/*
+			CHANGE HOVER DESCRIPTION BASED ON THE ITEM YOU ARE HOVERING OVER
+		*/
 		for (auto& b : this->loot_)
 		{
 			if (b != NULL)

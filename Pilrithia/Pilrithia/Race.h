@@ -63,9 +63,8 @@ public:
 	
 
 
-	/*virtual Classes& getClassesOne() const = 0;
-	virtual Classes& getClassesTwo() const = 0;
-	virtual Classes& getPlayerClass() const = 0;*/
+	//TESTING WILL HAVE TO CHANGE THIS LATER
+	virtual const sf::Texture& getTexture() const = 0;
 
 private:
 

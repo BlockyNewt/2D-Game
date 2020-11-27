@@ -100,8 +100,14 @@ PlayerSkillTree::~PlayerSkillTree()
 
 void PlayerSkillTree::updateClassOneSelectPollEvent(sf::Event& ev, std::map<std::string, int>& stats, int& playerSkillPoints)
 {
+	/*
+		IF YOU ARE SELECTING A CLASS FOR THE FRIST TIME
+	*/
 	if (this->is_Selecting_Class_One_)
 	{
+		/*
+			IF CLASS ONE IS SELECTED THEN CHANGE STRINGS OF TEXT
+		*/
 		if (this->class_B_A_.updatePollEvent(ev))
 		{
 			this->class_T_B_.setString(this->classes_Rain_->getName());
@@ -110,10 +116,6 @@ void PlayerSkillTree::updateClassOneSelectPollEvent(sf::Event& ev, std::map<std:
 			this->class_T_C_.wrapText(this->class_X_A_.getGlobalBounds());
 
 			this->classes_Rain_->setIsSelected(true);
-
-			this->player_Class_One_ = this->classes_Rain_;
-
-			std::cout << this->player_Class_One_->getName() << std::endl;
 		}
 
 		if (this->class_B_A_.updatePollEvent(ev))
@@ -122,14 +124,31 @@ void PlayerSkillTree::updateClassOneSelectPollEvent(sf::Event& ev, std::map<std:
 			this->class_T_C_.setString("");
 		}
 
+		/*
+			CLASS 'SELECT' BUTTON
+		*/
 		if (this->b_C_.updatePollEvent(ev))
 		{
-			std::cout << this->player_Class_One_->getName() << std::endl;
+			if (this->player_Class_One_ == NULL)
+			{
+				/*
+					IF SELECTED CLASS IS CLASS ONE, THEN MAKE PLAYER CLASS = CLASS ONE
+				*/
+				if (this->classes_Rain_->getIsSelected())
+				{
+					this->player_Class_One_ = this->classes_Rain_;
+				}
+			}
+
+			/*
+				SET SKILL BUTTONS VALUES IN SKILL POINT ALLOCATION DEPENING ON THE CLASS YOU HAVE SELECTED
+			*/
 			if (this->player_Class_One_ != NULL)
 			{
 				if (this->player_Class_One_->getName() == this->classes_Rain_->getName())
 				{
 					this->speccing_B_B_.setHoverDescription(this->classes_Rain_->getSkillOne()->getName(), this->classes_Rain_->getSkillOne()->getSummary());
+					std::cout << "hello" << std::endl;
 				}
 
 
@@ -144,6 +163,9 @@ void PlayerSkillTree::updatePollEvent(sf::Event& ev, std::map<std::string, int>&
 {
 	if (!this->is_Hiding_Skill_Tree_)
 	{
+		/*
+			CLOSE BUTTON
+		*/
 		if (this->b_A_.updatePollEvent(ev))
 		{
 			this->is_Hiding_Skill_Tree_ = true;
@@ -151,6 +173,12 @@ void PlayerSkillTree::updatePollEvent(sf::Event& ev, std::map<std::string, int>&
 
 		this->updateClassOneSelectPollEvent(ev, stats, playerSkillPoints);
 
+
+		/*
+			IF WE HAVE SELECTED A CLASS THEN WE CAN START ALLOCATING SKILL POINTS INTO SKILLS.
+
+			UPDATE SKILL ALLOCATION BUTTONS POLL EVENTS
+		*/
 		if (this->is_Speccing_Class_One_Points_)
 		{
 			//PROGRESS BAR

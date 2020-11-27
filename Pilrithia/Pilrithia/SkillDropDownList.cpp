@@ -12,15 +12,21 @@ SkillDropDownList::~SkillDropDownList()
 
 void SkillDropDownList::setSettings(const sf::FloatRect itemBoundaries, Classes* playerClasses, const ResourceFont& resourceFont)
 {
+	/*
+		IF BUTTONS IS EMPTY
+	*/
 	if (this->buttons_.empty())
 	{
-		std::cout << "size: " << playerClasses->getAvailableSkills().size() << std::endl;
+		//std::cout << "DEBUG::SKILLDROPDOWNLIST::SETSETTINGS() -> Size: " << playerClasses->getAvailableSkills().size() << std::endl;
+
 
 		for (int x = 0; x < playerClasses->getAvailableSkills().size(); ++x)
 		{
+			/*
+				ONLY ADD TEXT AND BUTTONS FOR SKILLS THAT HAVE BEEN UNLOCKED
+			*/
 			if (playerClasses->getAvailableSkills()[x]->getIsUnlocked())
 			{
-				//std::cout << "x: " << x << std::endl;
 				Button* button = new Button();
 				button->setSettings(200.f, 40.f, itemBoundaries.left - 40.f, itemBoundaries.top - 40.f, sf::Color(195, 203, 113), 1.f, sf::Color::White, true);
 
@@ -32,11 +38,13 @@ void SkillDropDownList::setSettings(const sf::FloatRect itemBoundaries, Classes*
 			}
 		}
 
-		std::cout << "size: " << this->buttons_.size() << std::endl;
-
+		//std::cout << "DEBUG::SKILLDROPDOWNLIST::SETSETTINGS() -> Size: " << this->buttons_.size() << std::endl;
 	}
 	else
 	{
+		/*
+			CLEAR AND DELETE POINTERS
+		*/
 		for (int i = 0; i < this->buttons_.size(); ++i)
 		{
 			delete this->buttons_[i];
@@ -49,8 +57,10 @@ void SkillDropDownList::setSettings(const sf::FloatRect itemBoundaries, Classes*
 		this->buttons_.clear();
 		this->texts_.clear();
 
-		//std::cout << "size: " << this->buttons_.size() << std::endl;
 
+		/*
+			THEN ONLY ADD TEXT AND BUTTONS FOR SKILLS WHICH ARE UNLOCKED
+		*/
 		for (int x = 0; x < playerClasses->getAvailableSkills().size(); ++x)
 		{
 			if (playerClasses->getAvailableSkills()[x]->getIsUnlocked())
@@ -70,6 +80,10 @@ void SkillDropDownList::setSettings(const sf::FloatRect itemBoundaries, Classes*
 
 void SkillDropDownList::updatePollEvent(sf::Event& ev, Classes* playerClasses, Skill** hudSkillSlot)
 {
+	/*
+		SINCE BUTTONS AND SKILLS VECTOR POSITION ARE THE SAME THEN YOU CAN JUST SET THE HUD SKILL BASED 
+		OFF OF POSITION OF THE BUTTON CLICKED
+	*/
 	if (!playerClasses->getAvailableSkills().empty())
 	{
 		for (int i = 0; i < this->buttons_.size(); ++i)

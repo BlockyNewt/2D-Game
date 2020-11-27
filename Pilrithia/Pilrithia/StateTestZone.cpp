@@ -207,7 +207,7 @@ void StateTestZone::updateEnemy()
 	{
 		this->tilemap_->EnemyCollision(*this->enemies_[i]);
 
-		this->enemies_[i]->update(this->mouse_Position_Window_, &this->camera_, this->player_Test_->getPlayerGlobalBounds(), this->dt_, this->player_Test_->getStatForChange("health"), this->player_Test_->setExp(), this->player_Test_->setIsCombat());
+		this->enemies_[i]->update(this->mouse_Position_Window_, &this->camera_, this->player_Test_->getPlayerGlobalBounds(), this->dt_, this->player_Test_->getStatForChange("health"), this->player_Test_->setExp(), this->player_Test_->setIsCombat(), this->player_Test_->setPlayerHud().setLeaveCombatTimer());
 
 		//this->player_Test_->updateEnemyAutoSelector(this->enemies_[i]);
 

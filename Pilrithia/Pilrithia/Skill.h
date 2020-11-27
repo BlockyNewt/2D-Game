@@ -42,7 +42,8 @@ public:
 	virtual const bool& getIsCooldown() const = 0;
 	virtual const int& getManaCost() const = 0;
 
-	
+	//TESTING WILL HAVE TO CHANGE THIS LATER
+	virtual const sf::Texture& getTexture() const = 0;
 
 private:
 

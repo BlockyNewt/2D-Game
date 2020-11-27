@@ -88,6 +88,10 @@ void ItemTest::setItemHoverDescriptionSettings(HOVERPOSITION hoverPosition, cons
 
 void ItemTest::increaseStatsOnEquip(std::map<std::string, int>& stats, std::map<std::string, int>& resistances)
 {
+	/*
+		CALL THIS WHEN EQUIPPING AN ITEM
+		WILL INCREASE STATS ACCORDING ON WHAT THE ITEM HAS
+	*/
 	if (!stats.empty())
 	{
 		stats.find("healthMax")->second += this->health_Max_;
@@ -110,6 +114,10 @@ void ItemTest::increaseStatsOnEquip(std::map<std::string, int>& stats, std::map<
 
 void ItemTest::descreaseStatsOnUnequip(std::map<std::string, int>& stats, std::map<std::string, int>& resistances)
 {
+	/*
+		CALL THIS WHEN UNEQUIPPING AN ITEM
+		WILL DECREASE STATS ACCORDING ON WHAT THE ITEM HAS
+	*/
 	if (!stats.empty())
 	{
 		stats.find("healthMax")->second -= this->health_Max_;

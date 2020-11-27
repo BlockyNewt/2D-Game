@@ -2,8 +2,8 @@
 
 ClassesRainmaker::ClassesRainmaker()
 {
-	this->name_ = "Rainmaker";
-	this->summary_ = "A conjurer of the weather that cast hash conditions on their foes.";
+	this->name_ = "Elementalist";
+	this->summary_ = "A master of all the elements. Cast deadly spells and wreak havoc upon your enemy.";
 
 	this->class_Type_ = CLASSTYPE::MENTAL;
 
@@ -13,6 +13,7 @@ ClassesRainmaker::ClassesRainmaker()
 
 	this->is_Selected_ = false;
 
+	//TESTING
 	if (!this->class_Icon_.loadFromFile("Texture/Elementalist_Icon.png"))
 	{
 		std::cout << "Coult not load rainmaker icon" << std::endl;

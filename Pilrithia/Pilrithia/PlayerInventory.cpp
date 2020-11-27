@@ -179,6 +179,9 @@ void PlayerInventory::initializeInventory(const std::string& name, const std::st
 
 void PlayerInventory::realignEquipment()
 {
+	/*
+		WHEN OPENING INVENTORY ALIGN ITEMS
+	*/
 	for (int x = 0; x < 6; ++x)
 	{
 		if (this->equipment_[x] != NULL)
@@ -213,6 +216,9 @@ void PlayerInventory::realignEquipment()
 
 void PlayerInventory::updateText(std::map<std::string, int>& stats, std::map<std::string, int>& resistances)
 {
+	/*
+		WHEN OPENING INVENTORY RESET STATS TO PLAYER CURRENT STATS
+	*/
 	if (!stats.empty())
 	{
 		this->stats_T_B_.setString("Health: " + std::to_string(stats.find("health")->second) + " / " + std::to_string(stats.find("healthMax")->second));
@@ -244,6 +250,9 @@ void PlayerInventory::updatePollEvent(sf::Event& ev, std::map<std::string, int>&
 		}
 
 
+		/*
+			UPDATE ITEM DROP DOWN LIST
+		*/
 		for (int x = 0; x < 6; ++x)
 		{
 			if (this->equipment_[x] != NULL)
@@ -270,6 +279,7 @@ void PlayerInventory::updatePollEvent(sf::Event& ev, std::map<std::string, int>&
 		{
 
 		}
+
 
 		/*
 			UNEQUIP BUTTON POLL EVENT

@@ -2,8 +2,8 @@
 
 SkillPoisonRain::SkillPoisonRain()
 {
-	this->name_ = "Poison Rain";
-	this->summary_ = "Make infectious poison rain from dark clouds.";
+	this->name_ = "Fireball";
+	this->summary_ = "Shoot a fireball at your enemy";
 
 	this->is_Unlocked_ = false;
 
@@ -25,6 +25,13 @@ SkillPoisonRain::SkillPoisonRain()
 	this->range_Box_.setOutlineColor(sf::Color::Magenta);
 
 	this->is_Visible_ = false;
+
+	//TESTING
+	if (!this->icon_Texture_.loadFromFile("Texture/Fireball_.png"))
+	{
+		std::cout << "DEBUG::SKILLPOISON::SKILLPOISON() -> Could not load icon for skill." << std::endl;
+	}
+
 }
 
 SkillPoisonRain::~SkillPoisonRain()
@@ -115,4 +122,9 @@ const bool& SkillPoisonRain::getIsCooldown() const
 const int& SkillPoisonRain::getManaCost() const
 {
 	return this->mana_Cost_;
+}
+
+const sf::Texture& SkillPoisonRain::getTexture() const
+{
+	return this->icon_Texture_;
 }

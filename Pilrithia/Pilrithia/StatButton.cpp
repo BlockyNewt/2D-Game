@@ -15,6 +15,9 @@ StatButton::~StatButton()
 }
 void StatButton::setSettings(float radius, float x, float y, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, STATNAME statName, int statIncrease, const ResourceFont& resourceFont)
 {
+	/*
+		SET SETTINGS
+	*/
 	this->button_.setRadius(radius);
 	this->button_.setPosition(sf::Vector2f(x, y));
 	this->button_.setFillColor(fillColor);
@@ -80,6 +83,13 @@ void StatButton::setSettings(float radius, float x, float y, const sf::Color& fi
 
 void StatButton::manageStatAllocation(bool pOrM, std::map<std::string, int>& stats)
 {
+	/*
+		pOrM = PLUS OR MNUS
+
+		IF TRUE THEN ADD STATS ONTO PLAYERS CURRENT STAT
+		
+		ELSE SUBTRACT IT 
+	*/
 	if (pOrM)
 	{
 		if (this->stat_Name_ == STATNAME::HEALTH)

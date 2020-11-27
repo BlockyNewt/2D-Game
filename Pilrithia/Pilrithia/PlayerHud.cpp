@@ -66,8 +66,6 @@ PlayerHud::PlayerHud(unsigned int windowSizeX, unsigned int windowSizeY, const R
 	this->skill_T_B_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 12, "Skill 2", sf::Vector2f(this->skill_B_B_.getLeftPosition(), this->skill_B_B_.getTopPosition()), true);
 	this->skill_T_C_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 12, "Skill 3", sf::Vector2f(this->skill_B_C_.getLeftPosition(), this->skill_B_C_.getTopPosition()), true);
 
-
-
 	this->skill_D_A_.setHoverBoundaries(HOVERPOSITION::TOP, this->skill_B_A_.getGlobalBounds(), this->skill_B_A_.getGlobalBounds());
 	this->skill_D_A_.setTextFont(resourceFont);
 
@@ -228,11 +226,20 @@ void PlayerHud::updateSkillOnePollEvent(sf::Event& ev, Classes* playerClass, std
 		{
 			if (this->skill_One_->getIsUnlocked())
 			{
+				//TESTING
+				this->skill_B_A_.setFillColor(sf::Color::White);
+				this->skill_B_A_.setTexture(&this->skill_One_->getTexture());
+
 				this->skill_T_A_.setString(this->skill_One_->getName());
 			}
 			else
 			{
 				this->skill_One_ = NULL;
+				
+				//TESTING
+				this->skill_B_A_.setFillColor(sf::Color(27, 133, 184));
+				this->skill_B_A_.setTexture(nullptr);
+				
 				this->skill_T_A_.setString("Skill 1");
 			}
 		}
@@ -300,7 +307,7 @@ void PlayerHud::update(const sf::Vector2i& mousePositionWindow, const Camera& ca
 			//IF SKILL ONE TIMER EQUALS SKILL ONE COOLDOWN THEN SET SKILL FOR USE AGAIN 
 			if (this->skill_One_->getIsCooldown())
 			{
-				std::cout << "DEBUG::PLAYERHUD::UPDATE() -> TIMER: " << this->skill_One_CD_Timer_.getElapsedTime().asSeconds() << std::endl;
+				//std::cout << "DEBUG::PLAYERHUD::UPDATE() -> TIMER: " << this->skill_One_CD_Timer_.getElapsedTime().asSeconds() << std::endl;
 				if (this->skill_One_CD_Timer_.getElapsedTime().asSeconds() >= this->skill_One_->getCooldown())
 				{
 					std::cout << "DEBUG::PLAYERHUD::UPDATE() -> Skill one is off CD." << std::endl;
@@ -342,6 +349,10 @@ void PlayerHud::update(const sf::Vector2i& mousePositionWindow, const Camera& ca
 		if (this->leave_Combat_Timer_.getElapsedTime().asSeconds() >= 5.f)
 		{
 			playerIsCombat = false;
+		}
+		else
+		{
+			//std::cout << "DEBUG::PLAYERHUD::UPDATE() -> TIMER: " << this->leave_Combat_Timer_.getElapsedTime().asSeconds() << std::endl;
 		}
 
 		this->skillCooldownBoxHeight();
@@ -433,6 +444,11 @@ const float PlayerHud::percentToPixel(const float size)
 Skill& PlayerHud::setSkillOne()
 {
 	return *this->skill_One_;
+}
+
+sf::Clock& PlayerHud::setLeaveCombatTimer()
+{
+	return this->leave_Combat_Timer_;
 }
 
 void PlayerHud::skillCooldownBoxHeight()

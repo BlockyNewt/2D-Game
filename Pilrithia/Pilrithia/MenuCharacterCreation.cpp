@@ -22,7 +22,9 @@ void MenuCharacterCreation::initializeRaceGui(const ResourceFont& resourceFont)
 
 	this->race_X_A_.setSettings(800.f, 555, this->name_T_A_.getLeftPosition(), this->model_Preview_X_A_.getTopPosition(true, 50.f), sf::Color(90, 82, 85), 1.f, sf::Color::White, true);
 
-	this->race_B_A_.setSettings(80.f, 80.f, this->race_X_A_.getLeftPosition(false, 115.f), this->race_X_A_.getTopPosition(true, 60.f), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
+	this->race_B_A_.setSettings(80.f, 80.f, this->race_X_A_.getLeftPosition(false, 115.f), this->race_X_A_.getTopPosition(true, 60.f), sf::Color::White, 1.f, sf::Color::White, true);
+	this->race_B_A_.setTexture(&this->race_Orc_.getTexture());
+
 	this->race_B_B_.setSettings(80.f, 80.f, this->race_B_A_.getLeftPosition(), this->race_B_A_.getBottomPosition(true, 10.f), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
 	this->race_B_C_.setSettings(80.f, 80.f, this->race_B_A_.getLeftPosition(), this->race_B_B_.getBottomPosition(true, 10.f), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
 	this->race_B_D_.setSettings(80.f, 80.f, this->race_B_A_.getLeftPosition(), this->race_B_C_.getBottomPosition(true, 10.f), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);

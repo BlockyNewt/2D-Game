@@ -11,6 +11,9 @@ ItemDropDownList::~ItemDropDownList()
 
 void ItemDropDownList::setSettings(LISTUSE listUse, const sf::FloatRect itemBoundaries, const ResourceFont& resourceFont)
 {
+	/*
+		DEPENDING ON WHAT USE IT IS, IT WILL SET A DIFFERENT LAYOUT 
+	*/
 	if (listUse == LISTUSE::INVENTORY)
 	{
 		this->b_A_.setSettings(0.f, 0.f, 0.f, 0.f, sf::Color::Transparent, 0.f, sf::Color::Transparent, false);

@@ -12,6 +12,9 @@ SkillButton::~SkillButton()
 
 void SkillButton::setSettings(float radius, float x, float y, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, int maxAllocation, const ResourceFont& resourceFont)
 {
+	/*
+		SET SETTINGS
+	*/
 	this->button_.setRadius(radius);
 	this->button_.setPosition(sf::Vector2f(x, y));
 	this->button_.setFillColor(fillColor);

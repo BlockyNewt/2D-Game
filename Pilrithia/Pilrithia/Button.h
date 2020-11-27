@@ -21,9 +21,10 @@ public:
 
 	void render(sf::RenderTarget& target);
 
-	const sf::Vector2f& setPositionOfText(sf::Text& text);
 	void setIsVisible(bool isVisible);
 	void setPosition(const sf::Vector2f& position);
+	void setTexture(const sf::Texture* texture);
+	void setFillColor(const sf::Color& color);
 
 	const sf::Vector2f& getPosition() const;
 	const sf::FloatRect getGlobalBounds() const;

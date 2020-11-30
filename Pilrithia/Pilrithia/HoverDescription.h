@@ -46,6 +46,7 @@ public:
 
 	void setIsVisible(bool isVisible);
 
+	const sf::FloatRect getGlobalBounds() const;
 private:
 
 private:

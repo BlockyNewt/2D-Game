@@ -17,7 +17,9 @@ enum class LISTUSE
 
 	INVENTORY,
 	BAG,
-	LOOT
+	LOOT,
+	SHOPBUY,
+	SHOPSELL,
 };
 
 class ItemDropDownList
@@ -32,6 +34,8 @@ public:
 	bool updateUnequipPollEvent(sf::Event& ev);
 	bool updateDeletePollEvent(sf::Event& ev);
 	bool updateTakePollEvent(sf::Event& ev);
+	bool updateBuyPollEvent(sf::Event& ev);
+	bool updateSellPollEvent(sf::Event& ev);
 	void update(const sf::Vector2i& mousePositionWindow, const sf::FloatRect itemBoundaries);
 	void render(sf::RenderTarget& target);
 
@@ -48,11 +52,15 @@ private:
 	Button b_B_;
 	Button b_C_;
 	Button b_D_;
+	Button b_E_;
+	Button b_F_;
 
 	Text t_A_;
 	Text t_B_;
 	Text t_C_;
 	Text t_D_;
+	Text t_E_;
+	Text t_F_;
 
 	bool is_Visible_;
 	bool is_Hovering_;

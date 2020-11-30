@@ -20,11 +20,15 @@ void ItemDropDownList::setSettings(LISTUSE listUse, const sf::FloatRect itemBoun
 		this->b_B_.setSettings(150.f, 40.f, itemBoundaries.left + itemBoundaries.width, itemBoundaries.top, sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
 		this->b_C_.setSettings(150.f, 40.f, this->b_B_.getLeftPosition(), this->b_B_.getBottomPosition(true, 1.f), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
 		this->b_D_.setSettings(0.f, 0.f, 0.f, 0.f, sf::Color::Transparent, 0.f, sf::Color::Transparent, false);
+		this->b_E_.setSettings(0.f, 0.f, 0.f, 0.f, sf::Color::Transparent, 0.f, sf::Color::Transparent, false);
+		this->b_F_.setSettings(0.f, 0.f, 0.f, 0.f, sf::Color::Transparent, 0.f, sf::Color::Transparent, false);
 
 		this->t_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
 		this->t_B_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Unequip", sf::Vector2f(this->b_B_.getGlobalBounds().left + 10.f, this->b_B_.getGlobalBounds().top + 10.f), true);
 		this->t_C_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Delete", sf::Vector2f(this->b_C_.getGlobalBounds().left + 10.f, this->b_C_.getGlobalBounds().top + 10.f), true);
 		this->t_D_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
+		this->t_E_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
+		this->t_F_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
 
 	}
 	
@@ -34,25 +38,69 @@ void ItemDropDownList::setSettings(LISTUSE listUse, const sf::FloatRect itemBoun
 		this->b_B_.setSettings(0.f, 0.f, 0.f, 0.f, sf::Color::Transparent, 0.f, sf::Color::Transparent, false);
 		this->b_C_.setSettings(150.f, 40.f, this->b_A_.getLeftPosition(), this->b_A_.getBottomPosition(true, 1.f), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
 		this->b_D_.setSettings(0.f, 0.f, 0.f, 0.f, sf::Color::Transparent, 0.f, sf::Color::Transparent, false);
+		this->b_E_.setSettings(0.f, 0.f, 0.f, 0.f, sf::Color::Transparent, 0.f, sf::Color::Transparent, false);
+		this->b_F_.setSettings(0.f, 0.f, 0.f, 0.f, sf::Color::Transparent, 0.f, sf::Color::Transparent, false);
 
 		this->t_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Equip", sf::Vector2f(this->b_A_.getGlobalBounds().left + 10.f, this->b_A_.getGlobalBounds().top + 10.f), true);
 		this->t_B_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
 		this->t_C_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Delete", sf::Vector2f(this->b_C_.getGlobalBounds().left + 10.f, this->b_C_.getGlobalBounds().top + 10.f), true);
 		this->t_D_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
+		this->t_E_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
+		this->t_F_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
 
 	}
 
 	else if (listUse == LISTUSE::LOOT)
 	{
-		this->b_A_.setSettings(0.f, 0.f, 0.f, 0.f, sf::Color::Red, 0.f, sf::Color::White, false);
+		this->b_A_.setSettings(0.f, 0.f, 0.f, 0.f, sf::Color::Transparent, 0.f, sf::Color::Transparent, false);
 		this->b_B_.setSettings(0.f, 0.f, 0.f, 0.f, sf::Color::Transparent, 0.f, sf::Color::Transparent, false);
 		this->b_C_.setSettings(0.f, 0.f, 0.f, 0.f, sf::Color::Transparent, 0.f, sf::Color::Transparent, false);
 		this->b_D_.setSettings(150.f, 40.f, itemBoundaries.left + itemBoundaries.width, itemBoundaries.top, sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
+		this->b_E_.setSettings(0.f, 0.f, 0.f, 0.f, sf::Color::Transparent, 0.f, sf::Color::Transparent, false);
+		this->b_F_.setSettings(0.f, 0.f, 0.f, 0.f, sf::Color::Transparent, 0.f, sf::Color::Transparent, false);
 
 		this->t_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
 		this->t_B_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
 		this->t_C_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
 		this->t_D_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Take", sf::Vector2f(this->b_D_.getGlobalBounds().left + 10.f, this->b_D_.getGlobalBounds().top + 10.f), true);
+		this->t_E_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
+		this->t_F_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
+
+	}
+
+	else if (listUse == LISTUSE::SHOPBUY)
+	{
+		this->b_A_.setSettings(0.f, 0.f, 0.f, 0.f, sf::Color::Transparent, 0.f, sf::Color::Transparent, false);
+		this->b_B_.setSettings(0.f, 0.f, 0.f, 0.f, sf::Color::Transparent, 0.f, sf::Color::Transparent, false);
+		this->b_C_.setSettings(0.f, 0.f, 0.f, 0.f, sf::Color::Transparent, 0.f, sf::Color::Transparent, false);
+		this->b_D_.setSettings(0.f, 0.f, 0.f, 0.f, sf::Color::Transparent, 0.f, sf::Color::Transparent, false);
+		this->b_E_.setSettings(150.f, 40.f, itemBoundaries.left + itemBoundaries.width, itemBoundaries.top, sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
+		this->b_F_.setSettings(0.f, 0.f, 0.f, 0.f, sf::Color::Transparent, 0.f, sf::Color::Transparent, false);
+
+		this->t_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
+		this->t_B_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
+		this->t_C_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
+		this->t_D_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
+		this->t_E_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Buy", sf::Vector2f(this->b_E_.getGlobalBounds().left + 10.f, this->b_E_.getGlobalBounds().top + 10.f), true);
+		this->t_F_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
+
+	}
+
+	else if (listUse == LISTUSE::SHOPSELL)
+	{
+		this->b_A_.setSettings(0.f, 0.f, 0.f, 0.f, sf::Color::Transparent, 0.f, sf::Color::Transparent, false);
+		this->b_B_.setSettings(0.f, 0.f, 0.f, 0.f, sf::Color::Transparent, 0.f, sf::Color::Transparent, false);
+		this->b_C_.setSettings(0.f, 0.f, 0.f, 0.f, sf::Color::Transparent, 0.f, sf::Color::Transparent, false);
+		this->b_D_.setSettings(0.f, 0.f, 0.f, 0.f, sf::Color::Transparent, 0.f, sf::Color::Transparent, false);
+		this->b_E_.setSettings(0.f, 0.f, 0.f, 0.f, sf::Color::Transparent, 0.f, sf::Color::Transparent, false);
+		this->b_F_.setSettings(150.f, 40.f, itemBoundaries.left + itemBoundaries.width, itemBoundaries.top, sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
+
+		this->t_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
+		this->t_B_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
+		this->t_C_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
+		this->t_D_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
+		this->t_E_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
+		this->t_F_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Sell", sf::Vector2f(this->b_F_.getGlobalBounds().left + 10.f, this->b_F_.getGlobalBounds().top + 10.f), true);
 
 	}
 }
@@ -169,6 +217,62 @@ bool ItemDropDownList::updateTakePollEvent(sf::Event& ev)
 	}
 }
 
+bool ItemDropDownList::updateBuyPollEvent(sf::Event& ev)
+{
+	if (this->is_Visible_)
+	{
+		if (this->b_E_.getIsHovering())
+		{
+			if (this->b_E_.updatePollEvent(ev))
+			{
+				std::cout << "buy clicked" << std::endl;
+
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
+			return false;
+		}
+	}
+	else
+	{
+		return false;
+	}
+}
+
+bool ItemDropDownList::updateSellPollEvent(sf::Event& ev)
+{
+	if (this->is_Visible_)
+	{
+		if (this->b_F_.getIsHovering())
+		{
+			if (this->b_F_.updatePollEvent(ev))
+			{
+				std::cout << "sell clicked" << std::endl;
+
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
+			return false;
+		}
+	}
+	else
+	{
+		return false;
+	}
+}
+
 void ItemDropDownList::update(const sf::Vector2i& mousePositionWindow, const sf::FloatRect itemBoundaries)
 {
 	if (this->is_Visible_)
@@ -177,6 +281,8 @@ void ItemDropDownList::update(const sf::Vector2i& mousePositionWindow, const sf:
 		this->b_B_.updateBoundaries(mousePositionWindow);
 		this->b_C_.updateBoundaries(mousePositionWindow);
 		this->b_D_.updateBoundaries(mousePositionWindow);
+		this->b_E_.updateBoundaries(mousePositionWindow);
+		this->b_F_.updateBoundaries(mousePositionWindow);
 
 		if (itemBoundaries.contains(sf::Vector2f(mousePositionWindow.x, mousePositionWindow.y)) || this->b_A_.getIsHovering())
 		{
@@ -203,6 +309,18 @@ void ItemDropDownList::update(const sf::Vector2i& mousePositionWindow, const sf:
 
 		}
 
+		else if (itemBoundaries.contains(sf::Vector2f(mousePositionWindow.x, mousePositionWindow.y)) || this->b_E_.getIsHovering())
+		{
+			this->is_Hovering_ = true;
+
+		}
+
+		else if (itemBoundaries.contains(sf::Vector2f(mousePositionWindow.x, mousePositionWindow.y)) || this->b_F_.getIsHovering())
+		{
+			this->is_Hovering_ = true;
+
+		}
+
 		else
 		{
 			this->is_Hovering_ = false;
@@ -223,11 +341,15 @@ void ItemDropDownList::render(sf::RenderTarget& target)
 		this->b_B_.render(target);
 		this->b_C_.render(target);
 		this->b_D_.render(target);
+		this->b_E_.render(target);
+		this->b_F_.render(target);
 
 		this->t_A_.render(target);
 		this->t_B_.render(target);
 		this->t_C_.render(target);
 		this->t_D_.render(target);
+		this->t_E_.render(target);
+		this->t_F_.render(target);
 	}
 }
 

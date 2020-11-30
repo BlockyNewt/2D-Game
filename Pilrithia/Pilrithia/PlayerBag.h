@@ -36,10 +36,18 @@ public:
 	void setIsHidingBag(bool isHidingBag);
 	void setMaxBagSizeY(int value);
 	std::vector<std::vector<Item*>>& setItem();
+	int& setGold();
+	int& setSilver();
+	int& setCopper();
 
 	const bool& getIsHidingBag() const;
 	const unsigned& getBagSizeX() const;
 	const unsigned& getBagSizeY() const;
+	const int& getGold() const;
+	const int& getSilver() const;
+	const int& getCopper() const;
+	const std::vector<std::vector<Item*>>& getItem() const;
+
 
 private:
 
@@ -49,7 +57,6 @@ private:
 
 	HoverDescription d_A_;
 	ItemDropDownList l_A_;
-
 
 	Box x_A_;
 	Box x_B_;
@@ -68,6 +75,10 @@ private:
 	int selected_Item_Y_;
 
 	bool is_Hiding_Bag_;
+
+	int gold_;
+	int silver_;
+	int copper_;
 
 	ResourceFont resource_Font_;
 };

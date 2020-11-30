@@ -72,6 +72,10 @@ ItemTest::ItemTest(float posX, float posY, ITEMTYPE itemType, const std::string&
 	this->lightning_ = 5;
 	this->poison_ = 5;
 
+	this->gold_Price_ = 0;
+	this->silver_Price_ = 0;
+	this->copper_Price_ = 49;
+
 	this->resource_Font_ = resourceFont;
 }
 
@@ -183,13 +187,31 @@ void ItemTest::render(sf::RenderTarget& target)
 	
 	this->t_A_.render(target);
 
-	this->d_A_.render(target);
+	if (b_A_.getIsHovering())
+	{
+		this->d_A_.render(target);
+	}
 }
 
 void ItemTest::setPosition(const sf::Vector2f& position)
 {
 	this->b_A_.setPosition(position);
 	this->t_A_.setPosition(this->b_A_.getLeftPosition(true, 10.f), this->b_A_.getTopPosition(true, 10.f));
+}
+
+int& ItemTest::setGoldPrice()
+{
+	return this->gold_Price_;
+}
+
+int& ItemTest::setSilverPrice()
+{
+	return this->silver_Price_;
+}
+
+int& ItemTest::setCopperPrice()
+{
+	return this->copper_Price_;
 }
 
 const sf::FloatRect ItemTest::getItemGlobalBoundaries() const
@@ -217,7 +239,32 @@ const std::string& ItemTest::getDescription() const
 	return this->description_;
 }
 
+const sf::FloatRect ItemTest::getHoverDescriptionGlobalBounds() const
+{
+	return this->d_A_.getGlobalBounds();
+}
+
 Item* ItemTest::getNewItem()
 {
 	return new ItemTest(0.f, 0.f, this->item_Type_, this->name_, this->description_, this->resource_Font_);
+}
+
+const int& ItemTest::getGoldPrice() const
+{
+	return this->gold_Price_;
+}
+
+const int& ItemTest::getSilverPrice() const
+{
+	return this->silver_Price_;
+}
+
+const int& ItemTest::getCopperPrice() const
+{
+	return this->copper_Price_;
+}
+
+const sf::Vector2f& ItemTest::getPosition() const
+{
+	return this->b_A_.getSize();
 }

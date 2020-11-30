@@ -222,6 +222,15 @@
     <ClCompile Include="ResourceFont.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Merchant.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MerchantTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -360,6 +369,15 @@
       <Filter>Header Files\Gui</Filter>
     </ClInclude>
     <ClInclude Include="ResourceFont.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Merchant.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MerchantTest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopBox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

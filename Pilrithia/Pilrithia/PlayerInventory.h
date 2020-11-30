@@ -37,6 +37,8 @@ public:
 	std::vector<Item*>& setEquipment();
 
 	const bool& getIsHidingInventory() const;
+	const std::vector<Item*>& getEquipment() const;
+
 	
 	
 

@@ -21,13 +21,22 @@ public:
 	void render(sf::RenderTarget& target) override;
 
 	void setPosition(const sf::Vector2f& position);
+	int& setGoldPrice() override;
+	int& setSilverPrice() override;
+	int& setCopperPrice() override;
+
 
 	const sf::FloatRect getItemGlobalBoundaries() const override;
 	const ITEMTYPE& getItemType() const override;
 	const Button& getButton() const override;
 	const std::string& getName()const override;
 	const std::string& getDescription()const override;
+	const sf::FloatRect getHoverDescriptionGlobalBounds() const override;
 	Item* getNewItem() override;
+	const int& getGoldPrice() const override;
+	const int& getSilverPrice() const override;
+	const int& getCopperPrice() const override;
+	const sf::Vector2f& getPosition() const override;
 
 private:
 	
@@ -57,6 +66,10 @@ private:
 	int lightning_;
 	int poison_;
 
+	int gold_Price_;
+	int silver_Price_;
+	int copper_Price_;
+	
 	ResourceFont resource_Font_;
 };
 

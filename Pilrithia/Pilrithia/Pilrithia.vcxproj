@@ -166,6 +166,8 @@
     <ClCompile Include="MenuCharacterCreation.cpp" />
     <ClCompile Include="MenuPause.cpp" />
     <ClCompile Include="MenuSetting.cpp" />
+    <ClCompile Include="Merchant.cpp" />
+    <ClCompile Include="MerchantTest.cpp" />
     <ClCompile Include="Npc.cpp" />
     <ClCompile Include="NpcTest.cpp" />
     <ClCompile Include="PlayerBag.cpp" />
@@ -180,6 +182,7 @@
     <ClCompile Include="Race.cpp" />
     <ClCompile Include="RaceOrc.cpp" />
     <ClCompile Include="ResourceFont.cpp" />
+    <ClCompile Include="ShopBox.cpp" />
     <ClCompile Include="Skill.cpp" />
     <ClCompile Include="SkillButton.cpp" />
     <ClCompile Include="SkillDropDownList.cpp" />
@@ -214,6 +217,8 @@
     <ClInclude Include="MenuCharacterCreation.h" />
     <ClInclude Include="MenuPause.h" />
     <ClInclude Include="MenuSetting.h" />
+    <ClInclude Include="Merchant.h" />
+    <ClInclude Include="MerchantTest.h" />
     <ClInclude Include="Npc.h" />
     <ClInclude Include="NpcTest.h" />
     <ClInclude Include="PlayerBag.h" />
@@ -228,6 +233,7 @@
     <ClInclude Include="Race.h" />
     <ClInclude Include="RaceOrc.h" />
     <ClInclude Include="ResourceFont.h" />
+    <ClInclude Include="ShopBox.h" />
     <ClInclude Include="Skill.h" />
     <ClInclude Include="SkillButton.h" />
     <ClInclude Include="SkillDropDownList.h" />

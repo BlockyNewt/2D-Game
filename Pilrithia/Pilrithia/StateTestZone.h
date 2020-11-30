@@ -12,6 +12,9 @@
 #include "Npc.h"
 #include "NpcTest.h"
 
+#include "Merchant.h"
+#include "MerchantTest.h"
+
 class StateTestZone
 	: public State
 {
@@ -63,6 +66,7 @@ private:
 	NpcTest* npc_Test_;
 	EnemyTest* enemy_Test_;
 	EnemyTest* enemy_Test_One_;
+	Merchant* merchant_Test_;
 
 	int max_Enemies_;
 	std::vector<Enemy*> enemies_;

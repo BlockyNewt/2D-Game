@@ -469,3 +469,8 @@ const bool& PlayerInventory::getIsHidingInventory() const
 {
 	return this->is_Hiding_Inventory_;
 }
+
+const std::vector<Item*>& PlayerInventory::getEquipment() const
+{
+	return this->equipment_;
+}

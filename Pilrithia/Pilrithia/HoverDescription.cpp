@@ -111,3 +111,8 @@ void HoverDescription::setIsVisible(bool isVisible)
 {
 	this->is_Visible_ = isVisible;
 }
+
+const sf::FloatRect HoverDescription::getGlobalBounds() const
+{
+	return this->description_Box_.getGlobalBounds();
+}

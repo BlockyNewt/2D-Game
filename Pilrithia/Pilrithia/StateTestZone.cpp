@@ -21,6 +21,8 @@ StateTestZone::StateTestZone(std::stack<State*>* states, sf::RenderWindow* windo
 	this->enemies_.push_back(this->enemy_Test_);
 	this->enemies_.push_back(this->enemy_Test_One_);
 
+	this->merchant_Test_ = new MerchantTest(*this->resource_Font_);
+
 
 	this->load_X_A_.setSettings(800.f, 400.f, this->window_->getSize().x / 2.f - 800.f / 2.f, this->window_->getSize().y / 2.f - 600.f / 2.f, sf::Color(85, 158, 131), 1.f, sf::Color::Red, true);
 
@@ -178,7 +180,8 @@ void StateTestZone::updatePollEvent(sf::Event& ev)
 			if (this->player_Test_->getPlayerInventory().getIsHidingInventory() &&
 				this->player_Test_->getPlayerBag().getIsHidingBag() &&
 				this->player_Test_->getPlayerQuest().getIsHidingQuest() &&
-				this->player_Test_->getPlayerSkillTree().getIsHidingSkillTree())
+				this->player_Test_->getPlayerSkillTree().getIsHidingSkillTree() &&
+				!this->merchant_Test_->getIsShopBoxVisible())
 			{
 				this->camera_->updatePollEvent(ev);
 			}
@@ -194,6 +197,9 @@ void StateTestZone::updatePollEvent(sf::Event& ev)
 			this->player_Test_->updatePollEvent(ev, this->dt_);
 
 			this->npc_Test_->updatePollEvent(ev, *this->player_Test_);
+
+			//TESTING
+			this->merchant_Test_->updatePollEvent(ev, this->player_Test_->setPlayerBag().setGold(), this->player_Test_->setPlayerBag().setSilver(), this->player_Test_->setPlayerBag().setCopper(), this->player_Test_->setPlayerBag().setItem(), this->player_Test_->getPlayerBag().getBagSizeX(), this->player_Test_->getPlayerBag().getBagSizeY());
 
 			this->window_->setKeyRepeatEnabled(true);
 		}
@@ -270,6 +276,8 @@ void StateTestZone::update()
 
 		this->npc_Test_->update(this->mouse_Position_View_, this->mouse_Position_Window_, this->player_Test_->getPlayerGlobalBounds(), *this->camera_, *this->player_Test_);
 
+		this->merchant_Test_->update(this->mouse_Position_View_, this->mouse_Position_Window_, this->player_Test_->getPlayerGlobalBounds(), *this->camera_, this->player_Test_->getPlayerInventory().getEquipment(), this->player_Test_->setPlayerBag().setItem());
+
 		this->updateCharacterCreation();
 	
 		this->updateLoadTilemap();
@@ -285,6 +293,10 @@ void StateTestZone::render(sf::RenderTarget& target)
 	this->player_Test_->renderPlayerModel(target);
 
 	this->npc_Test_->render(target);
+
+	this->merchant_Test_->render(target);
+
+	target.setView(this->camera_->getView());
 
 	for (auto& e : this->enemies_)
 	{

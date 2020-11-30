@@ -45,7 +45,9 @@ public:
 	virtual void render(sf::RenderTarget& target) = 0;
 
 	virtual void setPosition(const sf::Vector2f& position) = 0;
-
+	virtual int& setGoldPrice() = 0;
+	virtual int& setSilverPrice() = 0;
+	virtual int& setCopperPrice() = 0;
 
 	virtual const sf::FloatRect getItemGlobalBoundaries() const = 0;
 	virtual const ITEMTYPE& getItemType() const = 0;
@@ -53,7 +55,12 @@ public:
 	//DELETE ONCE DONE WITH TESTING
 	virtual const std::string& getName()const = 0;
 	virtual const std::string& getDescription()const = 0;
+	virtual const sf::FloatRect getHoverDescriptionGlobalBounds() const = 0;
 	virtual Item* getNewItem() = 0;
+	virtual const int& getGoldPrice() const = 0;
+	virtual const int& getSilverPrice() const = 0;
+	virtual const int& getCopperPrice() const = 0;
+	virtual const sf::Vector2f& getPosition() const = 0;
 
 
 private:

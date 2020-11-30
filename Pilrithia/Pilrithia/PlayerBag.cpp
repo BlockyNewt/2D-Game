@@ -13,9 +13,7 @@ PlayerBag::PlayerBag(const ResourceFont& resourceFont)
 
 	this->t_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Close", sf::Vector2f(this->b_A_.getLeftPosition(true, 10.f), this->b_A_.getTopPosition(true, 10.f)), true);
 	this->t_B_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 28, "Bag", sf::Vector2f(this->x_A_.getLeftPosition(true, 400.f), this->x_A_.getTopPosition(true, 10.f)), true);
-	this->t_C_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 28, "Gold", sf::Vector2f(this->x_A_.getLeftPosition(true, 10.f), this->x_A_.getBottomPosition(false, 40.f)), true);
-	this->t_D_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 28, "Silver", sf::Vector2f(this->t_C_.getRightPosition(true, 200.f), this->x_A_.getBottomPosition(false, 40.f)), true);
-	this->t_E_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 28, "Copper", sf::Vector2f(this->t_D_.getRightPosition(true, 200.f), this->x_A_.getBottomPosition(false, 40.f)), true);
+	
 
 
 	this->selected_Item_X_ = 0;
@@ -23,6 +21,15 @@ PlayerBag::PlayerBag(const ResourceFont& resourceFont)
 
 	this->max_Bag_Size_X_ = 13;
 	this->max_Bag_Size_Y_ = 1;
+
+
+	this->gold_ = 0;
+	this->silver_ = 1;
+	this->copper_ = 99;
+
+	this->t_C_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 28, "Gold: " + std::to_string(this->gold_), sf::Vector2f(this->x_A_.getLeftPosition(true, 10.f), this->x_A_.getBottomPosition(false, 40.f)), true);
+	this->t_D_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 28, "Silver: " + std::to_string(this->silver_), sf::Vector2f(this->t_C_.getRightPosition(true, 200.f), this->x_A_.getBottomPosition(false, 40.f)), true);
+	this->t_E_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 28, "Copper: " + std::to_string(this->copper_), sf::Vector2f(this->t_D_.getRightPosition(true, 200.f), this->x_A_.getBottomPosition(false, 40.f)), true);
 }
 
 PlayerBag::~PlayerBag()
@@ -214,6 +221,11 @@ void PlayerBag::update(const sf::Vector2i& mousePositionWindow)
 			}
 		}
 
+		//GOING TO WANT TO MAKE A FUNCTION TO SE THIS ON OPENING OF WINDOW
+		this->t_C_.setString("Gold: " + std::to_string(this->gold_));
+		this->t_D_.setString("Silver: " + std::to_string(this->silver_));
+		this->t_E_.setString("Copper: " + std::to_string(this->copper_));
+
 
 		/*
 			IF THE DROP DOWN LIST IS VISIBLE THEN UPDATE THAT 
@@ -278,6 +290,21 @@ std::vector<std::vector<Item*>>& PlayerBag::setItem()
 	return this->items_;
 }
 
+int& PlayerBag::setGold()
+{
+	return this->gold_;
+}
+
+int& PlayerBag::setSilver()
+{
+	return this->silver_;
+}
+
+int& PlayerBag::setCopper()
+{
+	return this->copper_;
+}
+
 const bool& PlayerBag::getIsHidingBag() const
 {
 	return this->is_Hiding_Bag_;
@@ -291,4 +318,24 @@ const unsigned& PlayerBag::getBagSizeX() const
 const unsigned& PlayerBag::getBagSizeY() const
 {
 	return this->max_Bag_Size_Y_;
+}
+
+const int& PlayerBag::getGold() const
+{
+	return this->gold_;
+}
+
+const int& PlayerBag::getSilver() const
+{
+	return this->silver_;
+}
+
+const int& PlayerBag::getCopper() const
+{
+	return this->copper_;
+}
+
+const std::vector<std::vector<Item*>>& PlayerBag::getItem() const
+{
+	return this->items_;
 }

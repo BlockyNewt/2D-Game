@@ -1,6 +1,6 @@
 #include "PlayerHud.h"
 
-PlayerHud::PlayerHud(unsigned int windowSizeX, unsigned int windowSizeY, const ResourceFont& resourceFont)
+PlayerHud::PlayerHud(unsigned int windowSizeX, unsigned int windowSizeY, const ResourceFont& resourceFont, const ResourceHud& resourceHud)
 {
 	this->camera_ = new Camera(0, 0);
 	
@@ -9,41 +9,27 @@ PlayerHud::PlayerHud(unsigned int windowSizeX, unsigned int windowSizeY, const R
 	this->window_Size_X_ = windowSizeX;
 	this->window_Size_Y_ = windowSizeY;
 
-	this->health_Bar_Back_.setPosition(sf::Vector2f(10.f, 10.f));
-	this->health_Bar_Back_.setSize(sf::Vector2f(300.f, 20.f));
-	this->health_Bar_Back_.setFillColor(sf::Color::White);
-	this->health_Bar_Back_.setOutlineThickness(1.f);
-	this->health_Bar_Back_.setOutlineColor(sf::Color::White);
+	this->bars_Sprite_.setTexture(*resourceHud.getHudTexture(HUDTYPE::BAR));
 
-	this->health_Bar_Front_.setPosition(sf::Vector2f(this->health_Bar_Back_.getPosition().x + 5.f, this->health_Bar_Back_.getPosition().y + 5.f));
-	this->health_Bar_Front_.setSize(sf::Vector2f(this->health_Bar_Back_.getSize().x - 10.f, this->health_Bar_Back_.getSize().y - 10.f));
+	this->health_Bar_Front_.setPosition(sf::Vector2f(this->bars_Sprite_.getGlobalBounds().left + 95.f, this->bars_Sprite_.getGlobalBounds().top + 25.f));
+	this->health_Bar_Front_.setSize(sf::Vector2f(174.f, 8.f));
 	this->health_Bar_Front_.setFillColor(sf::Color::Green);
 	this->health_Bar_Front_.setOutlineThickness(1.f);
 	this->health_Bar_Front_.setOutlineColor(sf::Color::Green);
 
-	this->mana_Bar_Back_.setPosition(sf::Vector2f(this->health_Bar_Back_.getPosition().x, this->health_Bar_Back_.getGlobalBounds().top + this->health_Bar_Back_.getGlobalBounds().height + 10.f));
-	this->mana_Bar_Back_.setSize(sf::Vector2f(300.f, 20.f));
-	this->mana_Bar_Back_.setFillColor(sf::Color::White);
-	this->mana_Bar_Back_.setOutlineThickness(1.f);
-	this->mana_Bar_Back_.setOutlineColor(sf::Color::White);
-
-	this->mana_Bar_Front_.setPosition(sf::Vector2f(this->mana_Bar_Back_.getPosition().x + 5.f, this->mana_Bar_Back_.getPosition().y + 5.f));
-	this->mana_Bar_Front_.setSize(sf::Vector2f(this->mana_Bar_Back_.getSize().x - 10.f, this->mana_Bar_Back_.getSize().y - 10.f));
+	this->mana_Bar_Front_.setPosition(sf::Vector2f(this->health_Bar_Front_.getGlobalBounds().left, this->health_Bar_Front_.getGlobalBounds().top + this->health_Bar_Front_.getGlobalBounds().height + 6.f));
+	this->mana_Bar_Front_.setSize(sf::Vector2f(174.f, 8.f));
 	this->mana_Bar_Front_.setFillColor(sf::Color::Blue);
 	this->mana_Bar_Front_.setOutlineThickness(1.f);
 	this->mana_Bar_Front_.setOutlineColor(sf::Color::Blue);
-
-	this->experience_Bar_Back_.setPosition(sf::Vector2f(this->mana_Bar_Back_.getPosition().x, this->mana_Bar_Back_.getGlobalBounds().top + this->mana_Bar_Back_.getGlobalBounds().height + 10.f));
-	this->experience_Bar_Back_.setSize(sf::Vector2f(300.f, 20.f));
-	this->experience_Bar_Back_.setFillColor(sf::Color::White);
-	this->experience_Bar_Back_.setOutlineThickness(1.f);
-	this->experience_Bar_Back_.setOutlineColor(sf::Color::White);
 		  
-	this->experience_Bar_Front_.setPosition(sf::Vector2f(this->experience_Bar_Back_.getPosition().x + 5.f, this->experience_Bar_Back_.getPosition().y + 5.f));
-	this->experience_Bar_Front_.setSize(sf::Vector2f(this->experience_Bar_Back_.getSize().x - 10.f, this->experience_Bar_Back_.getSize().y - 10.f));
+	this->experience_Bar_Front_.setPosition(sf::Vector2f(this->mana_Bar_Front_.getGlobalBounds().left, this->mana_Bar_Front_.getGlobalBounds().top + this->mana_Bar_Front_.getGlobalBounds().height + 6.f));
+	this->experience_Bar_Front_.setSize(sf::Vector2f(174.f, 8.f));
 	this->experience_Bar_Front_.setFillColor(sf::Color(195, 203, 113));
 	this->experience_Bar_Front_.setOutlineThickness(1.f);
 	this->experience_Bar_Front_.setOutlineColor(sf::Color::Yellow);
+
+
 
 	this->character_B_A_.setSettings(60.f, 60.f, 400.f, 10.f, sf::Color(27, 133, 184), 1.f, sf::Color::White, true);
 	this->character_B_B_.setSettings(60.f, 60.f, this->character_B_A_.getRightPosition(true, 10.f), this->character_B_A_.getTopPosition(), sf::Color(27, 133, 184), 1.f, sf::Color::White, true);
@@ -69,7 +55,7 @@ PlayerHud::PlayerHud(unsigned int windowSizeX, unsigned int windowSizeY, const R
 	this->skill_D_A_.setHoverBoundaries(HOVERPOSITION::TOP, this->skill_B_A_.getGlobalBounds(), this->skill_B_A_.getGlobalBounds());
 	this->skill_D_A_.setTextFont(resourceFont);
 
-	this->experience_D_A_.setHoverBoundaries(HOVERPOSITION::BOTTOM, this->experience_Bar_Back_.getGlobalBounds(), this->experience_Bar_Back_.getGlobalBounds());
+	this->experience_D_A_.setHoverBoundaries(HOVERPOSITION::BOTTOM, this->experience_Bar_Front_.getGlobalBounds(), this->experience_Bar_Front_.getGlobalBounds());
 	this->experience_D_A_.setTextFont(resourceFont);
 
 	this->is_Hiding_Hud_ = true;
@@ -371,14 +357,13 @@ void PlayerHud::render(sf::RenderTarget& target)
 	{
 		target.setView(target.getDefaultView());
 
-		target.draw(this->health_Bar_Back_);
 		target.draw(this->health_Bar_Front_);
 
-		target.draw(this->mana_Bar_Back_);
 		target.draw(this->mana_Bar_Front_);
 
-		target.draw(this->experience_Bar_Back_);
 		target.draw(this->experience_Bar_Front_);
+
+		target.draw(this->bars_Sprite_);
 
 		this->character_B_A_.render(target);
 		this->character_B_B_.render(target);
@@ -421,17 +406,17 @@ void PlayerHud::setWidthOfBars(const int& healthMax, const int& health, const in
 	float healthToFloat = static_cast<float>(health);
 	//std::cout << "DEBUG::PLAYERHUD::SETWIDTHOFBARS() -> health: " << health << std::endl;
 
-	this->health_Bar_Front_.setSize(sf::Vector2f((healthToFloat / healthMaxToFloat) * 290.f, this->health_Bar_Back_.getSize().y - 10.f));
+	this->health_Bar_Front_.setSize(sf::Vector2f((healthToFloat / healthMaxToFloat) * 174.f, 8.f));
 
 	float manaMaxToFloat = static_cast<float>(manaMax);
 	float manaToFloat = static_cast<float>(mana);
 
-	this->mana_Bar_Front_.setSize(sf::Vector2f((manaToFloat / manaMaxToFloat) * 290.f, this->mana_Bar_Back_.getSize().y - 10.f));
+	this->mana_Bar_Front_.setSize(sf::Vector2f((manaToFloat / manaMaxToFloat) * 174.f, 8.f));
 
 	float expMaxToFloat = static_cast<float>(expMax);
 	float expToFloat = static_cast<float>(exp);
 
-	this->experience_Bar_Front_.setSize(sf::Vector2f((expToFloat / expMaxToFloat) * 290.f, this->experience_Bar_Back_.getSize().y - 10.f));
+	this->experience_Bar_Front_.setSize(sf::Vector2f((expToFloat / expMaxToFloat) * 174.f, 8.f));
 
 	this->experience_D_A_.setString(DESCRIPTIONTYPE::SKILL, "Experience", std::to_string(exp) + " / " + std::to_string(expMax));
 }

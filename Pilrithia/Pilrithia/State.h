@@ -4,6 +4,7 @@
 #include "SFML/Graphics.hpp"
 
 #include "ResourceFont.h"
+#include "ResourceHud.h"
 
 #include "MenuPause.h"
 #include "MenuSetting.h"
@@ -11,7 +12,7 @@
 class State
 {
 public:
-	State(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont* resourceFont = nullptr, MenuSetting* menuSetting = nullptr, MenuPause* menuPause = nullptr);
+	State(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont* resourceFont = nullptr, ResourceHud* resourceHud = nullptr, MenuSetting* menuSetting = nullptr, MenuPause* menuPause = nullptr);
 	virtual ~State();
 
 	virtual void updatePollEvent(sf::Event& ev) = 0;
@@ -41,6 +42,7 @@ protected:
 	float dt_;
 
 	ResourceFont* resource_Font_;
+	ResourceHud* resource_Hud_;
 
 private:
 

@@ -37,7 +37,7 @@ void ResourceFont::loadFont(const std::string& fontFileName, FONTTYPE fontType)
 	}
 	else
 	{
-		std::cout << "DEBUG::RESOURCEFONT::LOADFONR() -> Couldn't load font from file " << fontFileName << std::endl;
+		std::cout << "DEBUG::RESOURCEFONT::LOADFONT() -> Couldn't load font from file " << fontFileName << std::endl;
 	}
 }
 

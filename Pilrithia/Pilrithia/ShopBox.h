@@ -22,6 +22,7 @@ public:
 	~ShopBox();
 
 	void alignPlayerBagItems(std::vector<std::vector<Item*>>& playerBag, const int& playerBagMaxSizeX, const int& playerBagMaxSizeY);
+	void handleMoney(bool bOrS, int& playerGold, int& playerSilver, int& playerCopper, std::vector<std::vector<Item*>>& playerBag);
 
 	void updatePollEvent(sf::Event& ev, int& playerGold, int& playerSilver, int& playerCopper, std::vector<std::vector<Item*>>& playerBag);
 	void update(const sf::Vector2i mousePositionWindow, const std::vector<Item*>& playerInventory, std::vector<std::vector<Item*>>& playerBag);
@@ -61,6 +62,8 @@ private:
 	HoverDescription d_A_;
 
 	int scroll_;
+
+	bool has_Enough_Money_;
 
 	bool is_Visible_;
 

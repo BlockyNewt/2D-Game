@@ -1,12 +1,8 @@
-﻿  ShopBox.cpp
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\ShopBox.cpp(37,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\ShopBox.cpp(39,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\ShopBox.cpp(85,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\ShopBox.cpp(87,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\ShopBox.cpp(110,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\ShopBox.cpp(112,22): warning C4018: '<': signed/unsigned mismatch
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\ShopBox.cpp(238,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\ShopBox.cpp(240,22): warning C4018: '<': signed/unsigned mismatch
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\ShopBox.cpp(276,22): warning C4018: '<': signed/unsigned mismatch
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\ShopBox.cpp(278,23): warning C4018: '<': signed/unsigned mismatch
+﻿  PlayerBag.cpp
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerBag.cpp(48,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerBag.cpp(50,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerBag.cpp(83,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerBag.cpp(85,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerBag.cpp(117,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerBag.cpp(119,22): warning C4018: '<': signed/unsigned mismatch
   Pilrithia.vcxproj -> C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Debug\Pilrithia.exe

@@ -19,7 +19,7 @@ class StateTestZone
 	: public State
 {
 public:
-	StateTestZone(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont* resourceFont = nullptr, MenuSetting* menuSetting = nullptr, MenuPause* menuPause = nullptr);
+	StateTestZone(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont* resourceFont = nullptr, ResourceHud* resourceHud = nullptr, MenuSetting* menuSetting = nullptr, MenuPause* menuPause = nullptr);
 	virtual ~StateTestZone();
 	
 	void updatePollEvent(sf::Event& ev) override;

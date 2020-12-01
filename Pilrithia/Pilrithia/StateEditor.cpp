@@ -113,8 +113,8 @@ void StateEditor::initializeLoad()
 	this->load_I_B_.setSettings(500.f, 40.f, this->load_I_A_.getLeftPosition(), this->load_I_A_.getBottomPosition(true, 10.f), sf::Color::Black, 1.f, sf::Color::Red, false, false, 30, *this->resource_Font_);
 }
 
-StateEditor::StateEditor(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont* resourceFont, MenuSetting* menuSetting, MenuPause* menuPause)
-	: State(states, window, resourceFont, menuSetting, menuPause)
+StateEditor::StateEditor(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont* resourceFont, ResourceHud* resourceHud, MenuSetting* menuSetting, MenuPause* menuPause)
+	: State(states, window, resourceFont, resourceHud, menuSetting, menuPause)
 {
 	std::cout << "DEBUG::STATEEDITOR::STATEEDITOR() -> HAS STARTED." << std::endl;
 

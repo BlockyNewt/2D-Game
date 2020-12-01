@@ -1,9 +1,9 @@
 #include "StateTestZone.h"
 
-StateTestZone::StateTestZone(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont* resourceFont, MenuSetting* menuSetting, MenuPause* menuPause)
-	: State(states, window, resourceFont, menuSetting, menuPause)
+StateTestZone::StateTestZone(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont* resourceFont, ResourceHud* resourceHud, MenuSetting* menuSetting, MenuPause* menuPause)
+	: State(states, window, resourceFont, resourceHud, menuSetting, menuPause)
 {
-	this->player_Test_ = new PlayerTest(*this->resource_Font_);
+	this->player_Test_ = new PlayerTest(*this->resource_Font_, *this->resource_Hud_);
 
 	this->menu_Character_Creation_ = new MenuCharacterCreation(this->window_->getSize().x, this->window_->getSize().y, *this->resource_Font_);
 

@@ -6,6 +6,7 @@
 #include "Camera.h"
 
 #include "ResourceFont.h"
+#include "ResourceHud.h"
 
 #include "Box.h"
 #include "Button.h"
@@ -23,7 +24,7 @@
 class PlayerHud
 {
 public:
-	PlayerHud(unsigned int windowSizeX, unsigned int windowSizeY, const ResourceFont& resourceFont);
+	PlayerHud(unsigned int windowSizeX, unsigned int windowSizeY, const ResourceFont& resourceFont, const ResourceHud& resourceHud);
 	~PlayerHud();
 
 
@@ -54,13 +55,10 @@ private:
 	Camera* camera_;
 
 	//MAYBE MAKE GUI FOR THIS LATER (COULD ALSO USE WITH ENEMIES
-	sf::RectangleShape health_Bar_Back_;
 	sf::RectangleShape health_Bar_Front_;
 
-	sf::RectangleShape mana_Bar_Back_;
 	sf::RectangleShape mana_Bar_Front_;
 
-	sf::RectangleShape experience_Bar_Back_;
 	sf::RectangleShape experience_Bar_Front_;
 
 	Button character_B_A_;
@@ -104,6 +102,9 @@ private:
 	
 
 	ResourceFont resource_Font_;
+
+	//TESTING
+	sf::Sprite bars_Sprite_;
 };
 
 #endif // !PLAYERHUD_H

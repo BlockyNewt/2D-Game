@@ -9,7 +9,7 @@ ItemTest::ItemTest()
 
 ItemTest::ItemTest(float posX, float posY, ITEMTYPE itemType, const std::string& name, const std::string& description, const ResourceFont& resourceFont)
 {
-	this->b_A_.setSettings(50.f, 50.f, posX, posY, sf::Color(27, 133, 184), 1.f, sf::Color::White, true);
+	this->b_A_.setSettings(50.f, 50.f, posX, posY, sf::Color(27, 133, 184), 0.f, sf::Color::Transparent, true);
 
 	this->t_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "", sf::Vector2f(this->b_A_.getLeftPosition(true, 10.f), this->b_A_.getTopPosition(true, 10.f)), true);
 
@@ -74,7 +74,7 @@ ItemTest::ItemTest(float posX, float posY, ITEMTYPE itemType, const std::string&
 
 	this->gold_Price_ = 0;
 	this->silver_Price_ = 0;
-	this->copper_Price_ = 49;
+	this->copper_Price_ = 50;
 
 	this->resource_Font_ = resourceFont;
 }

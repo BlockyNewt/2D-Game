@@ -1,9 +1,9 @@
 #include "PlayerTest.h"
 
-PlayerTest::PlayerTest(const ResourceFont& resourceFont)
+PlayerTest::PlayerTest(const ResourceFont& resourceFont, const ResourceHud& resourceHud)
 {
-	this->player_Bag_ = new PlayerBag(resourceFont);
-	this->player_Hud_ = new PlayerHud(1280, 720, resourceFont);
+	this->player_Bag_ = new PlayerBag(resourceFont, resourceHud);
+	this->player_Hud_ = new PlayerHud(1280, 720, resourceFont, resourceHud);
 	this->player_Inventory_ = new PlayerInventory(resourceFont);
 	this->player_Quest_ = new PlayerQuest(resourceFont);
 	this->player_Skill_Tree_ = new PlayerSkillTree(resourceFont);

@@ -1,25 +1,27 @@
 #include "PlayerBag.h"
 
-PlayerBag::PlayerBag(const ResourceFont& resourceFont)
+PlayerBag::PlayerBag(const ResourceFont& resourceFont, const ResourceHud& resourceHud)
 {
 	this->is_Hiding_Bag_ = true;
 
 	this->resource_Font_ = resourceFont;
 
-	this->x_A_.setSettings(800.f, 500.f, 1280.f / 2.f - 800.f / 2.f, 720.f / 2.f - 500.f / 2.f, sf::Color(85, 158, 131), 1.f, sf::Color::White, true);
+	this->bag_Background_Sprite_.setTexture(*resourceHud.getHudTexture(HUDTYPE::BAG));
+	this->bag_Background_Sprite_.setPosition(sf::Vector2f(1280.f / 2.f - 800.f / 2.f, 720.f / 2.f - 500.f / 2.f));
+
 	this->x_B_.setSettings(1280.f, 720.f, 0.f, 0.f, sf::Color(0, 0, 0, 200), 1.f, sf::Color::Transparent, true);
 
-	this->b_A_.setSettings(50.f, 50.f, this->x_A_.getRightPosition(false, 50.f), this->x_A_.getTopPosition(), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
+	this->b_A_.setSettings(34.f, 34.f, this->bag_Background_Sprite_.getGlobalBounds().left + this->bag_Background_Sprite_.getGlobalBounds().width - 38.f, this->bag_Background_Sprite_.getGlobalBounds().top + 4.f, sf::Color::White, 0.f, sf::Color::Transparent, true);
+	this->b_A_.setTexture(resourceHud.getHudTexture(HUDTYPE::CLOSE));
 
-	this->t_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Close", sf::Vector2f(this->b_A_.getLeftPosition(true, 10.f), this->b_A_.getTopPosition(true, 10.f)), true);
-	this->t_B_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 28, "Bag", sf::Vector2f(this->x_A_.getLeftPosition(true, 400.f), this->x_A_.getTopPosition(true, 10.f)), true);
+	this->t_B_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 28, "Bag", sf::Vector2f(this->bag_Background_Sprite_.getGlobalBounds().left + 400.f, this->bag_Background_Sprite_.getGlobalBounds().top + 10.f), true);
 	
 
 
 	this->selected_Item_X_ = 0;
 	this->selected_Item_Y_ = 0;
 
-	this->max_Bag_Size_X_ = 13;
+	this->max_Bag_Size_X_ = 7;
 	this->max_Bag_Size_Y_ = 1;
 
 
@@ -27,9 +29,9 @@ PlayerBag::PlayerBag(const ResourceFont& resourceFont)
 	this->silver_ = 1;
 	this->copper_ = 99;
 
-	this->t_C_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 28, "Gold: " + std::to_string(this->gold_), sf::Vector2f(this->x_A_.getLeftPosition(true, 10.f), this->x_A_.getBottomPosition(false, 40.f)), true);
-	this->t_D_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 28, "Silver: " + std::to_string(this->silver_), sf::Vector2f(this->t_C_.getRightPosition(true, 200.f), this->x_A_.getBottomPosition(false, 40.f)), true);
-	this->t_E_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 28, "Copper: " + std::to_string(this->copper_), sf::Vector2f(this->t_D_.getRightPosition(true, 200.f), this->x_A_.getBottomPosition(false, 40.f)), true);
+	this->t_C_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 28, "Gold: " + std::to_string(this->gold_), sf::Vector2f(this->bag_Background_Sprite_.getGlobalBounds().left + 100.f, this->bag_Background_Sprite_.getGlobalBounds().top + this->bag_Background_Sprite_.getGlobalBounds().height - 50.f), true);
+	this->t_D_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 28, "Silver: " + std::to_string(this->silver_), sf::Vector2f(this->t_C_.getLeftPosition(true, 200.f), this->bag_Background_Sprite_.getGlobalBounds().top + this->bag_Background_Sprite_.getGlobalBounds().height - 50.f), true);
+	this->t_E_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 28, "Copper: " + std::to_string(this->copper_), sf::Vector2f(this->t_D_.getLeftPosition(true, 200.f), this->bag_Background_Sprite_.getGlobalBounds().top + this->bag_Background_Sprite_.getGlobalBounds().height - 50.f), true);
 }
 
 PlayerBag::~PlayerBag()
@@ -62,14 +64,13 @@ void PlayerBag::initializeBag()
 	/*
 		USE THIS WAY FOR NOW SO WE CAN TEST ITEMS
 	*/
-	this->items_[0][0] = new ItemTest(this->x_A_.getLeftPosition(true, 14.f) + 0 * 60.f, this->x_A_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::HELM, "Steel helmet", "Made from scrap steel", this->resource_Font_);
-	this->items_[1][0] = new ItemTest(this->x_A_.getLeftPosition(true, 14.f) + 1 * 60.f, this->x_A_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::SHOULDER, "Steel helmet", "Made from scrap steel", this->resource_Font_);
-	this->items_[2][0] = new ItemTest(this->x_A_.getLeftPosition(true, 14.f) + 2 * 60.f, this->x_A_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::CHEST, "Steel helmet", "Made from scrap steel", this->resource_Font_);
-	this->items_[3][0] = new ItemTest(this->x_A_.getLeftPosition(true, 14.f) + 3 * 60.f, this->x_A_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::GLOVE, "Steel helmet", "Made from scrap steel", this->resource_Font_);
-	this->items_[4][0] = new ItemTest(this->x_A_.getLeftPosition(true, 14.f) + 4 * 60.f, this->x_A_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::LEG, "Steel helmet", "Made from scrap steel", this->resource_Font_);
-	this->items_[5][0] = new ItemTest(this->x_A_.getLeftPosition(true, 14.f) + 5 * 60.f, this->x_A_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::FEET, "Steel helmet", "Made from scrap steel", this->resource_Font_);
-	this->items_[6][0] = new ItemTest(this->x_A_.getLeftPosition(true, 14.f) + 6 * 60.f, this->x_A_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::HELM, "Steel helmet", "Made from scrap steel", this->resource_Font_);
-	this->items_[7][0] = new ItemTest(this->x_A_.getLeftPosition(true, 14.f) + 7 * 60.f, this->x_A_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::HELM, "Steel helmet", "Made from scrap steel", this->resource_Font_);
+	this->items_[0][0] = new ItemTest(0.f, 0.f, ITEMTYPE::HELM, "Steel helmet", "Made from scrap steel", this->resource_Font_);
+	this->items_[1][0] = new ItemTest(0.f, 0.f, ITEMTYPE::SHOULDER, "Shoulders", "Made from scrap steel", this->resource_Font_);
+	this->items_[2][0] = new ItemTest(0.f, 0.f, ITEMTYPE::CHEST, "Chest", "Made from scrap steel", this->resource_Font_);
+	this->items_[3][0] = new ItemTest(0.f, 0.f, ITEMTYPE::GLOVE, "Glove", "Made from scrap steel", this->resource_Font_);
+	this->items_[4][0] = new ItemTest(0.f, 0.f, ITEMTYPE::LEG, "Leg", "Made from scrap steel", this->resource_Font_);
+	this->items_[5][0] = new ItemTest(0.f, 0.f, ITEMTYPE::FEET, "Feet", "Made from scrap steel", this->resource_Font_);
+	this->items_[6][0] = new ItemTest(0.f, 0.f, ITEMTYPE::HELM, "Helm", "Made from scrap steel", this->resource_Font_);
 
 }
 
@@ -78,13 +79,17 @@ void PlayerBag::realignItems()
 	/*
 		WHEN OPENING UP BAG ALIGN ITEMS
 	*/
+	float rightValue = 0.f;
 	for (int x = 0; x < this->max_Bag_Size_X_; ++x)
 	{
 		for (int y = 0; y < this->max_Bag_Size_Y_; ++y)
 		{
 			if (this->items_[x][y] != NULL)
 			{
-				this->items_[x][y]->setPosition(sf::Vector2f(this->x_A_.getLeftPosition(true, 14.f) + x * 60.f, this->x_A_.getTopPosition(true, 100.f) + y * 60.f));
+				rightValue = 0.f;
+				rightValue = (x * 52.f) + (x * 52.f) + 52.f;
+				
+				this->items_[x][y]->setPosition(sf::Vector2f(this->bag_Background_Sprite_.getGlobalBounds().left + rightValue, this->bag_Background_Sprite_.getGlobalBounds().top + 73.f + y * 50.f));
 			}
 		}
 	}
@@ -215,7 +220,7 @@ void PlayerBag::update(const sf::Vector2i& mousePositionWindow)
 				{
 					if (y->update(mousePositionWindow))
 					{
-						y->setItemHoverDescriptionSettings(HOVERPOSITION::RIGHT, y->getItemGlobalBoundaries(), this->x_A_.getGlobalBounds(), DESCRIPTIONTYPE::ITEM, y->getName(), y->getDescription());
+						y->setItemHoverDescriptionSettings(HOVERPOSITION::RIGHT, y->getItemGlobalBoundaries(), this->bag_Background_Sprite_.getGlobalBounds(), DESCRIPTIONTYPE::ITEM, y->getName(), y->getDescription());
 					}
 				}
 			}
@@ -247,7 +252,9 @@ void PlayerBag::render(sf::RenderTarget& target)
 	if (!this->is_Hiding_Bag_)
 	{
 		this->x_B_.render(target);
-		this->x_A_.render(target);
+		//this->x_A_.render(target);
+		target.draw(this->bag_Background_Sprite_);
+
 
 		for (auto& x : this->items_)
 		{
@@ -265,7 +272,6 @@ void PlayerBag::render(sf::RenderTarget& target)
 
 		this->b_A_.render(target);
 
-		this->t_A_.render(target);
 		this->t_B_.render(target);
 		this->t_C_.render(target);
 		this->t_D_.render(target);

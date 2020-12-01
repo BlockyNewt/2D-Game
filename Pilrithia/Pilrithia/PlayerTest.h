@@ -18,7 +18,7 @@
 class PlayerTest
 {	
 public:
-	PlayerTest(const ResourceFont& resourceFont);
+	PlayerTest(const ResourceFont& resourceFont, const ResourceHud& resourceHud);
 	~PlayerTest();
 
 	void initializeCharacter(Race* race, const std::string& name);

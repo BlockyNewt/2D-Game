@@ -94,6 +94,106 @@ void ShopBox::alignPlayerBagItems(std::vector<std::vector<Item*>>& playerBag, co
 	}
 }
 
+void ShopBox::handleMoney(bool bOrS, int& playerGold, int& playerSilver, int& playerCopper, std::vector<std::vector<Item*>>& playerBag)
+{
+	/*
+		bOrS means "Buy or Sell". True for "Buy" and false for "Sell".
+	*/
+
+	this->has_Enough_Money_ = false;
+
+	if (bOrS)
+	{
+		int originalCopper = playerCopper;
+		int originalSilver = playerSilver;
+		int originalGold = playerGold;
+
+		//COPPER
+		if (playerCopper <= this->shop_Items_[this->selected_Item_X_][this->selected_Item_Y_]->getCopperPrice())
+		{
+			int excessCopper = playerCopper - this->shop_Items_[this->selected_Item_X_][this->selected_Item_Y_]->getCopperPrice();
+
+			if (playerSilver > 0)
+			{
+				playerCopper = 99 + excessCopper;
+
+				if (playerSilver - 1 <= 0 &&
+					playerGold > 0)
+				{
+					playerSilver = 99 - 1;
+
+					if (playerGold > 0)
+					{
+						playerGold--;
+						this->has_Enough_Money_ = true;
+					}
+					else
+					{
+						//NOT ENOUGH DOUGH
+						playerCopper = originalCopper;
+						playerSilver = originalSilver;
+						playerGold = originalGold;
+						std::cout << "DEBUG::SHOPBOX::HANDLEMONEY() -> Not enough gold" << std::endl;
+						this->has_Enough_Money_ = false;
+					}
+				}
+				else
+				{
+					playerSilver--;
+					this->has_Enough_Money_ = true;
+				}
+			}
+			else
+			{
+				//NOT ENOUGH DOUGH
+				playerCopper = originalCopper;
+				playerSilver = originalSilver;
+				playerGold = originalGold;
+				std::cout << "DEBUG::SHOPBOX::HANDLEMONEY() -> Not enough silver." << std::endl;
+				this->has_Enough_Money_ = false;
+			}
+		}
+		else
+		{
+			playerCopper -= this->shop_Items_[this->selected_Item_X_][this->selected_Item_Y_]->getCopperPrice();
+			this->has_Enough_Money_ = true;
+		}
+	}
+	else
+	{
+		//COPPER 
+		if (playerCopper + playerBag[this->player_Selected_Item_X_][this->player_Selected_Item_Y_]->getCopperPrice() > 99)
+		{
+			int excessCopper = playerCopper - playerBag[this->player_Selected_Item_X_][this->player_Selected_Item_Y_]->getCopperPrice();
+
+			playerCopper = 0 + excessCopper;
+
+			if (playerSilver + 1 >= 99)
+			{
+				playerSilver = 0;
+
+				if (playerGold + 1 >= 99)
+				{
+					playerGold = 0;
+				}
+				else
+				{
+					playerGold++;
+				}
+			}
+			else
+			{
+				playerSilver++;
+			}
+		}
+		else
+		{
+			playerCopper += playerBag[this->player_Selected_Item_X_][this->player_Selected_Item_Y_]->getCopperPrice();
+		}
+
+	}
+}
+
 void ShopBox::updatePollEvent(sf::Event& ev, int& playerGold, int& playerSilver, int& playerCopper, std::vector<std::vector<Item*>>& playerBag)
 {
 	if (this->is_Visible_)
@@ -106,7 +206,9 @@ void ShopBox::updatePollEvent(sf::Event& ev, int& playerGold, int& playerSilver,
 		}
 
 
-
+		/*
+			UPDATING WHERE TO POSITION ITEM DROP DOWN LIST ON BUTTON CLICK
+		*/
 		for (int x = 0; x < this->max_Bag_Size_X_; ++x)
 		{
 			for (int y = 0; y < this->max_Bag_Size_Y_; ++y)
@@ -128,76 +230,44 @@ void ShopBox::updatePollEvent(sf::Event& ev, int& playerGold, int& playerSilver,
 			}
 		}
 
+		/*
+			UPDATING WHERE TO POSITION ITEM DROP DOWN LIST ON BUTTON CLICK
+		*/
+		for (int x = 0; x < this->player_Max_Bag_Size_X_; ++x)
+		{
+			for (int y = 0; y < this->player_Max_Bag_Size_Y_; ++y)
+			{
+				if (playerBag[x][y] != NULL)
+				{
+					if (playerBag[x][y]->updatePollEvent(ev))
+					{
+						if (!this->l_A_.getIsHovering())
+						{
+							this->l_B_.setSettings(LISTUSE::SHOPSELL, playerBag[x][y]->getItemGlobalBoundaries(), this->resource_Font_);
+							this->l_B_.setIsVisible(true);
+
+							//HIDE ITEM HOVER DESCRIPTION 
+
+							this->player_Selected_Item_X_ = x;
+							this->player_Selected_Item_Y_ = y;
+						}
+					}
+				}
+			}
+		}
 
 
+
+		/*
+			BUY POLL EVENT FROM ITEM DROP DOWN LIST
+		*/
 		if (this->l_A_.updateBuyPollEvent(ev))
 		{
 			bool purchaseBreak = false;
 
-			int originalCopper = playerCopper;
-			int originalSilver = playerSilver;
-			int originalGold = playerGold;
-			bool hasEnoughMoney = false;
+			this->handleMoney(true, playerGold, playerSilver, playerCopper, playerBag);
 
-			//COPPER
-			if (playerCopper <= this->shop_Items_[this->selected_Item_X_][this->selected_Item_Y_]->getCopperPrice())
-			{
-				int excessCopper = playerCopper - this->shop_Items_[this->selected_Item_X_][this->selected_Item_Y_]->getCopperPrice();
-				
-				if (playerSilver > 0)
-				{
-					playerCopper = 99 + excessCopper;
-					
-					if (playerSilver - 1 <= 0 &&
-						playerGold > 0)
-					{
-						playerSilver = 99 - 1;
-
-						if (playerGold > 0)
-						{
-							playerGold--;
-							hasEnoughMoney = true;
-
-						}
-						else
-						{
-							//NOT ENOUGH DOUGH
-							playerCopper = originalCopper;
-							playerSilver = originalSilver;
-							playerGold = originalGold;
-							std::cout << "not enough gold" << std::endl;
-							hasEnoughMoney = false;
-
-						}
-					}
-					else
-					{
-						playerSilver--;
-						hasEnoughMoney = true;
-					}
-				}
-				else
-				{
-					//NOT ENOUGH DOUGH
-					playerCopper = originalCopper;
-					playerSilver = originalSilver;
-					playerGold = originalGold;
-					std::cout << "not enough silver" << std::endl;
-					hasEnoughMoney = false;
-
-
-				}
-			}
-			else
-			{
-				playerCopper -= this->shop_Items_[this->selected_Item_X_][this->selected_Item_Y_]->getCopperPrice();
-				hasEnoughMoney = true;
-
-			}
-			
-			
-
-			if (hasEnoughMoney)
+			if (this->has_Enough_Money_)
 			{
 				for (auto& x : playerBag)
 				{
@@ -229,40 +299,14 @@ void ShopBox::updatePollEvent(sf::Event& ev, int& playerGold, int& playerSilver,
 					}
 				}
 			}
-		
 		}
 
-
-
-
-		for (int x = 0; x < this->player_Max_Bag_Size_X_; ++x)
-		{
-			for (int y = 0; y < this->player_Max_Bag_Size_Y_; ++y)
-			{
-				if (playerBag[x][y] != NULL)
-				{
-					if (playerBag[x][y]->updatePollEvent(ev))
-					{
-						if (!this->l_A_.getIsHovering())
-						{
-							this->l_B_.setSettings(LISTUSE::SHOPSELL, playerBag[x][y]->getItemGlobalBoundaries(), this->resource_Font_);
-							this->l_B_.setIsVisible(true);
-
-							//HIDE ITEM HOVER DESCRIPTION 
-
-							this->player_Selected_Item_X_ = x;
-							this->player_Selected_Item_Y_ = y;
-						}
-					}
-				}
-			}
-		}
-
+		/*
+			SELL POLL EVENT FROM ITEM DROP DOWN LIST
+		*/
 		if (this->l_B_.updateSellPollEvent(ev))
 		{
-			playerGold += playerBag[this->player_Selected_Item_X_][this->player_Selected_Item_Y_]->getGoldPrice();
-			playerSilver += playerBag[this->player_Selected_Item_X_][this->player_Selected_Item_Y_]->getSilverPrice();
-			playerCopper += playerBag[this->player_Selected_Item_X_][this->player_Selected_Item_Y_]->getCopperPrice();
+			this->handleMoney(false, playerGold, playerSilver, playerCopper, playerBag);
 
 			delete playerBag[this->player_Selected_Item_X_][this->player_Selected_Item_Y_];
 			playerBag[this->player_Selected_Item_X_][this->player_Selected_Item_Y_] = NULL;
@@ -270,6 +314,9 @@ void ShopBox::updatePollEvent(sf::Event& ev, int& playerGold, int& playerSilver,
 			this->l_B_.setIsVisible(false);
 			this->l_B_.setIsHovering(false);
 		}
+
+
+
 
 		if (ev.type == sf::Event::MouseWheelScrolled)
 		{
@@ -281,26 +328,21 @@ void ShopBox::updatePollEvent(sf::Event& ev, int& playerGold, int& playerSilver,
 					{
 						if (ev.mouseWheelScroll.delta == 1)
 						{
-							std::cout << "a" << std::endl;
+							this->scroll_ += 4;
 
-							this->scroll_ -= 4;
-
-							playerBag[x][y]->setPosition(sf::Vector2f(this->x_A_.getLeftPosition(true, 10.f), playerBag[x][y]->getPosition().y + x * 70.f + this->scroll_));
-
+							playerBag[x][y]->setPosition(sf::Vector2f(this->x_A_.getLeftPosition(true, 10.f), playerBag[x][y]->getPosition().y + x * 60.f + this->scroll_));
 						}
 
 						if (ev.mouseWheelScroll.delta == -1)
 						{
-							this->scroll_ += 4;
-							playerBag[x][y]->setPosition(sf::Vector2f(this->x_A_.getLeftPosition(true, 10.f), playerBag[x][y]->getPosition().y + x * 60.f + this->scroll_));
+							this->scroll_ -= 4;
 
+							playerBag[x][y]->setPosition(sf::Vector2f(this->x_A_.getLeftPosition(true, 10.f), playerBag[x][y]->getPosition().y + x * 70.f + this->scroll_));
 						}
 					}
 				}
 			}
-			
 		}
-
 	}
 }
 

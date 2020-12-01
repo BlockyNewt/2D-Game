@@ -182,6 +182,7 @@
     <ClCompile Include="Race.cpp" />
     <ClCompile Include="RaceOrc.cpp" />
     <ClCompile Include="ResourceFont.cpp" />
+    <ClCompile Include="ResourceHud.cpp" />
     <ClCompile Include="ShopBox.cpp" />
     <ClCompile Include="Skill.cpp" />
     <ClCompile Include="SkillButton.cpp" />
@@ -233,6 +234,7 @@
     <ClInclude Include="Race.h" />
     <ClInclude Include="RaceOrc.h" />
     <ClInclude Include="ResourceFont.h" />
+    <ClInclude Include="ResourceHud.h" />
     <ClInclude Include="ShopBox.h" />
     <ClInclude Include="Skill.h" />
     <ClInclude Include="SkillButton.h" />

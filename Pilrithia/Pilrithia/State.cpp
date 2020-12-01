@@ -1,6 +1,6 @@
 #include "State.h"
 
-State::State(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont* resourceFont, MenuSetting* menuSetting, MenuPause* menuPause)
+State::State(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont* resourceFont, ResourceHud* resourceHud, MenuSetting* menuSetting, MenuPause* menuPause)
 	: states_(states), window_(window)
 {
 	if (resourceFont == nullptr)
@@ -11,6 +11,16 @@ State::State(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont*
 	else
 	{
 		this->resource_Font_ = resourceFont;
+	}
+
+	if (resourceHud == nullptr)
+	{
+		this->resource_Hud_ = new ResourceHud();
+		this->resource_Hud_->loadAllHudTextures();
+	}
+	else
+	{
+		this->resource_Hud_ = resourceHud;
 	}
 
 	if (menuSetting == nullptr)

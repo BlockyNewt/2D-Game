@@ -9,6 +9,7 @@
 #include "Camera.h"
 
 #include "ResourceFont.h"
+#include "ResourceHud.h"
 
 #include "Box.h"
 #include "Button.h"
@@ -23,7 +24,7 @@
 class PlayerBag
 {
 public:
-	PlayerBag(const ResourceFont& resourceFont);
+	PlayerBag(const ResourceFont& resourceFont, const ResourceHud& resourceHud);
 	~PlayerBag();
 
 	void initializeBag();
@@ -58,12 +59,10 @@ private:
 	HoverDescription d_A_;
 	ItemDropDownList l_A_;
 
-	Box x_A_;
 	Box x_B_;
 
 	Button b_A_;
 	
-	Text t_A_;
 	Text t_B_;
 	Text t_C_;
 	Text t_D_;
@@ -81,6 +80,9 @@ private:
 	int copper_;
 
 	ResourceFont resource_Font_;
+
+	//TESTING
+	sf::Sprite bag_Background_Sprite_;
 };
 
 #endif // !PLAYERBAG_H

@@ -23,6 +23,7 @@ StateTestZone::StateTestZone(std::stack<State*>* states, sf::RenderWindow* windo
 
 	this->merchant_Test_ = new MerchantTest(*this->resource_Font_);
 
+	this->gather_Test_ = new GatherTest(GATHERTYPE::MINING, *this->resource_Font_);
 
 	this->load_X_A_.setSettings(800.f, 400.f, this->window_->getSize().x / 2.f - 800.f / 2.f, this->window_->getSize().y / 2.f - 600.f / 2.f, sf::Color(85, 158, 131), 1.f, sf::Color::Red, true);
 
@@ -201,6 +202,13 @@ void StateTestZone::updatePollEvent(sf::Event& ev)
 			//TESTING
 			this->merchant_Test_->updatePollEvent(ev, this->player_Test_->setPlayerBag().setGold(), this->player_Test_->setPlayerBag().setSilver(), this->player_Test_->setPlayerBag().setCopper(), this->player_Test_->setPlayerBag().setItem(), this->player_Test_->getPlayerBag().getBagSizeX(), this->player_Test_->getPlayerBag().getBagSizeY());
 
+
+			//TESTING - SHOULD PUT INTO A VECTOR LATER
+			if (this->gather_Test_ != NULL)
+			{
+				this->gather_Test_->updatePollEvent(ev);
+			}
+
 			this->window_->setKeyRepeatEnabled(true);
 		}
 	}
@@ -278,6 +286,20 @@ void StateTestZone::update()
 
 		this->merchant_Test_->update(this->mouse_Position_View_, this->mouse_Position_Window_, this->player_Test_->getPlayerGlobalBounds(), *this->camera_, this->player_Test_->getPlayerInventory().getEquipment(), this->player_Test_->setPlayerBag().setItem());
 
+
+
+		//TESTING - SHOULD PUT INTO A VECTOR LATER
+		if (this->gather_Test_ != NULL)
+		{
+			this->gather_Test_->update(this->mouse_Position_Window_, this->player_Test_->getPlayerGlobalBounds(), this->player_Test_->setPlayerGather().setGatheredItems());
+
+			if (this->gather_Test_->getIsGathered())
+			{
+				delete this->gather_Test_;
+				this->gather_Test_ = NULL;
+			}
+		}
+
 		this->updateCharacterCreation();
 	
 		this->updateLoadTilemap();
@@ -295,6 +317,12 @@ void StateTestZone::render(sf::RenderTarget& target)
 	this->npc_Test_->render(target);
 
 	this->merchant_Test_->render(target);
+
+	//TESTING - SHOULD PUT INTO A VECTOR LATER
+	if (this->gather_Test_ != NULL)
+	{
+		this->gather_Test_->render(target);
+	}
 
 	target.setView(this->camera_->getView());
 

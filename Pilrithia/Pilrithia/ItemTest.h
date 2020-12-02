@@ -24,7 +24,9 @@ public:
 	int& setGoldPrice() override;
 	int& setSilverPrice() override;
 	int& setCopperPrice() override;
-
+	int& setOreQuantity() override;
+	int& setWoodQuantity() override;
+	int& setPlantQuantity() override;
 
 	const sf::FloatRect getItemGlobalBoundaries() const override;
 	const ITEMTYPE& getItemType() const override;
@@ -37,13 +39,19 @@ public:
 	const int& getSilverPrice() const override;
 	const int& getCopperPrice() const override;
 	const sf::Vector2f& getPosition() const override;
+	const sf::FloatRect getItemRange() const override;
+	const int& getOreQuantity() const override;
+	const int& getWoodQuantity() const override;
+	const int& getPlantQuantity() const override;
 
 private:
 	
 private:
 	Button b_A_;
-
 	Text t_A_;
+	Text t_B_;
+
+	sf::RectangleShape item_Range_;
 
 	HoverDescription d_A_;
 
@@ -69,6 +77,10 @@ private:
 	int gold_Price_;
 	int silver_Price_;
 	int copper_Price_;
+
+	int ore_Quantity_;
+	int wood_Quantity_;
+	int plant_Quantity_;
 	
 	ResourceFont resource_Font_;
 };

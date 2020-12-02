@@ -7,6 +7,7 @@ PlayerTest::PlayerTest(const ResourceFont& resourceFont, const ResourceHud& reso
 	this->player_Inventory_ = new PlayerInventory(resourceFont);
 	this->player_Quest_ = new PlayerQuest(resourceFont);
 	this->player_Skill_Tree_ = new PlayerSkillTree(resourceFont);
+	this->player_Gather_ = new PlayerGather(resourceFont);
 
 	this->race_ = new RaceOrc();
 	this->race_->initializeRace(0.f, 0.f);
@@ -23,6 +24,12 @@ PlayerTest::PlayerTest(const ResourceFont& resourceFont, const ResourceHud& reso
 	this->next_Position_.setFillColor(sf::Color::Transparent);
 	this->next_Position_.setOutlineThickness(1.f);
 	this->next_Position_.setOutlineColor(sf::Color::Red);
+
+	this->auto_Attack_Range_.setSize(sf::Vector2f(125.f, 50.f));
+	this->auto_Attack_Range_.setPosition(sf::Vector2f(this->player_Model_.getPosition().x, this->player_Model_.getPosition().y));
+	this->auto_Attack_Range_.setFillColor(sf::Color::Transparent);
+	this->auto_Attack_Range_.setOutlineThickness(1.f);
+	this->auto_Attack_Range_.setOutlineColor(sf::Color::Magenta);
 	
 	this->velocity_.x = 0.f;
 	this->velocity_.y = 0.f;
@@ -57,7 +64,12 @@ PlayerTest::~PlayerTest()
 	//delete this->race_;
 	delete this->camera_;
 
+	delete this->player_Bag_;
 	delete this->player_Hud_;
+	delete this->player_Inventory_;
+	delete this->player_Quest_;
+	delete this->player_Skill_Tree_;
+	delete this->player_Gather_;
 }
 
 void PlayerTest::initializeCharacter(Race* race, const std::string& name)
@@ -128,6 +140,7 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 	this->player_Bag_->updatePollEvent(ev, this->player_Inventory_->setEquipment(), this->stats_, this->resistances_);
 	this->player_Quest_->updatePollEvent(ev);
 	this->player_Skill_Tree_->updatePollEvent(ev, this->stats_, this->skill_Points_);
+	this->player_Gather_->updatePollEvent(ev);
 
 
 	/*
@@ -187,6 +200,18 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 		if (this->player_Skill_Tree_->getIsHidingSkillTree())
 		{
 			this->player_Skill_Tree_->setIsHidingSkillTree(false);
+		}
+	}
+
+
+	/*
+		GATHER BUTTON
+	*/
+	if (this->player_Hud_->updateGatherPollEvent(ev))
+	{
+		if (!this->player_Gather_->getIsVisible())
+		{
+			this->player_Gather_->setIsVisible(true);
 		}
 	}
 
@@ -289,7 +314,8 @@ void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& c
 	if (this->player_Inventory_->getIsHidingInventory() &&
 		this->player_Bag_->getIsHidingBag() &&
 		this->player_Quest_->getIsHidingQuest() &&
-		this->player_Skill_Tree_->getIsHidingSkillTree())
+		this->player_Skill_Tree_->getIsHidingSkillTree() &&
+		!this->player_Gather_->getIsVisible())
 	{
 		this->player_Model_.move(this->velocity_);
 
@@ -311,6 +337,7 @@ void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& c
 		}
 
 		this->next_Position_.setPosition(this->next_Position_Bounds_.left, this->next_Position_Bounds_.top);
+		this->auto_Attack_Range_.setPosition(sf::Vector2f(this->player_Model_.getGlobalBounds().left - this->auto_Attack_Range_.getSize().x / 2.f + this->player_Model_.getGlobalBounds().width / 2.f, this->player_Model_.getPosition().y));
 
 		*this->camera_ = camera;
 	}
@@ -319,11 +346,12 @@ void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& c
 	/*
 		UPDATE HUD BUTTONS
 	*/
-	this->player_Hud_->update(mousePositionWindow, camera, this->player_Model_.getPosition(), this->player_Model_.getGlobalBounds(), enemies, this->is_Combat_);
+	this->player_Hud_->update(mousePositionWindow, camera, this->player_Model_.getPosition(), this->player_Model_.getGlobalBounds(), enemies, this->is_Combat_, this->auto_Attack_Range_.getGlobalBounds());
 	this->player_Inventory_->update(mousePositionWindow);
 	this->player_Bag_->update(mousePositionWindow);
 	this->player_Quest_->update(mousePositionWindow);
 	this->player_Skill_Tree_->update(mousePositionWindow, this->skill_Points_);
+	this->player_Gather_->update(mousePositionWindow);
 
 	
 	/*
@@ -399,6 +427,7 @@ void PlayerTest::renderHudItems(sf::RenderTarget& target)
 	this->player_Bag_->render(target);
 	this->player_Quest_->render(target);
 	this->player_Skill_Tree_->render(target);
+	this->player_Gather_->render(target);
 
 	target.setView(this->camera_->getView());
 }
@@ -408,7 +437,9 @@ void PlayerTest::renderPlayerModel(sf::RenderTarget& target)
 	target.setView(this->camera_->getView());
 
 	target.draw(this->next_Position_);
+	target.draw(this->auto_Attack_Range_);
 	target.draw(this->player_Model_);
+
 
 	if (&this->player_Hud_->setSkillOne() != NULL)
 	{
@@ -440,6 +471,11 @@ PlayerBag& PlayerTest::setPlayerBag()
 PlayerHud& PlayerTest::setPlayerHud()
 {
 	return *this->player_Hud_;
+}
+
+PlayerGather& PlayerTest::setPlayerGather()
+{
+	return *this->player_Gather_;
 }
 
 int& PlayerTest::setExp()
@@ -570,6 +606,11 @@ const PlayerQuest& PlayerTest::getPlayerQuest() const
 const PlayerSkillTree& PlayerTest::getPlayerSkillTree() const
 {
 	return *this->player_Skill_Tree_;
+}
+
+const PlayerGather& PlayerTest::getPlayerGather() const
+{
+	return *this->player_Gather_;
 }
 
 const int& PlayerTest::getStat(const std::string& stat) const

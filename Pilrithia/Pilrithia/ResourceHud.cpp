@@ -10,7 +10,7 @@ ResourceHud::~ResourceHud()
 
 void ResourceHud::loadAllHudTextures()
 {
-	this->loadHudTexture("Bars.png", HUDTYPE::BAR);
+	this->loadHudTexture("Bars_2.png", HUDTYPE::BAR);
 	this->loadHudTexture("bag_.png", HUDTYPE::BAG);
 	this->loadHudTexture("x_Button_.png", HUDTYPE::CLOSE);
 }

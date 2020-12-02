@@ -10,6 +10,7 @@
 #include "PlayerBag.h"
 #include "PlayerQuest.h"
 #include "PlayerSkillTree.h"
+#include "PlayerGather.h"
 
 
 
@@ -42,6 +43,7 @@ public:
 	PlayerQuest& setPlayerQuest();
 	PlayerBag& setPlayerBag();
 	PlayerHud& setPlayerHud();
+	PlayerGather& setPlayerGather();
 	int& setExp();
 	bool& setIsCombat();
 
@@ -55,6 +57,7 @@ public:
 	const PlayerBag& getPlayerBag() const;
 	const PlayerQuest& getPlayerQuest() const;
 	const PlayerSkillTree& getPlayerSkillTree() const;
+	const PlayerGather& getPlayerGather() const;
 	const int& getStat(const std::string& stat) const;
 	int& getStatForChange(const std::string& stat);
 	
@@ -70,6 +73,7 @@ private:
 	PlayerBag* player_Bag_;
 	PlayerQuest* player_Quest_;
 	PlayerSkillTree* player_Skill_Tree_;
+	PlayerGather* player_Gather_;
 
 	Classes* class_One_;
 	Classes* class_Two_;
@@ -81,6 +85,7 @@ private:
 
 	sf::RectangleShape player_Model_;
 	sf::RectangleShape next_Position_;
+	sf::RectangleShape auto_Attack_Range_;
 
 	sf::FloatRect next_Position_Bounds_;
 	float position_Before_Jump_;

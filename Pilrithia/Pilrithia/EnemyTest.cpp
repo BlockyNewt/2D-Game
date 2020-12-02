@@ -29,7 +29,7 @@ void EnemyTest::initializeStats()
 	this->poison_ = 0;
 
 	this->level_ = 1;
-	this->exp_ = std::floor(1.2 * (std::pow(this->level_, 1.4)) * 1.2);
+	this->exp_ = std::floor(2.4 * (std::pow(this->level_, 1.4)) * 1.2);
 	this->exp_Tick_ = 0;
 }
 

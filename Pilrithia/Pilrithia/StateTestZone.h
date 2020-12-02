@@ -15,6 +15,9 @@
 #include "Merchant.h"
 #include "MerchantTest.h"
 
+#include "Gather.h"
+#include "GatherTest.h"
+
 class StateTestZone
 	: public State
 {
@@ -67,6 +70,7 @@ private:
 	EnemyTest* enemy_Test_;
 	EnemyTest* enemy_Test_One_;
 	Merchant* merchant_Test_;
+	Gather* gather_Test_;
 
 	int max_Enemies_;
 	std::vector<Enemy*> enemies_;

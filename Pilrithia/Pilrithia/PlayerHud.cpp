@@ -10,24 +10,49 @@ PlayerHud::PlayerHud(unsigned int windowSizeX, unsigned int windowSizeY, const R
 	this->window_Size_Y_ = windowSizeY;
 
 	this->bars_Sprite_.setTexture(*resourceHud.getHudTexture(HUDTYPE::BAR));
+	this->bars_Sprite_.setPosition(sf::Vector2f(10.f, 10.f));
 
-	this->health_Bar_Front_.setPosition(sf::Vector2f(this->bars_Sprite_.getGlobalBounds().left + 95.f, this->bars_Sprite_.getGlobalBounds().top + 25.f));
-	this->health_Bar_Front_.setSize(sf::Vector2f(174.f, 8.f));
+	this->health_Bar_Back_.setPosition(sf::Vector2f(this->bars_Sprite_.getGlobalBounds().left + 115.f, this->bars_Sprite_.getGlobalBounds().top + 22.f));
+	this->health_Bar_Back_.setSize(sf::Vector2f(210.f, 10.f));
+	this->health_Bar_Back_.setFillColor(sf::Color::Black);
+	this->health_Bar_Back_.setOutlineThickness(1.f);
+	this->health_Bar_Back_.setOutlineColor(sf::Color::Black);
+
+	this->health_Bar_Front_.setPosition(sf::Vector2f(this->bars_Sprite_.getGlobalBounds().left + 115.f, this->bars_Sprite_.getGlobalBounds().top + 22.f));
+	this->health_Bar_Front_.setSize(sf::Vector2f(210.f, 10.f));
 	this->health_Bar_Front_.setFillColor(sf::Color::Green);
 	this->health_Bar_Front_.setOutlineThickness(1.f);
 	this->health_Bar_Front_.setOutlineColor(sf::Color::Green);
 
-	this->mana_Bar_Front_.setPosition(sf::Vector2f(this->health_Bar_Front_.getGlobalBounds().left, this->health_Bar_Front_.getGlobalBounds().top + this->health_Bar_Front_.getGlobalBounds().height + 6.f));
-	this->mana_Bar_Front_.setSize(sf::Vector2f(174.f, 8.f));
+	this->mana_Bar_Back_.setPosition(sf::Vector2f(this->health_Bar_Front_.getGlobalBounds().left, this->health_Bar_Front_.getGlobalBounds().top + this->health_Bar_Front_.getGlobalBounds().height + 28.f));
+	this->mana_Bar_Back_.setSize(sf::Vector2f(210.f, 10.f));
+	this->mana_Bar_Back_.setFillColor(sf::Color::Black);
+	this->mana_Bar_Back_.setOutlineThickness(1.f);
+	this->mana_Bar_Back_.setOutlineColor(sf::Color::Black);
+
+	this->mana_Bar_Front_.setPosition(sf::Vector2f(this->health_Bar_Front_.getGlobalBounds().left, this->health_Bar_Front_.getGlobalBounds().top + this->health_Bar_Front_.getGlobalBounds().height + 28.f));
+	this->mana_Bar_Front_.setSize(sf::Vector2f(210.f, 10.f));
 	this->mana_Bar_Front_.setFillColor(sf::Color::Blue);
 	this->mana_Bar_Front_.setOutlineThickness(1.f);
 	this->mana_Bar_Front_.setOutlineColor(sf::Color::Blue);
 		  
-	this->experience_Bar_Front_.setPosition(sf::Vector2f(this->mana_Bar_Front_.getGlobalBounds().left, this->mana_Bar_Front_.getGlobalBounds().top + this->mana_Bar_Front_.getGlobalBounds().height + 6.f));
-	this->experience_Bar_Front_.setSize(sf::Vector2f(174.f, 8.f));
+	this->experience_Bar_Back_.setPosition(sf::Vector2f(this->mana_Bar_Front_.getGlobalBounds().left, this->mana_Bar_Front_.getGlobalBounds().top + this->mana_Bar_Front_.getGlobalBounds().height + 30.f));
+	this->experience_Bar_Back_.setSize(sf::Vector2f(210.f, 10.f));
+	this->experience_Bar_Back_.setFillColor(sf::Color::Black);
+	this->experience_Bar_Back_.setOutlineThickness(1.f);
+	this->experience_Bar_Back_.setOutlineColor(sf::Color::Black);
+
+	this->experience_Bar_Front_.setPosition(sf::Vector2f(this->mana_Bar_Front_.getGlobalBounds().left, this->mana_Bar_Front_.getGlobalBounds().top + this->mana_Bar_Front_.getGlobalBounds().height + 30.f));
+	this->experience_Bar_Front_.setSize(sf::Vector2f(210.f, 10.f));
 	this->experience_Bar_Front_.setFillColor(sf::Color(195, 203, 113));
 	this->experience_Bar_Front_.setOutlineThickness(1.f);
 	this->experience_Bar_Front_.setOutlineColor(sf::Color::Yellow);
+
+
+
+	this->health_T_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 14, "", sf::Vector2f(this->health_Bar_Front_.getGlobalBounds().left + 4.f, this->health_Bar_Front_.getGlobalBounds().top + 15.f), true);
+	this->mana_T_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 14, "", sf::Vector2f(this->mana_Bar_Front_.getGlobalBounds().left + 4.f, this->mana_Bar_Front_.getGlobalBounds().top + 15.f), true);
+	this->experience_T_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 14, "", sf::Vector2f(this->experience_Bar_Front_.getGlobalBounds().left + 4.f, this->experience_Bar_Front_.getGlobalBounds().top + 15.f), true);
 
 
 
@@ -35,16 +60,18 @@ PlayerHud::PlayerHud(unsigned int windowSizeX, unsigned int windowSizeY, const R
 	this->character_B_B_.setSettings(60.f, 60.f, this->character_B_A_.getRightPosition(true, 10.f), this->character_B_A_.getTopPosition(), sf::Color(27, 133, 184), 1.f, sf::Color::White, true);
 	this->character_B_C_.setSettings(60.f, 60.f, this->character_B_B_.getRightPosition(true, 10.f), this->character_B_A_.getTopPosition(), sf::Color(27, 133, 184), 1.f, sf::Color::White, true);
 	this->character_B_D_.setSettings(60.f, 60.f, this->character_B_C_.getRightPosition(true, 10.f), this->character_B_A_.getTopPosition(), sf::Color(27, 133, 184), 1.f, sf::Color::White, true);
+	this->character_B_F_.setSettings(60.f, 60.f, this->character_B_D_.getRightPosition(true, 10.f), this->character_B_A_.getTopPosition(), sf::Color(27, 133, 184), 1.f, sf::Color::White, true);
 
 	this->character_T_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 12, "Inventory", sf::Vector2f(this->character_B_A_.getLeftPosition(), this->character_B_A_.getTopPosition()), true);
 	this->character_T_B_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 12, "Bag", sf::Vector2f(this->character_B_B_.getLeftPosition(), this->character_B_B_.getTopPosition()), true);
 	this->character_T_C_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 12, "Quests", sf::Vector2f(this->character_B_C_.getLeftPosition(), this->character_B_C_.getTopPosition()), true);
 	this->character_T_D_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 12, "Skill Tree", sf::Vector2f(this->character_B_D_.getLeftPosition(), this->character_B_D_.getTopPosition()), true);
-	this->character_T_E_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "", sf::Vector2f(0.f, 0.f), true);
+	this->character_T_E_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 12, "", sf::Vector2f(0.f, 0.f), true);
+	this->character_T_F_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 12, "Gathering", sf::Vector2f(this->character_B_F_.getLeftPosition(), this->character_B_F_.getTopPosition()), true);
 
-	this->skill_B_A_.setSettings(60.f, 60.f, 400.f, 650.f, sf::Color(27, 133, 184), 1.f, sf::Color::White, true);
-	this->skill_B_B_.setSettings(60.f, 60.f, this->skill_B_A_.getRightPosition(true, 10.f), this->skill_B_A_.getTopPosition(), sf::Color(27, 133, 184), 1.f, sf::Color::White, true);
-	this->skill_B_C_.setSettings(60.f, 60.f, this->skill_B_B_.getRightPosition(true, 10.f), this->skill_B_A_.getTopPosition(), sf::Color(27, 133, 184), 1.f, sf::Color::White, true);
+	this->skill_B_A_.setSettings(50.f, 50.f, 400.f, 650.f, sf::Color(27, 133, 184), 1.f, sf::Color::White, true);
+	this->skill_B_B_.setSettings(50.f, 50.f, this->skill_B_A_.getRightPosition(true, 10.f), this->skill_B_A_.getTopPosition(), sf::Color(27, 133, 184), 1.f, sf::Color::White, true);
+	this->skill_B_C_.setSettings(50.f, 50.f, this->skill_B_B_.getRightPosition(true, 10.f), this->skill_B_A_.getTopPosition(), sf::Color(27, 133, 184), 1.f, sf::Color::White, true);
 	
 	this->skill_X_A_.setSettings(this->skill_B_A_.getSize().x, 0.f, this->skill_B_A_.getPosition().x, this->skill_B_A_.getBottomPosition(), sf::Color(0, 0, 0, 200), 1.f, sf::Color::Transparent, true);
 
@@ -125,6 +152,19 @@ bool PlayerHud::updateSkillTreePollEvent(sf::Event& ev)
 	if (this->character_B_D_.updatePollEvent(ev))
 	{
 		std::cout << "DEBUG::PLAYERHUD::UPDATESKILLTREEPOLLEVENT() -> Showing skill tree" << std::endl;
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+bool PlayerHud::updateGatherPollEvent(sf::Event& ev)
+{
+	if (this->character_B_F_.updatePollEvent(ev))
+	{
+		//std::cout << "Showing quests" << std::endl;
 		return true;
 	}
 	else
@@ -217,6 +257,8 @@ void PlayerHud::updateSkillOnePollEvent(sf::Event& ev, Classes* playerClass, std
 				this->skill_B_A_.setTexture(&this->skill_One_->getTexture());
 
 				this->skill_T_A_.setString(this->skill_One_->getName());
+
+				this->skill_D_A_.setString(DESCRIPTIONTYPE::SKILL, this->skill_One_->getName(), this->skill_One_->getSummary());
 			}
 			else
 			{
@@ -227,6 +269,8 @@ void PlayerHud::updateSkillOnePollEvent(sf::Event& ev, Classes* playerClass, std
 				this->skill_B_A_.setTexture(nullptr);
 				
 				this->skill_T_A_.setString("Skill 1");
+
+				this->skill_D_A_.setString(DESCRIPTIONTYPE::SKILL, "", "");
 			}
 		}
 	}
@@ -260,7 +304,7 @@ void PlayerHud::updateNamePosition(const sf::Vector2f& playerPosition)
 	this->character_T_E_.setPosition(playerPosition.x, playerPosition.y - 22.f);
 }
 
-void PlayerHud::update(const sf::Vector2i& mousePositionWindow, const Camera& camera, const sf::Vector2f& playerPosition, const sf::FloatRect playerBoundaries, std::vector<Enemy*>& enemies, bool& playerIsCombat)
+void PlayerHud::update(const sf::Vector2i& mousePositionWindow, const Camera& camera, const sf::Vector2f& playerPosition, const sf::FloatRect playerBoundaries, std::vector<Enemy*>& enemies, bool& playerIsCombat, const sf::FloatRect playerAutoAttackRange)
 {
 	if (this->is_Hiding_Hud_)
 	{
@@ -272,6 +316,7 @@ void PlayerHud::update(const sf::Vector2i& mousePositionWindow, const Camera& ca
 		this->character_B_B_.updateBoundaries(mousePositionWindow);
 		this->character_B_C_.updateBoundaries(mousePositionWindow);
 		this->character_B_D_.updateBoundaries(mousePositionWindow);
+		this->character_B_F_.updateBoundaries(mousePositionWindow);
 
 		this->skill_B_A_.updateBoundaries(mousePositionWindow);
 		this->skill_B_B_.updateBoundaries(mousePositionWindow);
@@ -310,21 +355,18 @@ void PlayerHud::update(const sf::Vector2i& mousePositionWindow, const Camera& ca
 		{
 			if (enemies[i] != NULL)
 			{
-				if (this->skill_One_ != NULL)
+				//IF ANY ENEMY INTERSECTS THE SKILL RANGE BOX THEN DAMAGE IT
+				if (playerAutoAttackRange.intersects(enemies[i]->getEnemyGlobalBounds()))
 				{
-					//IF ANY ENEMY INTERSECTS THE SKILL RANGE BOX THEN DAMAGE IT
-					if (this->skill_One_->getSkillBoundaries().intersects(enemies[i]->getEnemyGlobalBounds()))
+					//ONLY IF THE ENEMIES HAS MORE THAN 0 HEALTH
+					if (enemies[i]->getHealth() > 0)
 					{
-						//ONLY IF THE ENEMIES HAS MORE THAN 0 HEALTH
-						if (enemies[i]->getHealth() > 0)
+						if (this->auto_Attack_Timer_.getElapsedTime().asSeconds() >= 1.f)
 						{
-							if (this->auto_Attack_Timer_.getElapsedTime().asSeconds() >= 1.f)
-							{
-								enemies[i]->setHealth(1);
+							enemies[i]->setHealth(1);
 
-								this->auto_Attack_Timer_.restart();
-								this->leave_Combat_Timer_.restart();
-							}
+							this->auto_Attack_Timer_.restart();
+							this->leave_Combat_Timer_.restart();
 						}
 					}
 				}
@@ -357,23 +399,32 @@ void PlayerHud::render(sf::RenderTarget& target)
 	{
 		target.setView(target.getDefaultView());
 
+		target.draw(this->health_Bar_Back_);
 		target.draw(this->health_Bar_Front_);
 
+		target.draw(this->mana_Bar_Back_);
 		target.draw(this->mana_Bar_Front_);
 
+		target.draw(this->experience_Bar_Back_);
 		target.draw(this->experience_Bar_Front_);
 
 		target.draw(this->bars_Sprite_);
+
+		this->health_T_A_.render(target);
+		this->mana_T_A_.render(target);
+		this->experience_T_A_.render(target);
 
 		this->character_B_A_.render(target);
 		this->character_B_B_.render(target);
 		this->character_B_C_.render(target);
 		this->character_B_D_.render(target);
+		this->character_B_F_.render(target);
 		
 		this->character_T_A_.render(target);
 		this->character_T_B_.render(target);
 		this->character_T_C_.render(target);
 		this->character_T_D_.render(target);
+		this->character_T_F_.render(target);
 
 		this->skill_B_A_.render(target);
 		this->skill_B_B_.render(target);
@@ -385,7 +436,10 @@ void PlayerHud::render(sf::RenderTarget& target)
 		this->skill_T_B_.render(target);
 		this->skill_T_C_.render(target);
 
-		//this->skill_D_A_.render(target);
+		if (!this->skill_Dropdown_List_.getIsVisible())
+		{
+			this->skill_D_A_.render(target);
+		}
 
 		this->experience_D_A_.render(target);
 
@@ -401,22 +455,26 @@ void PlayerHud::render(sf::RenderTarget& target)
 
 void PlayerHud::setWidthOfBars(const int& healthMax, const int& health, const int& manaMax, const int& mana, const int& expMax, const int& exp)
 {
+	this->health_T_A_.setString("HP: " + std::to_string(health) + " / " + std::to_string(healthMax));
+	this->mana_T_A_.setString("MP: " + std::to_string(mana) + " / " + std::to_string(manaMax));
+	this->experience_T_A_.setString("EXP: " + std::to_string(exp) + " / " + std::to_string(expMax));
+
 	//std::cout << "DEBUG::PLAYERHUD::SETWIDTHOFBARS() -> health max: " << healthMax << std::endl;
 	float healthMaxToFloat = static_cast<float>(healthMax);
 	float healthToFloat = static_cast<float>(health);
 	//std::cout << "DEBUG::PLAYERHUD::SETWIDTHOFBARS() -> health: " << health << std::endl;
 
-	this->health_Bar_Front_.setSize(sf::Vector2f((healthToFloat / healthMaxToFloat) * 174.f, 8.f));
+	this->health_Bar_Front_.setSize(sf::Vector2f((healthToFloat / healthMaxToFloat) * 210.f, 10.f));
 
 	float manaMaxToFloat = static_cast<float>(manaMax);
 	float manaToFloat = static_cast<float>(mana);
 
-	this->mana_Bar_Front_.setSize(sf::Vector2f((manaToFloat / manaMaxToFloat) * 174.f, 8.f));
+	this->mana_Bar_Front_.setSize(sf::Vector2f((manaToFloat / manaMaxToFloat) * 210.f, 10.f));
 
 	float expMaxToFloat = static_cast<float>(expMax);
 	float expToFloat = static_cast<float>(exp);
 
-	this->experience_Bar_Front_.setSize(sf::Vector2f((expToFloat / expMaxToFloat) * 174.f, 8.f));
+	this->experience_Bar_Front_.setSize(sf::Vector2f((expToFloat / expMaxToFloat) * 210.f, 10.f));
 
 	this->experience_D_A_.setString(DESCRIPTIONTYPE::SKILL, "Experience", std::to_string(exp) + " / " + std::to_string(expMax));
 }

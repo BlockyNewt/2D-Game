@@ -156,6 +156,8 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyTest.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="Gather.cpp" />
+    <ClCompile Include="GatherTest.cpp" />
     <ClCompile Include="HoverDescription.cpp" />
     <ClCompile Include="InputBox.cpp" />
     <ClCompile Include="Item.cpp" />
@@ -171,6 +173,7 @@
     <ClCompile Include="Npc.cpp" />
     <ClCompile Include="NpcTest.cpp" />
     <ClCompile Include="PlayerBag.cpp" />
+    <ClCompile Include="PlayerGather.cpp" />
     <ClCompile Include="PlayerHud.cpp" />
     <ClCompile Include="PlayerInventory.cpp" />
     <ClCompile Include="PlayerQuest.cpp" />
@@ -209,6 +212,8 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyTest.h" />
     <ClInclude Include="Engine.h" />
+    <ClInclude Include="Gather.h" />
+    <ClInclude Include="GatherTest.h" />
     <ClInclude Include="HoverDescription.h" />
     <ClInclude Include="InputBox.h" />
     <ClInclude Include="Item.h" />
@@ -223,6 +228,7 @@
     <ClInclude Include="Npc.h" />
     <ClInclude Include="NpcTest.h" />
     <ClInclude Include="PlayerBag.h" />
+    <ClInclude Include="PlayerGather.h" />
     <ClInclude Include="PlayerHud.h" />
     <ClInclude Include="PlayerInventory.h" />
     <ClInclude Include="PlayerQuest.h" />

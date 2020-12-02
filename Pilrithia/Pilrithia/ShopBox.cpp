@@ -328,16 +328,16 @@ void ShopBox::updatePollEvent(sf::Event& ev, int& playerGold, int& playerSilver,
 					{
 						if (ev.mouseWheelScroll.delta == 1)
 						{
-							this->scroll_ += 4;
+							this->scroll_ = 4;
 
-							playerBag[x][y]->setPosition(sf::Vector2f(this->x_A_.getLeftPosition(true, 10.f), playerBag[x][y]->getPosition().y + x * 60.f + this->scroll_));
+							playerBag[x][y]->setPosition(sf::Vector2f(this->x_A_.getLeftPosition(true, 10.f), playerBag[x][y]->getPosition().y + this->scroll_));
 						}
 
 						if (ev.mouseWheelScroll.delta == -1)
 						{
-							this->scroll_ -= 4;
+							this->scroll_ = -4;
 
-							playerBag[x][y]->setPosition(sf::Vector2f(this->x_A_.getLeftPosition(true, 10.f), playerBag[x][y]->getPosition().y + x * 70.f + this->scroll_));
+							playerBag[x][y]->setPosition(sf::Vector2f(this->x_A_.getLeftPosition(true, 10.f), playerBag[x][y]->getPosition().y +  this->scroll_));
 						}
 					}
 				}

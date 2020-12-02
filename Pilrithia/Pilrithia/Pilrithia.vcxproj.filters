@@ -79,6 +79,18 @@
     <Filter Include="Source Files\Enemy">
       <UniqueIdentifier>{59280707-72d1-4eca-a2e6-87f5e7f97ca6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Merchant">
+      <UniqueIdentifier>{9b494fa9-b442-4b45-a86b-18eda42de5e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Resource">
+      <UniqueIdentifier>{7065931d-1a49-46e3-984c-66422d964286}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Merchant">
+      <UniqueIdentifier>{79463505-e294-44b5-9f2e-acc4f5f355d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Resource">
+      <UniqueIdentifier>{0798993e-47e3-4534-88b4-6714e07f7be3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -219,19 +231,28 @@
     <ClCompile Include="StatButton.cpp">
       <Filter>Source Files\Gui</Filter>
     </ClCompile>
-    <ClCompile Include="ResourceFont.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Merchant.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Merchant</Filter>
     </ClCompile>
     <ClCompile Include="MerchantTest.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Merchant</Filter>
     </ClCompile>
-    <ClCompile Include="ShopBox.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="ResourceFont.cpp">
+      <Filter>Source Files\Resource</Filter>
     </ClCompile>
     <ClCompile Include="ResourceHud.cpp">
+      <Filter>Source Files\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopBox.cpp">
+      <Filter>Source Files\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="Gather.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GatherTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerGather.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -371,19 +392,28 @@
     <ClInclude Include="LootWindow.h">
       <Filter>Header Files\Gui</Filter>
     </ClInclude>
-    <ClInclude Include="ResourceFont.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Merchant.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Merchant</Filter>
     </ClInclude>
     <ClInclude Include="MerchantTest.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Merchant</Filter>
     </ClInclude>
-    <ClInclude Include="ShopBox.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="ResourceFont.h">
+      <Filter>Header Files\Resource</Filter>
     </ClInclude>
     <ClInclude Include="ResourceHud.h">
+      <Filter>Header Files\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopBox.h">
+      <Filter>Header Files\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="Gather.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GatherTest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerGather.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

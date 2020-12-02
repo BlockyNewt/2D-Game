@@ -25,7 +25,11 @@ enum class ITEMTYPE
 	OFFHAND,
 	JEWELRY,
 	POTION,
-	FOOD
+	FOOD,
+
+	ORE,
+	WOOD,
+	PLANT,
 };
 
 class Item
@@ -48,6 +52,9 @@ public:
 	virtual int& setGoldPrice() = 0;
 	virtual int& setSilverPrice() = 0;
 	virtual int& setCopperPrice() = 0;
+	virtual int& setOreQuantity() = 0;
+	virtual int& setWoodQuantity() = 0;
+	virtual int& setPlantQuantity() = 0;
 
 	virtual const sf::FloatRect getItemGlobalBoundaries() const = 0;
 	virtual const ITEMTYPE& getItemType() const = 0;
@@ -61,7 +68,10 @@ public:
 	virtual const int& getSilverPrice() const = 0;
 	virtual const int& getCopperPrice() const = 0;
 	virtual const sf::Vector2f& getPosition() const = 0;
-
+	virtual const sf::FloatRect getItemRange() const = 0;
+	virtual const int& getOreQuantity() const = 0;
+	virtual const int& getWoodQuantity() const = 0;
+	virtual const int& getPlantQuantity() const = 0;
 
 private:
 

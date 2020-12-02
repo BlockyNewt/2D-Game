@@ -12,12 +12,20 @@ ItemTest::ItemTest(float posX, float posY, ITEMTYPE itemType, const std::string&
 	this->b_A_.setSettings(50.f, 50.f, posX, posY, sf::Color(27, 133, 184), 0.f, sf::Color::Transparent, true);
 
 	this->t_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "", sf::Vector2f(this->b_A_.getLeftPosition(true, 10.f), this->b_A_.getTopPosition(true, 10.f)), true);
+	this->t_B_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "", sf::Vector2f(this->b_A_.getRightPosition(false, 10.f), this->b_A_.getBottomPosition(false, 20.f)), true);
 
 	this->item_Type_ = itemType;
 
 	this->name_ = name;
 	this->description_ = description;
 
+	this->item_Range_.setSize(sf::Vector2f(150.f, 50.f));
+	this->item_Range_.setPosition(sf::Vector2f(this->b_A_.getLeftPosition() - 150.f / 2.f + this->b_A_.getSize().x / 2.f, this->b_A_.getTopPosition()));
+	this->item_Range_.setFillColor(sf::Color::Transparent);
+	this->item_Range_.setOutlineThickness(1.f);
+	this->item_Range_.setOutlineColor(sf::Color::Yellow);
+
+	
 	if (this->item_Type_ == ITEMTYPE::HELM)
 	{
 		this->t_A_.setString("Helm");
@@ -50,12 +58,24 @@ ItemTest::ItemTest(float posX, float posY, ITEMTYPE itemType, const std::string&
 	{
 		this->t_A_.setString("Offhand");
 	}
+	else if (this->item_Type_ == ITEMTYPE::ORE)
+	{
+		this->t_A_.setString("Ore");
+	}
+	else if (this->item_Type_ == ITEMTYPE::WOOD)
+	{
+		this->t_A_.setString("Wood");
+	}
+	else if (this->item_Type_ == ITEMTYPE::PLANT)
+	{
+		this->t_A_.setString("Plant");
+	}
 	else
 	{
-		std::cout << "fuck me in the dick" << std::endl;
+		std::cout << "DEBUG::ITEMTEST::ITEMTEST() -> Fuck me in the dick." << std::endl;
 	}
 
-
+	
 	this->health_Max_ = 200;
 	this->mana_Max_ = 0;
 	this->strength_ = 100;
@@ -65,7 +85,7 @@ ItemTest::ItemTest(float posX, float posY, ITEMTYPE itemType, const std::string&
 	this->constitution_ = 0;
 	this->perception_ = 30;
 	this->wisdom_ = 0;
-	
+
 
 	this->cold_ = 5;
 	this->fire_ = 5;
@@ -75,6 +95,13 @@ ItemTest::ItemTest(float posX, float posY, ITEMTYPE itemType, const std::string&
 	this->gold_Price_ = 0;
 	this->silver_Price_ = 0;
 	this->copper_Price_ = 50;
+
+	this->ore_Quantity_ = 1;
+	this->wood_Quantity_ = 1;
+	this->plant_Quantity_ = 1;
+
+
+
 
 	this->resource_Font_ = resourceFont;
 }
@@ -171,6 +198,23 @@ bool ItemTest::update(const sf::Vector2i& mousePositionWindow)
 	this->b_A_.updateBoundaries(mousePositionWindow);
 	this->d_A_.update(mousePositionWindow);
 
+
+
+	if (this->item_Type_ == ITEMTYPE::ORE)
+	{
+		this->t_B_.setString(std::to_string(this->ore_Quantity_));
+	}
+	else if (this->item_Type_ == ITEMTYPE::WOOD)
+	{
+		this->t_B_.setString(std::to_string(this->wood_Quantity_));
+	}
+	else if (this->item_Type_ == ITEMTYPE::PLANT)
+	{
+		this->t_B_.setString(std::to_string(this->plant_Quantity_));
+	}
+
+
+
 	if (this->b_A_.getIsHovering())
 	{
 		return true;
@@ -186,6 +230,15 @@ void ItemTest::render(sf::RenderTarget& target)
 	this->b_A_.render(target);
 	
 	this->t_A_.render(target);
+
+	if (this->item_Type_ == ITEMTYPE::ORE ||
+		this->item_Type_ == ITEMTYPE::WOOD ||
+		this->item_Type_ == ITEMTYPE::PLANT)
+	{
+		target.draw(this->item_Range_);
+
+		this->t_B_.render(target);
+	}
 
 	if (b_A_.getIsHovering())
 	{
@@ -212,6 +265,21 @@ int& ItemTest::setSilverPrice()
 int& ItemTest::setCopperPrice()
 {
 	return this->copper_Price_;
+}
+
+int& ItemTest::setOreQuantity()
+{
+	return this->ore_Quantity_;
+}
+
+int& ItemTest::setWoodQuantity()
+{
+	return this->wood_Quantity_;
+}
+
+int& ItemTest::setPlantQuantity()
+{
+	return this->plant_Quantity_;
 }
 
 const sf::FloatRect ItemTest::getItemGlobalBoundaries() const
@@ -266,5 +334,25 @@ const int& ItemTest::getCopperPrice() const
 
 const sf::Vector2f& ItemTest::getPosition() const
 {
-	return this->b_A_.getSize();
+	return this->b_A_.getPosition();
+}
+
+const sf::FloatRect ItemTest::getItemRange() const
+{
+	return this->item_Range_.getGlobalBounds();
+}
+
+const int& ItemTest::getOreQuantity() const
+{
+	return this->ore_Quantity_;
+}
+
+const int& ItemTest::getWoodQuantity() const
+{
+	return this->wood_Quantity_;
+}
+
+const int& ItemTest::getPlantQuantity() const
+{
+	return this->plant_Quantity_;
 }

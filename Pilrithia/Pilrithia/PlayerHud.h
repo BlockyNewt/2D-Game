@@ -82,6 +82,8 @@ private:
 	Text character_T_E_;
 	Text character_T_F_;
 
+	sf::Sprite skill_Hotbar_Sprite_;
+
 	Button skill_B_A_;
 	Button skill_B_B_;
 	Button skill_B_C_;

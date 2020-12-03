@@ -1,6 +1,6 @@
 #include "MenuCharacterCreation.h"
 
-void MenuCharacterCreation::initializeNameGui(const ResourceFont& resourceFont)
+void MenuCharacterCreation::initializeNameGui(const ResourceFont& resourceFont, const ResourceHud& resourceHud)
 {
 	/*
 		SET SETTINGS FOR NAME RELATED OBJECTS
@@ -14,7 +14,7 @@ void MenuCharacterCreation::initializeNameGui(const ResourceFont& resourceFont)
 	this->name_T_B_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Complete", sf::Vector2f(this->name_B_B_.getLeftPosition(true, 10.f), this->name_B_B_.getTopPosition(true, 10.f)), true);
 }
 
-void MenuCharacterCreation::initializeRaceGui(const ResourceFont& resourceFont)
+void MenuCharacterCreation::initializeRaceGui(const ResourceFont& resourceFont, const ResourceHud& resourceHud)
 {
 	/*
 		SET SETTINGS FOR RACE RELATED OBJECTS
@@ -22,13 +22,28 @@ void MenuCharacterCreation::initializeRaceGui(const ResourceFont& resourceFont)
 
 	this->race_X_A_.setSettings(800.f, 555, this->name_T_A_.getLeftPosition(), this->model_Preview_X_A_.getTopPosition(true, 50.f), sf::Color(90, 82, 85), 1.f, sf::Color::White, true);
 
-	this->race_B_A_.setSettings(80.f, 80.f, this->race_X_A_.getLeftPosition(false, 115.f), this->race_X_A_.getTopPosition(true, 60.f), sf::Color::White, 1.f, sf::Color::White, true);
-	this->race_B_A_.setTexture(&this->race_Orc_.getTexture());
+	this->race_A_Sprite_.setTexture(*resourceHud.getHudTexture(HUDTYPE::RACEFACE));
+	this->race_A_Sprite_.setPosition(sf::Vector2f(this->race_X_A_.getLeftPosition(false, 115.f), this->race_X_A_.getTopPosition(true, 40.f)));
 
-	this->race_B_B_.setSettings(80.f, 80.f, this->race_B_A_.getLeftPosition(), this->race_B_A_.getBottomPosition(true, 10.f), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
-	this->race_B_C_.setSettings(80.f, 80.f, this->race_B_A_.getLeftPosition(), this->race_B_B_.getBottomPosition(true, 10.f), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
-	this->race_B_D_.setSettings(80.f, 80.f, this->race_B_A_.getLeftPosition(), this->race_B_C_.getBottomPosition(true, 10.f), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
-	this->race_B_E_.setSettings(80.f, 80.f, this->race_B_D_.getLeftPosition(), this->race_B_D_.getBottomPosition(true, 10.f), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
+	this->race_B_Sprite_.setTexture(*resourceHud.getHudTexture(HUDTYPE::RACEFACE));
+	this->race_B_Sprite_.setPosition(sf::Vector2f(this->race_A_Sprite_.getGlobalBounds().left, this->race_A_Sprite_.getGlobalBounds().top + this->race_A_Sprite_.getGlobalBounds().height + 10.f));
+
+	this->race_C_Sprite_.setTexture(*resourceHud.getHudTexture(HUDTYPE::RACEFACE));
+	this->race_C_Sprite_.setPosition(sf::Vector2f(this->race_A_Sprite_.getGlobalBounds().left, this->race_B_Sprite_.getGlobalBounds().top + this->race_B_Sprite_.getGlobalBounds().height + 10.f));
+
+	this->race_D_Sprite_.setTexture(*resourceHud.getHudTexture(HUDTYPE::RACEFACE));
+	this->race_D_Sprite_.setPosition(sf::Vector2f(this->race_B_Sprite_.getGlobalBounds().left, this->race_C_Sprite_.getGlobalBounds().top + this->race_C_Sprite_.getGlobalBounds().height + 10.f));
+
+	this->race_E_Sprite_.setTexture(*resourceHud.getHudTexture(HUDTYPE::RACEFACE));
+	this->race_E_Sprite_.setPosition(sf::Vector2f(this->race_B_Sprite_.getGlobalBounds().left, this->race_D_Sprite_.getGlobalBounds().top + this->race_D_Sprite_.getGlobalBounds().height + 10.f));
+
+
+	this->race_B_A_.setSettings(80.f, 80.f, this->race_A_Sprite_.getGlobalBounds().left + 4.f, this->race_A_Sprite_.getGlobalBounds().top + 4.f, sf::Color::White, 1.f, sf::Color::White, true);
+	this->race_B_A_.setTexture(&this->race_Orc_.getTexture());
+	this->race_B_B_.setSettings(80.f, 80.f, this->race_B_Sprite_.getGlobalBounds().left + 4.f, this->race_B_Sprite_.getGlobalBounds().top + 4.f, sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
+	this->race_B_C_.setSettings(80.f, 80.f, this->race_C_Sprite_.getGlobalBounds().left + 4.f, this->race_C_Sprite_.getGlobalBounds().top + 4.f, sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
+	this->race_B_D_.setSettings(80.f, 80.f, this->race_D_Sprite_.getGlobalBounds().left + 4.f, this->race_D_Sprite_.getGlobalBounds().top + 4.f, sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
+	this->race_B_E_.setSettings(80.f, 80.f, this->race_E_Sprite_.getGlobalBounds().left + 4.f, this->race_E_Sprite_.getGlobalBounds().top + 4.f, sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
 
 	this->race_T_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, this->race_Orc_.getName(), sf::Vector2f(this->race_B_A_.getLeftPosition(true, 10.f), this->race_B_A_.getTopPosition(true, 10.f)), true);
 	/*this->race_T_B_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, this->race_Human_.getName(), sf::Vector2f(this->race_B_B_.getLeftPosition(true, 10.f), this->race_B_B_.getTopPosition(true, 10.f)), true);
@@ -39,7 +54,7 @@ void MenuCharacterCreation::initializeRaceGui(const ResourceFont& resourceFont)
 	this->race_T_G_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Race summary", sf::Vector2f(this->race_X_A_.getLeftPosition(true, 10.f), this->race_X_A_.getTopPosition(true, 60.f)), true);
 }
 
-MenuCharacterCreation::MenuCharacterCreation(const unsigned int windowSizeX, const unsigned int windowSizeY, const ResourceFont& resourceFont)
+MenuCharacterCreation::MenuCharacterCreation(const unsigned int windowSizeX, const unsigned int windowSizeY, const ResourceFont& resourceFont, const ResourceHud& resourceHud)
 {
 	this->is_Creating_Character_ = true;
 
@@ -48,8 +63,8 @@ MenuCharacterCreation::MenuCharacterCreation(const unsigned int windowSizeX, con
 	this->background_X_A_.setSettings(windowSizeX, windowSizeY, 0.f, 0.f, sf::Color::Black, 1.f, sf::Color(90, 82, 85), true);
 	this->model_Preview_X_A_.setSettings(300.f, 600.f, windowSizeX - 310.f, 100.f, sf::Color(90, 82, 85), 1.f, sf::Color::White, true);
 
-	this->initializeNameGui(resourceFont);
-	this->initializeRaceGui(resourceFont);
+	this->initializeNameGui(resourceFont, resourceHud);
+	this->initializeRaceGui(resourceFont, resourceHud);
 
 	/*
 		INITIALIZE THE RACES AND SET THE POSITION OF THEIR MODELS
@@ -186,11 +201,19 @@ void MenuCharacterCreation::render(sf::RenderTarget& target)
 		this->name_T_B_.render(target);
 
 
+
 		this->race_B_A_.render(target);
 		this->race_B_B_.render(target);
 		this->race_B_C_.render(target);
 		this->race_B_D_.render(target);
 		this->race_B_E_.render(target);
+
+		target.draw(this->race_A_Sprite_);
+		target.draw(this->race_B_Sprite_);
+		target.draw(this->race_C_Sprite_);
+		target.draw(this->race_D_Sprite_);
+		target.draw(this->race_E_Sprite_);
+
 
 		this->race_T_A_.render(target);
 		this->race_T_B_.render(target);

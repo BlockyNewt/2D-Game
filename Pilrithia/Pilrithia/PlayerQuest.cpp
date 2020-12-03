@@ -1,6 +1,6 @@
 #include "PlayerQuest.h"
 
-PlayerQuest::PlayerQuest(const ResourceFont& resourceFont)
+PlayerQuest::PlayerQuest(const ResourceFont& resourceFont, const ResourceHud& resourceHud)
 {
 	this->selected_Quest_ = NULL;
 
@@ -8,13 +8,16 @@ PlayerQuest::PlayerQuest(const ResourceFont& resourceFont)
 	this->max_Quest_ = 5;
 	this->current_Quest_ = 0;
 
-	this->x_A_.setSettings(800.f, 500.f, 1280.f / 2.f - 800.f / 2.f, 720.f / 2.f - 500.f / 2.f, sf::Color(195, 203, 113), 1.f, sf::Color::White, true);
 	this->x_B_.setSettings(1280.f, 720.f, 0.f, 0.f, sf::Color(0, 0, 0, 200), 1.f, sf::Color::Transparent, true);
 
-	this->b_B_.setSettings(50.f, 50.f, this->x_A_.getRightPosition(false, 50.f), this->x_A_.getTopPosition(), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
-	
-	this->t_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 28, "Quests", sf::Vector2f(this->x_A_.getLeftPosition(true, 350.f), this->x_A_.getTopPosition(true, 10.f)), true);
-	this->t_B_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Close", sf::Vector2f(this->b_B_.getLeftPosition(true, 10.f), this->b_B_.getTopPosition(true, 10.f)), true);
+	this->quest_Background_Sprite_.setTexture(*resourceHud.getHudTexture(HUDTYPE::WINDOW));
+	this->quest_Background_Sprite_.setPosition(sf::Vector2f(1280.f / 2.f - 800.f / 2.f, 720.f / 2.f - 500.f / 2.f));
+
+	this->b_B_.setSettings(34.f, 34.f, this->quest_Background_Sprite_.getGlobalBounds().left + this->quest_Background_Sprite_.getGlobalBounds().width - 38.f, this->quest_Background_Sprite_.getGlobalBounds().top + 4.f, sf::Color::White, 0.f, sf::Color::Transparent, true);
+	this->b_B_.setTexture(resourceHud.getHudTexture(HUDTYPE::CLOSE));
+
+
+	this->t_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 28, "Quests", sf::Vector2f(this->quest_Background_Sprite_.getGlobalBounds().left + 350.f, this->quest_Background_Sprite_.getGlobalBounds().top + 10.f), true);
 }
 
 PlayerQuest::~PlayerQuest()
@@ -66,8 +69,8 @@ void PlayerQuest::addQuest(Quest& quest)
 
 	this->quests_.push_back(&quest);
 
-	this->quests_.back()->setTextPosition(this->x_A_.getLeftPosition(true, 10.f), this->x_A_.getTopPosition(true, 10.f) + this->current_Quest_ * 30.f);
-	this->quests_.back()->wrapText(this->x_A_.getGlobalBounds());
+	this->quests_.back()->setTextPosition(this->quest_Background_Sprite_.getGlobalBounds().left + 10.f, this->quest_Background_Sprite_.getGlobalBounds().top + 10.f + this->current_Quest_ * 30.f);
+	this->quests_.back()->wrapText(this->quest_Background_Sprite_.getGlobalBounds());
 }
 
 void PlayerQuest::updatePollEvent(sf::Event& ev)
@@ -99,12 +102,11 @@ void PlayerQuest::render(sf::RenderTarget& target)
 	if (!this->is_Hiding_Quest_)
 	{
 		this->x_B_.render(target);
-		this->x_A_.render(target);
+		target.draw(this->quest_Background_Sprite_);
 
 		this->b_B_.render(target);
 
 		this->t_A_.render(target);
-		this->t_B_.render(target);
 
 		if (!this->quests_.empty())
 		{

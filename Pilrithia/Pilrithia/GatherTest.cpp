@@ -4,24 +4,28 @@ GatherTest::GatherTest()
 {
 }
 
-GatherTest::GatherTest(GATHERTYPE gatherType, const ResourceFont& resourceFont)
+GatherTest::GatherTest(GATHERTYPE gatherType, const ResourceFont& resourceFont, const ResourceHud& resourceHud)
 {
 	this->item_ = new ItemTest(400.f, 400.f, ITEMTYPE::ORE, "Iron Vein", "This is used to craft various armors.", resourceFont);
 
 	this->x_A_.setSettings(50.f, 50.f, this->item_->getPosition().x, this->item_->getPosition().y - 55.f, sf::Color::Red, 1.f, sf::Color::White, false);
 	this->t_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "E", sf::Vector2f(this->x_A_.getLeftPosition(true, 10.f), this->x_A_.getTopPosition(true, 10.f)), false);
 
-	this->gather_Bar_Back_.setSize(sf::Vector2f(200.f, 20.f));
-	this->gather_Bar_Back_.setPosition(sf::Vector2f(this->x_A_.getLeftPosition(), this->x_A_.getTopPosition(false, 10.f)));
-	this->gather_Bar_Back_.setFillColor(sf::Color::White);
-	this->gather_Bar_Back_.setOutlineThickness(1.f);
-	this->gather_Bar_Back_.setOutlineColor(sf::Color::White);
+	this->gather_Sprite_.setTexture(*resourceHud.getHudTexture(HUDTYPE::GATHER));
+	this->gather_Sprite_.setPosition(sf::Vector2f(this->item_->getItemGlobalBoundaries().left - 300.f / 2.f + this->item_->getItemGlobalBoundaries().width / 2.f, this->item_->getItemGlobalBoundaries().top - 120.f));
 
-	this->gather_Bar_Front_.setSize(sf::Vector2f(0.f, 10.f));
-	this->gather_Bar_Front_.setPosition(sf::Vector2f(this->gather_Bar_Back_.getGlobalBounds().left, this->gather_Bar_Back_.getGlobalBounds().top + 5.f));
+	this->gather_Bar_Back_.setSize(sf::Vector2f(300.f, 20.f));
+	this->gather_Bar_Back_.setPosition(sf::Vector2f(this->gather_Sprite_.getGlobalBounds().left + 11.f, this->gather_Sprite_.getGlobalBounds().top + 47.f));
+	this->gather_Bar_Back_.setFillColor(sf::Color::Black);
+	this->gather_Bar_Back_.setOutlineThickness(1.f);
+	this->gather_Bar_Back_.setOutlineColor(sf::Color::Black);
+
+	this->gather_Bar_Front_.setSize(sf::Vector2f(0.f, 20.f));
+	this->gather_Bar_Front_.setPosition(sf::Vector2f(this->gather_Sprite_.getGlobalBounds().left + 11.f, this->gather_Sprite_.getGlobalBounds().top + 47.f));
 	this->gather_Bar_Front_.setFillColor(sf::Color::Yellow);
 	this->gather_Bar_Front_.setOutlineThickness(1.f);
 	this->gather_Bar_Front_.setOutlineColor(sf::Color::Yellow);
+
 
 	this->gather_Time_ = 5.f;
 
@@ -161,6 +165,8 @@ void GatherTest::render(sf::RenderTarget& target)
 		{
 			target.draw(this->gather_Bar_Back_);
 			target.draw(this->gather_Bar_Front_);
+
+			target.draw(this->gather_Sprite_);
 		}
 		else
 		{
@@ -172,7 +178,7 @@ void GatherTest::render(sf::RenderTarget& target)
 
 void GatherTest::setWidthOfGatherBar()
 {
-	this->gather_Bar_Front_.setSize(sf::Vector2f((this->gather_Timer_.getElapsedTime().asSeconds() / this->gather_Time_) * 200.f, this->gather_Bar_Front_.getSize().y));
+	this->gather_Bar_Front_.setSize(sf::Vector2f((this->gather_Timer_.getElapsedTime().asSeconds() / this->gather_Time_) * 300.f, this->gather_Bar_Front_.getSize().y));
 }
 
 Item* GatherTest::getItem()

@@ -35,6 +35,7 @@ public:
 	const bool& getIsVisible() const;
 	const bool& getIsHovering()const;
 	const sf::Vector2f& getSize() const;
+	const sf::Texture& getTexture() const;
 
 
 private:

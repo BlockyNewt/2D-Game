@@ -250,3 +250,8 @@ const sf::Vector2f& Button::getSize() const
 {
 	return this->button_.getSize();
 }
+
+const sf::Texture& Button::getTexture() const
+{
+	return *this->button_.getTexture();
+}

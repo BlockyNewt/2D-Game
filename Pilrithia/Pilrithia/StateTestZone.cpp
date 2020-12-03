@@ -5,7 +5,7 @@ StateTestZone::StateTestZone(std::stack<State*>* states, sf::RenderWindow* windo
 {
 	this->player_Test_ = new PlayerTest(*this->resource_Font_, *this->resource_Hud_);
 
-	this->menu_Character_Creation_ = new MenuCharacterCreation(this->window_->getSize().x, this->window_->getSize().y, *this->resource_Font_);
+	this->menu_Character_Creation_ = new MenuCharacterCreation(this->window_->getSize().x, this->window_->getSize().y, *this->resource_Font_, *this->resource_Hud_);
 
 	this->camera_ = new Camera(this->window_->getSize().x, this->window_->getSize().y);
 
@@ -23,7 +23,7 @@ StateTestZone::StateTestZone(std::stack<State*>* states, sf::RenderWindow* windo
 
 	this->merchant_Test_ = new MerchantTest(*this->resource_Font_);
 
-	this->gather_Test_ = new GatherTest(GATHERTYPE::MINING, *this->resource_Font_);
+	this->gather_Test_ = new GatherTest(GATHERTYPE::MINING, *this->resource_Font_, *this->resource_Hud_);
 
 	this->load_X_A_.setSettings(800.f, 400.f, this->window_->getSize().x / 2.f - 800.f / 2.f, this->window_->getSize().y / 2.f - 600.f / 2.f, sf::Color(85, 158, 131), 1.f, sf::Color::Red, true);
 

@@ -4,7 +4,7 @@ Gather::Gather()
 {
 }
 
-Gather::Gather(GATHERTYPE gatherType, const ResourceFont& resourceFont)
+Gather::Gather(GATHERTYPE gatherType, const ResourceFont& resourceFont, const ResourceHud& resourceHud)
 {
 }
 

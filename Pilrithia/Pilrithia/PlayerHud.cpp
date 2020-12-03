@@ -56,10 +56,14 @@ PlayerHud::PlayerHud(unsigned int windowSizeX, unsigned int windowSizeY, const R
 
 
 
-	this->character_B_A_.setSettings(60.f, 60.f, 400.f, 10.f, sf::Color(27, 133, 184), 1.f, sf::Color::White, true);
-	this->character_B_B_.setSettings(60.f, 60.f, this->character_B_A_.getRightPosition(true, 10.f), this->character_B_A_.getTopPosition(), sf::Color(27, 133, 184), 1.f, sf::Color::White, true);
-	this->character_B_C_.setSettings(60.f, 60.f, this->character_B_B_.getRightPosition(true, 10.f), this->character_B_A_.getTopPosition(), sf::Color(27, 133, 184), 1.f, sf::Color::White, true);
-	this->character_B_D_.setSettings(60.f, 60.f, this->character_B_C_.getRightPosition(true, 10.f), this->character_B_A_.getTopPosition(), sf::Color(27, 133, 184), 1.f, sf::Color::White, true);
+	this->character_B_A_.setSettings(60.f, 60.f, 400.f, 10.f, sf::Color::White, 1.f, sf::Color::Transparent, true);
+	this->character_B_A_.setTexture(resourceHud.getHudTexture(HUDTYPE::INVENTORYICON));
+	this->character_B_B_.setSettings(60.f, 60.f, this->character_B_A_.getRightPosition(true, 10.f), this->character_B_A_.getTopPosition(), sf::Color::White, 1.f, sf::Color::Transparent, true);
+	this->character_B_B_.setTexture(resourceHud.getHudTexture(HUDTYPE::BAGICON));
+	this->character_B_C_.setSettings(60.f, 60.f, this->character_B_B_.getRightPosition(true, 10.f), this->character_B_A_.getTopPosition(), sf::Color::White, 1.f, sf::Color::Transparent, true);
+	this->character_B_C_.setTexture(resourceHud.getHudTexture(HUDTYPE::QUESTICON));
+	this->character_B_D_.setSettings(60.f, 60.f, this->character_B_C_.getRightPosition(true, 10.f), this->character_B_A_.getTopPosition(), sf::Color::White, 1.f, sf::Color::Transparent, true);
+	this->character_B_D_.setTexture(resourceHud.getHudTexture(HUDTYPE::SKILLICON));
 	this->character_B_F_.setSettings(60.f, 60.f, this->character_B_D_.getRightPosition(true, 10.f), this->character_B_A_.getTopPosition(), sf::Color(27, 133, 184), 1.f, sf::Color::White, true);
 
 	this->character_T_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 12, "Inventory", sf::Vector2f(this->character_B_A_.getLeftPosition(), this->character_B_A_.getTopPosition()), true);
@@ -69,9 +73,12 @@ PlayerHud::PlayerHud(unsigned int windowSizeX, unsigned int windowSizeY, const R
 	this->character_T_E_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 12, "", sf::Vector2f(0.f, 0.f), true);
 	this->character_T_F_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 12, "Gathering", sf::Vector2f(this->character_B_F_.getLeftPosition(), this->character_B_F_.getTopPosition()), true);
 
-	this->skill_B_A_.setSettings(50.f, 50.f, 400.f, 650.f, sf::Color(27, 133, 184), 1.f, sf::Color::White, true);
-	this->skill_B_B_.setSettings(50.f, 50.f, this->skill_B_A_.getRightPosition(true, 10.f), this->skill_B_A_.getTopPosition(), sf::Color(27, 133, 184), 1.f, sf::Color::White, true);
-	this->skill_B_C_.setSettings(50.f, 50.f, this->skill_B_B_.getRightPosition(true, 10.f), this->skill_B_A_.getTopPosition(), sf::Color(27, 133, 184), 1.f, sf::Color::White, true);
+	this->skill_Hotbar_Sprite_.setTexture(*resourceHud.getHudTexture(HUDTYPE::HOTBAR));
+	this->skill_Hotbar_Sprite_.setPosition(sf::Vector2f(400.f, 595.f));
+
+	this->skill_B_A_.setSettings(50.f, 50.f, this->skill_Hotbar_Sprite_.getGlobalBounds().left + 10.f, this->skill_Hotbar_Sprite_.getGlobalBounds().top + 65.f, sf::Color::Transparent, 1.f, sf::Color::Transparent, true);
+	this->skill_B_B_.setSettings(50.f, 50.f, this->skill_Hotbar_Sprite_.getGlobalBounds().left + 68.f, this->skill_B_A_.getTopPosition(true, 1.f), sf::Color::Transparent, 1.f, sf::Color::Transparent, true);
+	this->skill_B_C_.setSettings(50.f, 50.f, this->skill_Hotbar_Sprite_.getGlobalBounds().left + 126.f, this->skill_B_A_.getTopPosition(true, 1.f), sf::Color::Transparent, 1.f, sf::Color::Transparent, true);
 	
 	this->skill_X_A_.setSettings(this->skill_B_A_.getSize().x, 0.f, this->skill_B_A_.getPosition().x, this->skill_B_A_.getBottomPosition(), sf::Color(0, 0, 0, 200), 1.f, sf::Color::Transparent, true);
 
@@ -252,20 +259,21 @@ void PlayerHud::updateSkillOnePollEvent(sf::Event& ev, Classes* playerClass, std
 		{
 			if (this->skill_One_->getIsUnlocked())
 			{
-				//TESTING
-				this->skill_B_A_.setFillColor(sf::Color::White);
-				this->skill_B_A_.setTexture(&this->skill_One_->getTexture());
+				if (&this->skill_B_A_.getTexture() == NULL)
+				{
+					this->skill_B_A_.setFillColor(sf::Color::White);
+					this->skill_B_A_.setTexture(&this->skill_One_->getTexture());
 
-				this->skill_T_A_.setString(this->skill_One_->getName());
+					this->skill_T_A_.setString(this->skill_One_->getName());
 
-				this->skill_D_A_.setString(DESCRIPTIONTYPE::SKILL, this->skill_One_->getName(), this->skill_One_->getSummary());
+					this->skill_D_A_.setString(DESCRIPTIONTYPE::SKILL, this->skill_One_->getName(), this->skill_One_->getSummary());
+				}
 			}
 			else
 			{
 				this->skill_One_ = NULL;
-				
 				//TESTING
-				this->skill_B_A_.setFillColor(sf::Color(27, 133, 184));
+				this->skill_B_A_.setFillColor(sf::Color::Transparent);
 				this->skill_B_A_.setTexture(nullptr);
 				
 				this->skill_T_A_.setString("Skill 1");
@@ -425,6 +433,8 @@ void PlayerHud::render(sf::RenderTarget& target)
 		this->character_T_C_.render(target);
 		this->character_T_D_.render(target);
 		this->character_T_F_.render(target);
+
+		target.draw(this->skill_Hotbar_Sprite_);
 
 		this->skill_B_A_.render(target);
 		this->skill_B_B_.render(target);

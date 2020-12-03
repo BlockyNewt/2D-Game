@@ -2,6 +2,7 @@
 #define GATHER_H
 
 #include "ResourceFont.h"
+#include "ResourceHud.h"
 
 #include "ItemTest.h"
 
@@ -18,7 +19,7 @@ class Gather
 {
 public:
 	Gather();
-	Gather(GATHERTYPE gatherType, const ResourceFont& resourceFont);
+	Gather(GATHERTYPE gatherType, const ResourceFont& resourceFont, const ResourceHud& resourceHud);
 	virtual ~Gather();
 
 	virtual void updatePollEvent(sf::Event& ev) = 0;

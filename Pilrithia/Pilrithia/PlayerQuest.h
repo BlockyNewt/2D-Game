@@ -3,6 +3,8 @@
 
 #include "SFML/Graphics.hpp"
 
+#include "ResourceHud.h"
+
 #include "Quest.h"
 #include "QuestTest.h"
 
@@ -16,7 +18,7 @@
 class PlayerQuest
 {
 public:
-	PlayerQuest(const ResourceFont& resourceFont);
+	PlayerQuest(const ResourceFont& resourceFont, const ResourceHud& resourceHud);
 	~PlayerQuest();
 
 
@@ -37,13 +39,11 @@ public:
 private:
 
 private:
-	Box x_A_;
 	Box x_B_;
 
 	Button b_B_;
 
 	Text t_A_;
-	Text t_B_;
 
 	int max_Quest_;
 	int current_Quest_;
@@ -54,6 +54,8 @@ private:
 	bool is_Hiding_Quest_;
 
 	Quest* selected_Quest_;
+
+	sf::Sprite quest_Background_Sprite_;
 };
 
 #endif // !

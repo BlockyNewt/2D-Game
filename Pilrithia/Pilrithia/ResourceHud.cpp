@@ -13,6 +13,16 @@ void ResourceHud::loadAllHudTextures()
 	this->loadHudTexture("Bars_2.png", HUDTYPE::BAR);
 	this->loadHudTexture("bag_.png", HUDTYPE::BAG);
 	this->loadHudTexture("x_Button_.png", HUDTYPE::CLOSE);
+	this->loadHudTexture("gathering_.png", HUDTYPE::GATHER);
+	this->loadHudTexture("hotbar_.png", HUDTYPE::HOTBAR);
+	this->loadHudTexture("window_One_.png", HUDTYPE::WINDOW);
+
+	this->loadHudTexture("race_Face_.png", HUDTYPE::RACEFACE);
+
+	this->loadHudTexture("inventory_Icon_.png", HUDTYPE::INVENTORYICON);
+	this->loadHudTexture("bag_Icon_.png", HUDTYPE::BAGICON);
+	this->loadHudTexture("quest_Icon_.png", HUDTYPE::QUESTICON);
+	this->loadHudTexture("skill_Icon_.png", HUDTYPE::SKILLICON);
 }
 
 const sf::Texture* ResourceHud::getHudTexture(HUDTYPE hudType) const

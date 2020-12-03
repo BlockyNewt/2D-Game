@@ -5,7 +5,7 @@ PlayerTest::PlayerTest(const ResourceFont& resourceFont, const ResourceHud& reso
 	this->player_Bag_ = new PlayerBag(resourceFont, resourceHud);
 	this->player_Hud_ = new PlayerHud(1280, 720, resourceFont, resourceHud);
 	this->player_Inventory_ = new PlayerInventory(resourceFont);
-	this->player_Quest_ = new PlayerQuest(resourceFont);
+	this->player_Quest_ = new PlayerQuest(resourceFont, resourceHud);
 	this->player_Skill_Tree_ = new PlayerSkillTree(resourceFont);
 	this->player_Gather_ = new PlayerGather(resourceFont);
 

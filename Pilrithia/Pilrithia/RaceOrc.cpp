@@ -20,23 +20,31 @@ RaceOrc::RaceOrc()
 	this->lightning_ = 0;
 	this->poison_ = 0;
 
-	if (!this->icon_Texture_.loadFromFile("Texture/Orc_Icon_.png"))
-	{
-		std::cout << "DEBUG::RACEORC::RACEORC() -> Could not load icon for race." << std::endl;
-	}
+	this->icon_Texture_ = new sf::Texture();
+	this->run_Texture_ = new sf::Texture();
+	this->idle_Texture_ = new sf::Texture();
+
+	this->run_Rect_ = sf::IntRect(0, 0, 66, 48);
+	this->run_Sheet_Width_ = 726;
+
+	this->idle_Rect_ = sf::IntRect(0, 0, 38, 48);
+	this->idle_Sheet_Width_ = 152;
 }
 
 RaceOrc::~RaceOrc()
 {
+	delete this->icon_Texture_;	
+	delete this->run_Texture_;
+	delete this->idle_Texture_;
 }
 
 void RaceOrc::initializeRace(const float& posX, const float& posY)
 {
-	this->model_.setSize(sf::Vector2f(50.f, 50.f));
+	this->model_.setSize(sf::Vector2f(38.f, 48.f));
 	this->model_.setPosition(sf::Vector2f(posX, posY));
-	this->model_.setFillColor(sf::Color::Red);
+	this->model_.setFillColor(sf::Color::White);
 	this->model_.setOutlineThickness(1.f);
-	this->model_.setOutlineColor(sf::Color::Red);
+	this->model_.setOutlineColor(sf::Color::White);
 }
 
 const std::string RaceOrc::getName() const
@@ -52,6 +60,41 @@ const std::string RaceOrc::getSummary() const
 const sf::RectangleShape& RaceOrc::getModel() const
 {
 	return this->model_;
+}
+
+const sf::Texture& RaceOrc::getIconTexture() const
+{
+	return *this->icon_Texture_;
+}
+
+const sf::Texture& RaceOrc::getRunTexture() const
+{
+	return *this->run_Texture_;
+}
+
+const sf::Texture& RaceOrc::getIdleTexture() const
+{
+	return *this->idle_Texture_;
+}
+
+const sf::IntRect& RaceOrc::getRunRect() const
+{
+	return this->run_Rect_;
+}
+
+const sf::IntRect& RaceOrc::getIdleRect() const
+{
+	return this->idle_Rect_;
+}
+
+const int& RaceOrc::getRunSheetWidth() const
+{
+	return this->run_Sheet_Width_;
+}
+
+const int& RaceOrc::getIdleSheetWidth() const
+{
+	return this->idle_Sheet_Width_;
 }
 
 int& RaceOrc::setHealthMax()
@@ -184,9 +227,19 @@ const int& RaceOrc::getPoison() const
 	return this->poison_;
 }
 
-const sf::Texture& RaceOrc::getTexture() const
+void RaceOrc::setIconTexture(const sf::Texture& texture)
 {
-	return this->icon_Texture_;
+	*this->icon_Texture_ = texture;
+}
+
+void RaceOrc::setRunTexture(const sf::Texture& texture)
+{
+	*this->run_Texture_ = texture;
+}
+
+void RaceOrc::setIdleTexture(const sf::Texture& texture)
+{
+	*this->idle_Texture_ = texture;	
 }
 
 //Classes& RaceOrc::getClassesOne() const

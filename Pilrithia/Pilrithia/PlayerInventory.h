@@ -7,6 +7,8 @@
 #include "Camera.h"
 
 #include "ResourceFont.h"
+#include "ResourceHud.h"
+#include "ResourceRace.h"
 
 #include "Box.h"
 #include "Button.h"
@@ -22,7 +24,7 @@
 class PlayerInventory
 {
 public:
-	PlayerInventory(const ResourceFont& resourceFont);
+	PlayerInventory(const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceRace& resourceRace);
 	~PlayerInventory();
 
 	void initializeInventory(const std::string& name, const std::string& raceName, const std::string& className, const int& level, const std::map<std::string, int>& stats, const std::map<std::string, int>& resistances);
@@ -48,19 +50,17 @@ private:
 	void initializeIcons(const ResourceFont& resourceFont);
 
 private:
-	Box x_A_;
-	Box x_B_;
 	Box x_C_;
+	sf::Sprite inventory_Background_Sprite_;
 
 	Button b_B_;
 
-	Text t_A_;
-	Text t_B_;
 	Text t_C_;
 	Text t_D_;
 	Text t_E_;
 	Text t_F_;
 	
+	Button stats_B_A_;
 	Text stats_T_A_;
 	Text stats_T_B_;
 	Text stats_T_C_;
@@ -70,6 +70,14 @@ private:
 	Text stats_T_H_;
 	Text stats_T_I_;
 
+	Text stats_T_J_;
+	Text stats_T_K_;
+	Text stats_T_L_;
+	Text stats_T_M_;
+	Text stats_T_N_;
+	Text stats_T_O_;
+	Text stats_T_P_;
+
 	HoverDescription stats_D_B_;
 	HoverDescription stats_D_C_;
 	HoverDescription stats_D_D_;
@@ -78,11 +86,17 @@ private:
 	HoverDescription stats_D_H_;
 	HoverDescription stats_D_I_;
 	
+	Button resistances_B_A_;
 	Text resistances_T_A_;
 	Text resistances_T_B_;
 	Text resistances_T_C_;
 	Text resistances_T_D_;
 	Text resistances_T_E_;
+
+	Text resistances_T_F_;
+	Text resistances_T_G_;
+	Text resistances_T_H_;
+	Text resistances_T_I_;
 
 	HoverDescription resistances_D_B_;
 	HoverDescription resistances_D_C_;
@@ -106,6 +120,9 @@ private:
 	ItemDropDownList l_A_;
 
 	ResourceFont resource_Font_;
+
+	bool is_Stats_Visible_;
+	bool is_Resistances_Visible_;
 };
 
 #endif // !PLAYERINVENTORY_H

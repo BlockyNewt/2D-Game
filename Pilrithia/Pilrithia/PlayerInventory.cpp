@@ -5,14 +5,24 @@ void PlayerInventory::initializeStats(const ResourceFont& resourceFont)
 	/*
 		SET SETTINGS FOR STAT RELATED OBJECTS
 	*/
-	this->stats_T_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 28, "Stats", sf::Vector2f(this->x_B_.getLeftPosition(false, 200.f), this->x_B_.getTopPosition(true, 40.f)), true);
-	this->stats_T_B_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Health: ", sf::Vector2f(this->stats_T_A_.getLeftPosition(false, 0.f), this->stats_T_A_.getTopPosition(true, 40.f)), true);
-	this->stats_T_C_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Mana: ", sf::Vector2f(this->stats_T_A_.getLeftPosition(false, 0.f), this->stats_T_B_.getTopPosition(true, 30.f)), true);
-	this->stats_T_D_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Strength: ", sf::Vector2f(this->stats_T_A_.getLeftPosition(false, 0.f), this->stats_T_C_.getTopPosition(true, 30.f)), true);
-	this->stats_T_E_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Dexerity: ", sf::Vector2f(this->stats_T_B_.getLeftPosition(), this->stats_T_D_.getTopPosition(true, 30.f)), true);
-	this->stats_T_G_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Intelligence: ", sf::Vector2f(this->stats_T_B_.getLeftPosition(), this->stats_T_E_.getTopPosition(true, 30.f)), true);
-	this->stats_T_H_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Perception: ", sf::Vector2f(this->stats_T_B_.getLeftPosition(), this->stats_T_G_.getTopPosition(true, 30.f)), true);
-	this->stats_T_I_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Wisdom: ", sf::Vector2f(this->stats_T_B_.getLeftPosition(), this->stats_T_H_.getTopPosition(true, 30.f)), true);
+	this->stats_B_A_.setSettings(150.f, 40.f, this->inventory_Background_Sprite_.getGlobalBounds().left + 345.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 23.f, sf::Color::Transparent, 1.f, sf::Color::Transparent, true);
+
+	this->stats_T_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 25, "Stats", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 25.f), true);
+	this->stats_T_B_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 25, "Health", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 175.f), true);
+	this->stats_T_C_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 25, "Mana", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 220.f), true);
+	this->stats_T_D_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 25, "Strength", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 266.f), true);
+	this->stats_T_E_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 25, "Dexerity", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 312.f), true);
+	this->stats_T_G_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 25, "Intelligence", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 357.f), true);
+	this->stats_T_H_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 25, "Perception", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 402.f), true);
+	this->stats_T_I_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 25, "Wisdom", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 447.f), true);
+
+	this->stats_T_J_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 25, "", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 175.f), true);
+	this->stats_T_K_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 25, "", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 220.f), true);
+	this->stats_T_L_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 25, "", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 266.f), true);
+	this->stats_T_M_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 25, "", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 312.f), true);
+	this->stats_T_N_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 25, "", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 357.f), true);
+	this->stats_T_O_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 25, "", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 402.f), true);
+	this->stats_T_P_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 25, "", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 447.f), true);
 
 	this->stats_D_B_.setHoverBoundaries(HOVERPOSITION::TOP, this->stats_T_B_.getGlobalBounds(), this->stats_T_B_.getGlobalBounds());
 	this->stats_D_C_.setHoverBoundaries(HOVERPOSITION::TOP, this->stats_T_C_.getGlobalBounds(), this->stats_T_C_.getGlobalBounds());
@@ -44,11 +54,18 @@ void PlayerInventory::initializeResistances(const ResourceFont& resourceFont)
 	/*
 		SET SETTINGS FOR RESISTANCE RELATED OBJECTS
 	*/
-	this->resistances_T_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 28, "Resistances", sf::Vector2f(this->x_B_.getRightPosition(true, 50.f), this->x_B_.getTopPosition(true, 40.f)), true);
-	this->resistances_T_B_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Cold: ", sf::Vector2f(this->resistances_T_A_.getLeftPosition(), this->resistances_T_A_.getTopPosition(true, 40.f)), true);
-	this->resistances_T_C_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Fire: ", sf::Vector2f(this->resistances_T_B_.getLeftPosition(), this->resistances_T_B_.getTopPosition(true, 30.f)), true);
-	this->resistances_T_D_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Lightning: ", sf::Vector2f(this->resistances_T_C_.getLeftPosition(), this->resistances_T_C_.getTopPosition(true, 30.f)), true);
-	this->resistances_T_E_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Poison: ", sf::Vector2f(this->resistances_T_D_.getLeftPosition(), this->resistances_T_D_.getTopPosition(true, 30.f)), true);
+	this->resistances_B_A_.setSettings(150.f, 40.f, this->inventory_Background_Sprite_.getGlobalBounds().left + 495.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 23.f, sf::Color::Transparent, 1.f, sf::Color::Transparent, true);
+
+	this->resistances_T_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 25, "Resistances", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 503.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 25.f), true);
+	this->resistances_T_B_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 22, "Cold: ", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 175.f), true);
+	this->resistances_T_C_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 22, "Fire: ", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 220.f), true);
+	this->resistances_T_D_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 22, "Lightning: ", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 266.f), true);
+	this->resistances_T_E_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 22, "Poison: ", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 312.f), true);
+
+	this->resistances_T_F_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 25, "0", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 175.f), true);
+	this->resistances_T_G_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 22, "0", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 220.f), true);
+	this->resistances_T_H_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 22, "0", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 266.f), true);
+	this->resistances_T_I_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 22, "0", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 312.f), true);
 
 	this->resistances_D_B_.setHoverBoundaries(HOVERPOSITION::TOP, this->resistances_T_B_.getGlobalBounds(), this->resistances_T_B_.getGlobalBounds());
 	this->resistances_D_C_.setHoverBoundaries(HOVERPOSITION::TOP, this->resistances_T_C_.getGlobalBounds(), this->resistances_T_C_.getGlobalBounds());
@@ -71,57 +88,57 @@ void PlayerInventory::initializeIcons(const ResourceFont& resourceFont)
 	/*
 		INITIALIZE INVENTORY SLOT ICONS
 	*/
-	this->helm_Icon_.setPosition(sf::Vector2f(this->x_B_.getLeftPosition(true, 10.f), this->x_B_.getTopPosition(true, 25.f)));
+	this->helm_Icon_.setPosition(sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 30.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 53.f));
 	this->helm_Icon_.setSize(sf::Vector2f(50.f, 50.f));
-	this->helm_Icon_.setFillColor(sf::Color(174, 90, 65));
+	this->helm_Icon_.setFillColor(sf::Color::Transparent);
 	this->helm_Icon_.setOutlineThickness(1.f);
-	this->helm_Icon_.setOutlineColor(sf::Color::White);
+	this->helm_Icon_.setOutlineColor(sf::Color::Transparent);
 
-	this->shoulder_Icon_.setPosition(sf::Vector2f(this->x_B_.getLeftPosition(true, 10.f), this->helm_Icon_.getGlobalBounds().top + this->helm_Icon_.getGlobalBounds().height + 10.f));
+	this->shoulder_Icon_.setPosition(sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 30.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 112.f));
 	this->shoulder_Icon_.setSize(sf::Vector2f(50.f, 50.f));
-	this->shoulder_Icon_.setFillColor(sf::Color(174, 90, 65));
+	this->shoulder_Icon_.setFillColor(sf::Color::Transparent);
 	this->shoulder_Icon_.setOutlineThickness(1.f);
-	this->shoulder_Icon_.setOutlineColor(sf::Color::White);
+	this->shoulder_Icon_.setOutlineColor(sf::Color::Transparent);
 
-	this->chest_Icon_.setPosition(sf::Vector2f(this->x_B_.getLeftPosition(true, 10.f), this->shoulder_Icon_.getGlobalBounds().top + this->shoulder_Icon_.getGlobalBounds().height + 10.f));
+	this->chest_Icon_.setPosition(sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 30.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 170.f));
 	this->chest_Icon_.setSize(sf::Vector2f(50.f, 50.f));
-	this->chest_Icon_.setFillColor(sf::Color(174, 90, 65));
+	this->chest_Icon_.setFillColor(sf::Color::Transparent);
 	this->chest_Icon_.setOutlineThickness(1.f);
-	this->chest_Icon_.setOutlineColor(sf::Color::White);
+	this->chest_Icon_.setOutlineColor(sf::Color::Transparent);
 
-	this->glove_Icon_.setPosition(sf::Vector2f(this->x_B_.getLeftPosition(true, 10.f), this->chest_Icon_.getGlobalBounds().top + this->chest_Icon_.getGlobalBounds().height + 10.f));
+	this->glove_Icon_.setPosition(sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 30.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 228.f));
 	this->glove_Icon_.setSize(sf::Vector2f(50.f, 50.f));
-	this->glove_Icon_.setFillColor(sf::Color(174, 90, 65));
+	this->glove_Icon_.setFillColor(sf::Color::Transparent);
 	this->glove_Icon_.setOutlineThickness(1.f);
-	this->glove_Icon_.setOutlineColor(sf::Color::White);
+	this->glove_Icon_.setOutlineColor(sf::Color::Transparent);
 
-	this->leg_Icon_.setPosition(sf::Vector2f(this->x_B_.getLeftPosition(true, 10.f), this->glove_Icon_.getGlobalBounds().top + this->glove_Icon_.getGlobalBounds().height + 10.f));
+	this->leg_Icon_.setPosition(sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 30.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 286.f));
 	this->leg_Icon_.setSize(sf::Vector2f(50.f, 50.f));
-	this->leg_Icon_.setFillColor(sf::Color(174, 90, 65));
+	this->leg_Icon_.setFillColor(sf::Color::Transparent);
 	this->leg_Icon_.setOutlineThickness(1.f);
-	this->leg_Icon_.setOutlineColor(sf::Color::White);
+	this->leg_Icon_.setOutlineColor(sf::Color::Transparent);
 
-	this->feet_Icon_.setPosition(sf::Vector2f(this->x_B_.getLeftPosition(true, 10.f), this->leg_Icon_.getGlobalBounds().top + this->leg_Icon_.getGlobalBounds().height + 10.f));
+	this->feet_Icon_.setPosition(sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 30.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 344.f));
 	this->feet_Icon_.setSize(sf::Vector2f(50.f, 50.f));
-	this->feet_Icon_.setFillColor(sf::Color(174, 90, 65));
+	this->feet_Icon_.setFillColor(sf::Color::Transparent);
 	this->feet_Icon_.setOutlineThickness(1.f);
-	this->feet_Icon_.setOutlineColor(sf::Color::White);
+	this->feet_Icon_.setOutlineColor(sf::Color::Transparent);
 }
 
-PlayerInventory::PlayerInventory(const ResourceFont& resourceFont)
+PlayerInventory::PlayerInventory(const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceRace& resourceRace)
 {
-	this->x_A_.setSettings(800.f, 500.f, 1280.f / 2.f - 800.f / 2.f, 720.f / 2.f - 500.f / 2.f, sf::Color(27, 133, 184), 1.f, sf::Color(27, 133, 184), true);
-	this->x_B_.setSettings(250.f, 400.f, this->x_A_.getRightPosition() / 2.f , this->x_A_.getTopPosition(true, 95.f), sf::Color::Black, 1.f, sf::Color::Red, true);
 	this->x_C_.setSettings(1280.f, 720.f, 0.f, 0.f, sf::Color(0,0,0,200), 1.f, sf::Color::Transparent, true);
 
-	this->b_B_.setSettings(50.f, 50.f, this->x_A_.getRightPosition(false, 50.f), this->x_A_.getTopPosition(), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
+	this->inventory_Background_Sprite_.setTexture(*resourceHud.getHudTexture(HUDTYPE::INVENTORYWINDOW));
+	this->inventory_Background_Sprite_.setPosition(sf::Vector2f(1280.f / 2.f - 800.f / 2.f, 720.f / 2.f - 500.f / 2.f));
 
-	this->t_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 28, "Inventory", sf::Vector2f(this->x_A_.getLeftPosition(true, 350.f), this->x_A_.getTopPosition(true, 10.f)), true);
-	this->t_B_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Close", sf::Vector2f(this->b_B_.getLeftPosition(true, 10.f), this->b_B_.getTopPosition(true, 10.f)), true);
-	this->t_C_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Name: ", sf::Vector2f(this->x_B_.getLeftPosition(false, 190.f), this->x_B_.getTopPosition(false, 35.f)), true);
-	this->t_D_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Race: ", sf::Vector2f(this->t_C_.getRightPosition(true, 120.f), this->x_B_.getTopPosition(false, 35.f)), true);
-	this->t_E_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Class: ", sf::Vector2f(this->t_D_.getRightPosition(true, 120.f), this->x_B_.getTopPosition(false, 35.f)), true);
-	this->t_F_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Level: ", sf::Vector2f(this->t_E_.getRightPosition(true, 120.f), this->x_B_.getTopPosition(false, 35.f)), true);
+	this->b_B_.setSettings(34.f, 34.f, this->inventory_Background_Sprite_.getGlobalBounds().left + 764.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 3.f, sf::Color::White, 1.f, sf::Color::Transparent, true);
+	this->b_B_.setTexture(resourceHud.getHudTexture(HUDTYPE::CLOSE));
+
+	this->t_C_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Name: ", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 74.f), true);
+	this->t_D_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Race: ", sf::Vector2f(this->t_C_.getRightPosition(true, 120.f), this->inventory_Background_Sprite_.getGlobalBounds().top + 74.f), true);
+	this->t_E_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Class: ", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->t_C_.getTopPosition(true, 40.f)), true);
+	this->t_F_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Level: ", sf::Vector2f(this->t_E_.getRightPosition(true, 120.f), this->t_E_.getTopPosition()), true);
 	
 	this->initializeStats(resourceFont);
 	this->initializeResistances(resourceFont);
@@ -136,6 +153,9 @@ PlayerInventory::PlayerInventory(const ResourceFont& resourceFont)
 	this->d_A_.setTextFont(resourceFont);
 
 	this->resource_Font_ = resourceFont;
+
+	this->is_Stats_Visible_ = true;
+	this->is_Resistances_Visible_ = false;
 }
 
 PlayerInventory::~PlayerInventory()
@@ -158,21 +178,21 @@ void PlayerInventory::initializeInventory(const std::string& name, const std::st
 
 		if (!stats.empty())
 		{
-			this->stats_T_B_.setString("Health: " + std::to_string(stats.find("health")->second) + " / " + std::to_string(stats.find("healthMax")->second));
-			this->stats_T_C_.setString("Mana: " + std::to_string(stats.find("mana")->second) + " / " + std::to_string(stats.find("manaMax")->second));
-			this->stats_T_D_.setString("Strength: " + std::to_string(stats.find("strength")->second));
-			this->stats_T_E_.setString("Dexerity: " + std::to_string(stats.find("dexerity")->second));
-			this->stats_T_G_.setString("Intelligence: " + std::to_string(stats.find("intelligence")->second));
-			this->stats_T_H_.setString("Perception: " + std::to_string(stats.find("perception")->second));
-			this->stats_T_I_.setString("Wisdom: " + std::to_string(stats.find("wisdom")->second));
+			this->stats_T_J_.setString(std::to_string(stats.find("health")->second) + " / " + std::to_string(stats.find("healthMax")->second));
+			this->stats_T_K_.setString(std::to_string(stats.find("mana")->second) + " / " + std::to_string(stats.find("manaMax")->second));
+			this->stats_T_L_.setString(std::to_string(stats.find("strength")->second));
+			this->stats_T_M_.setString(std::to_string(stats.find("dexerity")->second));
+			this->stats_T_N_.setString(std::to_string(stats.find("intelligence")->second));
+			this->stats_T_O_.setString(std::to_string(stats.find("perception")->second));
+			this->stats_T_P_.setString(std::to_string(stats.find("wisdom")->second));
 		}
 
 		if (!resistances.empty())
 		{
-			this->resistances_T_B_.setString("Cold: " + std::to_string(resistances.find("cold")->second));
-			this->resistances_T_C_.setString("Fire: " + std::to_string(resistances.find("fire")->second));
-			this->resistances_T_D_.setString("Lightning: " + std::to_string(resistances.find("lightning")->second));
-			this->resistances_T_E_.setString("Poison: " + std::to_string(resistances.find("poison")->second));
+			this->resistances_T_F_.setString(std::to_string(resistances.find("cold")->second));
+			this->resistances_T_G_.setString(std::to_string(resistances.find("fire")->second));
+			this->resistances_T_H_.setString(std::to_string(resistances.find("lightning")->second));
+			this->resistances_T_I_.setString(std::to_string(resistances.find("poison")->second));
 		}
 	}
 }
@@ -221,21 +241,21 @@ void PlayerInventory::updateText(std::map<std::string, int>& stats, std::map<std
 	*/
 	if (!stats.empty())
 	{
-		this->stats_T_B_.setString("Health: " + std::to_string(stats.find("health")->second) + " / " + std::to_string(stats.find("healthMax")->second));
-		this->stats_T_C_.setString("Mana: " + std::to_string(stats.find("mana")->second) + " / " + std::to_string(stats.find("manaMax")->second));
-		this->stats_T_D_.setString("Strength: " + std::to_string(stats.find("strength")->second));
-		this->stats_T_E_.setString("Dexerity: " + std::to_string(stats.find("dexerity")->second));
-		this->stats_T_G_.setString("Intelligence: " + std::to_string(stats.find("intelligence")->second));
-		this->stats_T_H_.setString("Perception: " + std::to_string(stats.find("perception")->second));
-		this->stats_T_I_.setString("Wisdom: " + std::to_string(stats.find("wisdom")->second));
+		this->stats_T_J_.setString(std::to_string(stats.find("health")->second) + " / " + std::to_string(stats.find("healthMax")->second));
+		this->stats_T_K_.setString(std::to_string(stats.find("mana")->second) + " / " + std::to_string(stats.find("manaMax")->second));
+		this->stats_T_L_.setString(std::to_string(stats.find("strength")->second));
+		this->stats_T_M_.setString(std::to_string(stats.find("dexerity")->second));
+		this->stats_T_N_.setString(std::to_string(stats.find("intelligence")->second));
+		this->stats_T_O_.setString(std::to_string(stats.find("perception")->second));
+		this->stats_T_P_.setString(std::to_string(stats.find("wisdom")->second));
 	}
 
 	if (!resistances.empty())
 	{
-		this->resistances_T_B_.setString("Cold: " + std::to_string(resistances.find("cold")->second));
-		this->resistances_T_C_.setString("Fire: " + std::to_string(resistances.find("fire")->second));
-		this->resistances_T_D_.setString("Lightning: " + std::to_string(resistances.find("lightning")->second));
-		this->resistances_T_E_.setString("Poison: " + std::to_string(resistances.find("poison")->second));
+		this->resistances_T_F_.setString(std::to_string(resistances.find("cold")->second));
+		this->resistances_T_G_.setString(std::to_string(resistances.find("fire")->second));
+		this->resistances_T_H_.setString(std::to_string(resistances.find("lightning")->second));
+		this->resistances_T_I_.setString(std::to_string(resistances.find("poison")->second));
 	}
 }
 
@@ -247,6 +267,18 @@ void PlayerInventory::updatePollEvent(sf::Event& ev, std::map<std::string, int>&
 		if (this->b_B_.updatePollEvent(ev))
 		{
 			this->is_Hiding_Inventory_ = true;
+		}
+
+		if (this->stats_B_A_.updatePollEvent(ev))
+		{
+			this->is_Resistances_Visible_ = false;
+			this->is_Stats_Visible_ = true;
+		}
+
+		if (this->resistances_B_A_.updatePollEvent(ev))
+		{
+			this->is_Stats_Visible_ = false;
+			this->is_Resistances_Visible_ = true;
 		}
 
 
@@ -342,6 +374,8 @@ void PlayerInventory::update(const sf::Vector2i& mousePositionWindow)
 	if (!this->is_Hiding_Inventory_)
 	{
 		this->b_B_.updateBoundaries(mousePositionWindow);
+		this->stats_B_A_.updateBoundaries(mousePositionWindow);
+		this->resistances_B_A_.updateBoundaries(mousePositionWindow);
 
 		this->stats_D_B_.update(mousePositionWindow);
 		this->stats_D_C_.update(mousePositionWindow);
@@ -366,7 +400,7 @@ void PlayerInventory::update(const sf::Vector2i& mousePositionWindow)
 			{
 				if (x->update(mousePositionWindow))
 				{
-					x->setItemHoverDescriptionSettings(HOVERPOSITION::RIGHT, x->getItemGlobalBoundaries(), this->x_A_.getGlobalBounds(), DESCRIPTIONTYPE::ITEM, x->getName(), x->getDescription());
+					x->setItemHoverDescriptionSettings(HOVERPOSITION::RIGHT, x->getItemGlobalBoundaries(), this->inventory_Background_Sprite_.getGlobalBounds(), DESCRIPTIONTYPE::ITEM, x->getName(), x->getDescription());
 				}
 			}
 		}
@@ -393,13 +427,13 @@ void PlayerInventory::render(sf::RenderTarget& target)
 		target.setView(target.getDefaultView());
 
 		this->x_C_.render(target);
-		this->x_A_.render(target);
-		this->x_B_.render(target);
+
+		target.draw(this->inventory_Background_Sprite_);
 
 		this->b_B_.render(target);
+		this->stats_B_A_.render(target);
+		this->resistances_B_A_.render(target);
 
-		this->t_A_.render(target);
-		this->t_B_.render(target);
 		this->t_C_.render(target);
 		this->t_D_.render(target);
 		this->t_E_.render(target);
@@ -424,34 +458,54 @@ void PlayerInventory::render(sf::RenderTarget& target)
 		
 
 		this->l_A_.render(target);
-		
 		this->stats_T_A_.render(target);
-		this->stats_T_B_.render(target);
-		this->stats_T_C_.render(target);
-		this->stats_T_D_.render(target);
-		this->stats_T_E_.render(target);
-		this->stats_T_G_.render(target);
-		this->stats_T_H_.render(target);
-		this->stats_T_I_.render(target);
 
-		this->stats_D_B_.render(target);
-		this->stats_D_C_.render(target);
-		this->stats_D_D_.render(target);
-		this->stats_D_E_.render(target);
-		this->stats_D_G_.render(target);
-		this->stats_D_H_.render(target);
-		this->stats_D_I_.render(target);
+		if (this->is_Stats_Visible_)
+		{
+			this->stats_T_B_.render(target);
+			this->stats_T_C_.render(target);
+			this->stats_T_D_.render(target);
+			this->stats_T_E_.render(target);
+			this->stats_T_G_.render(target);
+			this->stats_T_H_.render(target);
+			this->stats_T_I_.render(target);
 
+			this->stats_T_J_.render(target);
+			this->stats_T_K_.render(target);
+			this->stats_T_L_.render(target);
+			this->stats_T_M_.render(target);
+			this->stats_T_N_.render(target);
+			this->stats_T_O_.render(target);
+			this->stats_T_P_.render(target);
+
+			this->stats_D_B_.render(target);
+			this->stats_D_C_.render(target);
+			this->stats_D_D_.render(target);
+			this->stats_D_E_.render(target);
+			this->stats_D_G_.render(target);
+			this->stats_D_H_.render(target);
+			this->stats_D_I_.render(target);
+		}
+		
 		this->resistances_T_A_.render(target);
-		this->resistances_T_B_.render(target);
-		this->resistances_T_C_.render(target);
-		this->resistances_T_D_.render(target);
-		this->resistances_T_E_.render(target);
 
-		this->resistances_D_B_.render(target);
-		this->resistances_D_C_.render(target);
-		this->resistances_D_D_.render(target);
-		this->resistances_D_E_.render(target);
+		if (this->is_Resistances_Visible_)
+		{
+			this->resistances_T_B_.render(target);
+			this->resistances_T_C_.render(target);
+			this->resistances_T_D_.render(target);
+			this->resistances_T_E_.render(target);
+
+			this->resistances_T_F_.render(target);
+			this->resistances_T_G_.render(target);
+			this->resistances_T_H_.render(target);
+			this->resistances_T_I_.render(target);
+
+			this->resistances_D_B_.render(target);
+			this->resistances_D_C_.render(target);
+			this->resistances_D_D_.render(target);
+			this->resistances_D_E_.render(target);
+		}
 	}
 }
 

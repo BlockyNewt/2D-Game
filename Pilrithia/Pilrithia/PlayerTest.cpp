@@ -1,10 +1,10 @@
 #include "PlayerTest.h"
 
-PlayerTest::PlayerTest(const ResourceFont& resourceFont, const ResourceHud& resourceHud)
+PlayerTest::PlayerTest(const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceRace& resourceRace)
 {
 	this->player_Bag_ = new PlayerBag(resourceFont, resourceHud);
-	this->player_Hud_ = new PlayerHud(1280, 720, resourceFont, resourceHud);
-	this->player_Inventory_ = new PlayerInventory(resourceFont);
+	this->player_Hud_ = new PlayerHud(1280, 720, resourceFont, resourceHud, resourceRace);
+	this->player_Inventory_ = new PlayerInventory(resourceFont, resourceHud, resourceRace);
 	this->player_Quest_ = new PlayerQuest(resourceFont, resourceHud);
 	this->player_Skill_Tree_ = new PlayerSkillTree(resourceFont);
 	this->player_Gather_ = new PlayerGather(resourceFont);
@@ -57,6 +57,8 @@ PlayerTest::PlayerTest(const ResourceFont& resourceFont, const ResourceHud& reso
 	this->selected_Enemy_ = NULL;
 	this->class_One_ = NULL;
 	this->class_Two_ = NULL;
+
+	this->is_Idle_ = false;
 }
 
 PlayerTest::~PlayerTest()
@@ -78,8 +80,34 @@ void PlayerTest::initializeCharacter(Race* race, const std::string& name)
 		THIS IS SET AFTER CHARACTER CREATINO IS COMPLETE
 	*/
 	this->race_ = race;
-	this->player_Model_.setFillColor(this->race_->getModel().getFillColor());
-	this->player_Model_.setOutlineColor(this->race_->getModel().getOutlineColor());
+	if (&this->race_->getRunTexture() == NULL)
+	{
+		this->player_Model_.setSize(sf::Vector2f(25.f, 50.f));
+		this->player_Model_.setFillColor(this->race_->getModel().getFillColor());
+		this->player_Model_.setOutlineColor(this->race_->getModel().getOutlineColor());
+
+		this->next_Position_.setSize(sf::Vector2f(this->player_Model_.getSize().x, this->player_Model_.getSize().y));
+		this->next_Position_.setPosition(sf::Vector2f(this->player_Model_.getPosition().x, this->player_Model_.getPosition().y));
+
+		this->auto_Attack_Range_.setSize(sf::Vector2f(125.f, 50.f));
+		this->auto_Attack_Range_.setPosition(sf::Vector2f(this->player_Model_.getPosition().x, this->player_Model_.getPosition().y));
+	}
+	else
+	{
+		this->player_Model_.setSize(sf::Vector2f(this->race_->getModel().getSize().x, this->race_->getModel().getSize().y));
+		this->player_Model_.setFillColor(sf::Color::White);
+		this->player_Model_.setOutlineColor(sf::Color::Transparent);
+		this->player_Model_.setTexture(&this->race_->getRunTexture());
+		this->player_Model_.setTextureRect(sf::IntRect(0, 0, 66, 48));
+
+		this->next_Position_.setSize(sf::Vector2f(this->player_Model_.getGlobalBounds().left + this->player_Model_.getSize().x , this->player_Model_.getSize().y));
+		this->next_Position_.setPosition(sf::Vector2f(this->player_Model_.getPosition().x, this->player_Model_.getPosition().y));
+
+		this->auto_Attack_Range_.setSize(sf::Vector2f(125.f, 50.f));
+		this->auto_Attack_Range_.setPosition(sf::Vector2f(this->player_Model_.getPosition().x, this->player_Model_.getPosition().y));
+
+	}
+	
 
 	if (this->stats_.empty())
 	{
@@ -238,17 +266,55 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 		{
 			this->velocity_.y += -this->movement_Speed_ * dt;
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 		{
 			this->velocity_.y += this->movement_Speed_ * dt;
+
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 		{
 			this->velocity_.x += -this->movement_Speed_ * dt;
+
+			if (this->is_Idle_)
+			{
+				this->player_Model_.setTexture(&this->race_->getRunTexture());
+				this->player_Model_.setSize(sf::Vector2f(66.f, 48.f));
+				this->player_Model_.setTextureRect(sf::IntRect(0, 0, this->race_->getRunRect().width, this->race_->getRunRect().height));
+
+				this->is_Idle_ = false;
+			}
+
+			this->player_Model_.setScale(sf::Vector2f(-1.f, 1.f));
+			this->animation_.update(this->player_Model_, this->race_->getRunRect(), this->race_->getRunSheetWidth());
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 		{
 			this->velocity_.x += this->movement_Speed_ * dt;
+
+			if (this->is_Idle_)
+			{
+				this->player_Model_.setTexture(&this->race_->getRunTexture());
+				this->player_Model_.setSize(sf::Vector2f(66.f, 48.f));
+				this->player_Model_.setTextureRect(sf::IntRect(0, 0, this->race_->getRunRect().width, this->race_->getRunRect().height));
+
+				this->is_Idle_ = false;
+			}
+
+			this->player_Model_.setScale(sf::Vector2f(1.f, 1.f));
+			this->animation_.update(this->player_Model_, this->race_->getRunRect(), this->race_->getRunSheetWidth());
+		}
+
+		//TESTING
+		if (!sf::Keyboard::isKeyPressed(sf::Keyboard::A) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::D) &&
+			!this->is_Idle_)
+		{
+			this->player_Model_.setTexture(&this->race_->getIdleTexture());
+			this->player_Model_.setTextureRect(sf::IntRect(0, 0, this->race_->getIdleRect().width, this->race_->getIdleRect().height));
+			this->player_Model_.setSize(sf::Vector2f(38.f, 48.f));
+			this->is_Idle_ = true;
 		}
 
 		if (ev.type == sf::Event::KeyPressed)
@@ -275,39 +341,6 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 	}
 	
 }
-//
-//void PlayerTest::updateEnemyAutoSelector(Enemy* enemy)
-//{
-//	if (this->selected_Enemy_ == NULL)
-//	{
-//		if (this->player_Model_.getGlobalBounds().intersects(enemy->getEnemyGlobalBounds()))
-//		{
-//			this->selected_Enemy_ = enemy;
-//
-//			std::cout << "enemy has been selected." << std::endl;
-//		}
-//	}
-//
-//	if (this->selected_Enemy_ != NULL)
-//	{
-//		if (!this->player_Model_.getGlobalBounds().intersects(this->selected_Enemy_->getEnemyGlobalBounds()))
-//		{
-//			this->selected_Enemy_ = NULL;
-//
-//			std::cout << "enemy has been set to null due to it leaving range." << std::endl;
-//		}
-//	}
-//
-//	if (this->selected_Enemy_ != NULL)
-//	{
-//		//std::cout << "A" << std::endl;
-//		if (this->selected_Enemy_->getIsDead() || this->selected_Enemy_->getHasLootTimerStarted())
-//		{
-//			//std::cout << "enemy died. Can no reselect a new enemy. " << std::endl;
-//			this->selected_Enemy_ = NULL;
-//		}
-//	}
-//}
 
 void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& camera, std::vector<Enemy*>& enemies)
 {
@@ -322,6 +355,11 @@ void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& c
 		this->next_Position_Bounds_ = this->player_Model_.getGlobalBounds();
 		this->next_Position_Bounds_.left += this->velocity_.x;
 		this->next_Position_Bounds_.top += this->velocity_.y;
+
+		if (this->is_Idle_)
+		{
+			this->animation_.update(this->player_Model_, this->race_->getIdleRect(), this->race_->getIdleSheetWidth());
+		}
 
 		if (!this->is_Jumping_)
 		{

@@ -7,6 +7,7 @@
 
 #include "ResourceFont.h"
 #include "ResourceHud.h"
+#include "ResourceRace.h"
 
 #include "Box.h"
 #include "Button.h"
@@ -24,7 +25,7 @@
 class PlayerHud
 {
 public:
-	PlayerHud(unsigned int windowSizeX, unsigned int windowSizeY, const ResourceFont& resourceFont, const ResourceHud& resourceHud);
+	PlayerHud(unsigned int windowSizeX, unsigned int windowSizeY, const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceRace& resourceRace);
 	~PlayerHud();
 
 

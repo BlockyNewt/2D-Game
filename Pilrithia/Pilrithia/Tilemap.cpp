@@ -661,7 +661,7 @@ void Tilemap::PlayerCollision(PlayerTest& playerTest)
 
 									playerTest.setVelocityX(0.f);
 
-									playerTest.getPlayerModel().setPosition(sf::Vector2f(this->grid_[x][y][z]->getLeftPosition() - playerTest.getPlayerGlobalBounds().width, playerTest.getPlayerGlobalBounds().top));
+									//playerTest.getPlayerModel().setPosition(sf::Vector2f(this->grid_[x][y][z]->getLeftPosition() - playerTest.getPlayerGlobalBounds().width, playerTest.getPlayerGlobalBounds().top));
 								}
 
 								//LEFT COLLISION
@@ -674,7 +674,7 @@ void Tilemap::PlayerCollision(PlayerTest& playerTest)
 
 									playerTest.setVelocityX(0.f);
 
-									playerTest.getPlayerModel().setPosition(sf::Vector2f(this->grid_[x][y][z]->getRightPosition(), playerTest.getPlayerGlobalBounds().top));
+									//playerTest.getPlayerModel().setPosition(sf::Vector2f(this->grid_[x][y][z]->getRightPosition(), playerTest.getPlayerGlobalBounds().top));
 								}
 
 								//TOP COLLISION
@@ -689,7 +689,7 @@ void Tilemap::PlayerCollision(PlayerTest& playerTest)
 
 									playerTest.setVelocityY(playerTest.getGravity());
 
-									playerTest.getPlayerModel().setPosition(sf::Vector2f(playerTest.getPlayerGlobalBounds().left, this->grid_[x][y][z]->getBottomPosition()));
+									//playerTest.getPlayerModel().setPosition(sf::Vector2f(playerTest.getPlayerGlobalBounds().left, this->grid_[x][y][z]->getBottomPosition()));
 								}
 
 								//BOTTOM COLLISION	
@@ -704,7 +704,7 @@ void Tilemap::PlayerCollision(PlayerTest& playerTest)
 
 									playerTest.setVelocityY(0.f);
 
-									playerTest.getPlayerModel().setPosition(sf::Vector2f(playerTest.getPlayerGlobalBounds().left, this->grid_[x][y][z]->getTopPosition() - playerTest.getPlayerGlobalBounds().height));
+									//playerTest.getPlayerModel().setPosition(sf::Vector2f(playerTest.getPlayerGlobalBounds().left, this->grid_[x][y][z]->getTopPosition() - playerTest.getPlayerGlobalBounds().height));
 								}
 							}
 

@@ -1,11 +1,12 @@
 #include "StateTestZone.h"
 
-StateTestZone::StateTestZone(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont* resourceFont, ResourceHud* resourceHud, MenuSetting* menuSetting, MenuPause* menuPause)
-	: State(states, window, resourceFont, resourceHud, menuSetting, menuPause)
+StateTestZone::StateTestZone(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont* resourceFont, ResourceHud* resourceHud, ResourceRace* resourceRace, MenuSetting* menuSetting, MenuPause* menuPause)
+	: State(states, window, resourceFont, resourceHud, resourceRace, menuSetting, menuPause)
 {
-	this->player_Test_ = new PlayerTest(*this->resource_Font_, *this->resource_Hud_);
 
-	this->menu_Character_Creation_ = new MenuCharacterCreation(this->window_->getSize().x, this->window_->getSize().y, *this->resource_Font_, *this->resource_Hud_);
+	this->player_Test_ = new PlayerTest(*this->resource_Font_, *this->resource_Hud_, *this->resource_Race_);
+
+	this->menu_Character_Creation_ = new MenuCharacterCreation(this->window_->getSize().x, this->window_->getSize().y, *this->resource_Font_, *this->resource_Hud_, *this->resource_Race_);
 
 	this->camera_ = new Camera(this->window_->getSize().x, this->window_->getSize().y);
 
@@ -36,7 +37,6 @@ StateTestZone::StateTestZone(std::stack<State*>* states, sf::RenderWindow* windo
 	this->load_T_D_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 25, "Close", sf::Vector2f(this->load_B_B_.getLeftPosition(true, 10.f), this->load_B_B_.getTopPosition(true, 10.f)), true);
 
 	this->load_I_A_.setSettings(500.f, 40.f, this->load_T_B_.getRightPosition(true, 10.f), this->load_T_B_.getTopPosition(), sf::Color::Black, 1.f, sf::Color::Red, true, false, 30, *this->resource_Font_);
-
 
 		  
 }

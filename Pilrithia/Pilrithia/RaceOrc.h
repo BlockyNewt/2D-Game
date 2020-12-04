@@ -16,9 +16,6 @@ public:
 
 	//void setPlayerClasses(Classes& classes) override;
 
-	const std::string getName() const override;
-	const std::string getSummary() const override;
-	const sf::RectangleShape& getModel() const override;
 	
 
 	/*
@@ -64,9 +61,21 @@ public:
 	const int& getPoison() const override;
 	
 
-	//TESTING WILL HAVE TO CHANGE THIS LATER
-	const sf::Texture& getTexture() const;
+	void setIconTexture(const sf::Texture& texture) override;
+	void setRunTexture(const sf::Texture& texture) override;
+	void setIdleTexture(const sf::Texture& texture) override;
 
+	//TESTING WILL HAVE TO CHANGE THIS LATER
+	const std::string getName() const override;
+	const std::string getSummary() const override;
+	const sf::RectangleShape& getModel() const override;
+	const sf::Texture& getIconTexture() const override;
+	const sf::Texture& getRunTexture() const override;
+	const sf::Texture& getIdleTexture() const override;
+	const sf::IntRect& getRunRect() const override;
+	const sf::IntRect& getIdleRect() const override;
+	const int& getRunSheetWidth() const override;
+	const int& getIdleSheetWidth() const override;
 private:
 
 private:
@@ -90,8 +99,16 @@ private:
 	int lightning_;
 	int poison_;
 
-	sf::Texture icon_Texture_;
+	//TESTING
+	sf::Texture* icon_Texture_;
+	sf::Texture* run_Texture_;
+	sf::Texture* idle_Texture_;
 
+	sf::IntRect run_Rect_;
+	sf::IntRect idle_Rect_;
+
+	int run_Sheet_Width_;
+	int idle_Sheet_Width_;
 };
 
 #endif

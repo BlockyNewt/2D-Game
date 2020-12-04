@@ -14,7 +14,7 @@ void MenuCharacterCreation::initializeNameGui(const ResourceFont& resourceFont, 
 	this->name_T_B_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Complete", sf::Vector2f(this->name_B_B_.getLeftPosition(true, 10.f), this->name_B_B_.getTopPosition(true, 10.f)), true);
 }
 
-void MenuCharacterCreation::initializeRaceGui(const ResourceFont& resourceFont, const ResourceHud& resourceHud)
+void MenuCharacterCreation::initializeRaceGui(const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceRace& resourceRace)
 {
 	/*
 		SET SETTINGS FOR RACE RELATED OBJECTS
@@ -39,7 +39,7 @@ void MenuCharacterCreation::initializeRaceGui(const ResourceFont& resourceFont, 
 
 
 	this->race_B_A_.setSettings(80.f, 80.f, this->race_A_Sprite_.getGlobalBounds().left + 4.f, this->race_A_Sprite_.getGlobalBounds().top + 4.f, sf::Color::White, 1.f, sf::Color::White, true);
-	this->race_B_A_.setTexture(&this->race_Orc_.getTexture());
+	this->race_B_A_.setTexture(resourceRace.getRaceTexture(RACETYPE::ORCICON));
 	this->race_B_B_.setSettings(80.f, 80.f, this->race_B_Sprite_.getGlobalBounds().left + 4.f, this->race_B_Sprite_.getGlobalBounds().top + 4.f, sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
 	this->race_B_C_.setSettings(80.f, 80.f, this->race_C_Sprite_.getGlobalBounds().left + 4.f, this->race_C_Sprite_.getGlobalBounds().top + 4.f, sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
 	this->race_B_D_.setSettings(80.f, 80.f, this->race_D_Sprite_.getGlobalBounds().left + 4.f, this->race_D_Sprite_.getGlobalBounds().top + 4.f, sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
@@ -54,7 +54,7 @@ void MenuCharacterCreation::initializeRaceGui(const ResourceFont& resourceFont, 
 	this->race_T_G_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Race summary", sf::Vector2f(this->race_X_A_.getLeftPosition(true, 10.f), this->race_X_A_.getTopPosition(true, 60.f)), true);
 }
 
-MenuCharacterCreation::MenuCharacterCreation(const unsigned int windowSizeX, const unsigned int windowSizeY, const ResourceFont& resourceFont, const ResourceHud& resourceHud)
+MenuCharacterCreation::MenuCharacterCreation(const unsigned int windowSizeX, const unsigned int windowSizeY, const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceRace& resourceRace)
 {
 	this->is_Creating_Character_ = true;
 
@@ -64,7 +64,7 @@ MenuCharacterCreation::MenuCharacterCreation(const unsigned int windowSizeX, con
 	this->model_Preview_X_A_.setSettings(300.f, 600.f, windowSizeX - 310.f, 100.f, sf::Color(90, 82, 85), 1.f, sf::Color::White, true);
 
 	this->initializeNameGui(resourceFont, resourceHud);
-	this->initializeRaceGui(resourceFont, resourceHud);
+	this->initializeRaceGui(resourceFont, resourceHud, resourceRace);
 
 	/*
 		INITIALIZE THE RACES AND SET THE POSITION OF THEIR MODELS
@@ -78,11 +78,14 @@ MenuCharacterCreation::MenuCharacterCreation(const unsigned int windowSizeX, con
 	/*
 		SET SETTINGS FOR RACE PREVIEW MODEL
 	*/
-	this->race_Model_.setSize(sf::Vector2f(50.f, 50.f));
+	this->race_Model_.setSize(sf::Vector2f(144.f, 64.f));
 	this->race_Model_.setPosition(sf::Vector2f(this->model_Preview_X_A_.getLeftPosition(true, 125.f), this->model_Preview_X_A_.getTopPosition(true, 200.f)));
 	this->race_Model_.setFillColor(sf::Color::Transparent);
 	this->race_Model_.setOutlineThickness(1.f);
 	this->race_Model_.setOutlineColor(sf::Color::Transparent);
+	
+
+	this->resource_Race_ = resourceRace;
 
 }
 
@@ -242,11 +245,18 @@ void MenuCharacterCreation::setObjectsBasedOnRace()
 		/*
 			CHANGE NEEDED OBJECTS AFTER YOU CLICK ON A RACE
 		*/
+		this->race_->setIconTexture(*this->resource_Race_.getRaceTexture(RACETYPE::ORCICON));
+		this->race_->setRunTexture(*this->resource_Race_.getRaceTexture(RACETYPE::TESTSPRITESTRIP));
+		this->race_->setIdleTexture(*this->resource_Race_.getRaceTexture(RACETYPE::TESTSPRITESTRIPIDLE));
+
 		this->race_T_G_.setString(this->race_->getSummary());
 		this->race_T_G_.wrapText(this->race_X_A_.getGlobalBounds());
 
 		this->race_Model_ = this->race_->getModel();
 		this->race_Model_.setPosition(sf::Vector2f(this->model_Preview_X_A_.getLeftPosition(true, 125.f), this->model_Preview_X_A_.getTopPosition(true, 300.f)));
+		this->race_Model_.setTexture(this->resource_Race_.getRaceTexture(RACETYPE::TESTSPRITESTRIP));
+		this->race_Model_.setTextureRect(sf::IntRect(0, 0, 144, 64));
+		std::cout << "D" << std::endl;
 	}
 }
 

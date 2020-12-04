@@ -1,6 +1,6 @@
 #include "PlayerHud.h"
 
-PlayerHud::PlayerHud(unsigned int windowSizeX, unsigned int windowSizeY, const ResourceFont& resourceFont, const ResourceHud& resourceHud)
+PlayerHud::PlayerHud(unsigned int windowSizeX, unsigned int windowSizeY, const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceRace& resourceRace)
 {
 	this->camera_ = new Camera(0, 0);
 	

@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Box.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -186,6 +187,7 @@
     <ClCompile Include="RaceOrc.cpp" />
     <ClCompile Include="ResourceFont.cpp" />
     <ClCompile Include="ResourceHud.cpp" />
+    <ClCompile Include="ResourceRace.cpp" />
     <ClCompile Include="ShopBox.cpp" />
     <ClCompile Include="Skill.cpp" />
     <ClCompile Include="SkillButton.cpp" />
@@ -201,6 +203,7 @@
     <ClCompile Include="Tilemap.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.h" />
     <ClInclude Include="Box.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Camera.h" />
@@ -241,6 +244,7 @@
     <ClInclude Include="RaceOrc.h" />
     <ClInclude Include="ResourceFont.h" />
     <ClInclude Include="ResourceHud.h" />
+    <ClInclude Include="ResourceRace.h" />
     <ClInclude Include="ShopBox.h" />
     <ClInclude Include="Skill.h" />
     <ClInclude Include="SkillButton.h" />

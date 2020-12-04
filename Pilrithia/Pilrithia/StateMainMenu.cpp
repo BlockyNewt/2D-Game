@@ -1,7 +1,7 @@
 #include "StateMainMenu.h"
 
-StateMainMenu::StateMainMenu(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont* resourceFont, ResourceHud* resourceHud, MenuSetting* menuSetting, MenuPause* menuPause)
-	: State(states, window, resourceFont, resourceHud, menuSetting, menuPause)
+StateMainMenu::StateMainMenu(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont* resourceFont, ResourceHud* resourceHud, ResourceRace* resourceRace, MenuSetting* menuSetting, MenuPause* menuPause)
+	: State(states, window, resourceFont, resourceHud, resourceRace, menuSetting, menuPause)
 {
 	std::cout << "DEBUG::STATEMAINMENU::STATEMAINMENU() -> HAS STARTED." << std::endl;
 
@@ -87,7 +87,7 @@ void StateMainMenu::updatePollEvent(sf::Event& ev)
 		*/
 		else if (this->buttons_[4].updatePollEvent(ev))
 		{
-			this->states_->push(new StateEditor(this->states_, this->window_, this->resource_Font_, this->resource_Hud_, this->menu_Setting_, this->menu_Pause_));
+			this->states_->push(new StateEditor(this->states_, this->window_, this->resource_Font_, this->resource_Hud_, this->resource_Race_, this->menu_Setting_, this->menu_Pause_));
 		}
 
 		/*
@@ -95,7 +95,7 @@ void StateMainMenu::updatePollEvent(sf::Event& ev)
 		*/
 		else if (this->buttons_[5].updatePollEvent(ev))
 		{
-			this->states_->push(new StateTestZone(this->states_, this->window_, this->resource_Font_, this->resource_Hud_, this->menu_Setting_, this->menu_Pause_));
+			this->states_->push(new StateTestZone(this->states_, this->window_, this->resource_Font_, this->resource_Hud_, this->resource_Race_, this->menu_Setting_, this->menu_Pause_));
 		}
 	}
 }

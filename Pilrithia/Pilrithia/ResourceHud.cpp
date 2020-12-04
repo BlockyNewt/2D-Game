@@ -16,6 +16,7 @@ void ResourceHud::loadAllHudTextures()
 	this->loadHudTexture("gathering_.png", HUDTYPE::GATHER);
 	this->loadHudTexture("hotbar_.png", HUDTYPE::HOTBAR);
 	this->loadHudTexture("window_One_.png", HUDTYPE::WINDOW);
+	this->loadHudTexture("inventory_Window_.png", HUDTYPE::INVENTORYWINDOW);
 
 	this->loadHudTexture("race_Face_.png", HUDTYPE::RACEFACE);
 

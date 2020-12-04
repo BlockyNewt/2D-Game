@@ -5,6 +5,7 @@
 
 #include "ResourceFont.h"
 #include "ResourceHud.h"
+#include "ResourceRace.h"
 
 #include "Box.h"
 #include "Button.h"
@@ -20,7 +21,7 @@
 class MenuCharacterCreation
 {
 public:
-	MenuCharacterCreation(const unsigned int windowSizeX, const unsigned int windowSizeY, const ResourceFont& resourceFont, const ResourceHud& resourceHud);
+	MenuCharacterCreation(const unsigned int windowSizeX, const unsigned int windowSizeY, const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceRace& resourceRace);
 	~MenuCharacterCreation();
 
 	void updateRacePollEvent(sf::Event& ev);
@@ -37,7 +38,7 @@ public:
 
 private:
 	void initializeNameGui(const ResourceFont& resourceFont, const ResourceHud& resourceHud);
-	void initializeRaceGui(const ResourceFont& resourceFont, const ResourceHud& resourceHud);
+	void initializeRaceGui(const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceRace& resourceRace);
 
 private:
 	//TESTING 
@@ -85,6 +86,7 @@ private:
 	Text race_T_G_;
 
 
+	ResourceRace resource_Race_;
 
 	bool is_Creating_Character_;
 

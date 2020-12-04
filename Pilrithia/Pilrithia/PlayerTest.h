@@ -12,6 +12,8 @@
 #include "PlayerSkillTree.h"
 #include "PlayerGather.h"
 
+#include "Animation.h"
+
 
 
 #include <math.h>
@@ -19,14 +21,13 @@
 class PlayerTest
 {	
 public:
-	PlayerTest(const ResourceFont& resourceFont, const ResourceHud& resourceHud);
+	PlayerTest(const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceRace& resourceRace);
 	~PlayerTest();
 
 	void initializeCharacter(Race* race, const std::string& name);
 
 	void updateSkillsPollEvent(sf::Event& ev, std::vector<Enemy*>& enemies);
 	void updatePollEvent(sf::Event& ev, const float& dt);
-	//void updateEnemyAutoSelector(Enemy* enemy);
 	void update(const sf::Vector2i& mousePositionWindow, const Camera& camera, std::vector<Enemy*>& enemies);
 	void renderHudItems(sf::RenderTarget& target);
 	void renderPlayerModel(sf::RenderTarget& target);
@@ -75,6 +76,8 @@ private:
 	PlayerSkillTree* player_Skill_Tree_;
 	PlayerGather* player_Gather_;
 
+	Animation animation_;
+
 	Classes* class_One_;
 	Classes* class_Two_;
 
@@ -112,6 +115,8 @@ private:
 
 	Enemy* selected_Enemy_;
 
+	//TESTING
+	bool is_Idle_;
 };
 
 #endif // !PLAYERTEST_H

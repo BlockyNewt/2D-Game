@@ -62,6 +62,8 @@ public:
 	virtual void setIconTexture(const sf::Texture& texture) = 0;
 	virtual void setRunTexture(const sf::Texture& texture) = 0;
 	virtual void setIdleTexture(const sf::Texture& texture) = 0;
+	virtual void setAttackTexture(const sf::Texture& texture) = 0;
+	virtual void setJumpTexture(const sf::Texture& texture) = 0;
 
 	//virtual void setPlayerClasses(Classes& classes) = 0;
 	virtual const std::string getName() const = 0;
@@ -70,10 +72,17 @@ public:
 	virtual const sf::Texture& getIconTexture() const = 0;
 	virtual const sf::Texture& getRunTexture() const = 0;
 	virtual const sf::Texture& getIdleTexture() const = 0;
+	virtual const sf::Texture& getAttackTexture() const = 0;
+	virtual const sf::Texture& getJumpTexture() const = 0;
 	virtual const sf::IntRect& getRunRect() const = 0;
 	virtual const sf::IntRect& getIdleRect() const = 0;
+	virtual const sf::IntRect& getAttackRect() const = 0;
+	virtual const sf::IntRect& getJumpRect() const = 0;
+
 	virtual const int& getRunSheetWidth() const = 0;
 	virtual const int& getIdleSheetWidth() const = 0;
+	virtual const int& getAttackSheetWidth() const = 0;
+	virtual const int& getJumpSheetWidth() const = 0;
 
 
 private:

@@ -13,6 +13,8 @@ void ResourceRace::loadAllRaceTextures()
 	this->loadRaceTexture("Orc_Icon_.png", RACETYPE::ORCICON);
 	this->loadRaceTexture("test_Strip_.png", RACETYPE::TESTSPRITESTRIP);
 	this->loadRaceTexture("test_Strip_Idle_.png", RACETYPE::TESTSPRITESTRIPIDLE);
+	this->loadRaceTexture("test_Strip_Attack_.png", RACETYPE::TESTSPRITESTRIPATTACK);
+	this->loadRaceTexture("test_Strip_Jump_.png", RACETYPE::TESTSPRITESTRIPJUMP);
 }
 
 const sf::Texture* ResourceRace::getRaceTexture(RACETYPE raceType) const

@@ -53,6 +53,7 @@ public:
 	const float& getGravity() const;
 	const sf::FloatRect getPlayerGlobalBounds() const;
 	const sf::FloatRect getNextPositionGlobalBounds() const;
+	const sf::FloatRect getPlayerModelRangeGlobalBounds() const;
 	const bool& getIsJumping() const;
 	const PlayerInventory& getPlayerInventory() const;
 	const PlayerBag& getPlayerBag() const;
@@ -87,6 +88,7 @@ private:
 
 
 	sf::RectangleShape player_Model_;
+	sf::RectangleShape player_Model_Range_;
 	sf::RectangleShape next_Position_;
 	sf::RectangleShape auto_Attack_Range_;
 
@@ -116,7 +118,14 @@ private:
 	Enemy* selected_Enemy_;
 
 	//TESTING
+	bool is_Idle_Texture_Set_;
+	bool is_Attack_Texture_Set_;
+	bool is_Run_Texture_Set_;
+	bool is_Jump_Texture_Set_;
+
 	bool is_Idle_;
+	bool is_Run_;
+	bool is_Attack_;
 };
 
 #endif // !PLAYERTEST_H

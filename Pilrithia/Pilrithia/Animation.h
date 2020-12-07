@@ -11,7 +11,7 @@ public:
 	Animation();
 	~Animation();
 
-	void update(sf::RectangleShape& sprite, const sf::IntRect& textureRect, const int& sheetWidth);
+	void update(sf::RectangleShape& sprite, const sf::IntRect& textureRect, const int& sheetWidth, float time);
 
 private:
 

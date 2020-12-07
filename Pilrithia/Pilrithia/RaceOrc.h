@@ -64,6 +64,8 @@ public:
 	void setIconTexture(const sf::Texture& texture) override;
 	void setRunTexture(const sf::Texture& texture) override;
 	void setIdleTexture(const sf::Texture& texture) override;
+	void setAttackTexture(const sf::Texture& texture) override;
+	void setJumpTexture(const sf::Texture& texture) override;
 
 	//TESTING WILL HAVE TO CHANGE THIS LATER
 	const std::string getName() const override;
@@ -72,10 +74,21 @@ public:
 	const sf::Texture& getIconTexture() const override;
 	const sf::Texture& getRunTexture() const override;
 	const sf::Texture& getIdleTexture() const override;
+	const sf::Texture& getAttackTexture() const override;
+	const sf::Texture& getJumpTexture() const override;
+
 	const sf::IntRect& getRunRect() const override;
 	const sf::IntRect& getIdleRect() const override;
+	const sf::IntRect& getAttackRect() const override;
+	virtual const sf::IntRect& getJumpRect() const override;
+
 	const int& getRunSheetWidth() const override;
 	const int& getIdleSheetWidth() const override;
+	const int& getAttackSheetWidth() const override;
+	const int& getJumpSheetWidth() const override;
+
+
+
 private:
 
 private:
@@ -103,12 +116,18 @@ private:
 	sf::Texture* icon_Texture_;
 	sf::Texture* run_Texture_;
 	sf::Texture* idle_Texture_;
+	sf::Texture* attack_Texture_;
+	sf::Texture* jump_Texture_;
 
 	sf::IntRect run_Rect_;
 	sf::IntRect idle_Rect_;
+	sf::IntRect attack_Rect_;
+	sf::IntRect jump_Rect_;
 
 	int run_Sheet_Width_;
 	int idle_Sheet_Width_;
+	int attack_Sheet_Width_;
+	int jump_Sheet_Width_;
 };
 
 #endif

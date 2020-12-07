@@ -312,7 +312,7 @@ void PlayerHud::updateNamePosition(const sf::Vector2f& playerPosition)
 	this->character_T_E_.setPosition(playerPosition.x, playerPosition.y - 22.f);
 }
 
-void PlayerHud::update(const sf::Vector2i& mousePositionWindow, const Camera& camera, const sf::Vector2f& playerPosition, const sf::FloatRect playerBoundaries, std::vector<Enemy*>& enemies, bool& playerIsCombat, const sf::FloatRect playerAutoAttackRange)
+void PlayerHud::update(const sf::Vector2i& mousePositionWindow, const Camera& camera, const sf::Vector2f& playerPosition, const sf::FloatRect playerBoundaries, std::vector<Enemy*>& enemies, bool& playerIsCombat, bool& isPlayerAttack, bool& isPlayerAttackTextureSet, const sf::FloatRect playerAutoAttackRange)
 {
 	if (this->is_Hiding_Hud_)
 	{
@@ -366,12 +366,20 @@ void PlayerHud::update(const sf::Vector2i& mousePositionWindow, const Camera& ca
 				//IF ANY ENEMY INTERSECTS THE SKILL RANGE BOX THEN DAMAGE IT
 				if (playerAutoAttackRange.intersects(enemies[i]->getEnemyGlobalBounds()))
 				{
+					if (enemies[i]->getHasLootTimerStarted())
+					{
+						isPlayerAttack = false;
+						isPlayerAttackTextureSet = false;
+					}
 					//ONLY IF THE ENEMIES HAS MORE THAN 0 HEALTH
 					if (enemies[i]->getHealth() > 0)
 					{
+						isPlayerAttack = true;
+
 						if (this->auto_Attack_Timer_.getElapsedTime().asSeconds() >= 1.f)
 						{
 							enemies[i]->setHealth(1);
+
 
 							this->auto_Attack_Timer_.restart();
 							this->leave_Combat_Timer_.restart();

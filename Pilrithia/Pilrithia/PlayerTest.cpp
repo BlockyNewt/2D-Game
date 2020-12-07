@@ -19,8 +19,14 @@ PlayerTest::PlayerTest(const ResourceFont& resourceFont, const ResourceHud& reso
 	this->player_Model_.setPosition(sf::Vector2f(60.f, 60.f));
 	this->player_Model_.setFillColor(sf::Color::Cyan);
 
-	this->next_Position_.setSize(sf::Vector2f(this->player_Model_.getSize().x, this->player_Model_.getSize().y));
-	this->next_Position_.setPosition(sf::Vector2f(this->player_Model_.getPosition().x, this->player_Model_.getPosition().y));
+	this->player_Model_Range_.setSize(sf::Vector2f(96.f, 77.f));
+	this->player_Model_Range_.setPosition(sf::Vector2f(this->player_Model_.getPosition().x, this->player_Model_.getPosition().y));
+	this->player_Model_Range_.setFillColor(sf::Color::Transparent);
+	this->player_Model_Range_.setOutlineThickness(1.f);
+	this->player_Model_Range_.setOutlineColor(sf::Color::Cyan);
+
+	this->next_Position_.setSize(sf::Vector2f(this->player_Model_Range_.getSize().x, this->player_Model_Range_.getSize().y));
+	this->next_Position_.setPosition(sf::Vector2f(this->player_Model_Range_.getPosition().x, this->player_Model_Range_.getPosition().y));
 	this->next_Position_.setFillColor(sf::Color::Transparent);
 	this->next_Position_.setOutlineThickness(1.f);
 	this->next_Position_.setOutlineColor(sf::Color::Red);
@@ -37,7 +43,8 @@ PlayerTest::PlayerTest(const ResourceFont& resourceFont, const ResourceHud& reso
 	this->gravity_ = 6.f;
 	this->position_Before_Jump_ = 0.f;
 	this->jump_Speed_ = 200.f;
-	this->max_Jump_Height_ = 60.f;
+	//this->max_Jump_Height_ = 60.f;
+	this->max_Jump_Height_ = 77.f;
 
 	this->is_Jumping_ = false;
 
@@ -58,7 +65,15 @@ PlayerTest::PlayerTest(const ResourceFont& resourceFont, const ResourceHud& reso
 	this->class_One_ = NULL;
 	this->class_Two_ = NULL;
 
+
+	this->is_Idle_Texture_Set_ = false;
+	this->is_Attack_Texture_Set_ = false;
+	this->is_Run_Texture_Set_ = false;
+	this->is_Jump_Texture_Set_ = false;
+
 	this->is_Idle_ = false;
+	this->is_Run_ = false;
+	this->is_Attack_ = false;
 }
 
 PlayerTest::~PlayerTest()
@@ -276,45 +291,47 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 		{
 			this->velocity_.x += -this->movement_Speed_ * dt;
 
-			if (this->is_Idle_)
-			{
-				this->player_Model_.setTexture(&this->race_->getRunTexture());
-				this->player_Model_.setSize(sf::Vector2f(66.f, 48.f));
-				this->player_Model_.setTextureRect(sf::IntRect(0, 0, this->race_->getRunRect().width, this->race_->getRunRect().height));
-
-				this->is_Idle_ = false;
-			}
+			this->is_Run_ = true;
+			this->is_Idle_ = false;
+			this->is_Attack_ = false;
+			this->is_Attack_Texture_Set_ = false;
 
 			this->player_Model_.setScale(sf::Vector2f(-1.f, 1.f));
-			this->animation_.update(this->player_Model_, this->race_->getRunRect(), this->race_->getRunSheetWidth());
+			this->next_Position_.setScale(sf::Vector2f(-1.f, 1.f));
+
+			//this->player_Model_.setOrigin(sf::Vector2f(0.f, 0.f));
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) &&
 			!sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 		{
 			this->velocity_.x += this->movement_Speed_ * dt;
 
-			if (this->is_Idle_)
-			{
-				this->player_Model_.setTexture(&this->race_->getRunTexture());
-				this->player_Model_.setSize(sf::Vector2f(66.f, 48.f));
-				this->player_Model_.setTextureRect(sf::IntRect(0, 0, this->race_->getRunRect().width, this->race_->getRunRect().height));
-
-				this->is_Idle_ = false;
-			}
+			this->is_Run_ = true;
+			this->is_Idle_ = false;
+			this->is_Attack_ = false;
+			this->is_Attack_Texture_Set_ = false;
 
 			this->player_Model_.setScale(sf::Vector2f(1.f, 1.f));
-			this->animation_.update(this->player_Model_, this->race_->getRunRect(), this->race_->getRunSheetWidth());
+			this->next_Position_.setScale(sf::Vector2f(1.f, 1.f));
 		}
 
 		//TESTING
 		if (!sf::Keyboard::isKeyPressed(sf::Keyboard::A) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::D) &&
-			!this->is_Idle_)
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 		{
-			this->player_Model_.setTexture(&this->race_->getIdleTexture());
-			this->player_Model_.setTextureRect(sf::IntRect(0, 0, this->race_->getIdleRect().width, this->race_->getIdleRect().height));
-			this->player_Model_.setSize(sf::Vector2f(38.f, 48.f));
-			this->is_Idle_ = true;
+			this->is_Run_ = false;
+			this->is_Run_Texture_Set_ = false;
+
+			if (!this->is_Idle_ &&
+				!this->is_Attack_ &&
+				!this->is_Jumping_)
+			{
+				this->is_Run_ = false;
+				this->is_Run_Texture_Set_ = false;
+
+				this->is_Idle_Texture_Set_ = false;
+				this->is_Idle_ = true;
+			}
 		}
 
 		if (ev.type == sf::Event::KeyPressed)
@@ -334,12 +351,15 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 		{
 			if (ev.key.code == sf::Keyboard::Space)
 			{
-				this->is_Jumping_ = true;
-				this->velocity_.y += -this->jump_Speed_ * dt;
+				if (!this->is_Jumping_)
+				{
+					this->is_Jumping_ = true;
+					this->is_Jump_Texture_Set_ = false;
+					this->velocity_.y += -this->jump_Speed_ * dt;
+				}
 			}
 		}
 	}
-	
 }
 
 void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& camera, std::vector<Enemy*>& enemies)
@@ -350,29 +370,111 @@ void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& c
 		this->player_Skill_Tree_->getIsHidingSkillTree() &&
 		!this->player_Gather_->getIsVisible())
 	{
-		this->player_Model_.move(this->velocity_);
+		
+		
 
-		this->next_Position_Bounds_ = this->player_Model_.getGlobalBounds();
-		this->next_Position_Bounds_.left += this->velocity_.x;
-		this->next_Position_Bounds_.top += this->velocity_.y;
 
-		if (this->is_Idle_)
+		if (this->is_Idle_ &&
+			!this->is_Run_ &&
+			!this->is_Attack_ &&
+			!this->is_Jumping_)
 		{
-			this->animation_.update(this->player_Model_, this->race_->getIdleRect(), this->race_->getIdleSheetWidth());
+			if (!this->is_Idle_Texture_Set_)
+			{
+				this->player_Model_.setTexture(&this->race_->getIdleTexture(), true);
+				this->player_Model_.setSize(sf::Vector2f(38.f, 48.f));
+				this->player_Model_.setTextureRect(sf::IntRect(0, 0, this->race_->getIdleRect().width, this->race_->getIdleRect().height));
+				this->is_Idle_Texture_Set_ = true;
+			}
+
+			std::cout << this->player_Model_Range_.getOrigin().x << std::endl;
+
+			this->animation_.update(this->player_Model_, this->race_->getIdleRect(), this->race_->getIdleSheetWidth(), 250.f);
 		}
+		else
+		{
+			this->is_Idle_Texture_Set_ = false;
+		}
+
+		if (this->is_Run_ &&
+			!this->is_Attack_ &&
+			!this->is_Jumping_)
+		{
+			if (!this->is_Run_Texture_Set_)
+			{
+				this->player_Model_.setTexture(&this->race_->getRunTexture(), true);
+				this->player_Model_.setSize(sf::Vector2f(66.f, 48.f));
+				//this->player_Model_.setTextureRect(sf::IntRect(0, 0, this->race_->getRunRect().width, this->race_->getRunRect().height));
+
+				this->is_Run_Texture_Set_ = true;
+			}
+
+			this->animation_.update(this->player_Model_, this->race_->getRunRect(), this->race_->getRunSheetWidth(), 83.33f);
+		}
+		
+
+		if (this->is_Attack_ &&
+			!this->is_Run_)
+		{
+			if (!this->is_Attack_Texture_Set_)
+			{
+				this->player_Model_.setTexture(&this->race_->getAttackTexture());
+				this->player_Model_.setSize(sf::Vector2f(96.f, 48.f));
+				this->player_Model_.setTextureRect(sf::IntRect(0, 0, this->race_->getAttackRect().width, this->race_->getAttackRect().height));
+
+				this->is_Attack_Texture_Set_ = true;
+			}
+
+			this->animation_.update(this->player_Model_, this->race_->getAttackRect(), this->race_->getAttackSheetWidth(), 166.67f);
+		}
+
+		
+
+
+
 
 		if (!this->is_Jumping_)
 		{
 			this->position_Before_Jump_ = this->player_Model_.getGlobalBounds().top;
+			//std::cout << "getting jump distance" << std::endl;
+		}
+		else
+		{
+			//std::cout << "still jumping " << std::endl;
+			/*if (!this->is_Jump_Texture_Set_)
+			{
+				this->player_Model_.setTexture(&this->race_->getJumpTexture());
+				this->player_Model_.setSize(sf::Vector2f(61.f, 77.f));
+				this->player_Model_.setTextureRect(sf::IntRect(0, 0, this->race_->getJumpRect().width, this->race_->getJumpRect().height));
+				this->player_Model_.setPosition(sf::Vector2f(this->player_Model_.getGlobalBounds().left, this->player_Model_.getGlobalBounds().top - 29.f));
+
+				this->is_Jump_Texture_Set_ = true;
+			}
+
+			this->animation_.update(this->player_Model_, this->race_->getJumpRect(), this->race_->getJumpSheetWidth(), 200.f);*/
 		}
 
-		if (this->is_Jumping_ && this->player_Model_.getGlobalBounds().top - this->position_Before_Jump_ <= -this->max_Jump_Height_)
+		if (this->is_Jumping_ && this->player_Model_.getGlobalBounds().top - this->position_Before_Jump_ <= -this->max_Jump_Height_ || 
+			this->is_Jumping_ && this->player_Model_.getGlobalBounds().top - this->position_Before_Jump_ == -this->max_Jump_Height_)
 		{
-			//std::cout << "jumping" << std::endl;
-
+			std::cout << "jumping" << std::endl;
+			//std::cout << this->player_Model_.getGlobalBounds().top - this->position_Before_Jump_ << std::endl;
+			
 			this->is_Jumping_ = false;
 			this->velocity_.y += this->gravity_;
 		}
+		
+		this->player_Model_.move(this->velocity_);
+		this->player_Model_.setOutlineThickness(1.f);
+		this->player_Model_.setOutlineColor(sf::Color::White);
+
+		this->next_Position_.setSize(sf::Vector2f(this->player_Model_Range_.getSize().x, this->player_Model_Range_.getSize().y));
+
+
+		this->player_Model_Range_.setPosition(this->player_Model_.getGlobalBounds().left - this->player_Model_Range_.getSize().x / 2.f + this->player_Model_.getSize().x / 2.f, this->player_Model_.getPosition().y);
+		this->next_Position_Bounds_ = this->player_Model_Range_.getGlobalBounds();
+		this->next_Position_Bounds_.left += this->velocity_.x;
+		this->next_Position_Bounds_.top += this->velocity_.y;
 
 		this->next_Position_.setPosition(this->next_Position_Bounds_.left, this->next_Position_Bounds_.top);
 		this->auto_Attack_Range_.setPosition(sf::Vector2f(this->player_Model_.getGlobalBounds().left - this->auto_Attack_Range_.getSize().x / 2.f + this->player_Model_.getGlobalBounds().width / 2.f, this->player_Model_.getPosition().y));
@@ -384,7 +486,7 @@ void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& c
 	/*
 		UPDATE HUD BUTTONS
 	*/
-	this->player_Hud_->update(mousePositionWindow, camera, this->player_Model_.getPosition(), this->player_Model_.getGlobalBounds(), enemies, this->is_Combat_, this->auto_Attack_Range_.getGlobalBounds());
+	this->player_Hud_->update(mousePositionWindow, camera, this->player_Model_.getPosition(), this->player_Model_.getGlobalBounds(), enemies, this->is_Combat_, this->is_Attack_, this->is_Attack_Texture_Set_, this->auto_Attack_Range_.getGlobalBounds());
 	this->player_Inventory_->update(mousePositionWindow);
 	this->player_Bag_->update(mousePositionWindow);
 	this->player_Quest_->update(mousePositionWindow);
@@ -477,6 +579,7 @@ void PlayerTest::renderPlayerModel(sf::RenderTarget& target)
 	target.draw(this->next_Position_);
 	target.draw(this->auto_Attack_Range_);
 	target.draw(this->player_Model_);
+	target.draw(this->player_Model_Range_);
 
 
 	if (&this->player_Hud_->setSkillOne() != NULL)
@@ -619,6 +722,11 @@ const sf::FloatRect PlayerTest::getPlayerGlobalBounds() const
 const sf::FloatRect PlayerTest::getNextPositionGlobalBounds() const
 {
 	return this->next_Position_Bounds_;
+}
+
+const sf::FloatRect PlayerTest::getPlayerModelRangeGlobalBounds() const
+{
+	return this->player_Model_Range_.getGlobalBounds();
 }
 
 const bool& PlayerTest::getIsJumping() const

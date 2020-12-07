@@ -93,7 +93,7 @@ void StateTestZone::updateLoadPollEvent(sf::Event& ev)
 		{
 			this->tilemap_->load(this->load_I_A_.getString());
 
-			this->player_Test_->setPosition(60.f, 60.f);
+			this->player_Test_->setPosition(200.f, 200.f);
 
 			this->load_X_A_.setIsVisible(false);
 			this->load_B_A_.setIsVisible(false);

@@ -8,9 +8,9 @@ Animation::~Animation()
 {
 }
 
-void Animation::update(sf::RectangleShape& sprite, const sf::IntRect& textureRect, const int& sheetWidth)
+void Animation::update(sf::RectangleShape& sprite, const sf::IntRect& textureRect, const int& sheetWidth, float time)
 {	
-	if (this->animation_Clock_.getElapsedTime().asMilliseconds() >= 100.f)
+	if (this->animation_Clock_.getElapsedTime().asMilliseconds() >= time)
 	{
 		if (sprite.getTextureRect().left >= sheetWidth - textureRect.width)
 		{

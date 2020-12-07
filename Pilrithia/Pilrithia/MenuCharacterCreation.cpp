@@ -248,6 +248,8 @@ void MenuCharacterCreation::setObjectsBasedOnRace()
 		this->race_->setIconTexture(*this->resource_Race_.getRaceTexture(RACETYPE::ORCICON));
 		this->race_->setRunTexture(*this->resource_Race_.getRaceTexture(RACETYPE::TESTSPRITESTRIP));
 		this->race_->setIdleTexture(*this->resource_Race_.getRaceTexture(RACETYPE::TESTSPRITESTRIPIDLE));
+		this->race_->setAttackTexture(*this->resource_Race_.getRaceTexture(RACETYPE::TESTSPRITESTRIPATTACK));
+		this->race_->setJumpTexture(*this->resource_Race_.getRaceTexture(RACETYPE::TESTSPRITESTRIPJUMP));
 
 		this->race_T_G_.setString(this->race_->getSummary());
 		this->race_T_G_.wrapText(this->race_X_A_.getGlobalBounds());
@@ -256,7 +258,6 @@ void MenuCharacterCreation::setObjectsBasedOnRace()
 		this->race_Model_.setPosition(sf::Vector2f(this->model_Preview_X_A_.getLeftPosition(true, 125.f), this->model_Preview_X_A_.getTopPosition(true, 300.f)));
 		this->race_Model_.setTexture(this->resource_Race_.getRaceTexture(RACETYPE::TESTSPRITESTRIP));
 		this->race_Model_.setTextureRect(sf::IntRect(0, 0, 144, 64));
-		std::cout << "D" << std::endl;
 	}
 }
 

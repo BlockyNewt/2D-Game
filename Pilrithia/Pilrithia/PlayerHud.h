@@ -41,7 +41,7 @@ public:
 	void updateSkillOnePollEvent(sf::Event& ev, Classes* playerClass, std::vector<Enemy*>& enemies, const std::map<std::string, int>& playerStats, int& playerMana, bool& playerIsCombat);
 	void updatePollEvent(sf::Event& ev, int& health, const int& healthMax);
 	void updateNamePosition(const sf::Vector2f& playerPosition);
-	void update(const sf::Vector2i& mousePositionWindow, const Camera& camera, const sf::Vector2f& playerPosition, const sf::FloatRect playerBoundaries, std::vector<Enemy*>& enemies, bool& playerIsCombat, const sf::FloatRect playerAutoAttackRange);
+	void update(const sf::Vector2i& mousePositionWindow, const Camera& camera, const sf::Vector2f& playerPosition, const sf::FloatRect playerBoundaries, std::vector<Enemy*>& enemies, bool& playerIsCombat, bool& isPlayerAttack, bool& isPlayerAttackTextureSet, const sf::FloatRect playerAutoAttackRange);
 	void render(sf::RenderTarget& target);
 
 	const float percentToPixel(const float size);

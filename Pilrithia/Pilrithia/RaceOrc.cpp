@@ -23,12 +23,20 @@ RaceOrc::RaceOrc()
 	this->icon_Texture_ = new sf::Texture();
 	this->run_Texture_ = new sf::Texture();
 	this->idle_Texture_ = new sf::Texture();
+	this->attack_Texture_ = new sf::Texture();
+	this->jump_Texture_ = new sf::Texture();
 
 	this->run_Rect_ = sf::IntRect(0, 0, 66, 48);
 	this->run_Sheet_Width_ = 726;
 
-	this->idle_Rect_ = sf::IntRect(0, 0, 38, 48);
+	this->idle_Rect_ = sf::IntRect(0, 0, 66, 48);
 	this->idle_Sheet_Width_ = 152;
+
+	this->attack_Rect_ = sf::IntRect(0, 0, 96, 48);
+	this->attack_Sheet_Width_ = 480;
+
+	this->jump_Rect_ = sf::IntRect(0, 0, 61, 77);
+	this->jump_Sheet_Width_ = 244;
 }
 
 RaceOrc::~RaceOrc()
@@ -36,11 +44,13 @@ RaceOrc::~RaceOrc()
 	delete this->icon_Texture_;	
 	delete this->run_Texture_;
 	delete this->idle_Texture_;
+	delete this->attack_Texture_;
+	delete this->jump_Texture_;
 }
 
 void RaceOrc::initializeRace(const float& posX, const float& posY)
 {
-	this->model_.setSize(sf::Vector2f(38.f, 48.f));
+	this->model_.setSize(sf::Vector2f(96.f, 77.f));
 	this->model_.setPosition(sf::Vector2f(posX, posY));
 	this->model_.setFillColor(sf::Color::White);
 	this->model_.setOutlineThickness(1.f);
@@ -77,6 +87,16 @@ const sf::Texture& RaceOrc::getIdleTexture() const
 	return *this->idle_Texture_;
 }
 
+const sf::Texture& RaceOrc::getAttackTexture() const
+{
+	return *this->attack_Texture_;
+}
+
+const sf::Texture& RaceOrc::getJumpTexture() const
+{
+	return *this->jump_Texture_;
+}
+
 const sf::IntRect& RaceOrc::getRunRect() const
 {
 	return this->run_Rect_;
@@ -87,6 +107,16 @@ const sf::IntRect& RaceOrc::getIdleRect() const
 	return this->idle_Rect_;
 }
 
+const sf::IntRect& RaceOrc::getAttackRect() const
+{
+	return	this->attack_Rect_;
+}
+
+const sf::IntRect& RaceOrc::getJumpRect() const
+{
+	return this->jump_Rect_;
+}
+
 const int& RaceOrc::getRunSheetWidth() const
 {
 	return this->run_Sheet_Width_;
@@ -95,6 +125,16 @@ const int& RaceOrc::getRunSheetWidth() const
 const int& RaceOrc::getIdleSheetWidth() const
 {
 	return this->idle_Sheet_Width_;
+}
+
+const int& RaceOrc::getAttackSheetWidth() const
+{
+	return this->attack_Sheet_Width_;
+}
+
+const int& RaceOrc::getJumpSheetWidth() const
+{
+	return this->jump_Sheet_Width_;
 }
 
 int& RaceOrc::setHealthMax()
@@ -240,6 +280,16 @@ void RaceOrc::setRunTexture(const sf::Texture& texture)
 void RaceOrc::setIdleTexture(const sf::Texture& texture)
 {
 	*this->idle_Texture_ = texture;	
+}
+
+void RaceOrc::setAttackTexture(const sf::Texture& texture)
+{
+	*this->attack_Texture_ = texture;
+}
+
+void RaceOrc::setJumpTexture(const sf::Texture& texture)
+{
+	*this->jump_Texture_ = texture;	
 }
 
 //Classes& RaceOrc::getClassesOne() const

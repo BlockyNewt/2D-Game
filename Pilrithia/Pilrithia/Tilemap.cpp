@@ -637,7 +637,7 @@ void Tilemap::PlayerCollision(PlayerTest& playerTest)
 						/*
 							GET GLOBAL BOUNDS OF PLAYER AND PLAYERS NEXT POSITION
 						*/
-						sf::FloatRect playerBounds = playerTest.getPlayerGlobalBounds();
+						sf::FloatRect playerBounds = playerTest.getPlayerModelRangeGlobalBounds();
 						sf::FloatRect NextPosition = playerTest.getNextPositionGlobalBounds();
 
 						NextPosition = playerBounds;
@@ -660,8 +660,9 @@ void Tilemap::PlayerCollision(PlayerTest& playerTest)
 									//std::cout << "Right ";
 
 									playerTest.setVelocityX(0.f);
+									//playerTest.setVelocityY(playerTest.getGravity());
 
-									//playerTest.getPlayerModel().setPosition(sf::Vector2f(this->grid_[x][y][z]->getLeftPosition() - playerTest.getPlayerGlobalBounds().width, playerTest.getPlayerGlobalBounds().top));
+									playerTest.getPlayerModel().setPosition(sf::Vector2f(this->grid_[x][y][z]->getLeftPosition() - playerTest.getPlayerGlobalBounds().width, playerTest.getPlayerGlobalBounds().top));
 								}
 
 								//LEFT COLLISION
@@ -673,6 +674,7 @@ void Tilemap::PlayerCollision(PlayerTest& playerTest)
 									//std::cout << "Left ";
 
 									playerTest.setVelocityX(0.f);
+									playerTest.setVelocityY(playerTest.getGravity());
 
 									//playerTest.getPlayerModel().setPosition(sf::Vector2f(this->grid_[x][y][z]->getRightPosition(), playerTest.getPlayerGlobalBounds().top));
 								}
@@ -685,7 +687,7 @@ void Tilemap::PlayerCollision(PlayerTest& playerTest)
 								{
 									//std::cout << "Top " << std::endl;
 
-									playerTest.setIsJumping(false);
+									//playerTest.setIsJumping(false);
 
 									playerTest.setVelocityY(playerTest.getGravity());
 
@@ -701,7 +703,7 @@ void Tilemap::PlayerCollision(PlayerTest& playerTest)
 									//std::cout << "Bottom " << std::endl;
 
 									this->is_Bottom_Colliding_ = true;
-
+									//std::cout << playerBounds.left << std::endl;
 									playerTest.setVelocityY(0.f);
 
 									//playerTest.getPlayerModel().setPosition(sf::Vector2f(playerTest.getPlayerGlobalBounds().left, this->grid_[x][y][z]->getTopPosition() - playerTest.getPlayerGlobalBounds().height));

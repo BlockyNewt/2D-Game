@@ -11,7 +11,7 @@ class EnemyTest
 {
 public:
 	EnemyTest();
-	EnemyTest(const sf::Vector2f& position, const int& range, const ResourceFont& resourceFont);
+	EnemyTest(const sf::Vector2f& position, const int& range, const ResourceFont& resourceFont, const ResourceEnemy& resourceEnemy);
 	virtual ~EnemyTest();
 
 	void updatePollEvent(sf::Event& ev, std::vector<std::vector<Item*>>& playerBag, const int& maxBagSizeX, const int& maxBagSizeY, const sf::FloatRect playerBoundaries) override;
@@ -38,7 +38,7 @@ public:
 
 private:
 	void initializeStats() override;
-	void initializeModel(const sf::Vector2f& position, const int& range) override;
+	void initializeModel(const sf::Vector2f& position, const int& range, const ResourceEnemy& resourceEnemy) override;
 	void initializeHealthBar() override;
 
 	void updateAutoMovement(const float& dt) override;
@@ -111,6 +111,9 @@ private:
 
 	Box loot_X_A_;
 	Text loot_T_A_;
+
+	bool is_Moving_Right_;
+	bool is_Moving_Left_;
 
 	
 

@@ -26,7 +26,11 @@ Tile::Tile(float positionX, float positionY, float tileSizeXY, int type)
 		break;
 	case 1:
 		this->type_ = TYPE::BOUNDARY;
-		this->tile_.setFillColor(sf::Color::Yellow);
+		this->tile_.setFillColor(sf::Color::White);
+		break;
+	case 2:
+		this->type_ = TYPE::WALL;
+		this->tile_.setFillColor(sf::Color::White);
 		break;
 	default:
 		break;

@@ -33,16 +33,19 @@ void EnemyTest::initializeStats()
 	this->exp_Tick_ = 0;
 }
 
-void EnemyTest::initializeModel(const sf::Vector2f& position, const int& range)
+void EnemyTest::initializeModel(const sf::Vector2f& position, const int& range, const ResourceEnemy& resourceEnemy)
 {
 	/*
 		SET SIZE AND POSITION OF MODEL, NEXT POSITION, AND ATTACK RANGE 
 	*/
-	this->enemy_Model_.setSize(sf::Vector2f(25.f, 50.f));
+	this->enemy_Model_.setSize(sf::Vector2f(24.f, 32.f));
 	this->enemy_Model_.setPosition(position);
-	this->enemy_Model_.setFillColor(sf::Color::Blue);
+	this->enemy_Model_.setFillColor(sf::Color::White);
 	this->enemy_Model_.setOutlineThickness(1.f);
 	this->enemy_Model_.setOutlineColor(sf::Color::Transparent);
+	this->enemy_Model_.setTexture(resourceEnemy.getEnemyTexture(ENEMYTYPE::SKELETONTEXTURE));
+	this->enemy_Model_.setTextureRect(sf::IntRect(0, 0, 24, 32));
+	this->enemy_Model_.setScale(sf::Vector2f(1.f, 1.f));
 
 	this->next_Position_.setSize(sf::Vector2f(this->enemy_Model_.getSize().x, this->enemy_Model_.getSize().y));
 	this->next_Position_.setPosition(sf::Vector2f(this->enemy_Model_.getPosition().x, this->enemy_Model_.getPosition().y));
@@ -83,10 +86,10 @@ EnemyTest::EnemyTest()
 	
 }
 
-EnemyTest::EnemyTest(const sf::Vector2f& position, const int& range, const ResourceFont& resourceFont)
+EnemyTest::EnemyTest(const sf::Vector2f& position, const int& range, const ResourceFont& resourceFont, const ResourceEnemy& resourceEnemy)
 {
 	this->initializeStats();
-	this->initializeModel(position, range);
+	this->initializeModel(position, range, resourceEnemy);
 	this->initializeHealthBar();
 
 	this->t_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, this->name_, sf::Vector2f(this->enemy_Model_.getPosition().x, this->enemy_Model_.getPosition().y), true);
@@ -113,6 +116,9 @@ EnemyTest::EnemyTest(const sf::Vector2f& position, const int& range, const Resou
 
 	this->loot_X_A_.setSettings(50.f, 50.f, 0.f, 0.f, sf::Color::Red, 1.f, sf::Color::White, true);
 	this->loot_T_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "E", sf::Vector2f(0.f, 0.f), true);
+
+	this->is_Moving_Left_ = true;
+	this->is_Moving_Right_ = false;
 }
 
 EnemyTest::~EnemyTest()
@@ -162,11 +168,17 @@ void EnemyTest::updateAutoMovement(const float& dt)
 		if (this->direction_ == DIRECTION::RIGHT)
 		{
 			this->velocity_.x += this->movement_Speed_ * dt;
+			
+			/*this->enemy_Model_.scale(sf::Vector2f(1.f, 1.f));
+			this->enemy_Model_.setOrigin(sf::Vector2f(0.f, 0.f));*/
 		}
-
+		
 		if (this->direction_ == DIRECTION::LEFT)
 		{
 			this->velocity_.x -= this->movement_Speed_ * dt;
+
+			this->enemy_Model_.scale(sf::Vector2f(-1.f, 1.f));
+			this->enemy_Model_.setOrigin(sf::Vector2f(this->enemy_Model_.getGlobalBounds().width, 0.f));
 		}
 	}
 	

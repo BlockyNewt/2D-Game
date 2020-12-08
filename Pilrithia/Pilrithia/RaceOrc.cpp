@@ -26,17 +26,17 @@ RaceOrc::RaceOrc()
 	this->attack_Texture_ = new sf::Texture();
 	this->jump_Texture_ = new sf::Texture();
 
-	this->run_Rect_ = sf::IntRect(0, 0, 66, 48);
-	this->run_Sheet_Width_ = 726;
+	this->run_Rect_ = sf::IntRect(0, 0, 96, 77);
+	this->run_Sheet_Width_ = 1056;
 
-	this->idle_Rect_ = sf::IntRect(0, 0, 66, 48);
-	this->idle_Sheet_Width_ = 152;
+	this->idle_Rect_ = sf::IntRect(0, 0, 96, 77);
+	this->idle_Sheet_Width_ = 288;
 
-	this->attack_Rect_ = sf::IntRect(0, 0, 96, 48);
+	this->attack_Rect_ = sf::IntRect(0, 0, 96, 77);
 	this->attack_Sheet_Width_ = 480;
 
-	this->jump_Rect_ = sf::IntRect(0, 0, 61, 77);
-	this->jump_Sheet_Width_ = 244;
+	this->jump_Rect_ = sf::IntRect(0, 0, 96, 77);
+	this->jump_Sheet_Width_ = 209;
 }
 
 RaceOrc::~RaceOrc()

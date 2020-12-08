@@ -1,2 +1,67 @@
-﻿  RaceOrc.cpp
+﻿  Tilemap.cpp
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(21,31): warning C4244: '=': conversion from 'float' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(22,30): warning C4244: '=': conversion from 'float' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(29,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(31,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(36,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(47,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(49,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(112,26): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(217,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(219,19): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(219,29): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(222,16): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(222,26): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(246,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(248,19): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(248,29): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(250,23): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(250,33): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(252,16): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(252,26): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(294,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(296,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(298,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(355,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(357,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(362,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(372,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(374,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(436,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(438,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(443,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(456,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(458,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(463,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(473,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(475,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(498,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(500,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(517,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(519,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(547,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(549,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(554,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(564,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(566,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(585,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(587,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(597,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(599,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(609,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(611,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(629,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(631,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(633,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(744,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(746,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\Tilemap.cpp(748,23): warning C4018: '<': signed/unsigned mismatch
   Pilrithia.vcxproj -> C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Debug\Pilrithia.exe

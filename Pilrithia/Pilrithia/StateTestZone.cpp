@@ -15,16 +15,27 @@ StateTestZone::StateTestZone(std::stack<State*>* states, sf::RenderWindow* windo
 	this->npc_Test_ = new NpcTest(*this->resource_Font_);
 	this->npc_Test_->setSettings(this->window_->getSize(), *this->resource_Font_);
 
-	this->max_Enemies_ = 2;
-	this->enemy_Test_ = new EnemyTest(sf::Vector2f(800.f, 120.f), 3, *this->resource_Font_);
-	this->enemy_Test_One_ = new EnemyTest(sf::Vector2f(400.f, 180.f), 5, *this->resource_Font_);
+
+
+	this->resource_Enemy_ = new ResourceEnemy();
+	this->resource_Enemy_->loadAllEnemyTextures();
+
+	this->max_Enemies_ = 1;
+	this->enemy_Test_ = new EnemyTest(sf::Vector2f(800.f, 120.f), 3, *this->resource_Font_, *this->resource_Enemy_);
+	this->enemy_Test_One_ = new EnemyTest(sf::Vector2f(400.f, 180.f), 5, *this->resource_Font_, *this->resource_Enemy_);
 
 	this->enemies_.push_back(this->enemy_Test_);
-	this->enemies_.push_back(this->enemy_Test_One_);
+	//this->enemies_.push_back(this->enemy_Test_One_);
+
+
 
 	this->merchant_Test_ = new MerchantTest(*this->resource_Font_);
 
+
+
 	this->gather_Test_ = new GatherTest(GATHERTYPE::MINING, *this->resource_Font_, *this->resource_Hud_);
+
+
 
 	this->load_X_A_.setSettings(800.f, 400.f, this->window_->getSize().x / 2.f - 800.f / 2.f, this->window_->getSize().y / 2.f - 600.f / 2.f, sf::Color(85, 158, 131), 1.f, sf::Color::Red, true);
 
@@ -52,6 +63,8 @@ StateTestZone::~StateTestZone()
 	delete this->camera_;
 	
 	delete this->tilemap_;
+
+	delete this->resource_Enemy_;
 }
 
 void StateTestZone::updateLoadPollEvent(sf::Event& ev)
@@ -234,7 +247,7 @@ void StateTestZone::updateEnemy()
 
 	if (this->enemies_.size() < this->max_Enemies_)
 	{
-		this->enemies_.push_back(new EnemyTest(sf::Vector2f(600.f, 120.f), 8, *this->resource_Font_));
+		this->enemies_.push_back(new EnemyTest(sf::Vector2f(600.f, 120.f), 8, *this->resource_Font_, *this->resource_Enemy_));
 	}
 }
 

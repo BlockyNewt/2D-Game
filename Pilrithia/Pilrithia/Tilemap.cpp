@@ -85,7 +85,7 @@ void Tilemap::updatePollEvent(sf::Event& ev)
 
 		if (ev.key.code == sf::Keyboard::Num2)
 		{
-			if (this->tile_Type_ < 2)
+			if (this->tile_Type_ < 3)
 			{
 				this->tile_Type_++;
 			}
@@ -149,6 +149,9 @@ void Tilemap::updateTileType()
 		break;*/
 	case 1:
 		this->tile_Type_Str_ = "Boundary";
+		break;
+	case 2:
+		this->tile_Type_Str_ = "Wall";
 		break;
 	default:
 		break;
@@ -662,7 +665,7 @@ void Tilemap::PlayerCollision(PlayerTest& playerTest)
 									playerTest.setVelocityX(0.f);
 									//playerTest.setVelocityY(playerTest.getGravity());
 
-									playerTest.getPlayerModel().setPosition(sf::Vector2f(this->grid_[x][y][z]->getLeftPosition() - playerTest.getPlayerGlobalBounds().width, playerTest.getPlayerGlobalBounds().top));
+									//playerTest.getPlayerModel().setPosition(sf::Vector2f(this->grid_[x][y][z]->getLeftPosition() - playerTest.getPlayerGlobalBounds().width, playerTest.getPlayerGlobalBounds().top));
 								}
 
 								//LEFT COLLISION
@@ -674,7 +677,7 @@ void Tilemap::PlayerCollision(PlayerTest& playerTest)
 									//std::cout << "Left ";
 
 									playerTest.setVelocityX(0.f);
-									playerTest.setVelocityY(playerTest.getGravity());
+									//playerTest.setVelocityY(playerTest.getGravity());
 
 									//playerTest.getPlayerModel().setPosition(sf::Vector2f(this->grid_[x][y][z]->getRightPosition(), playerTest.getPlayerGlobalBounds().top));
 								}
@@ -687,7 +690,7 @@ void Tilemap::PlayerCollision(PlayerTest& playerTest)
 								{
 									//std::cout << "Top " << std::endl;
 
-									//playerTest.setIsJumping(false);
+									playerTest.setIsJumping(false);
 
 									playerTest.setVelocityY(playerTest.getGravity());
 
@@ -783,6 +786,7 @@ void Tilemap::EnemyCollision(Enemy& enemy)
 									//std::cout << "Right ";
 
 									enemy.setVelocityX(0.f);
+									std::cout << "Enemy tile map right" << std::endl;
 
 									enemy.setDirection(DIRECTION::LEFT);
 								}
@@ -796,7 +800,7 @@ void Tilemap::EnemyCollision(Enemy& enemy)
 									//std::cout << "Left ";
 
 									enemy.setVelocityX(0.f);
-
+									std::cout << "Enemy tile map left" << std::endl;
 									enemy.setDirection(DIRECTION::RIGHT);
 								}
 

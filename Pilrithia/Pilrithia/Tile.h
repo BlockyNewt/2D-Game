@@ -12,6 +12,7 @@ enum class TYPE
 	DEFAULT = 0, 
 
 	BOUNDARY,
+	WALL
 };
 
 class Tile

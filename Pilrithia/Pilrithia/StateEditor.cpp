@@ -594,8 +594,7 @@ void StateEditor::updatePollEvent(sf::Event& ev)
 			{
 				if (ev.key.code == sf::Mouse::Left)
 				{
-					this->tilemap_->setTextureBounds(sf::IntRect(this->texture_Box_.getGlobalBounds().left + 1.f, this->texture_Box_.getGlobalBounds().top + 1.f, this->texture_Box_.getGlobalBounds().width, this->texture_Box_.getGlobalBounds().height));
-					//std::cout << "LEFT: " << this->tilemap_->getTextureBounds().left << " TOP: " << this->tilemap_->getTextureBounds().top << std::endl;
+					this->tilemap_->setTextureBounds(sf::IntRect(this->texture_Box_.getGlobalBounds().left + 1.f, this->texture_Box_.getGlobalBounds().top + 1.f, this->texture_Box_.getSize().x, this->texture_Box_.getSize().y));
 				}
 			}
 		}
@@ -645,6 +644,7 @@ void StateEditor::update()
 		if (this->texture_X_A_.getIsVisible())
 		{
 			this->texture_Box_.setPosition(this->mouse_Position_Texture_Grid_.x * this->tilemap_->getTileSizeXY(), this->mouse_Position_Texture_Grid_.y * this->tilemap_->getTileSizeXY());
+			//std::cout << this->texture_Box_.getPosition().x << " : " << this->texture_Box_.getPosition().y << std::endl;
 		}
 
 

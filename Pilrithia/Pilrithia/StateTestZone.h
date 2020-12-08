@@ -6,7 +6,10 @@
 #include "Tilemap.h"
 #include "Camera.h"
 
+#include "ResourceEnemy.h"
+
 #include "MenuCharacterCreation.h"
+
 #include "PlayerTest.h"
 
 #include "Npc.h"
@@ -72,8 +75,10 @@ private:
 	Merchant* merchant_Test_;
 	Gather* gather_Test_;
 
+	ResourceEnemy* resource_Enemy_;
 	int max_Enemies_;
 	std::vector<Enemy*> enemies_;
+
 };
 
 #endif // !STATETESTZONE_H

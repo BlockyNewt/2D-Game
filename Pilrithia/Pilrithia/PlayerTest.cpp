@@ -19,7 +19,7 @@ PlayerTest::PlayerTest(const ResourceFont& resourceFont, const ResourceHud& reso
 	this->player_Model_.setPosition(sf::Vector2f(60.f, 60.f));
 	this->player_Model_.setFillColor(sf::Color::Cyan);
 
-	this->player_Model_Range_.setSize(sf::Vector2f(96.f, 77.f));
+	this->player_Model_Range_.setSize(sf::Vector2f(45.f, 45.f));
 	this->player_Model_Range_.setPosition(sf::Vector2f(this->player_Model_.getPosition().x, this->player_Model_.getPosition().y));
 	this->player_Model_Range_.setFillColor(sf::Color::Transparent);
 	this->player_Model_Range_.setOutlineThickness(1.f);
@@ -297,7 +297,8 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 			this->is_Attack_Texture_Set_ = false;
 
 			this->player_Model_.setScale(sf::Vector2f(-1.f, 1.f));
-			this->next_Position_.setScale(sf::Vector2f(-1.f, 1.f));
+			this->player_Model_.setOrigin(sf::Vector2f(this->player_Model_.getGlobalBounds().width, 0.f));
+			//this->next_Position_.setScale(sf::Vector2f(-1.f, 1.f));
 
 			//this->player_Model_.setOrigin(sf::Vector2f(0.f, 0.f));
 		}
@@ -312,7 +313,9 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 			this->is_Attack_Texture_Set_ = false;
 
 			this->player_Model_.setScale(sf::Vector2f(1.f, 1.f));
-			this->next_Position_.setScale(sf::Vector2f(1.f, 1.f));
+			this->player_Model_.setOrigin(sf::Vector2f(0.f, 0.f));
+
+			//this->next_Position_.setScale(sf::Vector2f(1.f, 1.f));
 		}
 
 		//TESTING
@@ -381,13 +384,11 @@ void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& c
 		{
 			if (!this->is_Idle_Texture_Set_)
 			{
-				this->player_Model_.setTexture(&this->race_->getIdleTexture(), true);
-				this->player_Model_.setSize(sf::Vector2f(38.f, 48.f));
+				this->player_Model_.setTexture(&this->race_->getIdleTexture());
+				this->player_Model_.setSize(sf::Vector2f(96.f, 77.f));
 				this->player_Model_.setTextureRect(sf::IntRect(0, 0, this->race_->getIdleRect().width, this->race_->getIdleRect().height));
 				this->is_Idle_Texture_Set_ = true;
 			}
-
-			std::cout << this->player_Model_Range_.getOrigin().x << std::endl;
 
 			this->animation_.update(this->player_Model_, this->race_->getIdleRect(), this->race_->getIdleSheetWidth(), 250.f);
 		}
@@ -402,9 +403,9 @@ void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& c
 		{
 			if (!this->is_Run_Texture_Set_)
 			{
-				this->player_Model_.setTexture(&this->race_->getRunTexture(), true);
-				this->player_Model_.setSize(sf::Vector2f(66.f, 48.f));
-				//this->player_Model_.setTextureRect(sf::IntRect(0, 0, this->race_->getRunRect().width, this->race_->getRunRect().height));
+				this->player_Model_.setTexture(&this->race_->getRunTexture());
+				this->player_Model_.setSize(sf::Vector2f(96.f, 77.f));
+				this->player_Model_.setTextureRect(sf::IntRect(0, 0, this->race_->getRunRect().width, this->race_->getRunRect().height));
 
 				this->is_Run_Texture_Set_ = true;
 			}
@@ -419,10 +420,13 @@ void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& c
 			if (!this->is_Attack_Texture_Set_)
 			{
 				this->player_Model_.setTexture(&this->race_->getAttackTexture());
-				this->player_Model_.setSize(sf::Vector2f(96.f, 48.f));
+				this->player_Model_.setSize(sf::Vector2f(96.f, 77.f));
 				this->player_Model_.setTextureRect(sf::IntRect(0, 0, this->race_->getAttackRect().width, this->race_->getAttackRect().height));
 
 				this->is_Attack_Texture_Set_ = true;
+				this->is_Jump_Texture_Set_ = false;
+				this->is_Run_Texture_Set_ = false;
+				this->is_Idle_Texture_Set_ = false;
 			}
 
 			this->animation_.update(this->player_Model_, this->race_->getAttackRect(), this->race_->getAttackSheetWidth(), 166.67f);
@@ -435,29 +439,28 @@ void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& c
 
 		if (!this->is_Jumping_)
 		{
-			this->position_Before_Jump_ = this->player_Model_.getGlobalBounds().top;
-			//std::cout << "getting jump distance" << std::endl;
+			this->position_Before_Jump_ = this->player_Model_.getGlobalBounds().top ;
+			//std::cout << this->position_Before_Jump_ << std::endl;
 		}
 		else
 		{
-			//std::cout << "still jumping " << std::endl;
-			/*if (!this->is_Jump_Texture_Set_)
+			if (!this->is_Jump_Texture_Set_)
 			{
 				this->player_Model_.setTexture(&this->race_->getJumpTexture());
-				this->player_Model_.setSize(sf::Vector2f(61.f, 77.f));
+				this->player_Model_.setSize(sf::Vector2f(96.f, 77.f));
 				this->player_Model_.setTextureRect(sf::IntRect(0, 0, this->race_->getJumpRect().width, this->race_->getJumpRect().height));
-				this->player_Model_.setPosition(sf::Vector2f(this->player_Model_.getGlobalBounds().left, this->player_Model_.getGlobalBounds().top - 29.f));
 
 				this->is_Jump_Texture_Set_ = true;
+				this->is_Attack_Texture_Set_ = false;
+				this->is_Run_Texture_Set_ = false;
+				this->is_Idle_Texture_Set_ = false;
 			}
 
-			this->animation_.update(this->player_Model_, this->race_->getJumpRect(), this->race_->getJumpSheetWidth(), 200.f);*/
+			this->animation_.update(this->player_Model_, this->race_->getJumpRect(), this->race_->getJumpSheetWidth(), 200.f);
 		}
 
-		if (this->is_Jumping_ && this->player_Model_.getGlobalBounds().top - this->position_Before_Jump_ <= -this->max_Jump_Height_ || 
-			this->is_Jumping_ && this->player_Model_.getGlobalBounds().top - this->position_Before_Jump_ == -this->max_Jump_Height_)
+		if (this->is_Jumping_ && this->player_Model_.getGlobalBounds().top  <= this->position_Before_Jump_ - this->max_Jump_Height_)
 		{
-			std::cout << "jumping" << std::endl;
 			//std::cout << this->player_Model_.getGlobalBounds().top - this->position_Before_Jump_ << std::endl;
 			
 			this->is_Jumping_ = false;
@@ -471,7 +474,7 @@ void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& c
 		this->next_Position_.setSize(sf::Vector2f(this->player_Model_Range_.getSize().x, this->player_Model_Range_.getSize().y));
 
 
-		this->player_Model_Range_.setPosition(this->player_Model_.getGlobalBounds().left - this->player_Model_Range_.getSize().x / 2.f + this->player_Model_.getSize().x / 2.f, this->player_Model_.getPosition().y);
+		this->player_Model_Range_.setPosition(this->player_Model_.getGlobalBounds().left - this->player_Model_Range_.getSize().x / 2.f + this->player_Model_.getSize().x / 2.f, this->player_Model_.getGlobalBounds().top + this->player_Model_.getGlobalBounds().height - this->player_Model_Range_.getSize().y);
 		this->next_Position_Bounds_ = this->player_Model_Range_.getGlobalBounds();
 		this->next_Position_Bounds_.left += this->velocity_.x;
 		this->next_Position_Bounds_.top += this->velocity_.y;

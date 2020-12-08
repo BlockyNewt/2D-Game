@@ -41,7 +41,7 @@ void ResourceRace::loadRaceTexture(const std::string& raceTextureFileName, RACET
 	}
 	else
 	{
-		std::cout << "DEBUG::RESOURCEHUD::LOADHUDTEXTURE() -> Couldn't load texture from file " << raceTextureFileName << std::endl;
+		std::cout << "DEBUG::RESOURCERACE::LOADRACETEXTURE() -> Couldn't load texture from file " << raceTextureFileName << std::endl;
 	}
 }
 

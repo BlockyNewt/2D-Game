@@ -4,6 +4,7 @@
 #include "SFML/Graphics.hpp"
 
 #include "ResourceFont.h"
+#include "ResourceEnemy.h"
 
 #include "Camera.h"
 
@@ -26,7 +27,7 @@ class Enemy
 {
 public:
 	Enemy();
-	Enemy(const sf::Vector2f& position, const int& range, const ResourceFont& resourceFont);
+	Enemy(const sf::Vector2f& position, const int& range, const ResourceFont& resourceFont, const ResourceEnemy& resourceEnemy);
 	virtual ~Enemy();
 
 	virtual void updatePollEvent(sf::Event& ev, std::vector<std::vector<Item*>>& playerBag, const int& maxBagSizeX, const int& maxBagSizeY, const sf::FloatRect playerBoundaries) = 0;
@@ -54,7 +55,7 @@ public:
 
 private:
 	virtual void initializeStats() = 0;
-	virtual void initializeModel(const sf::Vector2f& position, const int& range) = 0;
+	virtual void initializeModel(const sf::Vector2f& position, const int& range, const ResourceEnemy& resourceEnemy) = 0;
 	virtual void initializeHealthBar() = 0;
 
 	virtual void updateAutoMovement(const float& dt) = 0;

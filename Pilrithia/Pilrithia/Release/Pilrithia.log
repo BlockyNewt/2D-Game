@@ -1,17 +1,7 @@
-﻿  PlayerTest.cpp
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(46,29): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(56,34): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(56,29): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(631,30): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(636,40): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(638,38): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(640,39): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(641,39): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(642,43): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(643,41): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\PlayerTest.cpp(644,37): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+﻿  EnemyTest.cpp
+C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\EnemyTest.cpp(32,25): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
   Generating code
-  2 of 2109 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+  1 of 2206 functions (<0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     11 functions had inline decision re-evaluated but remain unchanged
   Finished generating code

@@ -185,6 +185,7 @@
     <ClCompile Include="QuestTest.cpp" />
     <ClCompile Include="Race.cpp" />
     <ClCompile Include="RaceOrc.cpp" />
+    <ClCompile Include="ResourceEnemy.cpp" />
     <ClCompile Include="ResourceFont.cpp" />
     <ClCompile Include="ResourceHud.cpp" />
     <ClCompile Include="ResourceRace.cpp" />
@@ -242,6 +243,7 @@
     <ClInclude Include="QuestTest.h" />
     <ClInclude Include="Race.h" />
     <ClInclude Include="RaceOrc.h" />
+    <ClInclude Include="ResourceEnemy.h" />
     <ClInclude Include="ResourceFont.h" />
     <ClInclude Include="ResourceHud.h" />
     <ClInclude Include="ResourceRace.h" />

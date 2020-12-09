@@ -23,12 +23,12 @@ void ItemDropDownList::setSettings(LISTUSE listUse, const sf::FloatRect itemBoun
 		this->b_E_.setSettings(0.f, 0.f, 0.f, 0.f, sf::Color::Transparent, 0.f, sf::Color::Transparent, false);
 		this->b_F_.setSettings(0.f, 0.f, 0.f, 0.f, sf::Color::Transparent, 0.f, sf::Color::Transparent, false);
 
-		this->t_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
-		this->t_B_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Unequip", sf::Vector2f(this->b_B_.getGlobalBounds().left + 10.f, this->b_B_.getGlobalBounds().top + 10.f), true);
-		this->t_C_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Delete", sf::Vector2f(this->b_C_.getGlobalBounds().left + 10.f, this->b_C_.getGlobalBounds().top + 10.f), true);
-		this->t_D_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
-		this->t_E_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
-		this->t_F_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
+		this->t_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
+		this->t_B_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "Unequip", sf::Vector2f(this->b_B_.getGlobalBounds().left + 10.f, this->b_B_.getGlobalBounds().top + 10.f), true);
+		this->t_C_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "Delete", sf::Vector2f(this->b_C_.getGlobalBounds().left + 10.f, this->b_C_.getGlobalBounds().top + 10.f), true);
+		this->t_D_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
+		this->t_E_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
+		this->t_F_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
 
 	}
 	
@@ -41,12 +41,12 @@ void ItemDropDownList::setSettings(LISTUSE listUse, const sf::FloatRect itemBoun
 		this->b_E_.setSettings(0.f, 0.f, 0.f, 0.f, sf::Color::Transparent, 0.f, sf::Color::Transparent, false);
 		this->b_F_.setSettings(0.f, 0.f, 0.f, 0.f, sf::Color::Transparent, 0.f, sf::Color::Transparent, false);
 
-		this->t_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Equip", sf::Vector2f(this->b_A_.getGlobalBounds().left + 10.f, this->b_A_.getGlobalBounds().top + 10.f), true);
-		this->t_B_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
-		this->t_C_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Delete", sf::Vector2f(this->b_C_.getGlobalBounds().left + 10.f, this->b_C_.getGlobalBounds().top + 10.f), true);
-		this->t_D_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
-		this->t_E_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
-		this->t_F_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
+		this->t_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "Equip", sf::Vector2f(this->b_A_.getGlobalBounds().left + 10.f, this->b_A_.getGlobalBounds().top + 10.f), true);
+		this->t_B_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
+		this->t_C_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "Delete", sf::Vector2f(this->b_C_.getGlobalBounds().left + 10.f, this->b_C_.getGlobalBounds().top + 10.f), true);
+		this->t_D_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
+		this->t_E_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
+		this->t_F_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
 
 	}
 
@@ -59,12 +59,12 @@ void ItemDropDownList::setSettings(LISTUSE listUse, const sf::FloatRect itemBoun
 		this->b_E_.setSettings(0.f, 0.f, 0.f, 0.f, sf::Color::Transparent, 0.f, sf::Color::Transparent, false);
 		this->b_F_.setSettings(0.f, 0.f, 0.f, 0.f, sf::Color::Transparent, 0.f, sf::Color::Transparent, false);
 
-		this->t_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
-		this->t_B_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
-		this->t_C_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
-		this->t_D_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Take", sf::Vector2f(this->b_D_.getGlobalBounds().left + 10.f, this->b_D_.getGlobalBounds().top + 10.f), true);
-		this->t_E_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
-		this->t_F_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
+		this->t_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
+		this->t_B_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
+		this->t_C_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
+		this->t_D_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "Take", sf::Vector2f(this->b_D_.getGlobalBounds().left + 10.f, this->b_D_.getGlobalBounds().top + 10.f), true);
+		this->t_E_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
+		this->t_F_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
 
 	}
 
@@ -77,12 +77,12 @@ void ItemDropDownList::setSettings(LISTUSE listUse, const sf::FloatRect itemBoun
 		this->b_E_.setSettings(150.f, 40.f, itemBoundaries.left + itemBoundaries.width, itemBoundaries.top, sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
 		this->b_F_.setSettings(0.f, 0.f, 0.f, 0.f, sf::Color::Transparent, 0.f, sf::Color::Transparent, false);
 
-		this->t_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
-		this->t_B_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
-		this->t_C_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
-		this->t_D_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
-		this->t_E_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Buy", sf::Vector2f(this->b_E_.getGlobalBounds().left + 10.f, this->b_E_.getGlobalBounds().top + 10.f), true);
-		this->t_F_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
+		this->t_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
+		this->t_B_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
+		this->t_C_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
+		this->t_D_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
+		this->t_E_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "Buy", sf::Vector2f(this->b_E_.getGlobalBounds().left + 10.f, this->b_E_.getGlobalBounds().top + 10.f), true);
+		this->t_F_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
 
 	}
 
@@ -95,12 +95,12 @@ void ItemDropDownList::setSettings(LISTUSE listUse, const sf::FloatRect itemBoun
 		this->b_E_.setSettings(0.f, 0.f, 0.f, 0.f, sf::Color::Transparent, 0.f, sf::Color::Transparent, false);
 		this->b_F_.setSettings(150.f, 40.f, itemBoundaries.left + itemBoundaries.width, itemBoundaries.top, sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
 
-		this->t_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
-		this->t_B_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
-		this->t_C_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
-		this->t_D_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
-		this->t_E_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
-		this->t_F_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Sell", sf::Vector2f(this->b_F_.getGlobalBounds().left + 10.f, this->b_F_.getGlobalBounds().top + 10.f), true);
+		this->t_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
+		this->t_B_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
+		this->t_C_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
+		this->t_D_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
+		this->t_E_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 0, "", sf::Vector2f(0.f, 0.f), false);
+		this->t_F_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "Sell", sf::Vector2f(this->b_F_.getGlobalBounds().left + 10.f, this->b_F_.getGlobalBounds().top + 10.f), true);
 
 	}
 }

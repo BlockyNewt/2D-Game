@@ -9,28 +9,28 @@ StateMainMenu::StateMainMenu(std::stack<State*>* states, sf::RenderWindow* windo
 		SET SETTINGS FOR BUTTONS AND TEXT IN CONSTRUCTOR SINCE THERE ARE NOT MANY
 	*/
 
-	this->t_A_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 50, "Dunilidor", sf::Vector2f(this->window_->getSize().x /2.f, 10.f), true);
+	this->t_A_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 50, "Dunilidor", sf::Vector2f(this->window_->getSize().x /2.f, 10.f), true);
 
 	/*
 		PERCENT TO PIXEL EXAMPLE with b_B_ & t_B_
 	*/
 	this->b_B_.setSettings(this->percentToPixelX(7.8125f), this->percentToPixelY(6.944444444444444f), 10.f, 50.f, sf::Color(174, 90, 65), 1, sf::Color::Red, true);
-	this->t_B_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), this->percentToPixelX(1.40625f), "Play", sf::Vector2f(this->b_B_.getLeftPosition(true, 10.f), this->b_B_.getTopPosition(true, 10.f)), true);
+	this->t_B_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), this->percentToPixelX(1.40625f), "Play", sf::Vector2f(this->b_B_.getLeftPosition(true, 10.f), this->b_B_.getTopPosition(true, 10.f)), true);
 
 	this->b_C_.setSettings(100.f, 50.f, this->b_B_.getLeftPosition(), this->b_B_.getBottomPosition(true, 10.f), sf::Color(174, 90, 65), 1, sf::Color::Red, true);
-	this->t_C_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 18, "Load", sf::Vector2f(this->b_C_.getLeftPosition(true, 10.f), this->b_C_.getTopPosition(true, 10.f)), true);
+	this->t_C_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 18, "Load", sf::Vector2f(this->b_C_.getLeftPosition(true, 10.f), this->b_C_.getTopPosition(true, 10.f)), true);
 	
 	this->b_D_.setSettings(100.f, 50.f, this->b_C_.getLeftPosition(), this->b_C_.getBottomPosition(true, 10.f), sf::Color(174, 90, 65), 1, sf::Color::Red, true);
-	this->t_D_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 18, "Settings", sf::Vector2f(this->b_D_.getLeftPosition(true, 10.f), this->b_D_.getTopPosition(true, 10.f)), true);
+	this->t_D_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 18, "Settings", sf::Vector2f(this->b_D_.getLeftPosition(true, 10.f), this->b_D_.getTopPosition(true, 10.f)), true);
 	
 	this->b_E_.setSettings(100.f, 50.f, this->b_D_.getLeftPosition(), this->b_D_.getBottomPosition(true, 10.f), sf::Color(174, 90, 65), 1, sf::Color::Red, true);
-	this->t_E_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 18, "Exit", sf::Vector2f(this->b_E_.getLeftPosition(true, 10.f), this->b_E_.getTopPosition(true, 10.f)), true);
+	this->t_E_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 18, "Exit", sf::Vector2f(this->b_E_.getLeftPosition(true, 10.f), this->b_E_.getTopPosition(true, 10.f)), true);
 
 	this->b_F_.setSettings(100.f, 50.f, this->b_E_.getLeftPosition(), this->b_E_.getBottomPosition(true, 10.f), sf::Color(174, 90, 65), 1, sf::Color::Red, true);
-	this->t_F_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 18, "Editor", sf::Vector2f(this->b_F_.getLeftPosition(true, 10.f), this->b_F_.getTopPosition(true, 10.f)), true);
+	this->t_F_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 18, "Editor", sf::Vector2f(this->b_F_.getLeftPosition(true, 10.f), this->b_F_.getTopPosition(true, 10.f)), true);
 
 	this->b_G_.setSettings(100.f, 50.f, this->b_F_.getLeftPosition(), this->b_F_.getBottomPosition(true, 10.f), sf::Color(174, 90, 65), 1, sf::Color::Red, true);
-	this->t_G_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 18, "Test zone", sf::Vector2f(this->b_G_.getLeftPosition(true, 10.f), this->b_G_.getTopPosition(true, 10.f)), true);
+	this->t_G_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 18, "Test zone", sf::Vector2f(this->b_G_.getLeftPosition(true, 10.f), this->b_G_.getTopPosition(true, 10.f)), true);
 
 	this->buttons_.push_back(this->b_B_);
 	this->buttons_.push_back(this->b_C_);

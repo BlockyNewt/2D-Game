@@ -7,9 +7,11 @@
 #include <map>	
 #include <string>
 
-enum class ENEMYTYPE
+enum class ENEMY_TYPE_
 {
-	SKELETONTEXTURE
+	SKELETON_WALK_TEXTURE,
+	SKELETON_ATTACK_TEXTURE,
+	SKELETON_DEATH_TEXTURE,
 };
 
 class ResourceEnemy
@@ -20,14 +22,14 @@ public:
 
 	void loadAllEnemyTextures();
 
-	const  sf::Texture* getEnemyTexture(ENEMYTYPE enemyType) const;
+	const  sf::Texture* getEnemyTexture(ENEMY_TYPE_ enemyType) const;
 
 private:
-	void loadEnemyTexture(const std::string& enemyTextureFileName, ENEMYTYPE enemyType);
-	void AddToMap(const sf::Texture* enemyTexture, ENEMYTYPE enemyType);
+	void loadEnemyTexture(const std::string& enemyTextureFileName, ENEMY_TYPE_ enemyType);
+	void AddToMap(const sf::Texture* enemyTexture, ENEMY_TYPE_ enemyType);
 
 private:
-	std::map<ENEMYTYPE, sf::Texture> enemy_Textures_;
+	std::map<ENEMY_TYPE_, sf::Texture> enemy_Textures_;
 
 };
 

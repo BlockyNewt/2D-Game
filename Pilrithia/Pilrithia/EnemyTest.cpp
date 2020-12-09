@@ -38,14 +38,13 @@ void EnemyTest::initializeModel(const sf::Vector2f& position, const int& range, 
 	/*
 		SET SIZE AND POSITION OF MODEL, NEXT POSITION, AND ATTACK RANGE 
 	*/
-	this->enemy_Model_.setSize(sf::Vector2f(24.f, 32.f));
+	this->enemy_Model_.setSize(sf::Vector2f(43.f, 37.f));
 	this->enemy_Model_.setPosition(position);
 	this->enemy_Model_.setFillColor(sf::Color::White);
 	this->enemy_Model_.setOutlineThickness(1.f);
 	this->enemy_Model_.setOutlineColor(sf::Color::Transparent);
-	this->enemy_Model_.setTexture(resourceEnemy.getEnemyTexture(ENEMYTYPE::SKELETONTEXTURE));
-	this->enemy_Model_.setTextureRect(sf::IntRect(0, 0, 24, 32));
-	this->enemy_Model_.setScale(sf::Vector2f(1.f, 1.f));
+	this->enemy_Model_.setTexture(resourceEnemy.getEnemyTexture(ENEMY_TYPE_::SKELETON_WALK_TEXTURE));
+	this->enemy_Model_.setTextureRect(sf::IntRect(0, 0, 43, 37));
 
 	this->next_Position_.setSize(sf::Vector2f(this->enemy_Model_.getSize().x, this->enemy_Model_.getSize().y));
 	this->next_Position_.setPosition(sf::Vector2f(this->enemy_Model_.getPosition().x, this->enemy_Model_.getPosition().y));
@@ -92,7 +91,7 @@ EnemyTest::EnemyTest(const sf::Vector2f& position, const int& range, const Resou
 	this->initializeModel(position, range, resourceEnemy);
 	this->initializeHealthBar();
 
-	this->t_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, this->name_, sf::Vector2f(this->enemy_Model_.getPosition().x, this->enemy_Model_.getPosition().y), true);
+	this->t_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, this->name_, sf::Vector2f(this->enemy_Model_.getPosition().x, this->enemy_Model_.getPosition().y), true);
 
 	this->direction_ = DIRECTION::RIGHT;
 
@@ -115,15 +114,38 @@ EnemyTest::EnemyTest(const sf::Vector2f& position, const int& range, const Resou
 	this->loot_Window_->addEnemyItems(this->items_);
 
 	this->loot_X_A_.setSettings(50.f, 50.f, 0.f, 0.f, sf::Color::Red, 1.f, sf::Color::White, true);
-	this->loot_T_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "E", sf::Vector2f(0.f, 0.f), true);
+	this->loot_T_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "E", sf::Vector2f(0.f, 0.f), true);
 
-	this->is_Moving_Left_ = true;
-	this->is_Moving_Right_ = false;
+
+	this->walk_Texture_ = new sf::Texture();
+	*this->walk_Texture_ = *resourceEnemy.getEnemyTexture(ENEMY_TYPE_::SKELETON_WALK_TEXTURE);
+
+	this->attack_Texture_ = new sf::Texture();
+	*this->attack_Texture_ = *resourceEnemy.getEnemyTexture(ENEMY_TYPE_::SKELETON_ATTACK_TEXTURE);
+
+	this->death_Texture_ = new sf::Texture();
+	*this->death_Texture_ = *resourceEnemy.getEnemyTexture(ENEMY_TYPE_::SKELETON_DEATH_TEXTURE);
+
+	this->walk_Rect_ = sf::IntRect(0, 0, 43, 37);
+	this->attack_Rect_ = sf::IntRect(0, 0, 43, 37);
+	this->death_Rect_ = sf::IntRect(0, 0, 43, 37);
+
+	this->walk_Sheet_Width_ = 516;
+	this->attack_Sheet_Width_ = 731;
+	this->death_Sheet_Width_ = 602;
+
+	this->is_Walk_Texture_Set_ = true;
+	this->is_Attack_Texture_Set_ = false;
+	this->is_Death_Texture_Set_ = false;
 }
 
 EnemyTest::~EnemyTest()
 {
 	delete this->loot_Window_;
+
+	delete this->walk_Texture_;
+	delete this->attack_Texture_;
+	delete this->death_Texture_;
 }
 
 void EnemyTest::updatePollEvent(sf::Event& ev, std::vector<std::vector<Item*>>& playerBag, const int& maxBagSizeX, const int& maxBagSizeY, const sf::FloatRect playerBoundaries)
@@ -137,7 +159,6 @@ void EnemyTest::updatePollEvent(sf::Event& ev, std::vector<std::vector<Item*>>& 
 			{
 				if (ev.key.code == sf::Keyboard::E)
 				{
-					std::cout << "fucking pressing e bitch" << std::endl;
 					this->loot_Window_->setIsVisible(true);
 				}
 			}
@@ -165,23 +186,35 @@ void EnemyTest::updateAutoMovement(const float& dt)
 	{
 		this->velocity_.y = 0.f;
 
+		if (!this->is_Walk_Texture_Set_)
+		{
+			this->enemy_Model_.setTexture(this->walk_Texture_);
+			this->enemy_Model_.setTextureRect(this->walk_Rect_);
+
+			this->is_Attack_Texture_Set_ = false;
+			this->is_Walk_Texture_Set_ = true;
+		}
+
+
 		if (this->direction_ == DIRECTION::RIGHT)
 		{
+			this->enemy_Model_.setScale(sf::Vector2f(1.f, 1.f));
+			this->enemy_Model_.setOrigin(sf::Vector2f(0.f, 0.f));
+
 			this->velocity_.x += this->movement_Speed_ * dt;
-			
-			/*this->enemy_Model_.scale(sf::Vector2f(1.f, 1.f));
-			this->enemy_Model_.setOrigin(sf::Vector2f(0.f, 0.f));*/
 		}
 		
-		if (this->direction_ == DIRECTION::LEFT)
+		else if (this->direction_ == DIRECTION::LEFT)
 		{
-			this->velocity_.x -= this->movement_Speed_ * dt;
-
-			this->enemy_Model_.scale(sf::Vector2f(-1.f, 1.f));
+			this->enemy_Model_.setScale(sf::Vector2f(-1.f, 1.f));
 			this->enemy_Model_.setOrigin(sf::Vector2f(this->enemy_Model_.getGlobalBounds().width, 0.f));
+
+			this->velocity_.x -= this->movement_Speed_ * dt;
 		}
+
+		this->animation_.update(this->enemy_Model_, this->walk_Rect_, this->walk_Sheet_Width_, 76.92f);
 	}
-	
+
 	this->enemy_Model_.move(this->velocity_);
 
 	this->next_Position_Bounds_ = this->enemy_Model_.getGlobalBounds();
@@ -245,12 +278,28 @@ void EnemyTest::update(const sf::Vector2i& mousePositionWindow, Camera** camera,
 {
 	if (!this->has_Loot_Timer_Started_)
 	{
-		if (!this->attack_Range_.getGlobalBounds().intersects(playerBounds))
+		if (this->is_Falling_)
 		{
 			this->updateAutoMovement(dt);
+
 		}
-		else
+		else if (!this->attack_Range_.getGlobalBounds().intersects(playerBounds))
 		{
+			this->updateAutoMovement(dt);
+
+		}
+		else if(this->attack_Range_.getGlobalBounds().intersects(playerBounds))
+		{
+			if (!this->is_Attack_Texture_Set_)
+			{
+				this->enemy_Model_.setTexture(this->attack_Texture_);
+				this->enemy_Model_.setTextureRect(this->attack_Rect_);
+
+				this->is_Walk_Texture_Set_ = false;
+				this->is_Attack_Texture_Set_ = true;
+			}
+
+			this->animation_.update(this->enemy_Model_, this->attack_Rect_, this->attack_Sheet_Width_, 55.55f);
 			/*
 				IF THE LOOT TIMER HAS YET TO BE STARTED THEN SET THE PLAYER IN COMBAT AND RESTART
 				THE LEAVE COMBAT TIMER
@@ -271,6 +320,22 @@ void EnemyTest::update(const sf::Vector2i& mousePositionWindow, Camera** camera,
 
 				this->is_attack_Cooldown_ = true;
 			}
+		}
+	}
+	else
+	{
+		if (!this->is_Death_Texture_Set_)
+		{
+			this->enemy_Model_.setTexture(this->death_Texture_);
+			this->enemy_Model_.setTextureRect(this->death_Rect_);
+
+			this->is_Walk_Texture_Set_ = true;
+			this->is_Attack_Texture_Set_ = true;
+			this->is_Death_Texture_Set_ = true;
+		}
+		else
+		{
+			this->animation_.updateDeath(this->enemy_Model_, this->death_Rect_, this->death_Sheet_Width_, 66.66f);
 		}
 	}
 
@@ -394,6 +459,11 @@ void EnemyTest::setHealth(const int& damage)
 	}
 }
 
+void EnemyTest::setIsFalling(bool isFalling)
+{
+	this->is_Falling_ = isFalling;
+}
+
 sf::RectangleShape& EnemyTest::getEnemyModel()
 {
 	return this->enemy_Model_;
@@ -442,4 +512,9 @@ const bool& EnemyTest::getIsDead() const
 const int& EnemyTest::getHealth() const
 {
 	return this->health_;
+}
+
+const bool& EnemyTest::getIsFalling() const
+{
+	return this->is_Falling_;
 }

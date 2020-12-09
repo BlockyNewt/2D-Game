@@ -71,7 +71,6 @@ private:
 	PlayerTest* player_Test_;
 	NpcTest* npc_Test_;
 	EnemyTest* enemy_Test_;
-	EnemyTest* enemy_Test_One_;
 	Merchant* merchant_Test_;
 	Gather* gather_Test_;
 

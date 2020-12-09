@@ -6,19 +6,19 @@ MenuSetting::MenuSetting(sf::RenderWindow* window, const ResourceFont& resourceF
 
 	this->x_A_.setSettings(window->getSize().x, window->getSize().y, 0.f, 0.f, sf::Color::Black, 1.f, sf::Color::Red, false);
 
-	this->t_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 50, "Settings", sf::Vector2f(window->getSize().x / 2.f, 10.f), false);
+	this->t_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 50, "Settings", sf::Vector2f(window->getSize().x / 2.f, 10.f), false);
 
-	this->resolution_1280x720_T_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 25, "1280 x 720", sf::Vector2f(10.f, 200.f), false);
+	this->resolution_1280x720_T_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 25, "1280 x 720", sf::Vector2f(10.f, 200.f), false);
 	this->resolution_1280x720_C_A_.setSettings(40.f, 40.f, this->resolution_1280x720_T_A_.getRightPosition(true, 15.f), this->resolution_1280x720_T_A_.getTopPosition(false, 10.f), sf::Color::White, 1.f, sf::Color::White, false, false);
 
-	this->resolution_600x600_T_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 25, "600 x 600", sf::Vector2f(10.f, this->resolution_1280x720_T_A_.getBottomPosition(true, 20.f)), false);
+	this->resolution_600x600_T_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 25, "600 x 600", sf::Vector2f(10.f, this->resolution_1280x720_T_A_.getBottomPosition(true, 20.f)), false);
 	this->resolution_600x600_C_A_.setSettings(40.f, 40.f, this->resolution_1280x720_C_A_.getLeftPosition(), this->resolution_600x600_T_A_.getTopPosition(false, 10.f), sf::Color::White, 1.f, sf::Color::White, false, false);
 
 	this->b_B_.setSettings(150.f, 50.f, window->getSize().x / 2.f - 150.f, window->getSize().y - 60.f, sf::Color::Red, 1.f, sf::Color::Red, false);
-	this->t_B_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Accept", sf::Vector2f(this->b_B_.getLeftPosition(true, 10.f), this->b_B_.getTopPosition(true, 10.f)), false);
+	this->t_B_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "Accept", sf::Vector2f(this->b_B_.getLeftPosition(true, 10.f), this->b_B_.getTopPosition(true, 10.f)), false);
 
 	this->b_C_.setSettings(150.f, 50.f, window->getSize().x / 2.f + 150.f, window->getSize().y - 60.f, sf::Color::Red, 1.f, sf::Color::Red, false);
-	this->t_C_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Close", sf::Vector2f(this->b_C_.getLeftPosition(true, 10.f), this->b_C_.getTopPosition(true, 10.f)), false);
+	this->t_C_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "Close", sf::Vector2f(this->b_C_.getLeftPosition(true, 10.f), this->b_C_.getTopPosition(true, 10.f)), false);
 
 	if (window->getSize() == sf::Vector2u(1280, 720))
 	{

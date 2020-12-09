@@ -23,6 +23,7 @@ public:
 	void setDirection(DIRECTION direction) override;
 	void setIsBottomColliding(bool isBottomColliding) override;
 	void setHealth(const int& damage) override;
+	void setIsFalling(bool isFalling) override;
 
 	sf::RectangleShape& getEnemyModel() override;
 	const sf::FloatRect getEnemyGlobalBounds() const override;
@@ -34,6 +35,7 @@ public:
 	const bool& getHasLootTimerStarted() const;
 	const bool& getIsDead() const override;
 	const int& getHealth() const override;
+	const bool& getIsFalling() const override;
 
 
 private:
@@ -46,6 +48,8 @@ private:
 
 
 private:
+	Animation animation_;
+
 	sf::RectangleShape enemy_Model_;
 	sf::RectangleShape next_Position_;
 
@@ -112,10 +116,24 @@ private:
 	Box loot_X_A_;
 	Text loot_T_A_;
 
-	bool is_Moving_Right_;
-	bool is_Moving_Left_;
+	sf::Texture* walk_Texture_;
+	sf::Texture* attack_Texture_;
+	sf::Texture* death_Texture_;
 
-	
+	sf::IntRect walk_Rect_;
+	sf::IntRect attack_Rect_;
+	sf::IntRect death_Rect_;
+
+	int walk_Sheet_Width_;
+	int attack_Sheet_Width_;
+	int death_Sheet_Width_;
+
+	bool is_Walk_Texture_Set_;
+	bool is_Attack_Texture_Set_;
+	bool is_Death_Texture_Set_;
+
+	bool is_Falling_;
+
 
 };
 

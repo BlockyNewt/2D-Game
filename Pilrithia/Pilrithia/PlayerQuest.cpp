@@ -10,14 +10,14 @@ PlayerQuest::PlayerQuest(const ResourceFont& resourceFont, const ResourceHud& re
 
 	this->x_B_.setSettings(1280.f, 720.f, 0.f, 0.f, sf::Color(0, 0, 0, 200), 1.f, sf::Color::Transparent, true);
 
-	this->quest_Background_Sprite_.setTexture(*resourceHud.getHudTexture(HUDTYPE::WINDOW));
+	this->quest_Background_Sprite_.setTexture(*resourceHud.getHudTexture(HUD_TEXTURE_TYPE_::WINDOW));
 	this->quest_Background_Sprite_.setPosition(sf::Vector2f(1280.f / 2.f - 800.f / 2.f, 720.f / 2.f - 500.f / 2.f));
 
 	this->b_B_.setSettings(34.f, 34.f, this->quest_Background_Sprite_.getGlobalBounds().left + this->quest_Background_Sprite_.getGlobalBounds().width - 38.f, this->quest_Background_Sprite_.getGlobalBounds().top + 4.f, sf::Color::White, 0.f, sf::Color::Transparent, true);
-	this->b_B_.setTexture(resourceHud.getHudTexture(HUDTYPE::CLOSE));
+	this->b_B_.setTexture(resourceHud.getHudTexture(HUD_TEXTURE_TYPE_::CLOSE));
 
 
-	this->t_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 28, "Quests", sf::Vector2f(this->quest_Background_Sprite_.getGlobalBounds().left + 350.f, this->quest_Background_Sprite_.getGlobalBounds().top + 10.f), true);
+	this->t_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 28, "Quests", sf::Vector2f(this->quest_Background_Sprite_.getGlobalBounds().left + 350.f, this->quest_Background_Sprite_.getGlobalBounds().top + 10.f), true);
 }
 
 PlayerQuest::~PlayerQuest()

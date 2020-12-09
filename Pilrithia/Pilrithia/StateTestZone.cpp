@@ -21,8 +21,7 @@ StateTestZone::StateTestZone(std::stack<State*>* states, sf::RenderWindow* windo
 	this->resource_Enemy_->loadAllEnemyTextures();
 
 	this->max_Enemies_ = 1;
-	this->enemy_Test_ = new EnemyTest(sf::Vector2f(800.f, 120.f), 3, *this->resource_Font_, *this->resource_Enemy_);
-	this->enemy_Test_One_ = new EnemyTest(sf::Vector2f(400.f, 180.f), 5, *this->resource_Font_, *this->resource_Enemy_);
+	this->enemy_Test_ = new EnemyTest(sf::Vector2f(600.f, 120.f), 3, *this->resource_Font_, *this->resource_Enemy_);
 
 	this->enemies_.push_back(this->enemy_Test_);
 	//this->enemies_.push_back(this->enemy_Test_One_);
@@ -42,10 +41,10 @@ StateTestZone::StateTestZone(std::stack<State*>* states, sf::RenderWindow* windo
 	this->load_B_A_.setSettings(150.f, 50.f, this->load_X_A_.getLeftPosition(true, 250), this->load_X_A_.getBottomPosition(false, 55), sf::Color(27, 133, 184), 1, sf::Color::Red, true);
 	this->load_B_B_.setSettings(150.f, 50.f, this->load_B_A_.getRightPosition(true, 20), this->load_B_A_.getTopPosition(), sf::Color(27, 133, 184), 1, sf::Color::Red, true);
 
-	this->load_T_A_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 35, "Load a tilemap", sf::Vector2f(this->load_X_A_.getLeftPosition(true, 250.f), this->load_X_A_.getTopPosition(true, 10.f)), true);
-	this->load_T_B_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 25, "Filename: ", sf::Vector2f(this->load_X_A_.getLeftPosition(true, 10.f), this->load_X_A_.getTopPosition(true, 200.f)), true);
-	this->load_T_C_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 25, "Load", sf::Vector2f(this->load_B_A_.getLeftPosition(true, 10.f), this->load_B_A_.getTopPosition(true, 10.f)), true);
-	this->load_T_D_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 25, "Close", sf::Vector2f(this->load_B_B_.getLeftPosition(true, 10.f), this->load_B_B_.getTopPosition(true, 10.f)), true);
+	this->load_T_A_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 35, "Load a tilemap", sf::Vector2f(this->load_X_A_.getLeftPosition(true, 250.f), this->load_X_A_.getTopPosition(true, 10.f)), true);
+	this->load_T_B_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 25, "Filename: ", sf::Vector2f(this->load_X_A_.getLeftPosition(true, 10.f), this->load_X_A_.getTopPosition(true, 200.f)), true);
+	this->load_T_C_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 25, "Load", sf::Vector2f(this->load_B_A_.getLeftPosition(true, 10.f), this->load_B_A_.getTopPosition(true, 10.f)), true);
+	this->load_T_D_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 25, "Close", sf::Vector2f(this->load_B_B_.getLeftPosition(true, 10.f), this->load_B_B_.getTopPosition(true, 10.f)), true);
 
 	this->load_I_A_.setSettings(500.f, 40.f, this->load_T_B_.getRightPosition(true, 10.f), this->load_T_B_.getTopPosition(), sf::Color::Black, 1.f, sf::Color::Red, true, false, 30, *this->resource_Font_);
 
@@ -106,7 +105,7 @@ void StateTestZone::updateLoadPollEvent(sf::Event& ev)
 		{
 			this->tilemap_->load(this->load_I_A_.getString());
 
-			this->player_Test_->setPosition(200.f, 200.f);
+			this->player_Test_->setPosition(150.f, 50.f);
 
 			this->load_X_A_.setIsVisible(false);
 			this->load_B_A_.setIsVisible(false);
@@ -236,6 +235,7 @@ void StateTestZone::updateEnemy()
 
 		this->enemies_[i]->update(this->mouse_Position_Window_, &this->camera_, this->player_Test_->getPlayerGlobalBounds(), this->dt_, this->player_Test_->getStatForChange("health"), this->player_Test_->setExp(), this->player_Test_->setIsCombat(), this->player_Test_->setPlayerHud().setLeaveCombatTimer());
 
+
 		//this->player_Test_->updateEnemyAutoSelector(this->enemies_[i]);
 
 		if (this->enemies_[i]->getIsDead())
@@ -247,7 +247,7 @@ void StateTestZone::updateEnemy()
 
 	if (this->enemies_.size() < this->max_Enemies_)
 	{
-		this->enemies_.push_back(new EnemyTest(sf::Vector2f(600.f, 120.f), 8, *this->resource_Font_, *this->resource_Enemy_));
+		this->enemies_.push_back(new EnemyTest(sf::Vector2f(600.f, 120.f), 3, *this->resource_Font_, *this->resource_Enemy_));
 	}
 }
 
@@ -329,7 +329,6 @@ void StateTestZone::render(sf::RenderTarget& target)
 
 	this->npc_Test_->render(target);
 
-	this->merchant_Test_->render(target);
 
 	//TESTING - SHOULD PUT INTO A VECTOR LATER
 	if (this->gather_Test_ != NULL)
@@ -346,6 +345,8 @@ void StateTestZone::render(sf::RenderTarget& target)
 	}
 
 	this->player_Test_->renderHudItems(target);
+
+	this->merchant_Test_->render(target);
 
 
 	target.setView(target.getDefaultView());

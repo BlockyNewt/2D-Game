@@ -68,7 +68,7 @@ void StatButton::setSettings(float radius, float x, float y, const sf::Color& fi
 	{
 		description = "Increase stat by +" + std::to_string(this->stat_Increase_) + ".";
 
-		this->t_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, std::to_string(this->amount_), sf::Vector2f(this->getRightPosition(true, 10.f), this->getBottomPosition(false, 20.f)), true);
+		this->t_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, std::to_string(this->amount_), sf::Vector2f(this->getRightPosition(true, 10.f), this->getBottomPosition(false, 20.f)), true);
 		this->h_A_.setHoverBoundaries(HOVERPOSITION::TOP, this->button_.getGlobalBounds(), this->button_.getGlobalBounds());
 		this->h_A_.setString(DESCRIPTIONTYPE::SKILL, title, description);
 

@@ -8,6 +8,8 @@
 
 #include "Camera.h"
 
+#include "Animation.h"
+
 #include "LootWindow.h"
 
 #include <iostream>
@@ -39,7 +41,7 @@ public:
 	virtual void setDirection(DIRECTION direction) = 0;
 	virtual void setIsBottomColliding(bool isBottomColliding) = 0;
 	virtual void setHealth(const int& damage) = 0;
-
+	virtual void setIsFalling(bool isFalling) = 0;
 
 	virtual sf::RectangleShape& getEnemyModel() = 0;
 	virtual const sf::FloatRect getEnemyGlobalBounds() const = 0;
@@ -51,6 +53,7 @@ public:
 	virtual const bool& getHasLootTimerStarted() const = 0;
 	virtual const bool& getIsDead() const = 0;
 	virtual const int& getHealth() const = 0;
+	virtual const bool& getIsFalling() const = 0;
 
 
 private:

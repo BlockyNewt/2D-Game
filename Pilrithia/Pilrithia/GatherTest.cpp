@@ -9,9 +9,9 @@ GatherTest::GatherTest(GATHERTYPE gatherType, const ResourceFont& resourceFont, 
 	this->item_ = new ItemTest(400.f, 400.f, ITEMTYPE::ORE, "Iron Vein", "This is used to craft various armors.", resourceFont);
 
 	this->x_A_.setSettings(50.f, 50.f, this->item_->getPosition().x, this->item_->getPosition().y - 55.f, sf::Color::Red, 1.f, sf::Color::White, false);
-	this->t_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "E", sf::Vector2f(this->x_A_.getLeftPosition(true, 10.f), this->x_A_.getTopPosition(true, 10.f)), false);
+	this->t_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "E", sf::Vector2f(this->x_A_.getLeftPosition(true, 10.f), this->x_A_.getTopPosition(true, 10.f)), false);
 
-	this->gather_Sprite_.setTexture(*resourceHud.getHudTexture(HUDTYPE::GATHER));
+	this->gather_Sprite_.setTexture(*resourceHud.getHudTexture(HUD_TEXTURE_TYPE_::GATHER));
 	this->gather_Sprite_.setPosition(sf::Vector2f(this->item_->getItemGlobalBoundaries().left - 300.f / 2.f + this->item_->getItemGlobalBoundaries().width / 2.f, this->item_->getItemGlobalBoundaries().top - 120.f));
 
 	this->gather_Bar_Back_.setSize(sf::Vector2f(300.f, 20.f));

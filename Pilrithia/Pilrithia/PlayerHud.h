@@ -30,7 +30,7 @@ public:
 
 
 	//ONLY FOR TESTING
-	void intializeHud(const std::string& name, const int& healthMax, const int& health, const int& manaMax, const int& mana, const int& expMax, const int& exp);
+	void intializeHud(const std::string& name, const int& healthMax, const int& health, const int& manaMax, const int& mana, const int& expMax, const int& exp, const sf::Texture& playerRaceIcon);
 	void initializeSkills(Classes* playerClass);
 
 	bool updateInventoryPollEvent(sf::Event& ev);
@@ -97,7 +97,6 @@ private:
 
 	HoverDescription skill_D_A_;
 
-	HoverDescription experience_D_A_;
 
 	bool is_Hiding_Hud_;
 
@@ -117,6 +116,7 @@ private:
 	ResourceFont resource_Font_;
 
 	//TESTING
+	sf::Sprite race_Icon_Sprite_;
 	sf::Sprite bars_Sprite_;
 };
 

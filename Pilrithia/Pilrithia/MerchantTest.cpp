@@ -6,8 +6,8 @@ MerchantTest::MerchantTest()
 
 MerchantTest::MerchantTest(const ResourceFont& resourceFont)
 {
-	this->merchant_Model_.setSize(sf::Vector2f(30.f, 30.f));
-	this->merchant_Model_.setPosition(sf::Vector2f(210.f, 120.f));
+	this->merchant_Model_.setSize(sf::Vector2f(50.f, 50.f));
+	this->merchant_Model_.setPosition(sf::Vector2f(1400.f, 650.f));
 	this->merchant_Model_.setFillColor(sf::Color::Magenta);
 
 	this->merchant_Range_.setSize(sf::Vector2f(90.f, 30.f));
@@ -17,7 +17,7 @@ MerchantTest::MerchantTest(const ResourceFont& resourceFont)
 	this->merchant_Range_.setOutlineColor(sf::Color::Red);
 
 	this->merchant_Name_ = "Test Merchant";
-	this->t_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, this->merchant_Name_, sf::Vector2f(this->merchant_Model_.getGlobalBounds().left - 25.f, this->merchant_Model_.getGlobalBounds().top - 25.f), true);
+	this->t_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, this->merchant_Name_, sf::Vector2f(this->merchant_Model_.getGlobalBounds().left - 25.f, this->merchant_Model_.getGlobalBounds().top - 25.f), true);
 
 	this->is_Within_Range_ = false;
 

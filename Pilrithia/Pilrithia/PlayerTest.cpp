@@ -16,7 +16,7 @@ PlayerTest::PlayerTest(const ResourceFont& resourceFont, const ResourceHud& reso
 	this->name_ = "";
 
 	this->player_Model_.setSize(sf::Vector2f(25.f, 50.f));
-	this->player_Model_.setPosition(sf::Vector2f(60.f, 60.f));
+	this->player_Model_.setPosition(sf::Vector2f(200.f, 100.f));
 	this->player_Model_.setFillColor(sf::Color::Cyan);
 
 	this->player_Model_Range_.setSize(sf::Vector2f(45.f, 45.f));
@@ -165,7 +165,7 @@ void PlayerTest::initializeCharacter(Race* race, const std::string& name)
 	}
 
 	this->name_ = name;
-	this->player_Hud_->intializeHud(this->name_, this->getStat("healthMax"), this->getStat("health"), this->getStat("manaMax"), this->getStat("mana"), this->max_Exp_, this->exp_);
+	this->player_Hud_->intializeHud(this->name_, this->getStat("healthMax"), this->getStat("health"), this->getStat("manaMax"), this->getStat("mana"), this->max_Exp_, this->exp_, this->race_->getIconTexture());
 }
 
 void PlayerTest::updateSkillsPollEvent(sf::Event& ev, std::vector<Enemy*>& enemies)

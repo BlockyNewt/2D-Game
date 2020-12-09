@@ -7,7 +7,7 @@
 #include <string>
 #include <map>
 
-enum class FONTTYPE
+enum class FONT_TYPE
 {
 	ARIAL = 0,
 
@@ -21,14 +21,14 @@ public:
 
 	void loadAllFonts();
 
-	const sf::Font& getFont(FONTTYPE fontType) const;
+	const sf::Font& getFont(FONT_TYPE fontType) const;
 
 private:
-	void loadFont(const std::string& fontFileName, FONTTYPE fontType);
-	void AddToMap(const sf::Font* font, FONTTYPE fontType);
+	void loadFont(const std::string& fontFileName, FONT_TYPE fontType);
+	void AddToMap(const sf::Font* font, FONT_TYPE fontType);
 
 private:
-	std::map<FONTTYPE, sf::Font> fonts_;
+	std::map<FONT_TYPE, sf::Font> fonts_;
 };
 
 #endif // !RESOURCEFONT_H

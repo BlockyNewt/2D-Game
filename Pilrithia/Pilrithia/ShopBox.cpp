@@ -8,8 +8,8 @@ ShopBox::ShopBox(const ResourceFont& resourceFont)
 
 	this->b_A_.setSettings(50.f, 50.f, this->x_B_.getRightPosition(false, 50.f), this->x_B_.getTopPosition(), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
 
-	this->t_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Shop", sf::Vector2f(this->x_B_.getLeftPosition(true, 100.f), this->x_B_.getTopPosition(true, 10.f)), true);
-	this->t_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Close", sf::Vector2f(this->b_A_.getLeftPosition(true, 10.f), this->b_A_.getTopPosition(true, 10.f)), true);
+	this->t_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "Shop", sf::Vector2f(this->x_B_.getLeftPosition(true, 100.f), this->x_B_.getTopPosition(true, 10.f)), true);
+	this->t_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "Close", sf::Vector2f(this->b_A_.getLeftPosition(true, 10.f), this->b_A_.getTopPosition(true, 10.f)), true);
 
 	this->is_Visible_ = false;
 

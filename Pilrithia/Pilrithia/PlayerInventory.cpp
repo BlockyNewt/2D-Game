@@ -7,22 +7,22 @@ void PlayerInventory::initializeStats(const ResourceFont& resourceFont)
 	*/
 	this->stats_B_A_.setSettings(150.f, 40.f, this->inventory_Background_Sprite_.getGlobalBounds().left + 345.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 23.f, sf::Color::Transparent, 1.f, sf::Color::Transparent, true);
 
-	this->stats_T_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 25, "Stats", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 25.f), true);
-	this->stats_T_B_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 25, "Health", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 175.f), true);
-	this->stats_T_C_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 25, "Mana", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 220.f), true);
-	this->stats_T_D_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 25, "Strength", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 266.f), true);
-	this->stats_T_E_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 25, "Dexerity", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 312.f), true);
-	this->stats_T_G_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 25, "Intelligence", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 357.f), true);
-	this->stats_T_H_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 25, "Perception", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 402.f), true);
-	this->stats_T_I_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 25, "Wisdom", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 447.f), true);
+	this->stats_T_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 25, "Stats", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 25.f), true);
+	this->stats_T_B_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 25, "Health", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 175.f), true);
+	this->stats_T_C_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 25, "Mana", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 220.f), true);
+	this->stats_T_D_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 25, "Strength", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 266.f), true);
+	this->stats_T_E_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 25, "Dexerity", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 312.f), true);
+	this->stats_T_G_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 25, "Intelligence", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 357.f), true);
+	this->stats_T_H_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 25, "Perception", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 402.f), true);
+	this->stats_T_I_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 25, "Wisdom", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 447.f), true);
 
-	this->stats_T_J_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 25, "", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 175.f), true);
-	this->stats_T_K_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 25, "", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 220.f), true);
-	this->stats_T_L_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 25, "", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 266.f), true);
-	this->stats_T_M_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 25, "", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 312.f), true);
-	this->stats_T_N_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 25, "", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 357.f), true);
-	this->stats_T_O_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 25, "", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 402.f), true);
-	this->stats_T_P_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 25, "", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 447.f), true);
+	this->stats_T_J_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 25, "", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 175.f), true);
+	this->stats_T_K_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 25, "", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 220.f), true);
+	this->stats_T_L_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 25, "", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 266.f), true);
+	this->stats_T_M_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 25, "", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 312.f), true);
+	this->stats_T_N_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 25, "", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 357.f), true);
+	this->stats_T_O_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 25, "", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 402.f), true);
+	this->stats_T_P_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 25, "", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 447.f), true);
 
 	this->stats_D_B_.setHoverBoundaries(HOVERPOSITION::TOP, this->stats_T_B_.getGlobalBounds(), this->stats_T_B_.getGlobalBounds());
 	this->stats_D_C_.setHoverBoundaries(HOVERPOSITION::TOP, this->stats_T_C_.getGlobalBounds(), this->stats_T_C_.getGlobalBounds());
@@ -56,16 +56,16 @@ void PlayerInventory::initializeResistances(const ResourceFont& resourceFont)
 	*/
 	this->resistances_B_A_.setSettings(150.f, 40.f, this->inventory_Background_Sprite_.getGlobalBounds().left + 495.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 23.f, sf::Color::Transparent, 1.f, sf::Color::Transparent, true);
 
-	this->resistances_T_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 25, "Resistances", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 503.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 25.f), true);
-	this->resistances_T_B_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 22, "Cold: ", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 175.f), true);
-	this->resistances_T_C_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 22, "Fire: ", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 220.f), true);
-	this->resistances_T_D_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 22, "Lightning: ", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 266.f), true);
-	this->resistances_T_E_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 22, "Poison: ", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 312.f), true);
+	this->resistances_T_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 25, "Resistances", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 503.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 25.f), true);
+	this->resistances_T_B_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 22, "Cold: ", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 175.f), true);
+	this->resistances_T_C_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 22, "Fire: ", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 220.f), true);
+	this->resistances_T_D_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 22, "Lightning: ", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 266.f), true);
+	this->resistances_T_E_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 22, "Poison: ", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 312.f), true);
 
-	this->resistances_T_F_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 25, "0", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 175.f), true);
-	this->resistances_T_G_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 22, "0", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 220.f), true);
-	this->resistances_T_H_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 22, "0", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 266.f), true);
-	this->resistances_T_I_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 22, "0", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 312.f), true);
+	this->resistances_T_F_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 25, "0", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 175.f), true);
+	this->resistances_T_G_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 22, "0", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 220.f), true);
+	this->resistances_T_H_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 22, "0", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 266.f), true);
+	this->resistances_T_I_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 22, "0", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 312.f), true);
 
 	this->resistances_D_B_.setHoverBoundaries(HOVERPOSITION::TOP, this->resistances_T_B_.getGlobalBounds(), this->resistances_T_B_.getGlobalBounds());
 	this->resistances_D_C_.setHoverBoundaries(HOVERPOSITION::TOP, this->resistances_T_C_.getGlobalBounds(), this->resistances_T_C_.getGlobalBounds());
@@ -129,16 +129,16 @@ PlayerInventory::PlayerInventory(const ResourceFont& resourceFont, const Resourc
 {
 	this->x_C_.setSettings(1280.f, 720.f, 0.f, 0.f, sf::Color(0,0,0,200), 1.f, sf::Color::Transparent, true);
 
-	this->inventory_Background_Sprite_.setTexture(*resourceHud.getHudTexture(HUDTYPE::INVENTORYWINDOW));
+	this->inventory_Background_Sprite_.setTexture(*resourceHud.getHudTexture(HUD_TEXTURE_TYPE_::INVENTORY_WINDOW));
 	this->inventory_Background_Sprite_.setPosition(sf::Vector2f(1280.f / 2.f - 800.f / 2.f, 720.f / 2.f - 500.f / 2.f));
 
 	this->b_B_.setSettings(34.f, 34.f, this->inventory_Background_Sprite_.getGlobalBounds().left + 764.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 3.f, sf::Color::White, 1.f, sf::Color::Transparent, true);
-	this->b_B_.setTexture(resourceHud.getHudTexture(HUDTYPE::CLOSE));
+	this->b_B_.setTexture(resourceHud.getHudTexture(HUD_TEXTURE_TYPE_::CLOSE));
 
-	this->t_C_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Name: ", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 74.f), true);
-	this->t_D_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Race: ", sf::Vector2f(this->t_C_.getRightPosition(true, 120.f), this->inventory_Background_Sprite_.getGlobalBounds().top + 74.f), true);
-	this->t_E_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Class: ", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->t_C_.getTopPosition(true, 40.f)), true);
-	this->t_F_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "Level: ", sf::Vector2f(this->t_E_.getRightPosition(true, 120.f), this->t_E_.getTopPosition()), true);
+	this->t_C_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "Name: ", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 74.f), true);
+	this->t_D_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "Race: ", sf::Vector2f(this->t_C_.getRightPosition(true, 120.f), this->inventory_Background_Sprite_.getGlobalBounds().top + 74.f), true);
+	this->t_E_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "Class: ", sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->t_C_.getTopPosition(true, 40.f)), true);
+	this->t_F_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "Level: ", sf::Vector2f(this->t_E_.getRightPosition(true, 120.f), this->t_E_.getTopPosition()), true);
 	
 	this->initializeStats(resourceFont);
 	this->initializeResistances(resourceFont);

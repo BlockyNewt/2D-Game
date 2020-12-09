@@ -10,10 +10,10 @@ ResourceFont::~ResourceFont()
 
 void ResourceFont::loadAllFonts()
 {
-	this->loadFont("arial.ttf", FONTTYPE::ARIAL);
+	this->loadFont("arial.ttf", FONT_TYPE::ARIAL);
 }
 
-const sf::Font& ResourceFont::getFont(FONTTYPE fontType) const
+const sf::Font& ResourceFont::getFont(FONT_TYPE fontType) const
 {
 	auto findPos = this->fonts_.find(fontType);
 
@@ -27,7 +27,7 @@ const sf::Font& ResourceFont::getFont(FONTTYPE fontType) const
 	}
 }
 
-void ResourceFont::loadFont(const std::string& fontFileName, FONTTYPE fontType)
+void ResourceFont::loadFont(const std::string& fontFileName, FONT_TYPE fontType)
 {
 	sf::Font* font = new sf::Font();
 
@@ -41,7 +41,7 @@ void ResourceFont::loadFont(const std::string& fontFileName, FONTTYPE fontType)
 	}
 }
 
-void ResourceFont::AddToMap(const sf::Font* font, FONTTYPE fontType)
+void ResourceFont::AddToMap(const sf::Font* font, FONT_TYPE fontType)
 {
 	this->fonts_.insert(std::make_pair(fontType, *font));
 }

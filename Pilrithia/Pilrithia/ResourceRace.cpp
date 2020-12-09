@@ -10,14 +10,14 @@ ResourceRace::~ResourceRace()
 
 void ResourceRace::loadAllRaceTextures()
 {
-	this->loadRaceTexture("Orc_Icon_.png", RACETYPE::ORCICON);
-	this->loadRaceTexture("test_Strip_.png", RACETYPE::TESTSPRITESTRIP);
-	this->loadRaceTexture("test_Strip_Idle_.png", RACETYPE::TESTSPRITESTRIPIDLE);
-	this->loadRaceTexture("test_Strip_Attack_.png", RACETYPE::TESTSPRITESTRIPATTACK);
-	this->loadRaceTexture("test_Strip_Jump_.png", RACETYPE::TESTSPRITESTRIPJUMP);
+	this->loadRaceTexture("orc_Icon_.png", RACE_TYPE_::ORC_ICON_);
+	this->loadRaceTexture("test_Strip_.png", RACE_TYPE_::TEST_SPRITE_STRIP);
+	this->loadRaceTexture("test_Strip_Idle_.png", RACE_TYPE_::TEST_SPRITE_STRIP_IDLE);
+	this->loadRaceTexture("test_Strip_Attack_.png", RACE_TYPE_::TEST_SPRITE_STRIP_ATTACK);
+	this->loadRaceTexture("test_Strip_Jump_.png", RACE_TYPE_::TEST_SPRITE_STRIP_JUMP);
 }
 
-const sf::Texture* ResourceRace::getRaceTexture(RACETYPE raceType) const
+const sf::Texture* ResourceRace::getRaceTexture(RACE_TYPE_ raceType) const
 {
 	auto findPos = this->race_Textures_.find(raceType);
 
@@ -31,7 +31,7 @@ const sf::Texture* ResourceRace::getRaceTexture(RACETYPE raceType) const
 	}
 }
 
-void ResourceRace::loadRaceTexture(const std::string& raceTextureFileName, RACETYPE raceType)
+void ResourceRace::loadRaceTexture(const std::string& raceTextureFileName, RACE_TYPE_ raceType)
 {
 	sf::Texture* texture = new sf::Texture();
 
@@ -45,7 +45,7 @@ void ResourceRace::loadRaceTexture(const std::string& raceTextureFileName, RACET
 	}
 }
 
-void ResourceRace::AddToMap(const sf::Texture* raceTexture, RACETYPE raceType)
+void ResourceRace::AddToMap(const sf::Texture* raceTexture, RACE_TYPE_ raceType)
 {
 	this->race_Textures_.insert(std::make_pair(raceType, *raceTexture));
 }

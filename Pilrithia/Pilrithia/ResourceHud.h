@@ -7,7 +7,7 @@
 #include <string>
 #include <map>
 
-enum class HUDTYPE
+enum class HUD_TEXTURE_TYPE_
 {
 	BAR,
 	BAG,
@@ -16,14 +16,19 @@ enum class HUDTYPE
 	HOTBAR,
 	WINDOW,
 
-	INVENTORYWINDOW,
+	INVENTORY_WINDOW,
 
-	RACEFACE,
+	RACE_FACE,
 
-	INVENTORYICON,
-	BAGICON,
-	QUESTICON,
-	SKILLICON,
+	INVENTORY_ICON,
+	BAG_ICON,
+	QUEST_ICON,
+	SKILL_ICON,
+
+};
+
+enum class HUD_SOUND_TYPE_
+{
 
 };
 
@@ -35,14 +40,14 @@ public:
 
 	void loadAllHudTextures();
 
-	const  sf::Texture* getHudTexture(HUDTYPE hudType) const;
+	const  sf::Texture* getHudTexture(HUD_TEXTURE_TYPE_ hudTextureType) const;
 
 private:
-	void loadHudTexture(const std::string& hudTextureFileName, HUDTYPE hudType);
-	void AddToMap(const sf::Texture* hudTexture, HUDTYPE hudType);
+	void loadHudTexture(const std::string& hudTextureFileName, HUD_TEXTURE_TYPE_ hudTextureType);
+	void AddToMap(const sf::Texture* hudTexture, HUD_TEXTURE_TYPE_ hudTextureType);
 
 private:
-	std::map<HUDTYPE, sf::Texture> hud_Textures_;
+	std::map<HUD_TEXTURE_TYPE_, sf::Texture> hud_Textures_;
 
 };
 

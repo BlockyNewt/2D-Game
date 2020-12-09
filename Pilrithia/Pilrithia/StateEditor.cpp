@@ -10,8 +10,8 @@ void StateEditor::initializeInstructionsPanel()
 
 	std::string instructionsStr = "1.) Press 'Tab' to hide this window. \n\n2.) Press 'Esc' to open pause window \n\n3.) Left click to add tile \n\n4.) Right click to remove tile \n\n5.) WSAD to move camera \n\n6.) Mouse wheel to scroll in and out \n\n7.) '1' and '2' to change tile type \n\n8.) '4' and '5' to change tile layer \n\n9.) 'Shift' to open texture selector. \n\n10.) To set a texture Left click the spot. \n\n11.) To load texture file click 'Load'";
 
-	this->t_A_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 25, "Editor Instructions", sf::Vector2f(this->instruction_Panel_X_A_.getLeftPosition(true, 100.f), this->instruction_Panel_X_A_.getTopPosition(true, 10.f)), true);
-	this->t_B_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 18, instructionsStr, sf::Vector2f(this->instruction_Panel_X_A_.getLeftPosition(true, 10.f), this->t_A_.getBottomPosition(true, 50.f)), true);
+	this->t_A_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 25, "Editor Instructions", sf::Vector2f(this->instruction_Panel_X_A_.getLeftPosition(true, 100.f), this->instruction_Panel_X_A_.getTopPosition(true, 10.f)), true);
+	this->t_B_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 18, instructionsStr, sf::Vector2f(this->instruction_Panel_X_A_.getLeftPosition(true, 10.f), this->t_A_.getBottomPosition(true, 50.f)), true);
 }
 
 void StateEditor::initializeRightSidePanel()
@@ -28,11 +28,11 @@ void StateEditor::initializeRightSidePanel()
 	this->right_Side_Panel_B_D_.setSettings(40.f, 40.f, this->right_Side_Panel_X_A_.getLeftPosition(true, 5), this->right_Side_Panel_B_C_.getBottomPosition(true, 5), sf::Color	(27,133,184), 1, sf::Color::Red, true);
 	this->right_Side_Panel_B_E_.setSettings(40.f, 40.f, this->right_Side_Panel_X_A_.getLeftPosition(true, 5), this->right_Side_Panel_B_D_.getBottomPosition(true, 5), sf::Color	(27,133,184), 1, sf::Color::Red, true);
 
-	this->right_Side_Panel_T_A_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 12, "Clear", sf::Vector2f(this->right_Side_Panel_B_A_.getLeftPosition(true, 5.f), this->right_Side_Panel_B_A_.getTopPosition(true, 10.f)), true);
-	this->right_Side_Panel_T_B_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 12, "Setting", sf::Vector2f(this->right_Side_Panel_B_B_.getLeftPosition(true, 2.f), this->right_Side_Panel_B_B_.getTopPosition(true, 10.f)), true);
-	this->right_Side_Panel_T_C_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 12, "Save", sf::Vector2f(this->right_Side_Panel_B_C_.getLeftPosition(true, 2.f), this->right_Side_Panel_B_C_.getTopPosition(true, 10.f)), true);
-	this->right_Side_Panel_T_D_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 12, "Load", sf::Vector2f(this->right_Side_Panel_B_D_.getLeftPosition(true, 2.f), this->right_Side_Panel_B_D_.getTopPosition(true, 10.f)), true);
-	this->right_Side_Panel_T_E_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 12, "Texture", sf::Vector2f(this->right_Side_Panel_B_E_.getLeftPosition(true, 2.f), this->right_Side_Panel_B_E_.getTopPosition(true, 10.f)), true);
+	this->right_Side_Panel_T_A_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 12, "Clear", sf::Vector2f(this->right_Side_Panel_B_A_.getLeftPosition(true, 5.f), this->right_Side_Panel_B_A_.getTopPosition(true, 10.f)), true);
+	this->right_Side_Panel_T_B_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 12, "Setting", sf::Vector2f(this->right_Side_Panel_B_B_.getLeftPosition(true, 2.f), this->right_Side_Panel_B_B_.getTopPosition(true, 10.f)), true);
+	this->right_Side_Panel_T_C_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 12, "Save", sf::Vector2f(this->right_Side_Panel_B_C_.getLeftPosition(true, 2.f), this->right_Side_Panel_B_C_.getTopPosition(true, 10.f)), true);
+	this->right_Side_Panel_T_D_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 12, "Load", sf::Vector2f(this->right_Side_Panel_B_D_.getLeftPosition(true, 2.f), this->right_Side_Panel_B_D_.getTopPosition(true, 10.f)), true);
+	this->right_Side_Panel_T_E_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 12, "Texture", sf::Vector2f(this->right_Side_Panel_B_E_.getLeftPosition(true, 2.f), this->right_Side_Panel_B_E_.getTopPosition(true, 10.f)), true);
 
 	this->right_Side_Panel_Buttons_.push_back(right_Side_Panel_B_A_);
 	this->right_Side_Panel_Buttons_.push_back(right_Side_Panel_B_B_);
@@ -54,17 +54,17 @@ void StateEditor::initializeTilemapSettings()
 	*/
 
 	this->tilemap_Settings_X_A_.setSettings(800.f, 600.f, this->window_->getSize().x / 2.f - 800.f / 2.f, this->window_->getSize().y / 2.f - 600.f / 2.f, sf::Color(85,158,131), 1.f, sf::Color::Red, false);
-	this->tilemap_Settings_T_D_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 35, "Tilemap Settings", sf::Vector2f(this->tilemap_Settings_X_A_.getLeftPosition(true, 300.f), this->tilemap_Settings_X_A_.getTopPosition(true, 20.f)), false);
+	this->tilemap_Settings_T_D_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 35, "Tilemap Settings", sf::Vector2f(this->tilemap_Settings_X_A_.getLeftPosition(true, 300.f), this->tilemap_Settings_X_A_.getTopPosition(true, 20.f)), false);
 
 	this->tilemap_Settings_B_A_.setSettings(150.f, 50.f, this->tilemap_Settings_X_A_.getLeftPosition(true, 250), this->tilemap_Settings_X_A_.getBottomPosition(false, 55), sf::Color(27,133,184), 1, sf::Color::Red, false);
 	this->tilemap_Settings_B_B_.setSettings(150.f, 50.f, this->tilemap_Settings_B_A_.getRightPosition(true, 20), this->tilemap_Settings_B_A_.getTopPosition(), sf::Color(27,133,184), 1, sf::Color::Red, false);
 
-	this->tilemap_Settings_T_A_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 25, "Max Grid Size X", sf::Vector2f(this->tilemap_Settings_X_A_.getLeftPosition(true, 10.f), this->tilemap_Settings_X_A_.getTopPosition(true, 100.f)), false);
-	this->tilemap_Settings_T_B_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 25, "Max Grid Size Y", sf::Vector2f(this->tilemap_Settings_X_A_.getLeftPosition(true, 10.f), this->tilemap_Settings_T_A_.getTopPosition(true, 50.f)), false);
-	this->tilemap_Settings_T_C_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 25, "Tile Size X & Y", sf::Vector2f(this->tilemap_Settings_X_A_.getLeftPosition(true, 10.f), this->tilemap_Settings_T_B_.getTopPosition(true, 50.f)), false);
-	this->tilemap_Settings_T_E_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 25, "Accept", sf::Vector2f(this->tilemap_Settings_B_A_.getLeftPosition(true, 10.f), this->tilemap_Settings_B_A_.getTopPosition(true, 10.f)), false);
-	this->tilemap_Settings_T_F_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 25, "Close", sf::Vector2f(this->tilemap_Settings_B_B_.getLeftPosition(true, 10.f), this->tilemap_Settings_B_B_.getTopPosition(true, 10.f)), false);
-	this->tilemap_Settings_T_G_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 25, "Enable grid", sf::Vector2f(this->tilemap_Settings_X_A_.getLeftPosition(true, 10.f), this->tilemap_Settings_T_C_.getTopPosition(true, 50.f)), false);
+	this->tilemap_Settings_T_A_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 25, "Max Grid Size X", sf::Vector2f(this->tilemap_Settings_X_A_.getLeftPosition(true, 10.f), this->tilemap_Settings_X_A_.getTopPosition(true, 100.f)), false);
+	this->tilemap_Settings_T_B_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 25, "Max Grid Size Y", sf::Vector2f(this->tilemap_Settings_X_A_.getLeftPosition(true, 10.f), this->tilemap_Settings_T_A_.getTopPosition(true, 50.f)), false);
+	this->tilemap_Settings_T_C_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 25, "Tile Size X & Y", sf::Vector2f(this->tilemap_Settings_X_A_.getLeftPosition(true, 10.f), this->tilemap_Settings_T_B_.getTopPosition(true, 50.f)), false);
+	this->tilemap_Settings_T_E_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 25, "Accept", sf::Vector2f(this->tilemap_Settings_B_A_.getLeftPosition(true, 10.f), this->tilemap_Settings_B_A_.getTopPosition(true, 10.f)), false);
+	this->tilemap_Settings_T_F_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 25, "Close", sf::Vector2f(this->tilemap_Settings_B_B_.getLeftPosition(true, 10.f), this->tilemap_Settings_B_B_.getTopPosition(true, 10.f)), false);
+	this->tilemap_Settings_T_G_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 25, "Enable grid", sf::Vector2f(this->tilemap_Settings_X_A_.getLeftPosition(true, 10.f), this->tilemap_Settings_T_C_.getTopPosition(true, 50.f)), false);
 
 	this->tilemap_Settings_I_A_.setSettings(75.f, 40.f, this->tilemap_Settings_T_A_.getRightPosition(true, 10.f), this->tilemap_Settings_T_A_.getTopPosition(false, 10), sf::Color::Black, 1.f, sf::Color::Red, false, false, 4, *this->resource_Font_);
 	this->tilemap_Settings_I_B_.setSettings(75.f, 40.f, this->tilemap_Settings_T_B_.getRightPosition(true, 10.f), this->tilemap_Settings_T_B_.getTopPosition(false, 10), sf::Color::Black, 1.f, sf::Color::Red, false, false, 4, *this->resource_Font_);
@@ -84,10 +84,10 @@ void StateEditor::initializeSave()
 	this->save_B_A_.setSettings(150.f, 50.f, this->save_X_A_.getLeftPosition(true, 250), this->save_X_A_.getBottomPosition(false, 55), sf::Color(27,133,184), 1, sf::Color::Red, false);
 	this->save_B_B_.setSettings(150.f, 50.f, this->save_B_A_.getRightPosition(true, 20), this->save_B_A_.getTopPosition(), sf::Color(27,133,184), 1, sf::Color::Red, false);
 
-	this->save_T_A_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 35, "Save current tilemap", sf::Vector2f(this->save_X_A_.getLeftPosition(true, 250.f), this->save_X_A_.getTopPosition(true, 10.f)), false);
-	this->save_T_B_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 25, "Filename: ", sf::Vector2f(this->save_X_A_.getLeftPosition(true, 10.f), this->tilemap_Settings_X_A_.getTopPosition(true, 200.f)), false);
-	this->save_T_C_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 25, "Save", sf::Vector2f(this->save_B_A_.getLeftPosition(true, 10.f), this->save_B_A_.getTopPosition(true, 10.f)), false);
-	this->save_T_D_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 25, "Close", sf::Vector2f(this->save_B_B_.getLeftPosition(true, 10.f), this->save_B_B_.getTopPosition(true, 10.f)), false);
+	this->save_T_A_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 35, "Save current tilemap", sf::Vector2f(this->save_X_A_.getLeftPosition(true, 250.f), this->save_X_A_.getTopPosition(true, 10.f)), false);
+	this->save_T_B_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 25, "Filename: ", sf::Vector2f(this->save_X_A_.getLeftPosition(true, 10.f), this->tilemap_Settings_X_A_.getTopPosition(true, 200.f)), false);
+	this->save_T_C_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 25, "Save", sf::Vector2f(this->save_B_A_.getLeftPosition(true, 10.f), this->save_B_A_.getTopPosition(true, 10.f)), false);
+	this->save_T_D_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 25, "Close", sf::Vector2f(this->save_B_B_.getLeftPosition(true, 10.f), this->save_B_B_.getTopPosition(true, 10.f)), false);
 
 	this->save_I_A_.setSettings(500.f, 40.f, this->save_T_B_.getRightPosition(true, 10.f), this->save_T_B_.getTopPosition(), sf::Color::Black, 1.f, sf::Color::Red, false, false, 30, *this->resource_Font_);
 }
@@ -103,11 +103,11 @@ void StateEditor::initializeLoad()
 	this->load_B_A_.setSettings(150.f, 50.f, this->load_X_A_.getLeftPosition(true, 250), this->load_X_A_.getBottomPosition(false, 55), sf::Color(27,133,184), 1, sf::Color::Red, false);
 	this->load_B_B_.setSettings(150.f, 50.f, this->load_B_A_.getRightPosition(true, 20), this->load_B_A_.getTopPosition(), sf::Color(27,133,184), 1, sf::Color::Red, false);
 
-	this->load_T_A_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 35, "Load a tilemap", sf::Vector2f(this->load_X_A_.getLeftPosition(true, 250.f), this->load_X_A_.getTopPosition(true, 10.f)), false);
-	this->load_T_B_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 25, "Filename: ", sf::Vector2f(this->load_X_A_.getLeftPosition(true, 10.f), this->tilemap_Settings_X_A_.getTopPosition(true, 200.f)), false);
-	this->load_T_C_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 25, "Load", sf::Vector2f(this->load_B_A_.getLeftPosition(true, 10.f), this->load_B_A_.getTopPosition(true, 10.f)), false);
-	this->load_T_D_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 25, "Close", sf::Vector2f(this->load_B_B_.getLeftPosition(true, 10.f), this->load_B_B_.getTopPosition(true, 10.f)), false);
-	this->load_T_E_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 25, "Texture:", sf::Vector2f(this->load_X_A_.getLeftPosition(true, 10.f), this->tilemap_Settings_X_A_.getTopPosition(true, 260.f)), false);
+	this->load_T_A_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 35, "Load a tilemap", sf::Vector2f(this->load_X_A_.getLeftPosition(true, 250.f), this->load_X_A_.getTopPosition(true, 10.f)), false);
+	this->load_T_B_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 25, "Filename: ", sf::Vector2f(this->load_X_A_.getLeftPosition(true, 10.f), this->tilemap_Settings_X_A_.getTopPosition(true, 200.f)), false);
+	this->load_T_C_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 25, "Load", sf::Vector2f(this->load_B_A_.getLeftPosition(true, 10.f), this->load_B_A_.getTopPosition(true, 10.f)), false);
+	this->load_T_D_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 25, "Close", sf::Vector2f(this->load_B_B_.getLeftPosition(true, 10.f), this->load_B_B_.getTopPosition(true, 10.f)), false);
+	this->load_T_E_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 25, "Texture:", sf::Vector2f(this->load_X_A_.getLeftPosition(true, 10.f), this->tilemap_Settings_X_A_.getTopPosition(true, 260.f)), false);
 
 	this->load_I_A_.setSettings(500.f, 40.f, this->load_T_B_.getRightPosition(true, 10.f), this->load_T_B_.getTopPosition(), sf::Color::Black, 1.f, sf::Color::Red, false, false, 30, *this->resource_Font_);
 	this->load_I_B_.setSettings(500.f, 40.f, this->load_I_A_.getLeftPosition(), this->load_I_A_.getBottomPosition(true, 10.f), sf::Color::Black, 1.f, sf::Color::Red, false, false, 30, *this->resource_Font_);
@@ -128,10 +128,10 @@ StateEditor::StateEditor(std::stack<State*>* states, sf::RenderWindow* window, R
 
 	this->camera_ = new Camera(this->window_->getSize().x, this->window_->getSize().y);
 	this->tilemap_ = new Tilemap(5, 5, 2, 30);
-	this->window_Position_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 18, "", sf::Vector2f(0.f, 0.f), true);
-	this->grid_Position_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 18, "", sf::Vector2f(0.f, 0.f), true);
-	this->tile_Type_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 18, "", sf::Vector2f(0.f, 0.f), true);
-	this->tile_Layer_.setSettings(this->resource_Font_->getFont(FONTTYPE::ARIAL), 18, "", sf::Vector2f(0.f, 0.f), true);
+	this->window_Position_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 18, "", sf::Vector2f(0.f, 0.f), true);
+	this->grid_Position_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 18, "", sf::Vector2f(0.f, 0.f), true);
+	this->tile_Type_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 18, "", sf::Vector2f(0.f, 0.f), true);
+	this->tile_Layer_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 18, "", sf::Vector2f(0.f, 0.f), true);
 	this->tile_Box_.setSettings(this->tilemap_->getTileSizeXY(), this->tilemap_->getTileSizeXY(), 0.f, 0.f, sf::Color::Transparent, 1.f, sf::Color::Red, true);
 
 	this->texture_X_A_.setSettings(800.f, 600.f, 0.f, 0.f, sf::Color::Green, 1.f, sf::Color::Red, false);

@@ -11,8 +11,8 @@ ItemTest::ItemTest(float posX, float posY, ITEMTYPE itemType, const std::string&
 {
 	this->b_A_.setSettings(50.f, 50.f, posX, posY, sf::Color(27, 133, 184), 0.f, sf::Color::Transparent, true);
 
-	this->t_A_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "", sf::Vector2f(this->b_A_.getLeftPosition(true, 10.f), this->b_A_.getTopPosition(true, 10.f)), true);
-	this->t_B_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "", sf::Vector2f(this->b_A_.getRightPosition(false, 10.f), this->b_A_.getBottomPosition(false, 20.f)), true);
+	this->t_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "", sf::Vector2f(this->b_A_.getLeftPosition(true, 10.f), this->b_A_.getTopPosition(true, 10.f)), true);
+	this->t_B_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "", sf::Vector2f(this->b_A_.getRightPosition(false, 10.f), this->b_A_.getBottomPosition(false, 20.f)), true);
 
 	this->item_Type_ = itemType;
 

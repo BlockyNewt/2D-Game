@@ -18,8 +18,8 @@ void HoverDescription::setTextFont(const ResourceFont& resourceFont)
 	/*
 		SET FONT FOR TEXT HERE (MUST CALL THIS OR ELSE IT WONT SHOW AND WONT GIVE AN ERROR) 
 	*/
-	this->title_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 24, "", sf::Vector2f(this->description_Box_.getLeftPosition(), this->description_Box_.getTopPosition()), true);
-	this->description_.setSettings(resourceFont.getFont(FONTTYPE::ARIAL), 18, "", sf::Vector2f(this->description_Box_.getLeftPosition(), this->description_Box_.getTopPosition()), true);
+	this->title_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 24, "", sf::Vector2f(this->description_Box_.getLeftPosition(), this->description_Box_.getTopPosition()), true);
+	this->description_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "", sf::Vector2f(this->description_Box_.getLeftPosition(), this->description_Box_.getTopPosition()), true);
 }
 
 void HoverDescription::setHoverBoundaries(HOVERPOSITION hoverPosition, const sf::FloatRect itemBoundaries, const sf::FloatRect itemBoundariesOffset)

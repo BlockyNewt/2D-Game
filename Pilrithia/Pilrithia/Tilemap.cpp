@@ -786,7 +786,6 @@ void Tilemap::EnemyCollision(Enemy& enemy)
 									//std::cout << "Right ";
 
 									enemy.setVelocityX(0.f);
-									std::cout << "Enemy tile map right" << std::endl;
 
 									enemy.setDirection(DIRECTION::LEFT);
 								}
@@ -800,7 +799,7 @@ void Tilemap::EnemyCollision(Enemy& enemy)
 									//std::cout << "Left ";
 
 									enemy.setVelocityX(0.f);
-									std::cout << "Enemy tile map left" << std::endl;
+
 									enemy.setDirection(DIRECTION::RIGHT);
 								}
 
@@ -827,6 +826,8 @@ void Tilemap::EnemyCollision(Enemy& enemy)
 
 									enemy.setIsBottomColliding(true);
 
+									enemy.setIsFalling(false);
+
 									enemy.setVelocityY(0.f);
 								}
 							}
@@ -842,6 +843,8 @@ void Tilemap::EnemyCollision(Enemy& enemy)
 						if (!enemy.getIsBottomColliding())
 						{
 							enemy.setVelocityY(enemy.getGravity());
+
+							enemy.setIsFalling(true);
 						}
 					}
 				}

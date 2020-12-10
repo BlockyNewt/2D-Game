@@ -4,13 +4,20 @@ MerchantTest::MerchantTest()
 {
 }
 
-MerchantTest::MerchantTest(const ResourceFont& resourceFont)
+MerchantTest::MerchantTest(const ResourceFont& resourceFont, const ResourceNpc& resourceNpc)
 {
-	this->merchant_Model_.setSize(sf::Vector2f(50.f, 50.f));
-	this->merchant_Model_.setPosition(sf::Vector2f(1400.f, 650.f));
-	this->merchant_Model_.setFillColor(sf::Color::Magenta);
+	this->idle_Rect_ = sf::IntRect(0, 0, 64, 64);
+	this->idle_Sheet_Width_ = 640;
 
-	this->merchant_Range_.setSize(sf::Vector2f(90.f, 30.f));
+	this->merchant_Model_.setSize(sf::Vector2f(64.f, 64.f));
+	this->merchant_Model_.setPosition(sf::Vector2f(1300.f, 636.f));
+	this->merchant_Model_.setFillColor(sf::Color::White);
+	this->merchant_Model_.setTexture(resourceNpc.getNpcTexture(NPC_TEXTURE_TYPE_::TEST_MERCHANT_NPC_TEXTURE));
+	this->merchant_Model_.setTextureRect(this->idle_Rect_);
+	this->merchant_Model_.setScale(sf::Vector2f(-1.f, 1.f));
+	this->merchant_Model_.setOrigin(sf::Vector2f(this->merchant_Model_.getGlobalBounds().width, 0.f));
+
+	this->merchant_Range_.setSize(sf::Vector2f(100.f, 64.f));
 	this->merchant_Range_.setPosition(sf::Vector2f(this->merchant_Model_.getPosition().x - 30, this->merchant_Model_.getPosition().y));
 	this->merchant_Range_.setFillColor(sf::Color::Transparent);
 	this->merchant_Range_.setOutlineThickness(1.f);
@@ -54,6 +61,8 @@ void MerchantTest::updatePollEvent(sf::Event& ev, int& playerGold, int& playerSi
 
 void MerchantTest::update(const sf::Vector2f& mousePositionView, const sf::Vector2i mousePositionWindow, sf::FloatRect playerBounds, const Camera& camera, const std::vector<Item*>& playerInventory, std::vector<std::vector<Item*>>& playerBag)
 {
+	this->animation_.update(this->merchant_Model_, this->idle_Rect_, this->idle_Sheet_Width_, 100.f);
+
 	if (this->merchant_Range_.getGlobalBounds().intersects(playerBounds))
 	{
 		*this->camera_ = camera;
@@ -68,10 +77,8 @@ void MerchantTest::update(const sf::Vector2f& mousePositionView, const sf::Vecto
 		else
 		{
 			this->dialog_Box_.setIsVisible(false);
-
 			this->shop_Box_->update(mousePositionWindow, playerInventory, playerBag);
 		}
-
 	}
 	else
 	{

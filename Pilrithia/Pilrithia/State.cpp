@@ -17,6 +17,7 @@ State::State(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont*
 	{
 		this->resource_Hud_ = new ResourceHud();
 		this->resource_Hud_->loadAllHudTextures();
+		this->resource_Hud_->loadAllHudSounds();
 	}
 	else
 	{
@@ -27,6 +28,7 @@ State::State(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont*
 	{
 		this->resource_Race_ = new ResourceRace();
 		this->resource_Race_->loadAllRaceTextures();
+		this->resource_Race_->loadAllRaceSounds();
 	}
 	else
 	{

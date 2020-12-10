@@ -48,7 +48,7 @@ Tile::Tile(float positionX, float positionY, float tileSizeXY, const sf::Texture
 	this->tile_.setOutlineThickness(0.f);
 	this->tile_.setTexture(&texture);
 	this->tile_.setTextureRect(textureBounds);
-	std::cout << "LEFT: " << this->tile_.getTextureRect().left << " TOP: " << this->tile_.getTextureRect().top << std::endl;
+	//std::cout << "LEFT: " << this->tile_.getTextureRect().left << " TOP: " << this->tile_.getTextureRect().top << std::endl;
 
 	this->type_Conversion_ = type;
 	this->type_ = TYPE::DEFAULT;

@@ -8,7 +8,7 @@ class MerchantTest
 {
 public:
 	MerchantTest();
-	MerchantTest(const ResourceFont& resourceFont);
+	MerchantTest(const ResourceFont& resourceFont, const ResourceNpc& resourceNpc);
 	virtual ~MerchantTest();
 
 	void updatePollEvent(sf::Event& ev, int& playerGold, int& playerSilver, int& playerCopper, std::vector<std::vector<Item*>>& playerBag, const int& playerBagMaxSizeX, const int& playerBagMaxSizeY) override;
@@ -32,6 +32,11 @@ private:
 	ShopBox* shop_Box_;
 
 	Camera* camera_;
+
+	Animation animation_;
+
+	sf::IntRect idle_Rect_;
+	int idle_Sheet_Width_;
 };
 
 #endif // !MERCHANTTEST_H

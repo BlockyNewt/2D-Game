@@ -46,6 +46,7 @@ StateMainMenu::StateMainMenu(std::stack<State*>* states, sf::RenderWindow* windo
 	this->texts_.push_back(this->t_E_);
 	this->texts_.push_back(this->t_F_);
 	this->texts_.push_back(this->t_G_);
+
 }
 
 StateMainMenu::~StateMainMenu()
@@ -65,6 +66,7 @@ void StateMainMenu::updatePollEvent(sf::Event& ev)
 		else if (this->buttons_[1].updatePollEvent(ev))
 		{
 			//NOTHING FOR NOW
+			this->resource_Hud_->getHudSound(HUD_SOUND_TYPE_::BUTTON_CLICK)->play();
 		}
 		else if (this->buttons_[2].updatePollEvent(ev))
 		{
@@ -79,6 +81,8 @@ void StateMainMenu::updatePollEvent(sf::Event& ev)
 		*/
 		else if (this->buttons_[3].updatePollEvent(ev))
 		{
+			this->resource_Hud_->getHudSound(HUD_SOUND_TYPE_::BUTTON_CLICK)->play();
+
 			this->states_->pop();
 		}
 
@@ -87,6 +91,8 @@ void StateMainMenu::updatePollEvent(sf::Event& ev)
 		*/
 		else if (this->buttons_[4].updatePollEvent(ev))
 		{
+			this->resource_Hud_->getHudSound(HUD_SOUND_TYPE_::BUTTON_CLICK)->play();
+
 			this->states_->push(new StateEditor(this->states_, this->window_, this->resource_Font_, this->resource_Hud_, this->resource_Race_, this->menu_Setting_, this->menu_Pause_));
 		}
 
@@ -95,6 +101,8 @@ void StateMainMenu::updatePollEvent(sf::Event& ev)
 		*/
 		else if (this->buttons_[5].updatePollEvent(ev))
 		{
+			this->resource_Hud_->getHudSound(HUD_SOUND_TYPE_::BUTTON_CLICK)->play();
+
 			this->states_->push(new StateTestZone(this->states_, this->window_, this->resource_Font_, this->resource_Hud_, this->resource_Race_, this->menu_Setting_, this->menu_Pause_));
 		}
 	}
@@ -109,7 +117,6 @@ void StateMainMenu::update()
 
 	if (!this->menu_Setting_->getIsInSettings())
 	{
-
 		/*
 			UPDATE BUTTONS
 		*/

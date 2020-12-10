@@ -4,19 +4,24 @@ NpcTest::NpcTest()
 {
 }
 
-NpcTest::NpcTest(const ResourceFont& resourceFont)
+NpcTest::NpcTest(const ResourceFont& resourceFont, const ResourceNpc& resourceNpc)
 {
 	this->dialog_Box_Str_ = "This is the first quest. Click the expand button to see more of what this quest has to offer.";
 	
-	this->npc_Model_.setSize(sf::Vector2f(50.f, 50.f));
-	this->npc_Model_.setPosition(sf::Vector2f(50.f, 100.f));
-	this->npc_Model_.setFillColor(sf::Color::Magenta);
+	this->npc_Model_.setSize(sf::Vector2f(128.f, 128.f));
+	this->npc_Model_.setPosition(sf::Vector2f(10.f, 74.f));
+	this->npc_Model_.setFillColor(sf::Color::White);
+	this->npc_Model_.setTexture(resourceNpc.getNpcTexture(NPC_TEXTURE_TYPE_::TEST_QUEST_NPC_TEXTURE));
+	this->npc_Model_.setTextureRect(sf::IntRect(0, 0, 128, 128));
 
-	this->npc_Range_.setSize(sf::Vector2f(90.f, 30.f));
+	this->npc_Range_.setSize(sf::Vector2f(150.f, 128.f));
 	this->npc_Range_.setPosition(sf::Vector2f(this->npc_Model_.getPosition().x - 30, this->npc_Model_.getPosition().y));
 	this->npc_Range_.setFillColor(sf::Color::Transparent);
 	this->npc_Range_.setOutlineThickness(1.f);
 	this->npc_Range_.setOutlineColor(sf::Color::Red);
+
+	this->idle_Rect_ = sf::IntRect(0, 0, 128, 128);
+	this->idle_Sheet_Width_ = 2304;
 
 	this->dialog_Box_.setSettings(300.f, 200.f, this->npc_Model_.getPosition().x - 300.f / 2.f, this->npc_Model_.getPosition().y - 205, sf::Color(27, 133, 184), 1.f, sf::Color::Magenta, this->dialog_Box_Str_, resourceFont, false);
 	this->dialog_Box_.setString(this->dialog_Box_Str_);
@@ -192,6 +197,8 @@ void NpcTest::updatePollEvent(sf::Event& ev, PlayerTest& playerTest)
 
 void NpcTest::update(const sf::Vector2f& mousePositionView, const sf::Vector2i& mousePositionWindow, sf::FloatRect playerBounds, const Camera& camera, PlayerTest& playerTest)
 {
+	this->animation_.update(this->npc_Model_, this->idle_Rect_, this->idle_Sheet_Width_, 66.66f);
+
 	if (this->npc_Range_.getGlobalBounds().intersects(playerBounds))
 	{
 		*this->camera_ = camera;

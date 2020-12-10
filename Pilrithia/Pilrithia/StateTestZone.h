@@ -7,6 +7,7 @@
 #include "Camera.h"
 
 #include "ResourceEnemy.h"
+#include "ResourceNpc.h"
 
 #include "MenuCharacterCreation.h"
 
@@ -77,6 +78,8 @@ private:
 	ResourceEnemy* resource_Enemy_;
 	int max_Enemies_;
 	std::vector<Enemy*> enemies_;
+
+	ResourceNpc* resource_Npc_;
 
 };
 

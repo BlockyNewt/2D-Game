@@ -91,6 +91,12 @@
     <Filter Include="Header Files\Resource">
       <UniqueIdentifier>{0798993e-47e3-4534-88b4-6714e07f7be3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Gather">
+      <UniqueIdentifier>{80d67438-d3af-4d90-ada1-3c6a12783236}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Gather">
+      <UniqueIdentifier>{4b92b607-0948-4911-810f-fade9240d252}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -246,23 +252,26 @@
     <ClCompile Include="ShopBox.cpp">
       <Filter>Source Files\Gui</Filter>
     </ClCompile>
-    <ClCompile Include="Gather.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GatherTest.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerGather.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ResourceRace.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Animation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ResourceRace.cpp">
+      <Filter>Source Files\Resource</Filter>
+    </ClCompile>
     <ClCompile Include="ResourceEnemy.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceNpc.cpp">
+      <Filter>Source Files\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="GatherTest.cpp">
+      <Filter>Source Files\Gather</Filter>
+    </ClCompile>
+    <ClCompile Include="Gather.cpp">
+      <Filter>Source Files\Gather</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerGather.cpp">
+      <Filter>Source Files\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -416,23 +425,26 @@
     <ClInclude Include="ShopBox.h">
       <Filter>Header Files\Gui</Filter>
     </ClInclude>
-    <ClInclude Include="Gather.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GatherTest.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerGather.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ResourceRace.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ResourceRace.h">
+      <Filter>Header Files\Resource</Filter>
+    </ClInclude>
     <ClInclude Include="ResourceEnemy.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceNpc.h">
+      <Filter>Header Files\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerGather.h">
+      <Filter>Header Files\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="GatherTest.h">
+      <Filter>Header Files\Gather</Filter>
+    </ClInclude>
+    <ClInclude Include="Gather.h">
+      <Filter>Header Files\Gather</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

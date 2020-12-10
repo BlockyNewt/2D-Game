@@ -43,7 +43,7 @@ void EnemyTest::initializeModel(const sf::Vector2f& position, const int& range, 
 	this->enemy_Model_.setFillColor(sf::Color::White);
 	this->enemy_Model_.setOutlineThickness(1.f);
 	this->enemy_Model_.setOutlineColor(sf::Color::Transparent);
-	this->enemy_Model_.setTexture(resourceEnemy.getEnemyTexture(ENEMY_TYPE_::SKELETON_WALK_TEXTURE));
+	this->enemy_Model_.setTexture(resourceEnemy.getEnemyTexture(ENEMY_TEXTURE_TYPE_::SKELETON_WALK_TEXTURE));
 	this->enemy_Model_.setTextureRect(sf::IntRect(0, 0, 43, 37));
 
 	this->next_Position_.setSize(sf::Vector2f(this->enemy_Model_.getSize().x, this->enemy_Model_.getSize().y));
@@ -118,25 +118,27 @@ EnemyTest::EnemyTest(const sf::Vector2f& position, const int& range, const Resou
 
 
 	this->walk_Texture_ = new sf::Texture();
-	*this->walk_Texture_ = *resourceEnemy.getEnemyTexture(ENEMY_TYPE_::SKELETON_WALK_TEXTURE);
+	*this->walk_Texture_ = *resourceEnemy.getEnemyTexture(ENEMY_TEXTURE_TYPE_::SKELETON_WALK_TEXTURE);
 
 	this->attack_Texture_ = new sf::Texture();
-	*this->attack_Texture_ = *resourceEnemy.getEnemyTexture(ENEMY_TYPE_::SKELETON_ATTACK_TEXTURE);
+	*this->attack_Texture_ = *resourceEnemy.getEnemyTexture(ENEMY_TEXTURE_TYPE_::SKELETON_ATTACK_TEXTURE);
 
 	this->death_Texture_ = new sf::Texture();
-	*this->death_Texture_ = *resourceEnemy.getEnemyTexture(ENEMY_TYPE_::SKELETON_DEATH_TEXTURE);
+	*this->death_Texture_ = *resourceEnemy.getEnemyTexture(ENEMY_TEXTURE_TYPE_::SKELETON_DEATH_TEXTURE);
 
 	this->walk_Rect_ = sf::IntRect(0, 0, 43, 37);
 	this->attack_Rect_ = sf::IntRect(0, 0, 43, 37);
 	this->death_Rect_ = sf::IntRect(0, 0, 43, 37);
 
-	this->walk_Sheet_Width_ = 516;
-	this->attack_Sheet_Width_ = 731;
-	this->death_Sheet_Width_ = 602;
+	this->walk_Sheet_Width_ = 559;
+	this->attack_Sheet_Width_ = 774;
+	this->death_Sheet_Width_ = 645;
 
 	this->is_Walk_Texture_Set_ = true;
 	this->is_Attack_Texture_Set_ = false;
 	this->is_Death_Texture_Set_ = false;
+
+	this->resource_Enemy_ = resourceEnemy;
 }
 
 EnemyTest::~EnemyTest()
@@ -287,6 +289,11 @@ void EnemyTest::update(const sf::Vector2i& mousePositionWindow, Camera** camera,
 		{
 			this->updateAutoMovement(dt);
 
+			if (this->resource_Enemy_.getEnemySound(ENEMY_SOUND_TYPE_::ENEMY_ATTACK)->getLoop())
+			{
+				this->resource_Enemy_.getEnemySound(ENEMY_SOUND_TYPE_::ENEMY_ATTACK)->setLoop(false);
+				this->resource_Enemy_.getEnemySound(ENEMY_SOUND_TYPE_::ENEMY_ATTACK)->stop();
+			}
 		}
 		else if(this->attack_Range_.getGlobalBounds().intersects(playerBounds))
 		{
@@ -297,6 +304,12 @@ void EnemyTest::update(const sf::Vector2i& mousePositionWindow, Camera** camera,
 
 				this->is_Walk_Texture_Set_ = false;
 				this->is_Attack_Texture_Set_ = true;
+			}
+
+			if (!this->resource_Enemy_.getEnemySound(ENEMY_SOUND_TYPE_::ENEMY_ATTACK)->getLoop())
+			{
+				this->resource_Enemy_.getEnemySound(ENEMY_SOUND_TYPE_::ENEMY_ATTACK)->setLoop(true);
+				this->resource_Enemy_.getEnemySound(ENEMY_SOUND_TYPE_::ENEMY_ATTACK)->play();
 			}
 
 			this->animation_.update(this->enemy_Model_, this->attack_Rect_, this->attack_Sheet_Width_, 55.55f);
@@ -324,6 +337,12 @@ void EnemyTest::update(const sf::Vector2i& mousePositionWindow, Camera** camera,
 	}
 	else
 	{
+		if (this->resource_Enemy_.getEnemySound(ENEMY_SOUND_TYPE_::ENEMY_ATTACK)->getLoop())
+		{
+			this->resource_Enemy_.getEnemySound(ENEMY_SOUND_TYPE_::ENEMY_ATTACK)->setLoop(false);
+			this->resource_Enemy_.getEnemySound(ENEMY_SOUND_TYPE_::ENEMY_ATTACK)->stop();
+		}
+
 		if (!this->is_Death_Texture_Set_)
 		{
 			this->enemy_Model_.setTexture(this->death_Texture_);

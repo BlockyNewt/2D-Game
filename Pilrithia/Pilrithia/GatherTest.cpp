@@ -102,6 +102,7 @@ void GatherTest::update(const sf::Vector2i& mousePositionWindow, const sf::Float
 					{
 						if (i != NULL)
 						{
+							//WILL ADD THE COLLECTED RESOURCE QUANTITY TO PLAYERS CURRENT QUANTITY BASED ON THE RESOURCE TYPE
 							if (this->item_->getItemType() == ITEMTYPE::ORE)
 							{
 								i->setOreQuantity() += this->item_->getOreQuantity();

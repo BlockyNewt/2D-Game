@@ -188,6 +188,7 @@
     <ClCompile Include="ResourceEnemy.cpp" />
     <ClCompile Include="ResourceFont.cpp" />
     <ClCompile Include="ResourceHud.cpp" />
+    <ClCompile Include="ResourceNpc.cpp" />
     <ClCompile Include="ResourceRace.cpp" />
     <ClCompile Include="ShopBox.cpp" />
     <ClCompile Include="Skill.cpp" />
@@ -246,6 +247,7 @@
     <ClInclude Include="ResourceEnemy.h" />
     <ClInclude Include="ResourceFont.h" />
     <ClInclude Include="ResourceHud.h" />
+    <ClInclude Include="ResourceNpc.h" />
     <ClInclude Include="ResourceRace.h" />
     <ClInclude Include="ShopBox.h" />
     <ClInclude Include="Skill.h" />

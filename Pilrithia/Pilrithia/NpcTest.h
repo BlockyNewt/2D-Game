@@ -11,7 +11,7 @@ class NpcTest
 {
 public:
 	NpcTest();
-	NpcTest(const ResourceFont& resourceFont);
+	NpcTest(const ResourceFont& resourceFont, const ResourceNpc& resourceNpc);
 	virtual ~NpcTest();
 
 	void setSettings(const sf::Vector2u& windowSize, const ResourceFont& resourceFont);
@@ -42,6 +42,12 @@ private:
 
 	//TESTING
 	Quest* quest_;
+
+	Animation animation_;
+
+	sf::IntRect idle_Rect_;
+
+	int idle_Sheet_Width_;
 };
 
 #endif

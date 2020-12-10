@@ -2,10 +2,12 @@
 #define RESOURCERACE_H
 
 #include "SFML/Graphics.hpp"
+#include "SFML/Audio.hpp"
 
 #include <iostream>
+#include <map>
 
-enum class RACE_TYPE_
+enum class RACE_TEXTURE_TYPE_
 {
 	ORC_ICON_,
 
@@ -15,6 +17,12 @@ enum class RACE_TYPE_
 	TEST_SPRITE_STRIP_JUMP
 };
 
+enum class RACE_SOUND_TYPE_
+{
+	FOOTSTEP,
+	AUTO_ATTACK,
+};
+
 class ResourceRace
 {
 public:
@@ -22,15 +30,21 @@ public:
 	~ResourceRace();
 
 	void loadAllRaceTextures();
+	const sf::Texture* getRaceTexture(RACE_TEXTURE_TYPE_ raceTextureType) const;
 
-	const  sf::Texture* getRaceTexture(RACE_TYPE_ raceType) const;
-
-private:
-	void loadRaceTexture(const std::string& raceTextureFileName, RACE_TYPE_ raceType);
-	void AddToMap(const sf::Texture* raceTexture, RACE_TYPE_ raceType);
+	void loadAllRaceSounds();
+	sf::Sound* getRaceSound(RACE_SOUND_TYPE_ raceSoundType);
 
 private:
-	std::map<RACE_TYPE_, sf::Texture> race_Textures_;
+	void loadRaceTexture(const std::string& raceTextureFileName, RACE_TEXTURE_TYPE_ raceTextureType);
+	void AddToTextureMap(const sf::Texture* raceTexture, RACE_TEXTURE_TYPE_ raceTextureType);
+
+	void loadRaceSound(const std::string& raceSoundFileName, RACE_SOUND_TYPE_ raceSoundType);
+	void AddToSoundMap(const sf::Sound* raceSound, RACE_SOUND_TYPE_ raceSoundType);
+
+private:
+	std::map<RACE_TEXTURE_TYPE_, sf::Texture> race_Textures_;
+	std::map<RACE_SOUND_TYPE_, sf::Sound> race_Sounds_;
 
 };
 

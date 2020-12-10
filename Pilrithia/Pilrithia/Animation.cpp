@@ -11,6 +11,9 @@ Animation::~Animation()
 
 void Animation::update(sf::RectangleShape& sprite, const sf::IntRect& textureRect, const int& sheetWidth, float time)
 {	
+	/*
+		USED FOR ANY ANIMATIONS BESIDES DEATH
+	*/
 	if (this->animation_Clock_.getElapsedTime().asMilliseconds() >= time)
 	{
 		if (sprite.getTextureRect().left >= sheetWidth - textureRect.width)
@@ -31,6 +34,9 @@ void Animation::update(sf::RectangleShape& sprite, const sf::IntRect& textureRec
 
 void Animation::updateDeath(sf::RectangleShape& sprite, const sf::IntRect& textureRect, const int& sheetWidth, float time)
 {
+	/*
+		USED SPECIFICALLY FOR DYING ANIMATIONS
+	*/
 	if (!this->is_Animation_Complete_)
 	{
 		if (this->animation_Clock_.getElapsedTime().asMilliseconds() >= time)

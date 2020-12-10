@@ -66,6 +66,7 @@ public:
 
 private:
 	void levelUp();
+	void updateHudButtonsPollEvent(sf::Event& ev, const float& dt);
 
 private:
 	Camera* camera_;
@@ -126,6 +127,8 @@ private:
 	bool is_Idle_;
 	bool is_Run_;
 	bool is_Attack_;
+
+	ResourceRace resource_Race_;
 };
 
 #endif // !PLAYERTEST_H

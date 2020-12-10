@@ -337,8 +337,8 @@ void Tilemap::load(const std::string fileName)
 			LOAD SOME THINGS FROM THE FILE 
 		*/
 		inFromFile >> this->grid_Max_Size_X_ >> this->grid_Max_Size_Y_ >> this->grid_Max_Size_Z_ >> this->tile_Size_X_Y_ >> this->texture_File_Name_;
-		std::cout << "TilesizeXY: " << this->tile_Size_X_Y_ << std::endl;
-		std::cout << "Filename: " << this->texture_File_Name_ << std::endl;
+		/*std::cout << "TilesizeXY: " << this->tile_Size_X_Y_ << std::endl;
+		std::cout << "Filename: " << this->texture_File_Name_ << std::endl;*/
 		//this->loadTexture(this->texture_File_Name_);
 		if (!this->texture_.loadFromFile("Texture/" + this->texture_File_Name_))
 		{

@@ -9,6 +9,8 @@ PlayerTest::PlayerTest(const ResourceFont& resourceFont, const ResourceHud& reso
 	this->player_Skill_Tree_ = new PlayerSkillTree(resourceFont);
 	this->player_Gather_ = new PlayerGather(resourceFont);
 
+	this->resource_Race_ = resourceRace;
+
 	this->race_ = new RaceOrc();
 	this->race_->initializeRace(0.f, 0.f);
 	//this->race_->setPlayerClasses(this->race_->getClassesOne());
@@ -78,7 +80,6 @@ PlayerTest::PlayerTest(const ResourceFont& resourceFont, const ResourceHud& reso
 
 PlayerTest::~PlayerTest()
 {
-	//delete this->race_;
 	delete this->camera_;
 
 	delete this->player_Bag_;
@@ -173,7 +174,7 @@ void PlayerTest::updateSkillsPollEvent(sf::Event& ev, std::vector<Enemy*>& enemi
 	this->player_Hud_->updateSkillOnePollEvent(ev, this->player_Skill_Tree_->setClassesOne(), enemies, this->stats_, this->getStatForChange("mana"), this->is_Combat_);
 }
 
-void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
+void PlayerTest::updateHudButtonsPollEvent(sf::Event& ev, const float& dt)
 {
 	/*
 		PLAYER HUD POLL UPDATES
@@ -194,7 +195,7 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 		if (this->player_Inventory_->getIsHidingInventory())
 		{
 			this->player_Inventory_->setIsHidingInventory(false);
-			
+
 			this->player_Inventory_->realignEquipment();
 
 			if (this->player_Skill_Tree_->getClassesOne() != NULL)
@@ -217,7 +218,7 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 		if (this->player_Bag_->getIsHidingBag())
 		{
 			this->player_Bag_->setIsHidingBag(false);
-		
+
 			this->player_Bag_->realignItems();
 		}
 	}
@@ -234,7 +235,7 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 		}
 	}
 
-	
+
 	/*
 		SKILL TREE BUTTON
 	*/
@@ -257,9 +258,11 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 			this->player_Gather_->setIsVisible(true);
 		}
 	}
+}
 
-
-	
+void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
+{
+	this->updateHudButtonsPollEvent(ev, dt);
 
 	if (this->player_Inventory_->getIsHidingInventory() &&  
 		this->player_Bag_->getIsHidingBag() && 
@@ -286,6 +289,8 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 			this->velocity_.y += this->movement_Speed_ * dt;
 
 		}
+
+
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) &&
 			!sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 		{
@@ -298,11 +303,14 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 
 			this->player_Model_.setScale(sf::Vector2f(-1.f, 1.f));
 			this->player_Model_.setOrigin(sf::Vector2f(this->player_Model_.getGlobalBounds().width, 0.f));
-			//this->next_Position_.setScale(sf::Vector2f(-1.f, 1.f));
 
-			//this->player_Model_.setOrigin(sf::Vector2f(0.f, 0.f));
+			if (!this->resource_Race_.getRaceSound(RACE_SOUND_TYPE_::FOOTSTEP)->getLoop())
+			{
+				this->resource_Race_.getRaceSound(RACE_SOUND_TYPE_::FOOTSTEP)->setLoop(true);
+				this->resource_Race_.getRaceSound(RACE_SOUND_TYPE_::FOOTSTEP)->play();
+			}
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) &&
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) &&
 			!sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 		{
 			this->velocity_.x += this->movement_Speed_ * dt;
@@ -315,8 +323,19 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 			this->player_Model_.setScale(sf::Vector2f(1.f, 1.f));
 			this->player_Model_.setOrigin(sf::Vector2f(0.f, 0.f));
 
-			//this->next_Position_.setScale(sf::Vector2f(1.f, 1.f));
+			if (!this->resource_Race_.getRaceSound(RACE_SOUND_TYPE_::FOOTSTEP)->getLoop())
+			{
+				this->resource_Race_.getRaceSound(RACE_SOUND_TYPE_::FOOTSTEP)->setLoop(true);
+				this->resource_Race_.getRaceSound(RACE_SOUND_TYPE_::FOOTSTEP)->play();
+			}
 		}
+		else
+		{
+			this->resource_Race_.getRaceSound(RACE_SOUND_TYPE_::FOOTSTEP)->setLoop(false);
+			this->resource_Race_.getRaceSound(RACE_SOUND_TYPE_::FOOTSTEP)->stop();
+		}
+
+
 
 		//TESTING
 		if (!sf::Keyboard::isKeyPressed(sf::Keyboard::A) &&
@@ -373,10 +392,7 @@ void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& c
 		this->player_Skill_Tree_->getIsHidingSkillTree() &&
 		!this->player_Gather_->getIsVisible())
 	{
-		
-		
-
-
+		//SET IDLE ANIMATION 
 		if (this->is_Idle_ &&
 			!this->is_Run_ &&
 			!this->is_Attack_ &&
@@ -397,6 +413,7 @@ void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& c
 			this->is_Idle_Texture_Set_ = false;
 		}
 
+		//SET RUNNING ANIMATION
 		if (this->is_Run_ &&
 			!this->is_Attack_ &&
 			!this->is_Jumping_)
@@ -413,7 +430,7 @@ void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& c
 			this->animation_.update(this->player_Model_, this->race_->getRunRect(), this->race_->getRunSheetWidth(), 83.33f);
 		}
 		
-
+		//SET ATTACK ANIMATION
 		if (this->is_Attack_ &&
 			!this->is_Run_)
 		{
@@ -429,7 +446,19 @@ void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& c
 				this->is_Idle_Texture_Set_ = false;
 			}
 
+			if (!this->resource_Race_.getRaceSound(RACE_SOUND_TYPE_::AUTO_ATTACK)->getLoop())
+			{
+				this->resource_Race_.getRaceSound(RACE_SOUND_TYPE_::AUTO_ATTACK)->setLoop(true);
+				this->resource_Race_.getRaceSound(RACE_SOUND_TYPE_::AUTO_ATTACK)->play();
+			}
+
+
 			this->animation_.update(this->player_Model_, this->race_->getAttackRect(), this->race_->getAttackSheetWidth(), 166.67f);
+		}
+		else
+		{
+			this->resource_Race_.getRaceSound(RACE_SOUND_TYPE_::AUTO_ATTACK)->setLoop(false);
+			this->resource_Race_.getRaceSound(RACE_SOUND_TYPE_::AUTO_ATTACK)->stop();
 		}
 
 		
@@ -472,7 +501,6 @@ void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& c
 		this->player_Model_.setOutlineColor(sf::Color::White);
 
 		this->next_Position_.setSize(sf::Vector2f(this->player_Model_Range_.getSize().x, this->player_Model_Range_.getSize().y));
-
 
 		this->player_Model_Range_.setPosition(this->player_Model_.getGlobalBounds().left - this->player_Model_Range_.getSize().x / 2.f + this->player_Model_.getSize().x / 2.f, this->player_Model_.getGlobalBounds().top + this->player_Model_.getGlobalBounds().height - this->player_Model_Range_.getSize().y);
 		this->next_Position_Bounds_ = this->player_Model_Range_.getGlobalBounds();
@@ -599,7 +627,9 @@ void PlayerTest::addQuest(Quest& quest)
 void PlayerTest::setStat(const std::string& stat, int value)
 {
 	auto findPos = this->stats_.find(stat);
+
 	int statValue = 0;
+	
 	if (findPos != this->stats_.end())
 	{
 		statValue = findPos->second + value;
@@ -676,6 +706,7 @@ void PlayerTest::levelUp()
 		std::cout << "WISDOM: " << this->stats_.at("wisdom") << std::endl;
 	}
 }
+
 
 void PlayerTest::setPosition(float x, float y)
 {

@@ -12,13 +12,18 @@ StateTestZone::StateTestZone(std::stack<State*>* states, sf::RenderWindow* windo
 
 	this->tilemap_ = new Tilemap(20, 20, 50 , 2);
 
-	this->npc_Test_ = new NpcTest(*this->resource_Font_);
+
+	this->resource_Npc_ = new ResourceNpc();
+	this->resource_Npc_->loadAllNpcTextures();
+
+	this->npc_Test_ = new NpcTest(*this->resource_Font_, *this->resource_Npc_);
 	this->npc_Test_->setSettings(this->window_->getSize(), *this->resource_Font_);
 
 
 
 	this->resource_Enemy_ = new ResourceEnemy();
 	this->resource_Enemy_->loadAllEnemyTextures();
+	this->resource_Enemy_->loadAllEnemySounds();
 
 	this->max_Enemies_ = 1;
 	this->enemy_Test_ = new EnemyTest(sf::Vector2f(600.f, 120.f), 3, *this->resource_Font_, *this->resource_Enemy_);
@@ -28,7 +33,8 @@ StateTestZone::StateTestZone(std::stack<State*>* states, sf::RenderWindow* windo
 
 
 
-	this->merchant_Test_ = new MerchantTest(*this->resource_Font_);
+
+	this->merchant_Test_ = new MerchantTest(*this->resource_Font_, *this->resource_Npc_);
 
 
 
@@ -64,6 +70,8 @@ StateTestZone::~StateTestZone()
 	delete this->tilemap_;
 
 	delete this->resource_Enemy_;
+
+	delete this->resource_Npc_;
 }
 
 void StateTestZone::updateLoadPollEvent(sf::Event& ev)

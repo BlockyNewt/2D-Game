@@ -3,6 +3,10 @@
 
 #include "SFML/Graphics.hpp"
 
+#include "ResourceNpc.h"
+
+#include "Animation.h"
+
 #include "PlayerTest.h"
 
 #include "Quest.h"
@@ -19,7 +23,7 @@ class Npc
 {
 public:
 	Npc();
-	Npc(const ResourceFont& resourceFont);
+	Npc(const ResourceFont& resourceFont, const ResourceNpc& resourceNpc);
 	virtual ~Npc();
 
 	virtual void setSettings(const sf::Vector2u& windowSize, const ResourceFont& resourceFont) = 0;

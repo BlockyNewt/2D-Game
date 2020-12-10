@@ -134,6 +134,7 @@ private:
 
 	bool is_Falling_;
 
+	ResourceEnemy resource_Enemy_;
 
 };
 

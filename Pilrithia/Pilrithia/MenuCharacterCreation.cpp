@@ -39,7 +39,7 @@ void MenuCharacterCreation::initializeRaceGui(const ResourceFont& resourceFont, 
 
 
 	this->race_B_A_.setSettings(80.f, 80.f, this->race_A_Sprite_.getGlobalBounds().left + 4.f, this->race_A_Sprite_.getGlobalBounds().top + 4.f, sf::Color::White, 1.f, sf::Color::White, true);
-	this->race_B_A_.setTexture(resourceRace.getRaceTexture(RACE_TYPE_::ORC_ICON_));
+	this->race_B_A_.setTexture(resourceRace.getRaceTexture(RACE_TEXTURE_TYPE_::ORC_ICON_));
 	this->race_B_B_.setSettings(80.f, 80.f, this->race_B_Sprite_.getGlobalBounds().left + 4.f, this->race_B_Sprite_.getGlobalBounds().top + 4.f, sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
 	this->race_B_C_.setSettings(80.f, 80.f, this->race_C_Sprite_.getGlobalBounds().left + 4.f, this->race_C_Sprite_.getGlobalBounds().top + 4.f, sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
 	this->race_B_D_.setSettings(80.f, 80.f, this->race_D_Sprite_.getGlobalBounds().left + 4.f, this->race_D_Sprite_.getGlobalBounds().top + 4.f, sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
@@ -246,18 +246,18 @@ void MenuCharacterCreation::setObjectsBasedOnRace()
 		/*
 			CHANGE NEEDED OBJECTS AFTER YOU CLICK ON A RACE
 		*/
-		this->race_->setIconTexture(*this->resource_Race_.getRaceTexture(RACE_TYPE_::ORC_ICON_));
-		this->race_->setRunTexture(*this->resource_Race_.getRaceTexture(RACE_TYPE_::TEST_SPRITE_STRIP));
-		this->race_->setIdleTexture(*this->resource_Race_.getRaceTexture(RACE_TYPE_::TEST_SPRITE_STRIP_IDLE));
-		this->race_->setAttackTexture(*this->resource_Race_.getRaceTexture(RACE_TYPE_::TEST_SPRITE_STRIP_ATTACK));
-		this->race_->setJumpTexture(*this->resource_Race_.getRaceTexture(RACE_TYPE_::TEST_SPRITE_STRIP_JUMP));
+		this->race_->setIconTexture(*this->resource_Race_.getRaceTexture(RACE_TEXTURE_TYPE_::ORC_ICON_));
+		this->race_->setRunTexture(*this->resource_Race_.getRaceTexture(RACE_TEXTURE_TYPE_::TEST_SPRITE_STRIP));
+		this->race_->setIdleTexture(*this->resource_Race_.getRaceTexture(RACE_TEXTURE_TYPE_::TEST_SPRITE_STRIP_IDLE));
+		this->race_->setAttackTexture(*this->resource_Race_.getRaceTexture(RACE_TEXTURE_TYPE_::TEST_SPRITE_STRIP_ATTACK));
+		this->race_->setJumpTexture(*this->resource_Race_.getRaceTexture(RACE_TEXTURE_TYPE_::TEST_SPRITE_STRIP_JUMP));
 
 		this->race_T_G_.setString(this->race_->getSummary());
 		this->race_T_G_.wrapText(this->race_X_A_.getGlobalBounds());
 
 		this->race_Model_ = this->race_->getModel();
 		this->race_Model_.setPosition(sf::Vector2f(this->model_Preview_X_A_.getLeftPosition(false, 30.f), this->model_Preview_X_A_.getTopPosition(true, 50.f)));
-		this->race_Model_.setTexture(this->resource_Race_.getRaceTexture(RACE_TYPE_::TEST_SPRITE_STRIP_IDLE));
+		this->race_Model_.setTexture(this->resource_Race_.getRaceTexture(RACE_TEXTURE_TYPE_::TEST_SPRITE_STRIP_IDLE));
 		this->race_Model_.setTextureRect(sf::IntRect(0, 0, 96, 77));
 		this->race_Model_.setOutlineThickness(1.f);
 		this->race_Model_.setOutlineColor(sf::Color::Transparent);

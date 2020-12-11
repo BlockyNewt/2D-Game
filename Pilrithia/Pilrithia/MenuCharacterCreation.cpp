@@ -54,14 +54,58 @@ void MenuCharacterCreation::initializeRaceGui(const ResourceFont& resourceFont, 
 	this->race_T_G_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "Race summary", sf::Vector2f(this->race_X_A_.getLeftPosition(true, 10.f), this->race_X_A_.getTopPosition(true, 60.f)), true);
 }
 
-MenuCharacterCreation::MenuCharacterCreation(const unsigned int windowSizeX, const unsigned int windowSizeY, const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceRace& resourceRace)
+void MenuCharacterCreation::repositionGui(const sf::RenderWindow* window)
+{
+	this->title_T_A_.setPosition(window->getSize().x, window->getSize().y);
+
+	this->background_X_A_.setSize(window->getSize().x, window->getSize().y);
+	this->model_Preview_X_A_.setPosition(window->getSize().x - 310.f, 100.f);
+
+	this->race_Model_.setPosition(sf::Vector2f(this->model_Preview_X_A_.getLeftPosition(true, 125.f), this->model_Preview_X_A_.getTopPosition(true, 200.f)));
+
+
+	/*
+		NAME GUI	
+	*/
+	this->name_T_A_.setPosition(150.f, 100.f);
+	this->name_I_A_.setPosition(sf::Vector2f(this->name_T_A_.getRightPosition(true, 10.f), this->name_T_A_.getTopPosition()));
+
+	this->name_B_B_.setPosition(sf::Vector2f(this->name_I_A_.getRightPosition(true, 10.f), this->name_I_A_.getTopPosition()));
+	this->name_T_B_.setPosition(this->name_B_B_.getLeftPosition(true, 10.f), this->name_B_B_.getTopPosition(true, 10.f));
+
+	/*
+		RACE GUI
+	*/
+	this->race_X_A_.setPosition(this->name_T_A_.getLeftPosition(), this->model_Preview_X_A_.getTopPosition(true, 50.f));
+
+	this->race_A_Sprite_.setPosition(sf::Vector2f(this->race_X_A_.getLeftPosition(false, 115.f), this->race_X_A_.getTopPosition(true, 40.f)));
+	this->race_B_Sprite_.setPosition(sf::Vector2f(this->race_A_Sprite_.getGlobalBounds().left, this->race_A_Sprite_.getGlobalBounds().top + this->race_A_Sprite_.getGlobalBounds().height + 10.f));
+	this->race_C_Sprite_.setPosition(sf::Vector2f(this->race_A_Sprite_.getGlobalBounds().left, this->race_B_Sprite_.getGlobalBounds().top + this->race_B_Sprite_.getGlobalBounds().height + 10.f));
+	this->race_D_Sprite_.setPosition(sf::Vector2f(this->race_B_Sprite_.getGlobalBounds().left, this->race_C_Sprite_.getGlobalBounds().top + this->race_C_Sprite_.getGlobalBounds().height + 10.f));
+	this->race_E_Sprite_.setPosition(sf::Vector2f(this->race_B_Sprite_.getGlobalBounds().left, this->race_D_Sprite_.getGlobalBounds().top + this->race_D_Sprite_.getGlobalBounds().height + 10.f));
+
+
+	this->race_B_A_.setPosition(sf::Vector2f(this->race_A_Sprite_.getGlobalBounds().left + 4.f, this->race_A_Sprite_.getGlobalBounds().top + 4.f));
+	this->race_B_B_.setPosition(sf::Vector2f(this->race_B_Sprite_.getGlobalBounds().left + 4.f, this->race_B_Sprite_.getGlobalBounds().top + 4.f));
+	this->race_B_C_.setPosition(sf::Vector2f(this->race_C_Sprite_.getGlobalBounds().left + 4.f, this->race_C_Sprite_.getGlobalBounds().top + 4.f));
+	this->race_B_D_.setPosition(sf::Vector2f(this->race_D_Sprite_.getGlobalBounds().left + 4.f, this->race_D_Sprite_.getGlobalBounds().top + 4.f));
+	this->race_B_E_.setPosition(sf::Vector2f(this->race_E_Sprite_.getGlobalBounds().left + 4.f, this->race_E_Sprite_.getGlobalBounds().top + 4.f));
+
+	this->race_T_A_.setPosition(this->race_B_A_.getLeftPosition(true, 10.f), this->race_B_A_.getTopPosition(true, 10.f));
+
+	this->race_T_E_.setPosition(this->race_B_E_.getLeftPosition(true, 10.f), this->race_B_E_.getTopPosition(true, 10.f));
+	this->race_T_F_.setPosition(this->race_X_A_.getLeftPosition(true, 300.f), this->race_X_A_.getTopPosition(true, 10.f));
+	this->race_T_G_.setPosition(this->race_X_A_.getLeftPosition(true, 10.f), this->race_X_A_.getTopPosition(true, 60.f));
+}
+
+MenuCharacterCreation::MenuCharacterCreation(sf::Vector2u windowSize, const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceRace& resourceRace)
 {
 	this->is_Creating_Character_ = true;
 
-	this->title_T_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 50, "Character Creation", sf::Vector2f(windowSizeX / 2.f - 200.f, 10.f), true);
+	this->title_T_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 50, "Character Creation", sf::Vector2f(windowSize.x / 2.f - 200.f, 10.f), true);
 
-	this->background_X_A_.setSettings(windowSizeX, windowSizeY, 0.f, 0.f, sf::Color::Black, 1.f, sf::Color(90, 82, 85), true);
-	this->model_Preview_X_A_.setSettings(300.f, 600.f, windowSizeX - 310.f, 100.f, sf::Color(90, 82, 85), 1.f, sf::Color::White, true);
+	this->background_X_A_.setSettings(windowSize.x, windowSize.y, 0.f, 0.f, sf::Color::Black, 1.f, sf::Color(90, 82, 85), true);
+	this->model_Preview_X_A_.setSettings(300.f, 600.f, windowSize.x - 310.f, 100.f, sf::Color(90, 82, 85), 1.f, sf::Color::White, true);
 
 	this->initializeNameGui(resourceFont, resourceHud);
 	this->initializeRaceGui(resourceFont, resourceHud, resourceRace);
@@ -189,8 +233,6 @@ void MenuCharacterCreation::render(sf::RenderTarget& target)
 {
 	if (this->is_Creating_Character_)
 	{
-		target.setView(target.getDefaultView());
-
 		this->background_X_A_.render(target);
 		this->model_Preview_X_A_.render(target);
 		this->race_X_A_.render(target);

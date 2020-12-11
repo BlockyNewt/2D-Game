@@ -1,13 +1,13 @@
 #include "PlayerTest.h"
 
-PlayerTest::PlayerTest(const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceRace& resourceRace)
+PlayerTest::PlayerTest(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceRace& resourceRace)
 {
-	this->player_Bag_ = new PlayerBag(resourceFont, resourceHud);
-	this->player_Hud_ = new PlayerHud(1280, 720, resourceFont, resourceHud, resourceRace);
-	this->player_Inventory_ = new PlayerInventory(resourceFont, resourceHud, resourceRace);
-	this->player_Quest_ = new PlayerQuest(resourceFont, resourceHud);
-	this->player_Skill_Tree_ = new PlayerSkillTree(resourceFont);
-	this->player_Gather_ = new PlayerGather(resourceFont);
+	this->player_Bag_ = new PlayerBag(window, resourceFont, resourceHud);
+	this->player_Hud_ = new PlayerHud(window, resourceFont, resourceHud, resourceRace);
+	this->player_Inventory_ = new PlayerInventory(window, resourceFont, resourceHud, resourceRace);
+	this->player_Quest_ = new PlayerQuest(window, resourceFont, resourceHud);
+	this->player_Skill_Tree_ = new PlayerSkillTree(window, resourceFont);
+	this->player_Gather_ = new PlayerGather(window, resourceFont);
 
 	this->resource_Race_ = resourceRace;
 
@@ -304,9 +304,8 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 			this->player_Model_.setScale(sf::Vector2f(-1.f, 1.f));
 			this->player_Model_.setOrigin(sf::Vector2f(this->player_Model_.getGlobalBounds().width, 0.f));
 
-			if (!this->resource_Race_.getRaceSound(RACE_SOUND_TYPE_::FOOTSTEP)->getLoop())
+			if (this->resource_Race_.getRaceSound(RACE_SOUND_TYPE_::FOOTSTEP)->getStatus() != sf::Sound::Playing)
 			{
-				this->resource_Race_.getRaceSound(RACE_SOUND_TYPE_::FOOTSTEP)->setLoop(true);
 				this->resource_Race_.getRaceSound(RACE_SOUND_TYPE_::FOOTSTEP)->play();
 			}
 		}
@@ -323,15 +322,13 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 			this->player_Model_.setScale(sf::Vector2f(1.f, 1.f));
 			this->player_Model_.setOrigin(sf::Vector2f(0.f, 0.f));
 
-			if (!this->resource_Race_.getRaceSound(RACE_SOUND_TYPE_::FOOTSTEP)->getLoop())
+			if (this->resource_Race_.getRaceSound(RACE_SOUND_TYPE_::FOOTSTEP)->getStatus() != sf::Sound::Playing)
 			{
-				this->resource_Race_.getRaceSound(RACE_SOUND_TYPE_::FOOTSTEP)->setLoop(true);
 				this->resource_Race_.getRaceSound(RACE_SOUND_TYPE_::FOOTSTEP)->play();
 			}
 		}
 		else
 		{
-			this->resource_Race_.getRaceSound(RACE_SOUND_TYPE_::FOOTSTEP)->setLoop(false);
 			this->resource_Race_.getRaceSound(RACE_SOUND_TYPE_::FOOTSTEP)->stop();
 		}
 
@@ -446,18 +443,15 @@ void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& c
 				this->is_Idle_Texture_Set_ = false;
 			}
 
-			if (!this->resource_Race_.getRaceSound(RACE_SOUND_TYPE_::AUTO_ATTACK)->getLoop())
+			if (this->resource_Race_.getRaceSound(RACE_SOUND_TYPE_::AUTO_ATTACK)->getStatus() != sf::Sound::Playing)
 			{
-				this->resource_Race_.getRaceSound(RACE_SOUND_TYPE_::AUTO_ATTACK)->setLoop(true);
 				this->resource_Race_.getRaceSound(RACE_SOUND_TYPE_::AUTO_ATTACK)->play();
 			}
-
 
 			this->animation_.update(this->player_Model_, this->race_->getAttackRect(), this->race_->getAttackSheetWidth(), 166.67f);
 		}
 		else
 		{
-			this->resource_Race_.getRaceSound(RACE_SOUND_TYPE_::AUTO_ATTACK)->setLoop(false);
 			this->resource_Race_.getRaceSound(RACE_SOUND_TYPE_::AUTO_ATTACK)->stop();
 		}
 
@@ -590,7 +584,7 @@ void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& c
 
 void PlayerTest::renderHudItems(sf::RenderTarget& target)
 {
-	target.setView(target.getDefaultView());
+	target.setView(sf::View(sf::FloatRect(0,0,target.getSize().x, target.getSize().y)));
 
 	this->player_Hud_->render(target);
 
@@ -650,6 +644,16 @@ PlayerHud& PlayerTest::setPlayerHud()
 PlayerGather& PlayerTest::setPlayerGather()
 {
 	return *this->player_Gather_;
+}
+
+PlayerInventory& PlayerTest::setPlayerInventory()
+{
+	return *this->player_Inventory_;
+}
+
+PlayerSkillTree& PlayerTest::setPlayerSkillTree()
+{
+	return *this->player_Skill_Tree_;
 }
 
 int& PlayerTest::setExp()

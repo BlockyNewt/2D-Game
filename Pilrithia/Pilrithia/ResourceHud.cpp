@@ -35,6 +35,7 @@ void ResourceHud::loadAllHudSounds()
 		LOAD ALL HUD SOUND TEXTURES
 	*/
 	this->loadHudSound("button_Click_.wav", HUD_SOUND_TYPE_::BUTTON_CLICK);
+	this->loadHudSound("button_Click_2_.wav", HUD_SOUND_TYPE_::BUTTON_HUD_CLICK);
 }
 
 const sf::Texture* ResourceHud::getHudTexture(HUD_TEXTURE_TYPE_ hudTextureType) const

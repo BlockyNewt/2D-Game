@@ -20,7 +20,7 @@
 class PlayerSkillTree
 {
 public:
-	PlayerSkillTree(const ResourceFont& resourceFont);
+	PlayerSkillTree(const sf::RenderWindow* window, const ResourceFont& resourceFont);
 	~PlayerSkillTree();
 
 	void updateClassOneSelectPollEvent(sf::Event& ev, std::map<std::string, int>& stats, int& playerSkillPoints);
@@ -33,6 +33,7 @@ public:
 	void setIsHidingSkillTree(bool value);
 	Classes* setClassesOne();
 	Classes* setClassesTwo();
+	void setPositionOnResize(const sf::RenderWindow* window);
 
 	const bool& getIsHidingSkillTree() const;
 	const Classes* getClassesOne() const;

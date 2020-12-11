@@ -164,6 +164,12 @@ void InputBox::setIsVisible(bool isVisible)
 	this->is_Visible_ = isVisible;
 }
 
+void InputBox::setPosition(const sf::Vector2f& position)
+{
+	this->input_Box_.setPosition(position);
+	this->input_Text_.setPosition(this->getLeftPosition(true, 5.f), this->getTopPosition(true, 5.f));
+}
+
 void InputBox::clearString()
 {
 	this->input_String_ = "";

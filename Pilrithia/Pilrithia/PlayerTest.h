@@ -21,7 +21,7 @@
 class PlayerTest
 {	
 public:
-	PlayerTest(const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceRace& resourceRace);
+	PlayerTest(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceRace& resourceRace);
 	~PlayerTest();
 
 	void initializeCharacter(Race* race, const std::string& name);
@@ -45,6 +45,8 @@ public:
 	PlayerBag& setPlayerBag();
 	PlayerHud& setPlayerHud();
 	PlayerGather& setPlayerGather();
+	PlayerInventory& setPlayerInventory();
+	PlayerSkillTree& setPlayerSkillTree();
 	int& setExp();
 	bool& setIsCombat();
 
@@ -70,7 +72,9 @@ private:
 
 private:
 	Camera* camera_;
+	
 	Race* race_;
+
 	PlayerHud* player_Hud_;
 	PlayerInventory* player_Inventory_;
 	PlayerBag* player_Bag_;

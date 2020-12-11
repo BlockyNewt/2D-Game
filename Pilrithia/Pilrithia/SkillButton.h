@@ -24,6 +24,8 @@ public:
 	void update(const sf::Vector2i& mousePositionWindow);
 	void render(sf::RenderTarget& target);
 
+	void setPosition(const sf::Vector2f& position);
+
 	const int& getAmount() const;
 	const float getLeftPosition(bool pOrM = true, float offset = 0) const;
 	const float getRightPosition(bool pOrM = true, float offset = 0) const;

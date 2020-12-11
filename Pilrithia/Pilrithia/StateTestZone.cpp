@@ -4,9 +4,9 @@ StateTestZone::StateTestZone(std::stack<State*>* states, sf::RenderWindow* windo
 	: State(states, window, resourceFont, resourceHud, resourceRace, menuSetting, menuPause)
 {
 
-	this->player_Test_ = new PlayerTest(*this->resource_Font_, *this->resource_Hud_, *this->resource_Race_);
+	this->player_Test_ = new PlayerTest(this->window_, *this->resource_Font_, *this->resource_Hud_, *this->resource_Race_);
 
-	this->menu_Character_Creation_ = new MenuCharacterCreation(this->window_->getSize().x, this->window_->getSize().y, *this->resource_Font_, *this->resource_Hud_, *this->resource_Race_);
+	this->menu_Character_Creation_ = new MenuCharacterCreation(this->window_->getSize(), *this->resource_Font_, *this->resource_Hud_, *this->resource_Race_);
 
 	this->camera_ = new Camera(this->window_->getSize().x, this->window_->getSize().y);
 
@@ -16,7 +16,7 @@ StateTestZone::StateTestZone(std::stack<State*>* states, sf::RenderWindow* windo
 	this->resource_Npc_ = new ResourceNpc();
 	this->resource_Npc_->loadAllNpcTextures();
 
-	this->npc_Test_ = new NpcTest(*this->resource_Font_, *this->resource_Npc_);
+	this->npc_Test_ = new NpcTest(this->window_, *this->resource_Font_, *this->resource_Npc_);
 	this->npc_Test_->setSettings(this->window_->getSize(), *this->resource_Font_);
 
 
@@ -34,7 +34,7 @@ StateTestZone::StateTestZone(std::stack<State*>* states, sf::RenderWindow* windo
 
 
 
-	this->merchant_Test_ = new MerchantTest(*this->resource_Font_, *this->resource_Npc_);
+	this->merchant_Test_ = new MerchantTest(this->window_, *this->resource_Font_, *this->resource_Npc_);
 
 
 
@@ -183,6 +183,22 @@ void StateTestZone::updatePollEvent(sf::Event& ev)
 	if (this->menu_Pause_->updatePollEvent(ev))
 	{
 		this->states_->pop();
+	}
+
+	if (ev.type == sf::Event::Resized)
+	{
+		/*
+			IF WINDOW HAS BEEN RESIZED, RESIZE ALL GUI HERE 
+		*/
+		this->menu_Character_Creation_->repositionGui(this->window_);
+		this->player_Test_->setPlayerBag().setPositionOnResize(this->window_);
+		this->player_Test_->setPlayerGather().setPositionOnResize(this->window_);
+		this->player_Test_->setPlayerHud().setPositionOnResize(this->window_);
+		this->player_Test_->setPlayerInventory().setPositionOnResize(this->window_);
+		this->player_Test_->setPlayerQuest().setPositionOnResize(this->window_);
+		this->player_Test_->setPlayerSkillTree().setPositionOnResize(this->window_);
+
+		this->menu_Pause_->setPositionOnResize(this->window_);
 	}
 
 	if (!this->menu_Pause_->getIsPaused())
@@ -357,7 +373,7 @@ void StateTestZone::render(sf::RenderTarget& target)
 	this->merchant_Test_->render(target);
 
 
-	target.setView(target.getDefaultView());
+	target.setView(sf::View(sf::FloatRect(0,0,this->window_->getSize().x, this->window_->getSize().y)));
 
 
 

@@ -4,7 +4,7 @@ Npc::Npc()
 {
 }
 
-Npc::Npc(const ResourceFont& resourceFont, const ResourceNpc& resourceNpc)
+Npc::Npc(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceNpc& resourceNpc)
 {
 }
 

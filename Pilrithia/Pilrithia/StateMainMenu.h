@@ -16,6 +16,7 @@ public:
 	void render(sf::RenderTarget& target) override;
 
 private:
+	void setPositionOnResize();
 
 private:
 	Button b_B_; 
@@ -34,6 +35,8 @@ private:
 	Text t_F_;
 	Text t_G_;
 	std::vector<Text> texts_;
+
+	
 };
 
 #endif

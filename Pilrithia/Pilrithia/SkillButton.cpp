@@ -119,6 +119,11 @@ void SkillButton::render(sf::RenderTarget& target)
 	this->h_A_.render(target);
 }
 
+void SkillButton::setPosition(const sf::Vector2f& position)
+{
+	this->button_.setPosition(position);
+}
+
 const int& SkillButton::getAmount() const
 {
 	return this->amount_;

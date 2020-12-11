@@ -4,7 +4,7 @@ MerchantTest::MerchantTest()
 {
 }
 
-MerchantTest::MerchantTest(const ResourceFont& resourceFont, const ResourceNpc& resourceNpc)
+MerchantTest::MerchantTest(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceNpc& resourceNpc)
 {
 	this->idle_Rect_ = sf::IntRect(0, 0, 64, 64);
 	this->idle_Sheet_Width_ = 640;
@@ -99,7 +99,7 @@ void MerchantTest::render(sf::RenderTarget& target)
 	{
 		this->dialog_Box_.render(target);
 
-		target.setView(target.getDefaultView());
+		target.setView(sf::View(sf::FloatRect(0,0,target.getSize().x, target.getSize().y)));
 
 		//SHOP BOX GOES HERE
 		this->shop_Box_->render(target);

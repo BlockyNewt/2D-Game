@@ -289,9 +289,8 @@ void EnemyTest::update(const sf::Vector2i& mousePositionWindow, Camera** camera,
 		{
 			this->updateAutoMovement(dt);
 
-			if (this->resource_Enemy_.getEnemySound(ENEMY_SOUND_TYPE_::ENEMY_ATTACK)->getLoop())
+			if (this->resource_Enemy_.getEnemySound(ENEMY_SOUND_TYPE_::ENEMY_ATTACK)->getStatus() == sf::Sound::Playing)
 			{
-				this->resource_Enemy_.getEnemySound(ENEMY_SOUND_TYPE_::ENEMY_ATTACK)->setLoop(false);
 				this->resource_Enemy_.getEnemySound(ENEMY_SOUND_TYPE_::ENEMY_ATTACK)->stop();
 			}
 		}
@@ -306,9 +305,8 @@ void EnemyTest::update(const sf::Vector2i& mousePositionWindow, Camera** camera,
 				this->is_Attack_Texture_Set_ = true;
 			}
 
-			if (!this->resource_Enemy_.getEnemySound(ENEMY_SOUND_TYPE_::ENEMY_ATTACK)->getLoop())
+			if (this->resource_Enemy_.getEnemySound(ENEMY_SOUND_TYPE_::ENEMY_ATTACK)->getStatus() != sf::Sound::Playing)
 			{
-				this->resource_Enemy_.getEnemySound(ENEMY_SOUND_TYPE_::ENEMY_ATTACK)->setLoop(true);
 				this->resource_Enemy_.getEnemySound(ENEMY_SOUND_TYPE_::ENEMY_ATTACK)->play();
 			}
 
@@ -337,9 +335,8 @@ void EnemyTest::update(const sf::Vector2i& mousePositionWindow, Camera** camera,
 	}
 	else
 	{
-		if (this->resource_Enemy_.getEnemySound(ENEMY_SOUND_TYPE_::ENEMY_ATTACK)->getLoop())
+		if (this->resource_Enemy_.getEnemySound(ENEMY_SOUND_TYPE_::ENEMY_ATTACK)->getStatus() == sf::Sound::Playing)
 		{
-			this->resource_Enemy_.getEnemySound(ENEMY_SOUND_TYPE_::ENEMY_ATTACK)->setLoop(false);
 			this->resource_Enemy_.getEnemySound(ENEMY_SOUND_TYPE_::ENEMY_ATTACK)->stop();
 		}
 

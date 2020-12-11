@@ -21,7 +21,7 @@
 class MenuCharacterCreation
 {
 public:
-	MenuCharacterCreation(const unsigned int windowSizeX, const unsigned int windowSizeY, const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceRace& resourceRace);
+	MenuCharacterCreation(sf::Vector2u windowSize, const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceRace& resourceRace);
 	~MenuCharacterCreation();
 
 	void updateRacePollEvent(sf::Event& ev);
@@ -35,6 +35,9 @@ public:
 	const bool& getIsCreatingCharacter() const;
 	Race& getRace() const;
 	const std::string& getName() const;
+
+	void repositionGui(const sf::RenderWindow* window);
+
 
 private:
 	void initializeNameGui(const ResourceFont& resourceFont, const ResourceHud& resourceHud);
@@ -89,7 +92,6 @@ private:
 	ResourceRace resource_Race_;
 
 	bool is_Creating_Character_;
-
 };
 
 #endif // !MENUCHARACTERCREATION_H

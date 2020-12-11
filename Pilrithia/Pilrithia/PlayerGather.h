@@ -19,7 +19,7 @@
 class PlayerGather
 {
 public:
-	PlayerGather(const ResourceFont& resourceFont);
+	PlayerGather(const sf::RenderWindow* window, const ResourceFont& resourceFont);
 	~PlayerGather();
 
 	void updatePollEvent(sf::Event& ev);
@@ -28,6 +28,7 @@ public:
 
 	void setIsVisible(bool isVisible);
 	std::vector<Item*>& setGatheredItems();
+	void setPositionOnResize(const sf::RenderWindow* window);
 
 	const bool& getIsVisible() const;
 

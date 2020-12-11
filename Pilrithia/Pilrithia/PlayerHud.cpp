@@ -1,13 +1,14 @@
 #include "PlayerHud.h"
 
-PlayerHud::PlayerHud(unsigned int windowSizeX, unsigned int windowSizeY, const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceRace& resourceRace)
+PlayerHud::PlayerHud(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceRace& resourceRace)
 {
 	this->camera_ = new Camera(0, 0);
 	
 	this->resource_Font_ = resourceFont;
+	this->resource_Hud_ = resourceHud;
 
-	this->window_Size_X_ = windowSizeX;
-	this->window_Size_Y_ = windowSizeY;
+	this->window_Size_X_ = window->getSize().x;
+	this->window_Size_Y_ = window->getSize().y;
 
 	this->bars_Sprite_.setTexture(*resourceHud.getHudTexture(HUD_TEXTURE_TYPE_::BAR));
 	this->bars_Sprite_.setPosition(sf::Vector2f(10.f, 10.f));
@@ -121,6 +122,8 @@ bool PlayerHud::updateInventoryPollEvent(sf::Event& ev)
 {
 	if (this->character_B_A_.updatePollEvent(ev))
 	{
+		this->resource_Hud_.getHudSound(HUD_SOUND_TYPE_::BUTTON_HUD_CLICK)->play();
+
 		return true;
 	}
 	else
@@ -133,6 +136,8 @@ bool PlayerHud::updateBagPollEvent(sf::Event& ev)
 {
 	if (this->character_B_B_.updatePollEvent(ev))
 	{
+		this->resource_Hud_.getHudSound(HUD_SOUND_TYPE_::BUTTON_HUD_CLICK)->play();
+
 		return true;
 	}
 	else
@@ -145,7 +150,8 @@ bool PlayerHud::updateQuestPollEvent(sf::Event& ev)
 {
 	if (this->character_B_C_.updatePollEvent(ev))
 	{
-		//std::cout << "Showing quests" << std::endl;
+		this->resource_Hud_.getHudSound(HUD_SOUND_TYPE_::BUTTON_HUD_CLICK)->play();
+
 		return true;
 	}
 	else
@@ -158,7 +164,9 @@ bool PlayerHud::updateSkillTreePollEvent(sf::Event& ev)
 {
 	if (this->character_B_D_.updatePollEvent(ev))
 	{
-		std::cout << "DEBUG::PLAYERHUD::UPDATESKILLTREEPOLLEVENT() -> Showing skill tree" << std::endl;
+		//std::cout << "DEBUG::PLAYERHUD::UPDATESKILLTREEPOLLEVENT() -> Showing skill tree" << std::endl;
+		this->resource_Hud_.getHudSound(HUD_SOUND_TYPE_::BUTTON_HUD_CLICK)->play();
+
 		return true;
 	}
 	else
@@ -172,6 +180,8 @@ bool PlayerHud::updateGatherPollEvent(sf::Event& ev)
 	if (this->character_B_F_.updatePollEvent(ev))
 	{
 		//std::cout << "Showing quests" << std::endl;
+		this->resource_Hud_.getHudSound(HUD_SOUND_TYPE_::BUTTON_HUD_CLICK)->play();
+
 		return true;
 	}
 	else
@@ -417,7 +427,7 @@ void PlayerHud::render(sf::RenderTarget& target)
 {
 	if (this->is_Hiding_Hud_)
 	{
-		target.setView(target.getDefaultView());
+		target.setView(sf::View(sf::FloatRect(0, 0, target.getSize().x, target.getSize().y)));
 
 		target.draw(this->health_Bar_Back_);
 		target.draw(this->health_Bar_Front_);
@@ -471,7 +481,7 @@ void PlayerHud::render(sf::RenderTarget& target)
 
 		this->character_T_E_.render(target);
 
-		target.setView(target.getDefaultView());
+		target.setView(sf::View(sf::FloatRect(0, 0, target.getSize().x, target.getSize().y)));
 	}
 }
 
@@ -512,6 +522,56 @@ Skill& PlayerHud::setSkillOne()
 sf::Clock& PlayerHud::setLeaveCombatTimer()
 {
 	return this->leave_Combat_Timer_;
+}
+
+void PlayerHud::setPositionOnResize(const sf::RenderWindow* window)
+{
+	this->bars_Sprite_.setPosition(sf::Vector2f(10.f, 10.f));
+
+	this->health_Bar_Back_.setPosition(sf::Vector2f(this->bars_Sprite_.getGlobalBounds().left + 115.f, this->bars_Sprite_.getGlobalBounds().top + 22.f));
+
+	this->health_Bar_Front_.setPosition(sf::Vector2f(this->bars_Sprite_.getGlobalBounds().left + 115.f, this->bars_Sprite_.getGlobalBounds().top + 22.f));
+
+	this->mana_Bar_Back_.setPosition(sf::Vector2f(this->health_Bar_Front_.getGlobalBounds().left, this->health_Bar_Front_.getGlobalBounds().top + this->health_Bar_Front_.getGlobalBounds().height + 28.f));
+
+	this->mana_Bar_Front_.setPosition(sf::Vector2f(this->health_Bar_Front_.getGlobalBounds().left, this->health_Bar_Front_.getGlobalBounds().top + this->health_Bar_Front_.getGlobalBounds().height + 28.f));
+
+	this->experience_Bar_Back_.setPosition(sf::Vector2f(this->mana_Bar_Front_.getGlobalBounds().left, this->mana_Bar_Front_.getGlobalBounds().top + this->mana_Bar_Front_.getGlobalBounds().height + 30.f));
+
+	this->experience_Bar_Front_.setPosition(sf::Vector2f(this->mana_Bar_Front_.getGlobalBounds().left, this->mana_Bar_Front_.getGlobalBounds().top + this->mana_Bar_Front_.getGlobalBounds().height + 30.f));
+
+
+	this->health_T_A_.setPosition(this->health_Bar_Front_.getGlobalBounds().left + 4.f, this->health_Bar_Front_.getGlobalBounds().top + 15.f);
+	this->mana_T_A_.setPosition(this->mana_Bar_Front_.getGlobalBounds().left + 4.f, this->mana_Bar_Front_.getGlobalBounds().top + 15.f);
+	this->experience_T_A_.setPosition(this->experience_Bar_Front_.getGlobalBounds().left + 4.f, this->experience_Bar_Front_.getGlobalBounds().top + 15.f);
+
+
+	this->character_B_A_.setPosition(sf::Vector2f(400.f, 10.f));
+	this->character_B_B_.setPosition(sf::Vector2f(this->character_B_A_.getRightPosition(true, 10.f), this->character_B_A_.getTopPosition()));
+	this->character_B_C_.setPosition(sf::Vector2f(this->character_B_B_.getRightPosition(true, 10.f), this->character_B_A_.getTopPosition()));
+	this->character_B_D_.setPosition(sf::Vector2f(this->character_B_C_.getRightPosition(true, 10.f), this->character_B_A_.getTopPosition()));
+	this->character_B_F_.setPosition(sf::Vector2f(this->character_B_D_.getRightPosition(true, 10.f), this->character_B_A_.getTopPosition()));
+
+	this->character_T_A_.setPosition(this->character_B_A_.getLeftPosition(), this->character_B_A_.getTopPosition());
+	this->character_T_A_.setPosition(this->character_B_B_.getLeftPosition(), this->character_B_B_.getTopPosition());
+	this->character_T_A_.setPosition(this->character_B_C_.getLeftPosition(), this->character_B_C_.getTopPosition());
+	this->character_T_A_.setPosition(this->character_B_D_.getLeftPosition(), this->character_B_D_.getTopPosition());
+	this->character_T_A_.setPosition(0.f, 0.f);
+	this->character_T_A_.setPosition(this->character_B_F_.getLeftPosition(), this->character_B_F_.getTopPosition());
+
+	this->skill_Hotbar_Sprite_.setPosition(sf::Vector2f(400.f, 595.f));
+
+	this->skill_B_A_.setPosition(sf::Vector2f(this->skill_Hotbar_Sprite_.getGlobalBounds().left + 10.f, this->skill_Hotbar_Sprite_.getGlobalBounds().top + 65.f));
+	this->skill_B_B_.setPosition(sf::Vector2f(this->skill_Hotbar_Sprite_.getGlobalBounds().left + 68.f, this->skill_B_A_.getTopPosition(true, 1.f)));
+	this->skill_B_C_.setPosition(sf::Vector2f(this->skill_Hotbar_Sprite_.getGlobalBounds().left + 126.f, this->skill_B_A_.getTopPosition(true, 1.f)));
+
+	this->skill_X_A_.setPosition(this->skill_B_A_.getPosition().x, this->skill_B_A_.getBottomPosition());
+
+	this->skill_T_A_.setPosition(this->skill_B_A_.getLeftPosition(), this->skill_B_A_.getTopPosition());
+	this->skill_T_B_.setPosition(this->skill_B_B_.getLeftPosition(), this->skill_B_B_.getTopPosition());
+	this->skill_T_C_.setPosition(this->skill_B_C_.getLeftPosition(), this->skill_B_C_.getTopPosition());
+
+	this->skill_D_A_.setHoverBoundaries(HOVERPOSITION::TOP, this->skill_B_A_.getGlobalBounds(), this->skill_B_A_.getGlobalBounds());
 }
 
 void PlayerHud::skillCooldownBoxHeight()

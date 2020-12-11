@@ -732,7 +732,7 @@ void StateEditor::render(sf::RenderTarget& target)
 	/*
 		SET VIEW BACK TO DEFUALT 
 	*/
-	target.setView(target.getDefaultView());
+	target.setView(sf::View(sf::FloatRect(0,0,target.getSize().x, target.getSize().y)));
 
 
 	/*

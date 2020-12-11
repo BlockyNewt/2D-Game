@@ -108,6 +108,11 @@ void CheckBox::setIsVisible(bool isVisible)
 	this->is_Visible_ = isVisible;
 }
 
+void CheckBox::setPosition(const sf::Vector2f& position)
+{
+	this->check_.setPosition(position);
+}
+
 void CheckBox::setIsEnabled(bool isEnabled)
 {
 	this->is_Enabled_ = isEnabled;

@@ -12,7 +12,7 @@ Engine::Engine()
 
 	this->context_Settings_.antialiasingLevel = 8;
 
-	this->window_ = new sf::RenderWindow(this->vm_, "Dunilidor", sf::Style::Default, this->context_Settings_);
+	this->window_ = new sf::RenderWindow(this->vm_, "Dunilidor", sf::Style::Close | sf::Style::Titlebar, this->context_Settings_);
 	this->window_->setFramerateLimit(60);
 	this->window_->setKeyRepeatEnabled(false);
 	this->window_->setVerticalSyncEnabled(false);

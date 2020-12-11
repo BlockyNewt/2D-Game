@@ -125,12 +125,12 @@ void PlayerInventory::initializeIcons(const ResourceFont& resourceFont)
 	this->feet_Icon_.setOutlineColor(sf::Color::Transparent);
 }
 
-PlayerInventory::PlayerInventory(const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceRace& resourceRace)
+PlayerInventory::PlayerInventory(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceRace& resourceRace)
 {
-	this->x_C_.setSettings(1280.f, 720.f, 0.f, 0.f, sf::Color(0,0,0,200), 1.f, sf::Color::Transparent, true);
+	this->x_C_.setSettings(window->getSize().x, window->getSize().y, 0.f, 0.f, sf::Color(0,0,0,200), 1.f, sf::Color::Transparent, true);
 
 	this->inventory_Background_Sprite_.setTexture(*resourceHud.getHudTexture(HUD_TEXTURE_TYPE_::INVENTORY_WINDOW));
-	this->inventory_Background_Sprite_.setPosition(sf::Vector2f(1280.f / 2.f - 800.f / 2.f, 720.f / 2.f - 500.f / 2.f));
+	this->inventory_Background_Sprite_.setPosition(sf::Vector2f(window->getSize().x / 2.f - 800.f / 2.f, window->getSize().y / 2.f - 500.f / 2.f));
 
 	this->b_B_.setSettings(34.f, 34.f, this->inventory_Background_Sprite_.getGlobalBounds().left + 764.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 3.f, sf::Color::White, 1.f, sf::Color::Transparent, true);
 	this->b_B_.setTexture(resourceHud.getHudTexture(HUD_TEXTURE_TYPE_::CLOSE));
@@ -424,7 +424,7 @@ void PlayerInventory::render(sf::RenderTarget& target)
 {
 	if (!this->is_Hiding_Inventory_)
 	{
-		target.setView(target.getDefaultView());
+		target.setView(sf::View(sf::FloatRect(0, 0, target.getSize().x, target.getSize().y)));
 
 		this->x_C_.render(target);
 
@@ -517,6 +517,88 @@ void PlayerInventory::setIsHidingInventory(bool isHidingInventory)
 std::vector<Item*>& PlayerInventory::setEquipment()
 {
 	return this->equipment_;
+}
+
+void PlayerInventory::setPositionOnResize(const sf::RenderWindow* window)
+{
+
+	this->x_C_.setPosition(window->getSize().x, window->getSize().y);
+
+	this->inventory_Background_Sprite_.setPosition(sf::Vector2f(window->getSize().x / 2.f - 800.f / 2.f, window->getSize().y / 2.f - 500.f / 2.f));
+
+	this->b_B_.setPosition(sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 764.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 3.f));
+
+	this->t_C_.setPosition(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 74.f);
+	this->t_D_.setPosition(this->t_C_.getRightPosition(true, 120.f), this->inventory_Background_Sprite_.getGlobalBounds().top + 74.f);
+	this->t_E_.setPosition(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->t_C_.getTopPosition(true, 40.f));
+	this->t_F_.setPosition(this->t_E_.getRightPosition(true, 120.f), this->t_E_.getTopPosition());
+
+	/*
+		STATS
+	*/
+	this->stats_B_A_.setPosition(sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 345.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 23.f));
+
+	this->stats_T_A_.setPosition(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 25.f);
+	this->stats_T_B_.setPosition(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 175.f);
+	this->stats_T_C_.setPosition(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 220.f);
+	this->stats_T_D_.setPosition(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 266.f);
+	this->stats_T_E_.setPosition(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 312.f);
+	this->stats_T_G_.setPosition(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 357.f);
+	this->stats_T_H_.setPosition(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 402.f);
+	this->stats_T_I_.setPosition(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 447.f);
+
+	this->stats_T_J_.setPosition(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 175.f);
+	this->stats_T_K_.setPosition(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 220.f);
+	this->stats_T_L_.setPosition(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 266.f);
+	this->stats_T_M_.setPosition(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 312.f);
+	this->stats_T_N_.setPosition(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 357.f);
+	this->stats_T_O_.setPosition(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 402.f);
+	this->stats_T_P_.setPosition(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 447.f);
+
+	this->stats_D_B_.setHoverBoundaries(HOVERPOSITION::TOP, this->stats_T_B_.getGlobalBounds(), this->stats_T_B_.getGlobalBounds());
+	this->stats_D_C_.setHoverBoundaries(HOVERPOSITION::TOP, this->stats_T_C_.getGlobalBounds(), this->stats_T_C_.getGlobalBounds());
+	this->stats_D_D_.setHoverBoundaries(HOVERPOSITION::TOP, this->stats_T_D_.getGlobalBounds(), this->stats_T_D_.getGlobalBounds());
+	this->stats_D_E_.setHoverBoundaries(HOVERPOSITION::TOP, this->stats_T_E_.getGlobalBounds(), this->stats_T_E_.getGlobalBounds());
+	this->stats_D_G_.setHoverBoundaries(HOVERPOSITION::TOP, this->stats_T_G_.getGlobalBounds(), this->stats_T_G_.getGlobalBounds());
+	this->stats_D_H_.setHoverBoundaries(HOVERPOSITION::TOP, this->stats_T_H_.getGlobalBounds(), this->stats_T_H_.getGlobalBounds());
+	this->stats_D_I_.setHoverBoundaries(HOVERPOSITION::TOP, this->stats_T_I_.getGlobalBounds(), this->stats_T_I_.getGlobalBounds());
+
+
+	/*
+		RESISTANCES
+	*/
+	this->resistances_B_A_.setPosition(sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 495.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 23.f));
+
+	this->resistances_T_A_.setPosition(this->inventory_Background_Sprite_.getGlobalBounds().left + 503.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 25.f);
+	this->resistances_T_B_.setPosition(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 175.f);
+	this->resistances_T_C_.setPosition(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 220.f);
+	this->resistances_T_D_.setPosition(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 266.f);
+	this->resistances_T_E_.setPosition(this->inventory_Background_Sprite_.getGlobalBounds().left + 355.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 312.f);
+
+	this->resistances_T_F_.setPosition(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 175.f);
+	this->resistances_T_G_.setPosition(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 220.f);
+	this->resistances_T_H_.setPosition(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 266.f);
+	this->resistances_T_I_.setPosition(this->inventory_Background_Sprite_.getGlobalBounds().left + 655.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 312.f);
+
+	this->resistances_D_B_.setHoverBoundaries(HOVERPOSITION::TOP, this->resistances_T_B_.getGlobalBounds(), this->resistances_T_B_.getGlobalBounds());
+	this->resistances_D_C_.setHoverBoundaries(HOVERPOSITION::TOP, this->resistances_T_C_.getGlobalBounds(), this->resistances_T_C_.getGlobalBounds());
+	this->resistances_D_D_.setHoverBoundaries(HOVERPOSITION::TOP, this->resistances_T_D_.getGlobalBounds(), this->resistances_T_D_.getGlobalBounds());
+	this->resistances_D_E_.setHoverBoundaries(HOVERPOSITION::TOP, this->resistances_T_E_.getGlobalBounds(), this->resistances_T_E_.getGlobalBounds());
+
+	/*
+		ICONS
+	*/
+	this->helm_Icon_.setPosition(sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 30.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 53.f));
+
+	this->shoulder_Icon_.setPosition(sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 30.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 112.f));
+
+	this->chest_Icon_.setPosition(sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 30.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 170.f));
+
+	this->glove_Icon_.setPosition(sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 30.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 228.f));
+
+	this->leg_Icon_.setPosition(sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 30.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 286.f));
+
+	this->feet_Icon_.setPosition(sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 30.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 344.f));
 }
 
 const bool& PlayerInventory::getIsHidingInventory() const

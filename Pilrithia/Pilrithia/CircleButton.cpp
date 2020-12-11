@@ -102,6 +102,11 @@ void CircleButton::setTexture(const sf::Texture& texture)
 	this->button_.setTexture(&texture);
 }
 
+void CircleButton::setPosition(const sf::Vector2f& position)
+{
+	this->button_.setPosition(position);
+}
+
 const sf::Vector2f& CircleButton::getPosition() const
 {
 	return this->button_.getPosition();

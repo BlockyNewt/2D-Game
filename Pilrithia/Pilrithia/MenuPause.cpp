@@ -114,6 +114,19 @@ void MenuPause::render(sf::RenderTarget& target)
 	}
 }
 
+void MenuPause::setPositionOnResize(const sf::RenderWindow* window)
+{
+	this->x_A_.setSize(window->getSize().x, window->getSize().y);
+
+	this->t_A_.setPosition(400.f, 10.f);
+
+	this->b_B_.setPosition(sf::Vector2f(10.f, 50.f));
+	this->t_B_.setPosition(this->b_B_.getLeftPosition(true, 10.f), this->b_B_.getTopPosition(true, 10.f));
+
+	this->b_C_.setPosition(sf::Vector2f(this->b_B_.getLeftPosition(), this->b_B_.getBottomPosition(true, 10.f)));
+	this->t_C_.setPosition(this->b_C_.getLeftPosition(true, 10.f), this->b_C_.getTopPosition(true, 10.f));
+}
+
 const bool& MenuPause::getIsPaused() const
 {
 	return this->is_Paused_;

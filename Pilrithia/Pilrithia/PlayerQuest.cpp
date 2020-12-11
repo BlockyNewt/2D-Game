@@ -1,6 +1,6 @@
 #include "PlayerQuest.h"
 
-PlayerQuest::PlayerQuest(const ResourceFont& resourceFont, const ResourceHud& resourceHud)
+PlayerQuest::PlayerQuest(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceHud& resourceHud)
 {
 	this->selected_Quest_ = NULL;
 
@@ -8,10 +8,10 @@ PlayerQuest::PlayerQuest(const ResourceFont& resourceFont, const ResourceHud& re
 	this->max_Quest_ = 5;
 	this->current_Quest_ = 0;
 
-	this->x_B_.setSettings(1280.f, 720.f, 0.f, 0.f, sf::Color(0, 0, 0, 200), 1.f, sf::Color::Transparent, true);
+	this->x_B_.setSettings(window->getSize().x, window->getSize().y, 0.f, 0.f, sf::Color(0, 0, 0, 200), 1.f, sf::Color::Transparent, true);
 
 	this->quest_Background_Sprite_.setTexture(*resourceHud.getHudTexture(HUD_TEXTURE_TYPE_::WINDOW));
-	this->quest_Background_Sprite_.setPosition(sf::Vector2f(1280.f / 2.f - 800.f / 2.f, 720.f / 2.f - 500.f / 2.f));
+	this->quest_Background_Sprite_.setPosition(sf::Vector2f(window->getSize().x / 2.f - 800.f / 2.f, window->getSize().y / 2.f - 500.f / 2.f));
 
 	this->b_B_.setSettings(34.f, 34.f, this->quest_Background_Sprite_.getGlobalBounds().left + this->quest_Background_Sprite_.getGlobalBounds().width - 38.f, this->quest_Background_Sprite_.getGlobalBounds().top + 4.f, sf::Color::White, 0.f, sf::Color::Transparent, true);
 	this->b_B_.setTexture(resourceHud.getHudTexture(HUD_TEXTURE_TYPE_::CLOSE));
@@ -126,6 +126,17 @@ void PlayerQuest::setIsHidingQuest(bool isHidingQuest)
 Quest* PlayerQuest::setSelectedQuest()
 {
 	return this->selected_Quest_;
+}
+
+void PlayerQuest::setPositionOnResize(const sf::RenderWindow* window)
+{
+	this->x_B_.setSize(window->getSize().x, window->getSize().y);
+
+	this->quest_Background_Sprite_.setPosition(sf::Vector2f(window->getSize().x / 2.f - 800.f / 2.f, window->getSize().y / 2.f - 500.f / 2.f));
+
+	this->b_B_.setPosition(sf::Vector2f(this->quest_Background_Sprite_.getGlobalBounds().left + this->quest_Background_Sprite_.getGlobalBounds().width - 38.f, this->quest_Background_Sprite_.getGlobalBounds().top + 4.f));
+
+	this->t_A_.setPosition(this->quest_Background_Sprite_.getGlobalBounds().left + 350.f, this->quest_Background_Sprite_.getGlobalBounds().top + 10.f);
 }
 
 const bool& PlayerQuest::getIsHidingQuest() const

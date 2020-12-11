@@ -18,7 +18,7 @@
 class PlayerQuest
 {
 public:
-	PlayerQuest(const ResourceFont& resourceFont, const ResourceHud& resourceHud);
+	PlayerQuest(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceHud& resourceHud);
 	~PlayerQuest();
 
 
@@ -31,6 +31,7 @@ public:
 
 	void setIsHidingQuest(bool isHidingQuest);
 	Quest* setSelectedQuest();
+	void setPositionOnResize(const sf::RenderWindow* window);
 
 	const bool& getIsHidingQuest() const;
 	const std::vector<Quest*>& getQuest() const;

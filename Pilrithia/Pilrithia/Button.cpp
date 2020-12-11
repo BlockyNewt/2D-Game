@@ -166,6 +166,11 @@ void Button::setFillColor(const sf::Color& color)
 	this->fill_Color_ = color;
 }
 
+void Button::setSize(const sf::Vector2f& size)
+{
+	this->button_.setSize(size);
+}
+
 const sf::Vector2f& Button::getPosition() const
 {
 	return this->button_.getPosition();

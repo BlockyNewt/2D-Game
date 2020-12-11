@@ -24,7 +24,7 @@
 class PlayerBag
 {
 public:
-	PlayerBag(const ResourceFont& resourceFont, const ResourceHud& resourceHud);
+	PlayerBag(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceHud& resourceHud);
 	~PlayerBag();
 
 	void initializeBag();
@@ -40,6 +40,7 @@ public:
 	int& setGold();
 	int& setSilver();
 	int& setCopper();
+	void setPositionOnResize(const sf::RenderWindow* window);
 
 	const bool& getIsHidingBag() const;
 	const unsigned& getBagSizeX() const;

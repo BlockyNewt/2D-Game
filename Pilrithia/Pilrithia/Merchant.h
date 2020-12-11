@@ -17,7 +17,7 @@ class Merchant
 {
 public:
 	Merchant();
-	Merchant(const ResourceFont& resourceFont, const ResourceNpc& resourceNpc);
+	Merchant(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceNpc& resourceNpc);
 	virtual ~Merchant();
 
 	virtual void updatePollEvent(sf::Event& ev, int& playerGold, int& playerSilver, int& playerCopper, std::vector<std::vector<Item*>>& playerBag, const int& playerBagMaxSizeX, const int& playerBagMaxSizeY) = 0;

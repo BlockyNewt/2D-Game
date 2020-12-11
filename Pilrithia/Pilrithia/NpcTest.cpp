@@ -4,7 +4,7 @@ NpcTest::NpcTest()
 {
 }
 
-NpcTest::NpcTest(const ResourceFont& resourceFont, const ResourceNpc& resourceNpc)
+NpcTest::NpcTest(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceNpc& resourceNpc)
 {
 	this->dialog_Box_Str_ = "This is the first quest. Click the expand button to see more of what this quest has to offer.";
 	
@@ -239,7 +239,7 @@ void NpcTest::render(sf::RenderTarget& target)
 	{
 		this->dialog_Box_.render(target);
 
-		target.setView(target.getDefaultView());
+		target.setView(sf::View(sf::FloatRect(0,0,target.getSize().x, target.getSize().y)));
 
 		this->quest_Box_.render(target);
 

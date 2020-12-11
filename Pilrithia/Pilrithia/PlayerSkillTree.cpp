@@ -28,7 +28,7 @@ void PlayerSkillTree::resizeProgressBar()
 	this->speccing_Progress_Bar_Front_.setSize(sf::Vector2f(40, -(progressAmountToFloat / progressMaxToFloat) * 500.f));
 }
 
-PlayerSkillTree::PlayerSkillTree(const ResourceFont& resourceFont)
+PlayerSkillTree::PlayerSkillTree(const sf::RenderWindow* window, const ResourceFont& resourceFont)
 {
 	/*
 	
@@ -46,8 +46,8 @@ PlayerSkillTree::PlayerSkillTree(const ResourceFont& resourceFont)
 	this->is_Hiding_Skill_Tree_ = true;
 
 	//this->x_A_.setSettings(1280, 720, 0.f, 0.f, sf::Color::Black, 1.f, sf::Color::White, true);
-	this->x_A_.setSettings(900.f, 600.f, 1280.f / 2.f - 900.f / 2.f, 720.f / 2.f - 600.f / 2.f, sf::Color(150, 150, 150), 1.f, sf::Color::White, true);
-	this->x_B_.setSettings(1280.f, 720.f, 0.f, 0.f, sf::Color(0, 0, 0, 200), 1.f, sf::Color::White, true);
+	this->x_A_.setSettings(900.f, 600.f, window->getSize().x / 2.f - 900.f / 2.f, window->getSize().y / 2.f - 600.f / 2.f, sf::Color(150, 150, 150), 1.f, sf::Color::White, true);
+	this->x_B_.setSettings(window->getSize().x, window->getSize().y, 0.f, 0.f, sf::Color(0, 0, 0, 200), 1.f, sf::Color::White, true);
 
 	this->b_A_.setSettings(50.f, 50.f, this->x_A_.getRightPosition(false, 50.f), this->x_A_.getTopPosition(), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
 
@@ -235,7 +235,7 @@ void PlayerSkillTree::render(sf::RenderTarget& target)
 {
 	if (!this->is_Hiding_Skill_Tree_)
 	{
-		target.setView(target.getDefaultView());
+		target.setView(sf::View(sf::FloatRect(0, 0, target.getSize().x, target.getSize().y)));
 
 		this->x_B_.render(target);
 		this->x_A_.render(target);
@@ -280,7 +280,7 @@ void PlayerSkillTree::render(sf::RenderTarget& target)
 		
 		
 
-		target.setView(target.getDefaultView());
+		target.setView(sf::View(sf::FloatRect(0, 0, target.getSize().x, target.getSize().y)));
 	}
 
 	
@@ -299,6 +299,55 @@ Classes* PlayerSkillTree::setClassesOne()
 Classes* PlayerSkillTree::setClassesTwo()
 {
 	return this->player_Class_Two_;
+}
+
+void PlayerSkillTree::setPositionOnResize(const sf::RenderWindow* window)
+{
+	std::cout << "hello" << std::endl;
+	this->x_A_.setPosition(50 / 2.f - 900.f / 2.f, window->getSize().y / 2.f - 600.f / 2.f);
+	this->x_B_.setSize(window->getSize().x, window->getSize().y);
+
+	this->b_A_.setPosition(sf::Vector2f(this->x_A_.getRightPosition(false, 50.f), this->x_A_.getTopPosition()));
+
+
+
+
+	this->speccing_Progress_Bar_Back_.setPosition(sf::Vector2f(this->x_A_.getLeftPosition(true, 10.f), this->x_A_.getBottomPosition(false, 560.f)));
+
+	this->speccing_Progress_Bar_Front_.setPosition(sf::Vector2f(this->speccing_Progress_Bar_Back_.getGlobalBounds().left + 5.f, this->speccing_Progress_Bar_Back_.getGlobalBounds().top + this->speccing_Progress_Bar_Back_.getGlobalBounds().height - 5.f));
+
+	this->speccing_B_A_.setPosition(sf::Vector2f(this->speccing_Progress_Bar_Back_.getGlobalBounds().left, this->speccing_Progress_Bar_Back_.getGlobalBounds().top + this->speccing_Progress_Bar_Back_.getGlobalBounds().height));
+
+	this->speccing_B_B_.setPosition(sf::Vector2f(this->x_A_.getLeftPosition(true, 200.f), this->x_A_.getBottomPosition(false, 100.f)));
+
+
+	this->speccing_T_A_.setPosition(this->speccing_B_A_.getLeftPosition(true, 10.f), this->speccing_B_A_.getTopPosition(true, 10.f));
+	this->speccing_T_B_.setPosition(this->speccing_Progress_Bar_Back_.getGlobalBounds().left, this->speccing_Progress_Bar_Back_.getGlobalBounds().top - 30.f);
+	
+	this->t_A_.setPosition(this->b_A_.getLeftPosition(true, 10.f), this->b_A_.getTopPosition(true, 10.f));
+
+	this->b_C_.setPosition(sf::Vector2f(this->x_A_.getLeftPosition(true, 20), this->class_X_A_.getBottomPosition(false, 50)));
+	this->t_C_.setPosition(this->b_C_.getLeftPosition(true, 10.f), this->b_C_.getTopPosition(true, 10.f));
+
+
+	this->t_D_.setPosition(this->x_A_.getLeftPosition(true, 350.f), this->x_A_.getTopPosition(true, 10.f));
+
+
+	/*
+		CLASS ONE SELECT
+	*/
+	this->class_T_A_.setPosition(this->x_A_.getLeftPosition(true, 350.f), this->x_A_.getTopPosition(true, 10.f));
+
+	this->class_B_A_.setPosition(sf::Vector2f(this->x_A_.getLeftPosition(true, 10.f), this->x_A_.getTopPosition(true, 100.f)));
+	this->class_B_B_.setPosition(sf::Vector2f(this->class_B_A_.getRightPosition(), this->class_B_A_.getTopPosition()));
+	this->class_B_C_.setPosition(sf::Vector2f(this->class_B_A_.getLeftPosition(), this->class_B_A_.getBottomPosition()));
+	this->class_B_D_.setPosition(sf::Vector2f(this->class_B_B_.getLeftPosition(), this->class_B_C_.getTopPosition()));
+
+	this->class_X_A_.setPosition(this->class_B_B_.getRightPosition(true, 20.f), this->class_B_B_.getTopPosition());
+	this->class_X_B_.setPosition(this->class_X_A_.getRightPosition(true, 20.f), this->class_X_A_.getTopPosition());
+
+	this->class_T_B_.setPosition(this->class_X_A_.getLeftPosition(true, 100.f), this->class_X_A_.getTopPosition(true, 10.f));
+	this->class_T_C_.setPosition(this->class_X_A_.getLeftPosition(true, 20.f), this->class_X_A_.getTopPosition(true, 80.f));
 }
 
 const bool& PlayerSkillTree::getIsHidingSkillTree() const

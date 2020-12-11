@@ -24,6 +24,8 @@ public:
 	void update(const sf::Vector2i& mousePositionWindow);
 	void render(sf::RenderTarget& target);
 
+	void setPositionOnResize(const sf::RenderWindow* window);
+
 	const bool& getIsPaused() const;
 
 private:

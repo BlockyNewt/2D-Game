@@ -1,15 +1,15 @@
 #include "PlayerBag.h"
 
-PlayerBag::PlayerBag(const ResourceFont& resourceFont, const ResourceHud& resourceHud)
+PlayerBag::PlayerBag(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceHud& resourceHud)
 {
 	this->is_Hiding_Bag_ = true;
 
 	this->resource_Font_ = resourceFont;
 
 	this->bag_Background_Sprite_.setTexture(*resourceHud.getHudTexture(HUD_TEXTURE_TYPE_::BAG));
-	this->bag_Background_Sprite_.setPosition(sf::Vector2f(1280.f / 2.f - 800.f / 2.f, 720.f / 2.f - 500.f / 2.f));
+	this->bag_Background_Sprite_.setPosition(sf::Vector2f(window->getSize().x / 2.f - 800.f / 2.f, window->getSize().y / 2.f - 500.f / 2.f));
 
-	this->x_B_.setSettings(1280.f, 720.f, 0.f, 0.f, sf::Color(0, 0, 0, 200), 1.f, sf::Color::Transparent, true);
+	this->x_B_.setSettings(window->getSize().x, window->getSize().y, 0.f, 0.f, sf::Color(0, 0, 0, 200), 1.f, sf::Color::Transparent, true);
 
 	this->b_A_.setSettings(34.f, 34.f, this->bag_Background_Sprite_.getGlobalBounds().left + this->bag_Background_Sprite_.getGlobalBounds().width - 38.f, this->bag_Background_Sprite_.getGlobalBounds().top + 4.f, sf::Color::White, 0.f, sf::Color::Transparent, true);
 	this->b_A_.setTexture(resourceHud.getHudTexture(HUD_TEXTURE_TYPE_::CLOSE));
@@ -309,6 +309,21 @@ int& PlayerBag::setSilver()
 int& PlayerBag::setCopper()
 {
 	return this->copper_;
+}
+
+void PlayerBag::setPositionOnResize(const sf::RenderWindow* window)
+{
+	this->bag_Background_Sprite_.setPosition(sf::Vector2f(window->getSize().x / 2.f - 800.f / 2.f, window->getSize().y / 2.f - 500.f / 2.f));
+
+	this->x_B_.setSettings(window->getSize().x, window->getSize().y, 0.f, 0.f, sf::Color(0, 0, 0, 200), 1.f, sf::Color::Transparent, true);
+
+	this->b_A_.setPosition(sf::Vector2f(this->bag_Background_Sprite_.getGlobalBounds().left + this->bag_Background_Sprite_.getGlobalBounds().width - 38.f, this->bag_Background_Sprite_.getGlobalBounds().top + 4.f));
+
+	this->t_B_.setPosition(this->bag_Background_Sprite_.getGlobalBounds().left + 400.f, this->bag_Background_Sprite_.getGlobalBounds().top + 10.f);
+
+	this->t_C_.setPosition(this->bag_Background_Sprite_.getGlobalBounds().left + 100.f, this->bag_Background_Sprite_.getGlobalBounds().top + this->bag_Background_Sprite_.getGlobalBounds().height - 50.f);
+	this->t_D_.setPosition(this->t_C_.getLeftPosition(true, 200.f), this->bag_Background_Sprite_.getGlobalBounds().top + this->bag_Background_Sprite_.getGlobalBounds().height - 50.f);
+	this->t_E_.setPosition(this->t_D_.getLeftPosition(true, 200.f), this->bag_Background_Sprite_.getGlobalBounds().top + this->bag_Background_Sprite_.getGlobalBounds().height - 50.f);
 }
 
 const bool& PlayerBag::getIsHidingBag() const

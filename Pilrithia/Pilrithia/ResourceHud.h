@@ -31,6 +31,7 @@ enum class HUD_TEXTURE_TYPE_
 enum class HUD_SOUND_TYPE_
 {
 	BUTTON_CLICK,
+	BUTTON_HUD_CLICK,
 };
 
 class ResourceHud

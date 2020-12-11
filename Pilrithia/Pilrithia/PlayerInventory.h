@@ -24,7 +24,7 @@
 class PlayerInventory
 {
 public:
-	PlayerInventory(const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceRace& resourceRace);
+	PlayerInventory(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceRace& resourceRace);
 	~PlayerInventory();
 
 	void initializeInventory(const std::string& name, const std::string& raceName, const std::string& className, const int& level, const std::map<std::string, int>& stats, const std::map<std::string, int>& resistances);
@@ -37,6 +37,7 @@ public:
 
 	void setIsHidingInventory(bool isHidingInventory);
 	std::vector<Item*>& setEquipment();
+	void setPositionOnResize(const sf::RenderWindow* window);
 
 	const bool& getIsHidingInventory() const;
 	const std::vector<Item*>& getEquipment() const;

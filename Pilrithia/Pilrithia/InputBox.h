@@ -23,6 +23,7 @@ public:
 	void render(sf::RenderTarget& target);
 
 	void setIsVisible(bool isVisible);
+	void setPosition(const sf::Vector2f& position);
 
 	void clearString();
 

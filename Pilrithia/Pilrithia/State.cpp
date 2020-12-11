@@ -68,6 +68,7 @@ void State::updateMousePosition(const sf::View* view, float tileSizeXY)
 	this->window_->setView(*view);
 
 	this->mouse_Position_Window_ = sf::Mouse::getPosition(*this->window_);
+	//std::cout << "x: " << this->window_->getSize().x << " y: " << this->window_->getSize().y << std::endl;
 
 	this->mouse_Position_View_ = this->window_->mapPixelToCoords(this->mouse_Position_Window_);
 
@@ -116,11 +117,14 @@ const float State::percentToPixelX(const float sizeX)
 	EXAMPLE: 200 / 1280 * 100 = 15.6
 			 1280 * 15.6 / 100 = 200
 	*/
-
-	return std::floor(static_cast<float>(this->window_->getSize().x)) * (sizeX / 100.f);
+	float resizeX = sizeX / this->window_->getSize().x * 100.f;
+	std::cout << this->window_->getSize().x << std::endl;
+	return std::floor(static_cast<float>(this->window_->getSize().x)) * (resizeX / 100.f);
 }
 
 const float State::percentToPixelY(const float sizeY)
 {
-	return std::floor(static_cast<float>(this->window_->getSize().y)) * (sizeY / 100.f);
+	float resizeY = sizeY / this->window_->getSize().y * 100.f;
+
+	return std::floor(static_cast<float>(this->window_->getSize().y)) * (resizeY / 100.f);
 }

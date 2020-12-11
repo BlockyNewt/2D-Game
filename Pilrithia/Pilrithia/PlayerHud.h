@@ -25,7 +25,7 @@
 class PlayerHud
 {
 public:
-	PlayerHud(unsigned int windowSizeX, unsigned int windowSizeY, const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceRace& resourceRace);
+	PlayerHud(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceRace& resourceRace);
 	~PlayerHud();
 
 
@@ -49,6 +49,8 @@ public:
 	void setWidthOfBars(const int& healthMax, const int& health, const int& manaMax, const int& mana, const int& expMax, const int& exp);
 	Skill& setSkillOne();
 	sf::Clock& setLeaveCombatTimer();
+	void setPositionOnResize(const sf::RenderWindow* window);
+
 
 private:
 	void skillCooldownBoxHeight();
@@ -114,6 +116,7 @@ private:
 	
 
 	ResourceFont resource_Font_;
+	ResourceHud resource_Hud_;
 
 	//TESTING
 	sf::Sprite race_Icon_Sprite_;

@@ -136,7 +136,7 @@ MenuCharacterCreation::MenuCharacterCreation(sf::Vector2u windowSize, const Reso
 
 MenuCharacterCreation::~MenuCharacterCreation()
 {
-	//delete this->race_;
+	delete this->race_;
 }
 
 void MenuCharacterCreation::updateRacePollEvent(sf::Event& ev)

@@ -7,12 +7,21 @@ ItemTest::ItemTest()
 	*/
 }
 
-ItemTest::ItemTest(float posX, float posY, ITEMTYPE itemType, const std::string& name, const std::string& description, const ResourceFont& resourceFont)
+ItemTest::ItemTest(float posX, float posY, ITEMTYPE itemType, const std::string& name, const std::string& description, const ResourceFont& resourceFont, const ResourceItem& resourceItem)
 {
-	this->b_A_.setSettings(50.f, 50.f, posX, posY, sf::Color(27, 133, 184), 0.f, sf::Color::Transparent, true);
+	std::cout << "A" << std::endl;	
+	this->resource_Font_ = resourceFont;
+	this->resource_Item_ = resourceItem;
+	std::cout << "B" << std::endl;
+
+	this->b_A_.setSettings(50.f, 50.f, posX, posY, sf::Color::White, 0.f, sf::Color::Transparent, true);
+	this->b_A_.setTexture(this->resource_Item_.getItemTexture(ITEM_TEXTURE_TYPE_::ITEM_TEST));
+	std::cout << "C" << std::endl;
+
 
 	this->t_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "", sf::Vector2f(this->b_A_.getLeftPosition(true, 10.f), this->b_A_.getTopPosition(true, 10.f)), true);
 	this->t_B_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "", sf::Vector2f(this->b_A_.getRightPosition(false, 10.f), this->b_A_.getBottomPosition(false, 20.f)), true);
+	std::cout << "D" << std::endl;
 
 	this->item_Type_ = itemType;
 
@@ -28,7 +37,8 @@ ItemTest::ItemTest(float posX, float posY, ITEMTYPE itemType, const std::string&
 	
 	if (this->item_Type_ == ITEMTYPE::HELM)
 	{
-		this->t_A_.setString("Helm");
+		//this->t_A_.setString("Helm");
+		this->b_A_.setTextureRect(sf::IntRect(32, 224, 32, 32));
 	}
 	else if (this->item_Type_ == ITEMTYPE::SHOULDER)
 	{
@@ -36,39 +46,49 @@ ItemTest::ItemTest(float posX, float posY, ITEMTYPE itemType, const std::string&
 	}
 	else if (this->item_Type_ == ITEMTYPE::CHEST)
 	{
-		this->t_A_.setString("Chest");
+		//this->t_A_.setString("Chest");
+		this->b_A_.setTextureRect(sf::IntRect(128, 224, 32, 32));
 	}
 	else if (this->item_Type_ == ITEMTYPE::GLOVE)
 	{
-		this->t_A_.setString("Glove");
+		//this->t_A_.setString("Glove");
+		this->b_A_.setTextureRect(sf::IntRect(32, 256, 32, 32));
 	}
 	else if (this->item_Type_ == ITEMTYPE::LEG)
 	{
-		this->t_A_.setString("Leg");
+		//this->t_A_.setString("Leg");
+		this->b_A_.setTextureRect(sf::IntRect(352, 224, 32, 32));
 	}
 	else if (this->item_Type_ == ITEMTYPE::FEET)
 	{
-		this->t_A_.setString("Feet");
+		//this->t_A_.setString("Feet");
+		this->b_A_.setTextureRect(sf::IntRect(64, 256, 32, 32));
 	}
 	else if (this->item_Type_ == ITEMTYPE::WEAPON)
 	{
-		this->t_A_.setString("Weapon");
+		//this->t_A_.setString("Weapon");
+		this->b_A_.setTextureRect(sf::IntRect(64, 160, 32, 32));
 	}
 	else if (this->item_Type_ == ITEMTYPE::OFFHAND)
 	{
-		this->t_A_.setString("Offhand");
+		//this->t_A_.setString("Offhand");
+		this->b_A_.setTextureRect(sf::IntRect(0, 192, 32, 32));
 	}
 	else if (this->item_Type_ == ITEMTYPE::ORE)
 	{
-		this->t_A_.setString("Ore");
+		//this->t_A_.setString("Ore");
+		this->b_A_.setTextureRect(sf::IntRect(65, 545, 32, 32));
+
 	}
 	else if (this->item_Type_ == ITEMTYPE::WOOD)
 	{
-		this->t_A_.setString("Wood");
+		//this->t_A_.setString("Wood");
+		this->b_A_.setTextureRect(sf::IntRect(0, 544, 32, 32));
 	}
 	else if (this->item_Type_ == ITEMTYPE::PLANT)
 	{
-		this->t_A_.setString("Plant");
+		//this->t_A_.setString("Plant");
+		this->b_A_.setTextureRect(sf::IntRect(416, 352, 32, 32));
 	}
 	else
 	{
@@ -96,14 +116,8 @@ ItemTest::ItemTest(float posX, float posY, ITEMTYPE itemType, const std::string&
 	this->silver_Price_ = 0;
 	this->copper_Price_ = 50;
 
-	this->ore_Quantity_ = 1;
-	this->wood_Quantity_ = 1;
-	this->plant_Quantity_ = 1;
-
-
-
-
-	this->resource_Font_ = resourceFont;
+	this->quantity_ = 1;
+	this->is_Gather_Box_ = false;
 }
 
 ItemTest::~ItemTest()
@@ -198,22 +212,7 @@ bool ItemTest::update(const sf::Vector2i& mousePositionWindow)
 	this->b_A_.updateBoundaries(mousePositionWindow);
 	this->d_A_.update(mousePositionWindow);
 
-
-
-	if (this->item_Type_ == ITEMTYPE::ORE)
-	{
-		this->t_B_.setString(std::to_string(this->ore_Quantity_));
-	}
-	else if (this->item_Type_ == ITEMTYPE::WOOD)
-	{
-		this->t_B_.setString(std::to_string(this->wood_Quantity_));
-	}
-	else if (this->item_Type_ == ITEMTYPE::PLANT)
-	{
-		this->t_B_.setString(std::to_string(this->plant_Quantity_));
-	}
-
-
+	this->t_B_.setString(std::to_string(this->quantity_));
 
 	if (this->b_A_.getIsHovering())
 	{
@@ -235,7 +234,10 @@ void ItemTest::render(sf::RenderTarget& target)
 		this->item_Type_ == ITEMTYPE::WOOD ||
 		this->item_Type_ == ITEMTYPE::PLANT)
 	{
-		target.draw(this->item_Range_);
+		if (!this->is_Gather_Box_)
+		{
+			target.draw(this->item_Range_);
+		}
 
 		this->t_B_.render(target);
 	}
@@ -267,19 +269,14 @@ int& ItemTest::setCopperPrice()
 	return this->copper_Price_;
 }
 
-int& ItemTest::setOreQuantity()
+int& ItemTest::setQuantity()
 {
-	return this->ore_Quantity_;
+	return this->quantity_;
 }
 
-int& ItemTest::setWoodQuantity()
+void ItemTest::setShowGatherBox(bool showGatherBox)
 {
-	return this->wood_Quantity_;
-}
-
-int& ItemTest::setPlantQuantity()
-{
-	return this->plant_Quantity_;
+	this->is_Gather_Box_ = showGatherBox;
 }
 
 const sf::FloatRect ItemTest::getItemGlobalBoundaries() const
@@ -314,7 +311,7 @@ const sf::FloatRect ItemTest::getHoverDescriptionGlobalBounds() const
 
 Item* ItemTest::getNewItem()
 {
-	return new ItemTest(0.f, 0.f, this->item_Type_, this->name_, this->description_, this->resource_Font_);
+	return new ItemTest(0.f, 0.f, this->item_Type_, this->name_, this->description_, this->resource_Font_, this->resource_Item_);
 }
 
 const int& ItemTest::getGoldPrice() const
@@ -342,17 +339,7 @@ const sf::FloatRect ItemTest::getItemRange() const
 	return this->item_Range_.getGlobalBounds();
 }
 
-const int& ItemTest::getOreQuantity() const
+const int& ItemTest::getQuantity() const
 {
-	return this->ore_Quantity_;
-}
-
-const int& ItemTest::getWoodQuantity() const
-{
-	return this->wood_Quantity_;
-}
-
-const int& ItemTest::getPlantQuantity() const
-{
-	return this->plant_Quantity_;
+	return this->quantity_;
 }

@@ -24,7 +24,7 @@
 class PlayerBag
 {
 public:
-	PlayerBag(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceHud& resourceHud);
+	PlayerBag(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceItem& resourceItem);
 	~PlayerBag();
 
 	void initializeBag();
@@ -81,6 +81,7 @@ private:
 	int copper_;
 
 	ResourceFont resource_Font_;
+	ResourceItem resource_Item_;
 
 	//TESTING
 	sf::Sprite bag_Background_Sprite_;

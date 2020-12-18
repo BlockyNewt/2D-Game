@@ -2,6 +2,7 @@
 #define SHOPBOX_H
 
 #include "ResourceFont.h"
+#include "ResourceNpc.h"
 
 #include "Box.h"
 #include "Button.h"
@@ -18,7 +19,7 @@
 class ShopBox
 {
 public:
-	ShopBox(const ResourceFont& resourceFont);
+	ShopBox(const ResourceFont& resourceFont, const ResourceItem& resourceItem, const ResourceNpc& resourceNpc);
 	~ShopBox();
 
 	void alignPlayerBagItems(std::vector<std::vector<Item*>>& playerBag, const int& playerBagMaxSizeX, const int& playerBagMaxSizeY);
@@ -35,6 +36,8 @@ public:
 private:
 
 private:
+	ResourceNpc resource_Npc_;
+
 	Box x_A_;
 	Box x_B_;
 	Box x_C_;

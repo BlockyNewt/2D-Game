@@ -6,6 +6,9 @@
 #include "ResourceFont.h"
 #include "ResourceHud.h"
 #include "ResourceRace.h"
+#include "ResourceItem.h"
+#include "ResourceEnemy.h"
+#include "ResourceNpc.h"
 
 #include "MenuPause.h"
 #include "MenuSetting.h"
@@ -13,7 +16,8 @@
 class State
 {
 public:
-	State(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont* resourceFont = nullptr, ResourceHud* resourceHud = nullptr, ResourceRace* resourceRace = nullptr, MenuSetting* menuSetting = nullptr, MenuPause* menuPause = nullptr);
+	State(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont* resourceFont = nullptr, ResourceHud* resourceHud = nullptr, ResourceRace* resourceRace = nullptr, ResourceItem* resourceItem = nullptr, MenuSetting* menuSetting = nullptr, MenuPause* menuPause = nullptr);
+	/*State(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont* resourceFont = nullptr, ResourceHud* resourceHud = nullptr, ResourceRace* resourceRace = nullptr, ResourceItem* resourceItem = nullptr, ResourceEnemy* resourceEnemy = nullptr, ResourceNpc* resourceNpc = nullptr, MenuSetting* menuSetting = nullptr, MenuPause* menuPause = nullptr);*/
 	virtual ~State();
 
 	virtual void updatePollEvent(sf::Event& ev) = 0;
@@ -45,6 +49,9 @@ protected:
 	ResourceFont* resource_Font_;
 	ResourceHud* resource_Hud_;
 	ResourceRace* resource_Race_;
+	ResourceItem* resource_Item_;
+	ResourceEnemy* resource_Enemy_;
+	ResourceNpc* resource_Npc_;
 
 private:
 

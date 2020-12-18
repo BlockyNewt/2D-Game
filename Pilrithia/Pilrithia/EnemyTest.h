@@ -11,7 +11,7 @@ class EnemyTest
 {
 public:
 	EnemyTest();
-	EnemyTest(const sf::Vector2f& position, const int& range, const ResourceFont& resourceFont, const ResourceEnemy& resourceEnemy);
+	EnemyTest(const sf::Vector2f& position, const int& range, const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceEnemy& resourceEnemy, const ResourceItem& resourceItem);
 	virtual ~EnemyTest();
 
 	void updatePollEvent(sf::Event& ev, std::vector<std::vector<Item*>>& playerBag, const int& maxBagSizeX, const int& maxBagSizeY, const sf::FloatRect playerBoundaries) override;

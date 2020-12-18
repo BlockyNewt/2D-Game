@@ -56,3 +56,4 @@ void Animation::updateDeath(sf::RectangleShape& sprite, const sf::IntRect& textu
 		}
 	}
 }
+

@@ -4,7 +4,7 @@ Enemy::Enemy()
 {
 }
 
-Enemy::Enemy(const sf::Vector2f& position, const int& range, const ResourceFont& resourceFont, const ResourceEnemy& resourceEnemy)
+Enemy::Enemy(const sf::Vector2f& position, const int& range, const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceEnemy& resourceEnemy, const ResourceItem& resourceItem)
 {
 }
 

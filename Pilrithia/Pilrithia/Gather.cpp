@@ -4,7 +4,7 @@ Gather::Gather()
 {
 }
 
-Gather::Gather(GATHERTYPE gatherType, const ResourceFont& resourceFont, const ResourceHud& resourceHud)
+Gather::Gather(GATHERTYPE gatherType, const sf::Vector2f& position, const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceItem& resourceItem)
 {
 }
 

@@ -1,7 +1,7 @@
 #ifndef ITEM_H
 #define ITEM_H
 
-#include "SFML/Graphics.hpp"
+#include "ResourceItem.h"
 
 #include "Button.h"
 #include "Text.h"
@@ -36,7 +36,7 @@ class Item
 {
 public:
 	Item();
-	Item(float posX, float posY, ITEMTYPE itemType, const std::string& name, const std::string& description, const ResourceFont& resourceFont);
+	Item(float posX, float posY, ITEMTYPE itemType, const std::string& name, const std::string& description, const ResourceFont& resourceFont, const ResourceItem& resourceItem);
 	virtual ~Item();
 
 	virtual void setItemHoverDescriptionSettings(HOVERPOSITION hoverPosition, const sf::FloatRect boundaries, const sf::FloatRect boundariesOffset, DESCRIPTIONTYPE descriptionType, const std::string& title, const std::string& description) = 0;
@@ -52,14 +52,12 @@ public:
 	virtual int& setGoldPrice() = 0;
 	virtual int& setSilverPrice() = 0;
 	virtual int& setCopperPrice() = 0;
-	virtual int& setOreQuantity() = 0;
-	virtual int& setWoodQuantity() = 0;
-	virtual int& setPlantQuantity() = 0;
+	virtual int& setQuantity() = 0;
+	virtual void setShowGatherBox(bool showGatherBox) = 0;
 
 	virtual const sf::FloatRect getItemGlobalBoundaries() const = 0;
 	virtual const ITEMTYPE& getItemType() const = 0;
 	virtual const Button& getButton() const = 0;
-	//DELETE ONCE DONE WITH TESTING
 	virtual const std::string& getName()const = 0;
 	virtual const std::string& getDescription()const = 0;
 	virtual const sf::FloatRect getHoverDescriptionGlobalBounds() const = 0;
@@ -69,11 +67,8 @@ public:
 	virtual const int& getCopperPrice() const = 0;
 	virtual const sf::Vector2f& getPosition() const = 0;
 	virtual const sf::FloatRect getItemRange() const = 0;
-	virtual const int& getOreQuantity() const = 0;
-	virtual const int& getWoodQuantity() const = 0;
-	virtual const int& getPlantQuantity() const = 0;
-
-private:
+	virtual const int& getQuantity() const = 0;
+	
 
 private:
 

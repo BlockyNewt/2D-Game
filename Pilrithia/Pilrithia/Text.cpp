@@ -79,6 +79,11 @@ sf::Text& Text::setText()
 	return this->text_;
 }
 
+void Text::setCharacterSize(unsigned int characterSize)
+{
+	this->text_.setCharacterSize(characterSize);	
+}
+
 const sf::Vector2f& Text::getPosition() const
 {
 	return this->text_.getPosition();
@@ -170,4 +175,9 @@ const float Text::getBottomPosition(bool pOrM, float offset) const
 const bool& Text::getIsVisible() const
 {
 	return this->is_Visible_;
+}
+
+const unsigned int& Text::getCharacterSize() const
+{
+	return this->text_.getCharacterSize();
 }

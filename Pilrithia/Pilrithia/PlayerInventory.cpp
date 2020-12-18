@@ -123,6 +123,18 @@ void PlayerInventory::initializeIcons(const ResourceFont& resourceFont)
 	this->feet_Icon_.setFillColor(sf::Color::Transparent);
 	this->feet_Icon_.setOutlineThickness(1.f);
 	this->feet_Icon_.setOutlineColor(sf::Color::Transparent);
+
+	this->weapon_Icon_.setPosition(sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 119.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 401.f));
+	this->weapon_Icon_.setSize(sf::Vector2f(50.f, 50.f));
+	this->weapon_Icon_.setFillColor(sf::Color::Transparent);
+	this->weapon_Icon_.setOutlineThickness(1.f);
+	this->weapon_Icon_.setOutlineColor(sf::Color::Transparent);
+
+	this->offhand_Icon_.setPosition(sf::Vector2f(this->inventory_Background_Sprite_.getGlobalBounds().left + 176.f, this->inventory_Background_Sprite_.getGlobalBounds().top + 402.f));
+	this->offhand_Icon_.setSize(sf::Vector2f(50.f, 50.f));
+	this->offhand_Icon_.setFillColor(sf::Color::Transparent);
+	this->offhand_Icon_.setOutlineThickness(1.f);
+	this->offhand_Icon_.setOutlineColor(sf::Color::Transparent);
 }
 
 PlayerInventory::PlayerInventory(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceRace& resourceRace)
@@ -148,7 +160,7 @@ PlayerInventory::PlayerInventory(const sf::RenderWindow* window, const ResourceF
 
 	this->selected_Equipment_ = 0;
 
-	this->equipment_.resize(6, NULL);
+	this->equipment_.resize(8, NULL);
 
 	this->d_A_.setTextFont(resourceFont);
 
@@ -202,7 +214,7 @@ void PlayerInventory::realignEquipment()
 	/*
 		WHEN OPENING INVENTORY ALIGN ITEMS
 	*/
-	for (int x = 0; x < 6; ++x)
+	for (int x = 0; x < 8; ++x)
 	{
 		if (this->equipment_[x] != NULL)
 		{
@@ -229,6 +241,14 @@ void PlayerInventory::realignEquipment()
 			else if (this->equipment_[x]->getItemType() == ITEMTYPE::FEET)
 			{
 				this->equipment_[x]->setPosition(this->feet_Icon_.getPosition());
+			}
+			else if (this->equipment_[x]->getItemType() == ITEMTYPE::WEAPON)
+			{
+				this->equipment_[x]->setPosition(this->weapon_Icon_.getPosition());
+			}
+			else if (this->equipment_[x]->getItemType() == ITEMTYPE::OFFHAND)
+			{
+				this->equipment_[x]->setPosition(this->offhand_Icon_.getPosition());
 			}
 		}
 	}
@@ -285,7 +305,7 @@ void PlayerInventory::updatePollEvent(sf::Event& ev, std::map<std::string, int>&
 		/*
 			UPDATE ITEM DROP DOWN LIST
 		*/
-		for (int x = 0; x < 6; ++x)
+		for (int x = 0; x < 8; ++x)
 		{
 			if (this->equipment_[x] != NULL)
 			{
@@ -446,6 +466,8 @@ void PlayerInventory::render(sf::RenderTarget& target)
 		target.draw(this->glove_Icon_);
 		target.draw(this->leg_Icon_);
 		target.draw(this->feet_Icon_);
+		target.draw(this->weapon_Icon_);
+		target.draw(this->offhand_Icon_);
 		
 		for (auto& e : this->equipment_)
 		{

@@ -19,7 +19,7 @@
 class PlayerGather
 {
 public:
-	PlayerGather(const sf::RenderWindow* window, const ResourceFont& resourceFont);
+	PlayerGather(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceItem& resourceItem);
 	~PlayerGather();
 
 	void updatePollEvent(sf::Event& ev);
@@ -41,7 +41,6 @@ private:
 	Text t_A_;
 
 	Button b_B_;
-	Text t_B_;
 
 	bool is_Visible_;
 

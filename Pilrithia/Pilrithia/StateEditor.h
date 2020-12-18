@@ -10,7 +10,7 @@ class StateEditor
 	: public State
 {
 public:
-	StateEditor(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont* resourceFont = nullptr, ResourceHud* resourceHud = nullptr, ResourceRace* resourceRace = nullptr, MenuSetting* menuSetting = nullptr, MenuPause* menuPause = nullptr);
+	StateEditor(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont* resourceFont = nullptr, ResourceHud* resourceHud = nullptr, ResourceRace* resourceRace = nullptr, ResourceItem* resourceItem = nullptr, MenuSetting* menuSetting = nullptr, MenuPause* menuPause = nullptr);
 	virtual ~StateEditor();
 
 

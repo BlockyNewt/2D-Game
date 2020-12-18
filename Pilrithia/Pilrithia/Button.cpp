@@ -171,6 +171,11 @@ void Button::setSize(const sf::Vector2f& size)
 	this->button_.setSize(size);
 }
 
+void Button::setTextureRect(const sf::IntRect& floatRect)
+{
+	this->button_.setTextureRect(floatRect);
+}
+
 const sf::Vector2f& Button::getPosition() const
 {
 	return this->button_.getPosition();

@@ -8,7 +8,7 @@ class ItemTest
 {
 public:
 	ItemTest();
-	ItemTest(float posX, float posY, ITEMTYPE itemType, const std::string& name, const std::string& description, const ResourceFont& resourceFont);
+	ItemTest(float posX, float posY, ITEMTYPE itemType, const std::string& name, const std::string& description, const ResourceFont& resourceFont, const ResourceItem& resourceItem);
 	virtual ~ItemTest();
 
 	void setItemHoverDescriptionSettings(HOVERPOSITION hoverPosition, const sf::FloatRect boundaries, const sf::FloatRect boundariesOffset, DESCRIPTIONTYPE descriptionType, const std::string& title, const std::string& description) override;
@@ -24,9 +24,8 @@ public:
 	int& setGoldPrice() override;
 	int& setSilverPrice() override;
 	int& setCopperPrice() override;
-	int& setOreQuantity() override;
-	int& setWoodQuantity() override;
-	int& setPlantQuantity() override;
+	int& setQuantity() override;
+	void setShowGatherBox(bool showGatherBox) override;
 
 	const sf::FloatRect getItemGlobalBoundaries() const override;
 	const ITEMTYPE& getItemType() const override;
@@ -40,9 +39,8 @@ public:
 	const int& getCopperPrice() const override;
 	const sf::Vector2f& getPosition() const override;
 	const sf::FloatRect getItemRange() const override;
-	const int& getOreQuantity() const override;
-	const int& getWoodQuantity() const override;
-	const int& getPlantQuantity() const override;
+	const int& getQuantity() const override;
+	
 
 private:
 	
@@ -78,11 +76,11 @@ private:
 	int silver_Price_;
 	int copper_Price_;
 
-	int ore_Quantity_;
-	int wood_Quantity_;
-	int plant_Quantity_;
+	int quantity_;
+	bool is_Gather_Box_;
 	
 	ResourceFont resource_Font_;
+	ResourceItem resource_Item_;
 };
 
 #endif // !ITEMTEST_H

@@ -1,19 +1,21 @@
 #include "PlayerTest.h"
 
-PlayerTest::PlayerTest(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceRace& resourceRace)
+PlayerTest::PlayerTest(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceRace& resourceRace, const ResourceItem& resourceItem)
 {
-	this->player_Bag_ = new PlayerBag(window, resourceFont, resourceHud);
+	this->player_Bag_ = new PlayerBag(window, resourceFont, resourceHud, resourceItem);
 	this->player_Hud_ = new PlayerHud(window, resourceFont, resourceHud, resourceRace);
 	this->player_Inventory_ = new PlayerInventory(window, resourceFont, resourceHud, resourceRace);
 	this->player_Quest_ = new PlayerQuest(window, resourceFont, resourceHud);
 	this->player_Skill_Tree_ = new PlayerSkillTree(window, resourceFont);
-	this->player_Gather_ = new PlayerGather(window, resourceFont);
+	this->player_Gather_ = new PlayerGather(window, resourceFont, resourceHud, resourceItem);
 
 	this->resource_Race_ = resourceRace;
 
 	this->race_ = new RaceOrc();
 	this->race_->initializeRace(0.f, 0.f);
 	//this->race_->setPlayerClasses(this->race_->getClassesOne());
+
+	this->display_Message_ = new DisplayMessage(window, resourceFont);
 
 	this->name_ = "";
 
@@ -76,6 +78,8 @@ PlayerTest::PlayerTest(const sf::RenderWindow* window, const ResourceFont& resou
 	this->is_Idle_ = false;
 	this->is_Run_ = false;
 	this->is_Attack_ = false;
+
+	this->is_Leveling_ = false;
 }
 
 PlayerTest::~PlayerTest()
@@ -88,6 +92,8 @@ PlayerTest::~PlayerTest()
 	delete this->player_Quest_;
 	delete this->player_Skill_Tree_;
 	delete this->player_Gather_;
+
+	delete this->display_Message_;
 }
 
 void PlayerTest::initializeCharacter(Race* race, const std::string& name)
@@ -594,6 +600,8 @@ void PlayerTest::renderHudItems(sf::RenderTarget& target)
 	this->player_Skill_Tree_->render(target);
 	this->player_Gather_->render(target);
 
+	this->display_Message_->render(target);
+
 	target.setView(this->camera_->getView());
 }
 
@@ -683,6 +691,14 @@ void PlayerTest::levelUp()
 		this->exp_ = 0;
 		this->exp_ += excessExp;
 
+		//this->is_Leveling_ = true;
+		if (this->display_Message_->getIsLevelingUp())
+		{
+			this->display_Message_->setIsLevelingUp(false);
+		}
+
+		this->display_Message_->updateLevelUp(std::to_string(this->level_));
+		this->resource_Race_.getRaceSound(RACE_SOUND_TYPE_::LEVEL_UP)->play();
 
 		this->setStat("healthMax", std::floor(2.0 * 1.2 + (std::pow(this->level_, 1.2))));
 		this->getStatForChange("health") = this->getStat("healthMax");

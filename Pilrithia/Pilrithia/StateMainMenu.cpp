@@ -1,7 +1,7 @@
 #include "StateMainMenu.h"
 
-StateMainMenu::StateMainMenu(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont* resourceFont, ResourceHud* resourceHud, ResourceRace* resourceRace, MenuSetting* menuSetting, MenuPause* menuPause)
-	: State(states, window, resourceFont, resourceHud, resourceRace, menuSetting, menuPause)
+StateMainMenu::StateMainMenu(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont* resourceFont, ResourceHud* resourceHud, ResourceRace* resourceRace, ResourceItem* resourceItem, MenuSetting* menuSetting, MenuPause* menuPause)
+	: State(states, window, resourceFont, resourceHud, resourceRace, resourceItem, menuSetting, menuPause)
 {
 	std::cout << "DEBUG::STATEMAINMENU::STATEMAINMENU() -> HAS STARTED." << std::endl;
 
@@ -111,7 +111,7 @@ void StateMainMenu::updatePollEvent(sf::Event& ev)
 		{
 			this->resource_Hud_->getHudSound(HUD_SOUND_TYPE_::BUTTON_CLICK)->play();
 
-			this->states_->push(new StateEditor(this->states_, this->window_, this->resource_Font_, this->resource_Hud_, this->resource_Race_, this->menu_Setting_, this->menu_Pause_));
+			this->states_->push(new StateEditor(this->states_, this->window_, this->resource_Font_, this->resource_Hud_, this->resource_Race_, this->resource_Item_, this->menu_Setting_, this->menu_Pause_));
 		}
 
 		/*
@@ -121,7 +121,7 @@ void StateMainMenu::updatePollEvent(sf::Event& ev)
 		{
 			this->resource_Hud_->getHudSound(HUD_SOUND_TYPE_::BUTTON_CLICK)->play();
 
-			this->states_->push(new StateTestZone(this->states_, this->window_, this->resource_Font_, this->resource_Hud_, this->resource_Race_, this->menu_Setting_, this->menu_Pause_));
+			this->states_->push(new StateTestZone(this->states_, this->window_, this->resource_Font_, this->resource_Hud_, this->resource_Race_, this->resource_Item_, this->menu_Setting_, this->menu_Pause_));
 		}
 	}
 }

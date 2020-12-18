@@ -26,7 +26,7 @@ class StateTestZone
 	: public State
 {
 public:
-	StateTestZone(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont* resourceFont = nullptr, ResourceHud* resourceHud = nullptr, ResourceRace* resourceRace = nullptr, MenuSetting* menuSetting = nullptr, MenuPause* menuPause = nullptr);
+	StateTestZone(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont* resourceFont = nullptr, ResourceHud* resourceHud = nullptr, ResourceRace* resourceRace = nullptr, ResourceItem* resourceItem = nullptr, MenuSetting* menuSetting = nullptr, MenuPause* menuPause = nullptr);
 	virtual ~StateTestZone();
 	
 	void updatePollEvent(sf::Event& ev) override;
@@ -38,6 +38,7 @@ private:
 	void updateCharacterCreationPollEvent(sf::Event& ev);
 
 	void updateEnemy();
+	void updateGather();
 	void updateCharacterCreation();
 	void updateLoadTilemap();
 
@@ -73,12 +74,16 @@ private:
 	NpcTest* npc_Test_;
 	EnemyTest* enemy_Test_;
 	Merchant* merchant_Test_;
-	Gather* gather_Test_;
 
-	ResourceEnemy* resource_Enemy_;
+	Gather* gather_Test_;
+	Gather* gather_Test_One_;
+	Gather* gather_Test_Two_;
+	std::vector<Gather*> gathers_;
+
 	int max_Enemies_;
 	std::vector<Enemy*> enemies_;
-
+	
+	ResourceEnemy* resource_Enemy_;
 	ResourceNpc* resource_Npc_;
 
 };

@@ -26,6 +26,7 @@ public:
 	void setTexture(const sf::Texture* texture);
 	void setFillColor(const sf::Color& color);
 	void setSize(const sf::Vector2f& size);
+	void setTextureRect(const sf::IntRect& floatRect);
 
 	const sf::Vector2f& getPosition() const;
 	const sf::FloatRect getGlobalBounds() const;

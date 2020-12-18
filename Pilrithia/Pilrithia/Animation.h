@@ -3,6 +3,10 @@
 
 #include "SFML/Graphics.hpp"
 
+#include "ResourceFont.h"
+
+#include "Text.h"
+
 #include <iostream>
 
 class Animation
@@ -14,17 +18,12 @@ public:
 	void update(sf::RectangleShape& sprite, const sf::IntRect& textureRect, const int& sheetWidth, float time);
 	void updateDeath(sf::RectangleShape& sprite, const sf::IntRect& textureRect, const int& sheetWidth, float time);
 
-
-	void setIsAnimationComplete(bool isAnimationComplete);
-	const bool& getIsAnimationComplete() const;
-
 private:
 
 private:
 	sf::Clock animation_Clock_;
 
 	bool is_Animation_Complete_;
-
 };
 
 #endif // !ANIMATION_H

@@ -4,14 +4,13 @@ void PlayerSkillTree::initializeClassOneSelect(const ResourceFont& resourceFont)
 {
 	this->class_T_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 28, "Select a class", sf::Vector2f(this->x_A_.getLeftPosition(true, 350.f), this->x_A_.getTopPosition(true, 10.f)), true);
 
-	this->class_B_A_.setSettings(30.f, this->x_A_.getLeftPosition(true, 10.f), this->x_A_.getTopPosition(true, 100.f), sf::Color::White, 1.f, sf::Color::White, true);
+	this->class_B_A_.setSettings(30.f, this->x_A_.getLeftPosition(true, 10.f), this->x_A_.getTopPosition(true, 50.f), sf::Color::White, 1.f, sf::Color::White, true);
 	this->class_B_A_.setTexture(this->classes_Rain_->getClassIcon());
 	this->class_B_B_.setSettings(30.f, this->class_B_A_.getRightPosition(), this->class_B_A_.getTopPosition(), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
-	this->class_B_C_.setSettings(30.f, this->class_B_A_.getLeftPosition(), this->class_B_A_.getBottomPosition(), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
-	this->class_B_D_.setSettings(30.f, this->class_B_B_.getLeftPosition(), this->class_B_C_.getTopPosition(), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
+	this->class_B_C_.setSettings(30.f, this->class_B_B_.getRightPosition(), this->class_B_A_.getTopPosition(), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
+	this->class_B_D_.setSettings(30.f, this->class_B_C_.getRightPosition(), this->class_B_A_.getTopPosition(), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
 
-	this->class_X_A_.setSettings(500.f, 400.f, this->class_B_B_.getRightPosition(true, 20.f), this->class_B_B_.getTopPosition(), sf::Color(195,203,113), 1.f, sf::Color::White, true);
-	this->class_X_B_.setSettings(200.f, 400.f, this->class_X_A_.getRightPosition(true, 20.f), this->class_X_A_.getTopPosition(), sf::Color(195,203,113), 1.f, sf::Color::White, true);
+	this->class_X_A_.setSettings(600.f, 400.f, this->class_B_C_.getLeftPosition(), this->class_B_B_.getBottomPosition(true, 10.f), sf::Color(195,203,113), 1.f, sf::Color::White, true);
 
 	this->class_T_B_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 28, "Class Summary", sf::Vector2f(this->class_X_A_.getLeftPosition(true, 100.f), this->class_X_A_.getTopPosition(true, 10.f)), true);
 	this->class_T_C_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "class summary goes here", sf::Vector2f(this->class_X_A_.getLeftPosition(true, 20.f), this->class_X_A_.getTopPosition(true, 80.f)), true);
@@ -81,7 +80,7 @@ PlayerSkillTree::PlayerSkillTree(const sf::RenderWindow* window, const ResourceF
 
 	this->t_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "Close", sf::Vector2f(this->b_A_.getLeftPosition(true, 10.f), this->b_A_.getTopPosition(true, 10.f)), true);
 
-	this->b_C_.setSettings(125.f, 40.f, this->x_A_.getLeftPosition(true, 20), this->class_X_A_.getBottomPosition(false, 50), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
+	this->b_C_.setSettings(150.f, 40.f, this->class_X_A_.getLeftPosition(true, 100.f), this->class_X_A_.getBottomPosition(true, 10.f), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
 	this->t_C_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "Select", sf::Vector2f(this->b_C_.getLeftPosition(true, 10.f), this->b_C_.getTopPosition(true, 10.f)), true);
 
 
@@ -255,7 +254,6 @@ void PlayerSkillTree::render(sf::RenderTarget& target)
 			this->class_B_D_.render(target);
 
 			this->class_X_A_.render(target);
-			this->class_X_B_.render(target);
 
 			this->class_T_B_.render(target);
 			this->class_T_C_.render(target);

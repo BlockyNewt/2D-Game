@@ -1,10 +1,18 @@
 #include "StateTestZone.h"
 
-StateTestZone::StateTestZone(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont* resourceFont, ResourceHud* resourceHud, ResourceRace* resourceRace, MenuSetting* menuSetting, MenuPause* menuPause)
-	: State(states, window, resourceFont, resourceHud, resourceRace, menuSetting, menuPause)
+StateTestZone::StateTestZone(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont* resourceFont, ResourceHud* resourceHud, ResourceRace* resourceRace, ResourceItem* resourceItem, MenuSetting* menuSetting, MenuPause* menuPause)
+	: State(states, window, resourceFont, resourceHud, resourceRace, resourceItem, menuSetting, menuPause)
 {
 
-	this->player_Test_ = new PlayerTest(this->window_, *this->resource_Font_, *this->resource_Hud_, *this->resource_Race_);
+	this->resource_Enemy_ = new ResourceEnemy();
+	this->resource_Enemy_->loadAllEnemyTextures();
+	this->resource_Enemy_->loadAllEnemySounds();
+
+	this->resource_Npc_ = new ResourceNpc();
+	this->resource_Npc_->loadAllNpcTextures();
+	this->resource_Npc_->loadAllNpcSounds();
+
+	this->player_Test_ = new PlayerTest(this->window_, *this->resource_Font_, *this->resource_Hud_, *this->resource_Race_, *this->resource_Item_);
 
 	this->menu_Character_Creation_ = new MenuCharacterCreation(this->window_->getSize(), *this->resource_Font_, *this->resource_Hud_, *this->resource_Race_);
 
@@ -13,33 +21,26 @@ StateTestZone::StateTestZone(std::stack<State*>* states, sf::RenderWindow* windo
 	this->tilemap_ = new Tilemap(20, 20, 50 , 2);
 
 
-	this->resource_Npc_ = new ResourceNpc();
-	this->resource_Npc_->loadAllNpcTextures();
-
 	this->npc_Test_ = new NpcTest(this->window_, *this->resource_Font_, *this->resource_Npc_);
 	this->npc_Test_->setSettings(this->window_->getSize(), *this->resource_Font_);
 
-
-
-	this->resource_Enemy_ = new ResourceEnemy();
-	this->resource_Enemy_->loadAllEnemyTextures();
-	this->resource_Enemy_->loadAllEnemySounds();
-
 	this->max_Enemies_ = 1;
-	this->enemy_Test_ = new EnemyTest(sf::Vector2f(600.f, 120.f), 3, *this->resource_Font_, *this->resource_Enemy_);
+	this->enemy_Test_ = new EnemyTest(sf::Vector2f(600.f, 120.f), 3, this->window_, *this->resource_Font_, *this->resource_Enemy_, *this->resource_Item_);
 
 	this->enemies_.push_back(this->enemy_Test_);
 	//this->enemies_.push_back(this->enemy_Test_One_);
 
 
+	this->merchant_Test_ = new MerchantTest(this->window_, *this->resource_Font_, *this->resource_Npc_, *this->resource_Item_);
 
 
-	this->merchant_Test_ = new MerchantTest(this->window_, *this->resource_Font_, *this->resource_Npc_);
+	this->gather_Test_ = new GatherTest(GATHERTYPE::MINING, sf::Vector2f(400.f, 400.f), *this->resource_Font_, *this->resource_Hud_, *this->resource_Item_);
+	this->gather_Test_One_ = new GatherTest(GATHERTYPE::HARVESTING, sf::Vector2f(100.f, 600.f), *this->resource_Font_, *this->resource_Hud_, *this->resource_Item_);
+	this->gather_Test_Two_ = new GatherTest(GATHERTYPE::FORESTING, sf::Vector2f(850.f, 600.f), *this->resource_Font_, *this->resource_Hud_, *this->resource_Item_);
 
-
-
-	this->gather_Test_ = new GatherTest(GATHERTYPE::MINING, *this->resource_Font_, *this->resource_Hud_);
-
+	this->gathers_.push_back(this->gather_Test_);
+	this->gathers_.push_back(this->gather_Test_One_);
+	this->gathers_.push_back(this->gather_Test_Two_);
 
 
 	this->load_X_A_.setSettings(800.f, 400.f, this->window_->getSize().x / 2.f - 800.f / 2.f, this->window_->getSize().y / 2.f - 600.f / 2.f, sf::Color(85, 158, 131), 1.f, sf::Color::Red, true);
@@ -72,6 +73,12 @@ StateTestZone::~StateTestZone()
 	delete this->resource_Enemy_;
 
 	delete this->resource_Npc_;
+
+	for (int i = 0; i < this->gathers_.size(); ++i)
+	{
+		delete this->gathers_[i];
+		this->gathers_.erase(this->gathers_.begin() + i);
+	}
 }
 
 void StateTestZone::updateLoadPollEvent(sf::Event& ev)
@@ -240,9 +247,12 @@ void StateTestZone::updatePollEvent(sf::Event& ev)
 
 
 			//TESTING - SHOULD PUT INTO A VECTOR LATER
-			if (this->gather_Test_ != NULL)
+			for (auto& g : this->gathers_)
 			{
-				this->gather_Test_->updatePollEvent(ev);
+				if (g != NULL)
+				{
+					g->updatePollEvent(ev);
+				}
 			}
 
 			this->window_->setKeyRepeatEnabled(true);
@@ -271,7 +281,26 @@ void StateTestZone::updateEnemy()
 
 	if (this->enemies_.size() < this->max_Enemies_)
 	{
-		this->enemies_.push_back(new EnemyTest(sf::Vector2f(600.f, 120.f), 3, *this->resource_Font_, *this->resource_Enemy_));
+		this->enemies_.push_back(new EnemyTest(sf::Vector2f(600.f, 120.f), 3, this->window_, *this->resource_Font_, *this->resource_Enemy_, *this->resource_Item_));
+	}
+}
+
+void StateTestZone::updateGather()
+{
+	for (int i = 0; i < this->gathers_.size(); ++i)
+	{
+		this->gathers_[i]->update(this->mouse_Position_Window_, this->player_Test_->getPlayerGlobalBounds(), this->player_Test_->setPlayerGather().setGatheredItems());
+
+		if (this->gathers_[i]->getIsGathered())
+		{
+			delete this->gathers_[i];
+			this->gathers_.erase(this->gathers_.begin() + i);
+		}
+	}
+
+	if (this->gathers_.size() < 3)
+	{
+		this->gathers_.push_back(new GatherTest(GATHERTYPE::FORESTING, sf::Vector2f(400.f, 400.f), *this->resource_Font_, *this->resource_Hud_, *this->resource_Item_));
 	}
 }
 
@@ -326,16 +355,7 @@ void StateTestZone::update()
 
 
 		//TESTING - SHOULD PUT INTO A VECTOR LATER
-		if (this->gather_Test_ != NULL)
-		{
-			this->gather_Test_->update(this->mouse_Position_Window_, this->player_Test_->getPlayerGlobalBounds(), this->player_Test_->setPlayerGather().setGatheredItems());
-
-			if (this->gather_Test_->getIsGathered())
-			{
-				delete this->gather_Test_;
-				this->gather_Test_ = NULL;
-			}
-		}
+		this->updateGather();
 
 		this->updateCharacterCreation();
 	
@@ -355,9 +375,9 @@ void StateTestZone::render(sf::RenderTarget& target)
 
 
 	//TESTING - SHOULD PUT INTO A VECTOR LATER
-	if (this->gather_Test_ != NULL)
+	for (auto& g : this->gathers_)
 	{
-		this->gather_Test_->render(target);
+		g->render(target);
 	}
 
 	target.setView(this->camera_->getView());
@@ -365,7 +385,6 @@ void StateTestZone::render(sf::RenderTarget& target)
 	for (auto& e : this->enemies_)
 	{
 		e->render(target);
-
 	}
 
 	this->player_Test_->renderHudItems(target);

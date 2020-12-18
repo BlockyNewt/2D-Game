@@ -4,7 +4,7 @@ MerchantTest::MerchantTest()
 {
 }
 
-MerchantTest::MerchantTest(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceNpc& resourceNpc)
+MerchantTest::MerchantTest(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceNpc& resourceNpc, const ResourceItem& resourceItem)
 {
 	this->idle_Rect_ = sf::IntRect(0, 0, 64, 64);
 	this->idle_Sheet_Width_ = 640;
@@ -32,7 +32,7 @@ MerchantTest::MerchantTest(const sf::RenderWindow* window, const ResourceFont& r
 	this->dialog_Box_.setSettings(300.f, 200.f, this->merchant_Model_.getPosition().x - 300.f / 2.f, this->merchant_Model_.getPosition().y - 205, sf::Color(27, 133, 184), 1.f, sf::Color::Magenta, this->dialog_Box_Str_, resourceFont, true);
 	this->dialog_Box_.setString(this->dialog_Box_Str_);
 
-	this->shop_Box_ = new ShopBox(resourceFont);
+	this->shop_Box_ = new ShopBox(resourceFont, resourceItem, resourceNpc);
 
 	this->camera_ = new Camera(0, 0);
 }

@@ -85,7 +85,7 @@ EnemyTest::EnemyTest()
 	
 }
 
-EnemyTest::EnemyTest(const sf::Vector2f& position, const int& range, const ResourceFont& resourceFont, const ResourceEnemy& resourceEnemy)
+EnemyTest::EnemyTest(const sf::Vector2f& position, const int& range, const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceEnemy& resourceEnemy, const ResourceItem& resourceItem)
 {
 	this->initializeStats();
 	this->initializeModel(position, range, resourceEnemy);
@@ -105,17 +105,16 @@ EnemyTest::EnemyTest(const sf::Vector2f& position, const int& range, const Resou
 
 	this->camera_ = NULL;
 
-	this->item_One_ = new ItemTest(0.f, 0.f, ITEMTYPE::HELM, "Helm", "Made from strong steel", resourceFont);
-	this->item_Two_ = new ItemTest(0.f, 0.f, ITEMTYPE::LEG, "Leg", "Weaved pants", resourceFont);
+	this->item_One_ = new ItemTest(0.f, 0.f, ITEMTYPE::HELM, "Helm", "Helm", resourceFont, resourceItem);
+	this->item_Two_ = new ItemTest(0.f, 0.f, ITEMTYPE::WEAPON, "Sword", "Sword", resourceFont, resourceItem);
 	this->items_.push_back(this->item_One_);
 	this->items_.push_back(this->item_Two_);
 
-	this->loot_Window_ = new LootWindow(resourceFont);
+	this->loot_Window_ = new LootWindow(window, resourceFont, resourceItem);
 	this->loot_Window_->addEnemyItems(this->items_);
 
 	this->loot_X_A_.setSettings(50.f, 50.f, 0.f, 0.f, sf::Color::Red, 1.f, sf::Color::White, true);
 	this->loot_T_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "E", sf::Vector2f(0.f, 0.f), true);
-
 
 	this->walk_Texture_ = new sf::Texture();
 	*this->walk_Texture_ = *resourceEnemy.getEnemyTexture(ENEMY_TEXTURE_TYPE_::SKELETON_WALK_TEXTURE);

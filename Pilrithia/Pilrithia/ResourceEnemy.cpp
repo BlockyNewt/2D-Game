@@ -6,6 +6,28 @@ ResourceEnemy::ResourceEnemy()
 
 ResourceEnemy::~ResourceEnemy()
 {
+	/*for (std::map<ENEMY_TEXTURE_TYPE_, sf::Texture>::iterator itr = this->enemy_Textures_.begin(); itr != this->enemy_Textures_.end(); itr++)
+	{
+		delete& itr;
+		this->enemy_Textures_.erase(itr);
+	}
+
+	if (this->enemy_Textures_.empty())
+	{
+		std::cout << "DEBUG::RESOURCEENEMY::~RESOURCEENEMY() -> Deleted all textures." << std::endl;
+	}
+
+	for (std::map<ENEMY_SOUND_TYPE_, sf::Sound>::iterator itr = this->enemy_Sounds_.begin(); itr != this->enemy_Sounds_.end(); itr++)
+	{
+		delete itr->second.getBuffer();
+		this->enemy_Sounds_.erase(itr);
+	}
+
+	if (this->enemy_Sounds_.empty())
+	{
+		std::cout << "DEBUG::RESOURCEENEMY::~RESOURCEENEMY() -> Deleted all sounds." << std::endl;
+	}*/
+
 }
 
 void ResourceEnemy::loadAllEnemyTextures()
@@ -16,6 +38,7 @@ void ResourceEnemy::loadAllEnemyTextures()
 	this->loadEnemyTexture("skeleton_Walk_.png", ENEMY_TEXTURE_TYPE_::SKELETON_WALK_TEXTURE);
 	this->loadEnemyTexture("skeleton_Attack_.png", ENEMY_TEXTURE_TYPE_::SKELETON_ATTACK_TEXTURE);
 	this->loadEnemyTexture("skeleton_Death_.png", ENEMY_TEXTURE_TYPE_::SKELETON_DEATH_TEXTURE);
+
 }
 
 void ResourceEnemy::loadAllEnemySounds()
@@ -24,6 +47,8 @@ void ResourceEnemy::loadAllEnemySounds()
 		LOAD ALL SOUNDS FOR ENEMIES
 	*/
 	this->loadEnemySound("enemy_Attack_.wav", ENEMY_SOUND_TYPE_::ENEMY_ATTACK);
+	std::cout << "enemy sound: " << this->enemy_Sounds_.size() << std::endl;
+
 }
 
 const sf::Texture* ResourceEnemy::getEnemyTexture(ENEMY_TEXTURE_TYPE_ enemyTextureType) const

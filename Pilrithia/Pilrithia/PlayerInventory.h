@@ -112,6 +112,8 @@ private:
 	sf::RectangleShape glove_Icon_;
 	sf::RectangleShape leg_Icon_;
 	sf::RectangleShape feet_Icon_;
+	sf::RectangleShape weapon_Icon_;
+	sf::RectangleShape offhand_Icon_;
 
 	std::vector<Item*>equipment_;
 

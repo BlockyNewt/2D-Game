@@ -154,6 +154,7 @@
     <ClCompile Include="Classes.cpp" />
     <ClCompile Include="ClassesRainmaker.cpp" />
     <ClCompile Include="DialogBox.cpp" />
+    <ClCompile Include="DisplayMessage.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyTest.cpp" />
     <ClCompile Include="Engine.cpp" />
@@ -188,6 +189,7 @@
     <ClCompile Include="ResourceEnemy.cpp" />
     <ClCompile Include="ResourceFont.cpp" />
     <ClCompile Include="ResourceHud.cpp" />
+    <ClCompile Include="ResourceItem.cpp" />
     <ClCompile Include="ResourceNpc.cpp" />
     <ClCompile Include="ResourceRace.cpp" />
     <ClCompile Include="ShopBox.cpp" />
@@ -214,6 +216,7 @@
     <ClInclude Include="Classes.h" />
     <ClInclude Include="ClassesRainmaker.h" />
     <ClInclude Include="DialogBox.h" />
+    <ClInclude Include="DisplayMessage.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyTest.h" />
     <ClInclude Include="Engine.h" />
@@ -247,6 +250,7 @@
     <ClInclude Include="ResourceEnemy.h" />
     <ClInclude Include="ResourceFont.h" />
     <ClInclude Include="ResourceHud.h" />
+    <ClInclude Include="ResourceItem.h" />
     <ClInclude Include="ResourceNpc.h" />
     <ClInclude Include="ResourceRace.h" />
     <ClInclude Include="ShopBox.h" />

@@ -29,7 +29,10 @@ Engine::~Engine()
 
 	if (!this->states_.empty())
 	{
-		delete this->states_.top();
+		for (int i = 0; i < this->states_.size(); ++i)
+		{
+			delete this->states_.top();
+		}
 	}
 }
 

@@ -95,7 +95,6 @@ void Tilemap::updatePollEvent(sf::Event& ev)
 	/*
 		CHANGE TILE LAYER
 	*/
-
 	if (ev.type == sf::Event::KeyPressed)
 	{
 		if (ev.key.code == sf::Keyboard::Num4)
@@ -757,7 +756,7 @@ void Tilemap::EnemyCollision(Enemy& enemy)
 						*/
 						sf::FloatRect enemyBounds = enemy.getEnemyGlobalBounds();
 						sf::FloatRect NextPositionEnemy = enemy.getNextPositionGlobalBounds();
-
+ 
 						NextPositionEnemy = enemyBounds;
 						NextPositionEnemy.left += enemy.getVelocity().x;
 						NextPositionEnemy.top += enemy.getVelocity().y;

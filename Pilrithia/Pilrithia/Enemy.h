@@ -5,6 +5,7 @@
 
 #include "ResourceFont.h"
 #include "ResourceEnemy.h"
+#include "ResourceItem.h"
 
 #include "Camera.h"
 
@@ -29,7 +30,7 @@ class Enemy
 {
 public:
 	Enemy();
-	Enemy(const sf::Vector2f& position, const int& range, const ResourceFont& resourceFont, const ResourceEnemy& resourceEnemy);
+	Enemy(const sf::Vector2f& position, const int& range, const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceEnemy& resourceEnemy, const ResourceItem& resourceItem);
 	virtual ~Enemy();
 
 	virtual void updatePollEvent(sf::Event& ev, std::vector<std::vector<Item*>>& playerBag, const int& maxBagSizeX, const int& maxBagSizeY, const sf::FloatRect playerBoundaries) = 0;

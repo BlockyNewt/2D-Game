@@ -21,6 +21,7 @@ enum class RACE_SOUND_TYPE_
 {
 	FOOTSTEP,
 	AUTO_ATTACK,
+	LEVEL_UP,
 };
 
 class ResourceRace

@@ -3,8 +3,6 @@
 
 #include "Camera.h"
 
-#include "ResourceNpc.h"
-
 #include "Animation.h"
 
 #include "DialogBox.h"
@@ -17,7 +15,7 @@ class Merchant
 {
 public:
 	Merchant();
-	Merchant(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceNpc& resourceNpc);
+	Merchant(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceNpc& resourceNpc, const ResourceItem& resourceItem);
 	virtual ~Merchant();
 
 	virtual void updatePollEvent(sf::Event& ev, int& playerGold, int& playerSilver, int& playerCopper, std::vector<std::vector<Item*>>& playerBag, const int& playerBagMaxSizeX, const int& playerBagMaxSizeY) = 0;

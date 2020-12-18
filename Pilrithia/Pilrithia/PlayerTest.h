@@ -13,7 +13,7 @@
 #include "PlayerGather.h"
 
 #include "Animation.h"
-
+#include "DisplayMessage.h"
 
 
 #include <math.h>
@@ -21,7 +21,7 @@
 class PlayerTest
 {	
 public:
-	PlayerTest(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceRace& resourceRace);
+	PlayerTest(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceRace& resourceRace, const ResourceItem& resourceItem);
 	~PlayerTest();
 
 	void initializeCharacter(Race* race, const std::string& name);
@@ -83,6 +83,7 @@ private:
 	PlayerGather* player_Gather_;
 
 	Animation animation_;
+	DisplayMessage* display_Message_;
 
 	Classes* class_One_;
 	Classes* class_Two_;
@@ -133,6 +134,8 @@ private:
 	bool is_Attack_;
 
 	ResourceRace resource_Race_;
+
+	bool is_Leveling_;
 };
 
 #endif // !PLAYERTEST_H

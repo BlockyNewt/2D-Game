@@ -1,6 +1,6 @@
 #include "State.h"
 
-State::State(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont* resourceFont, ResourceHud* resourceHud, ResourceRace* resourceRace, MenuSetting* menuSetting, MenuPause* menuPause)
+State::State(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont* resourceFont, ResourceHud* resourceHud, ResourceRace* resourceRace, ResourceItem* resourceItem, MenuSetting* menuSetting, MenuPause* menuPause)
 	: states_(states), window_(window)
 {
 	if (resourceFont == nullptr)
@@ -35,6 +35,40 @@ State::State(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont*
 		this->resource_Race_ = resourceRace;
 	}
 
+	if (resourceItem == nullptr)
+	{
+		this->resource_Item_ = new ResourceItem();
+		this->resource_Item_->loadAllItemTextures();
+		this->resource_Item_->loadAllItemSounds();
+
+	}
+	else
+	{
+		this->resource_Item_ = resourceItem;
+	}
+
+	/*if (resourceEnemy == nullptr)
+	{
+		this->resource_Enemy_ = new ResourceEnemy();
+		this->resource_Enemy_->loadAllEnemyTextures();
+		this->resource_Enemy_->loadAllEnemySounds();
+	}
+	else
+	{
+		this->resource_Enemy_ = resourceEnemy;
+	}
+
+	if (resourceNpc == nullptr)
+	{
+		this->resource_Npc_ = new ResourceNpc();
+		this->resource_Npc_->loadAllNpcTextures();
+		this->resource_Npc_->loadAllNpcSounds();
+	}
+	else
+	{
+		this->resource_Npc_ = resourceNpc;
+	}*/
+
 	if (menuSetting == nullptr)
 	{
 		this->menu_Setting_ = new MenuSetting(this->window_, *this->resource_Font_);
@@ -57,6 +91,29 @@ State::State(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont*
 State::~State()
 {
 	delete this->menu_Pause_;
+
+	delete this->resource_Font_;
+	delete this->resource_Hud_;
+	delete this->resource_Race_;
+	delete this->resource_Item_;
+	/*delete this->resource_Enemy_;
+	delete this->resource_Npc_;*/
+
+	/*if (this->resource_Font_ != NULL)
+	{
+	}
+
+	if (this->resource_Hud_ != NULL)
+	{
+	}
+
+	if (this->resource_Race_ != NULL)
+	{
+	}
+
+	if (this->resource_Item_ != NULL)
+	{
+	}*/
 }
 
 void State::updateMousePosition(const sf::View* view, float tileSizeXY)
@@ -91,7 +148,6 @@ void State::updateTextureMousePosition(const sf::View* view, const float tileSiz
 	this->mouse_Position_Texture_Grid_ = sf::Vector2u(
 		static_cast<unsigned>(this->mouse_Position_View_.x) / static_cast<unsigned>(tileSizeXY),
 		static_cast<unsigned>(this->mouse_Position_View_.y) / static_cast<unsigned>(tileSizeXY));
-
 }
 
 void State::updateDeltaClock()

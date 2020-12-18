@@ -1,7 +1,9 @@
 #include "LootWindow.h"
 
-LootWindow::LootWindow(const ResourceFont& resourceFont)
+LootWindow::LootWindow(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceItem& resourceItem)
 {
+	this->display_Message_ = new DisplayMessage(window, resourceFont);
+
 	this->x_A_.setSettings(400.f, 500.f, 420.f, 100.f, sf::Color(90, 82, 85), 1.f, sf::Color::White, true);
 	this->t_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 28, "Loot", sf::Vector2f(this->x_A_.getLeftPosition(true, 100.f), this->x_A_.getTopPosition(true, 10.f)), true);
 
@@ -18,17 +20,23 @@ LootWindow::LootWindow(const ResourceFont& resourceFont)
 
 LootWindow::~LootWindow()
 {
-	for (int i = 0; i < this->loot_.size(); ++i)
+	if (!this->loot_.empty())
 	{
-		if (this->loot_[i] != NULL)
+		for (int i = 0; i < this->loot_.size(); ++i)
 		{
-			delete this->loot_[i];
-		}
-		else
-		{
-			std::cout << "DEBUG::LOOTWINDOW::~LOOTWINDOW() -> It was null." << std::endl;
+			if (this->loot_[i] != NULL)
+			{
+				delete this->loot_[i];
+			}
+			else
+			{
+				std::cout << "DEBUG::LOOTWINDOW::~LOOTWINDOW() -> It was null." << std::endl;
+			}
 		}
 	}
+	
+
+	delete this->display_Message_;
 }
 
 void LootWindow::addEnemyItems(std::vector<Item*>& enemyItems)
@@ -88,7 +96,11 @@ void LootWindow::updatePollEvent(sf::Event& ev, std::vector<std::vector<Item*>>&
 					{
 						playerBag[x][y] = this->loot_[this->selected_Item_X_]->getNewItem();
 
-						delete this->loot_[this->selected_Item_X_];
+						std::cout << "zb" << std::endl;
+						//delete this->loot_[this->selected_Item_X_];
+						//this->loot_.erase(this->loot_.begin() + y);
+						std::cout << "zx" << std::endl;
+
 						this->loot_[this->selected_Item_X_] = NULL;
 
 						this->loot_.erase(this->loot_.begin() + this->selected_Item_X_);
@@ -162,6 +174,8 @@ void LootWindow::render(sf::RenderTarget& target)
 		}
 
 		this->l_A_.render(target);
+
+		this->display_Message_->render(target);
 	}
 }
 

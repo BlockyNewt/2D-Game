@@ -6,6 +6,27 @@ ResourceRace::ResourceRace()
 
 ResourceRace::~ResourceRace()
 {
+	/*for (std::map<RACE_TEXTURE_TYPE_, sf::Texture>::iterator itr = this->race_Textures_.begin(); itr != this->race_Textures_.end(); itr++)
+	{
+		delete& itr->second;
+		this->race_Textures_.erase(itr);
+	}
+
+	if (this->race_Textures_.empty())
+	{
+		std::cout << "DEBUG::RESOURCERACE::~RESOURCERACE() -> Deleted all textures." << std::endl;
+	}
+
+	for (std::map<RACE_SOUND_TYPE_, sf::Sound>::iterator itr = this->race_Sounds_.begin(); itr != this->race_Sounds_.end(); itr++)
+	{
+		delete itr->second.getBuffer();
+		this->race_Sounds_.erase(itr);
+	}
+
+	if (this->race_Sounds_.empty())
+	{
+		std::cout << "DEBUG::RESOURCERACE::~RESOURCERACE() -> Deleted all sounds." << std::endl;
+	}*/
 }
 
 void ResourceRace::loadAllRaceTextures()
@@ -27,6 +48,10 @@ void ResourceRace::loadAllRaceSounds()
 	*/
 	this->loadRaceSound("footstep_.wav", RACE_SOUND_TYPE_::FOOTSTEP);
 	this->loadRaceSound("auto_Attack_.wav", RACE_SOUND_TYPE_::AUTO_ATTACK);
+	this->loadRaceSound("level_Up_.wav", RACE_SOUND_TYPE_::LEVEL_UP);
+
+	std::cout << "race sound: " << this->race_Sounds_.size() << std::endl;
+
 }
 
 const sf::Texture* ResourceRace::getRaceTexture(RACE_TEXTURE_TYPE_ raceTextureType) const

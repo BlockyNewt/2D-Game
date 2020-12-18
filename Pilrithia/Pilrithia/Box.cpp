@@ -44,6 +44,11 @@ void Box::setSize(float x, float y)
 	this->box_.setSize(sf::Vector2f(x, y));
 }
 
+void Box::setTexture(const sf::Texture* texture)
+{
+	this->box_.setTexture(texture);
+}
+
 void Box::setPosition(float x, float y)
 {
 	this->box_.setPosition(sf::Vector2f(x, y));

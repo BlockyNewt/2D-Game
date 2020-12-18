@@ -18,6 +18,7 @@ public:
 	void setIsVisible(bool isVisible);
 	void setPosition(float x, float y);
 	void setSize(float x, float y);
+	void setTexture(const sf::Texture* texture);
 
 	const sf::Vector2f& getPosition() const;
 	const sf::FloatRect getGlobalBounds() const;

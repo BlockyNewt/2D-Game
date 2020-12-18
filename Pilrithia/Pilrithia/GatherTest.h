@@ -8,7 +8,7 @@ class GatherTest
 {
 public:
 	GatherTest();
-	GatherTest(GATHERTYPE gatherType, const ResourceFont& resourceFont, const ResourceHud& resourceHud);
+	GatherTest(GATHERTYPE gatherType, const sf::Vector2f& position, const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceItem& resourceItem);
 	virtual ~GatherTest();
 
 	void updatePollEvent(sf::Event& ev) override;
@@ -25,9 +25,11 @@ private:
 
 private:
 	Item* item_;
+	ResourceItem resource_Item_;
 
 	Box x_A_;
 	Text t_A_;
+	Text t_B_;
 
 	sf::RectangleShape gather_Bar_Front_;
 	sf::RectangleShape gather_Bar_Back_;

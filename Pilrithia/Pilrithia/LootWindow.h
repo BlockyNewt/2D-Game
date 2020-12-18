@@ -9,6 +9,8 @@
 #include "Item.h"
 #include "ItemTest.h"
 
+#include "DisplayMessage.h"
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -16,7 +18,7 @@
 class LootWindow
 {
 public:
-	LootWindow(const ResourceFont& resourceFont);
+	LootWindow(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceItem& resourceItem);
 	~LootWindow();
 
 	void addEnemyItems(std::vector<Item*>& enemyItems);
@@ -33,6 +35,7 @@ public:
 private:
 
 private:
+	DisplayMessage* display_Message_;
 	Box	 x_A_;
 	Text t_A_;
 

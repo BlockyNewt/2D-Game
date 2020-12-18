@@ -22,6 +22,7 @@ public:
 	void setPosition(float x, float y);
 	void setIsVisible(bool isVisible);
 	sf::Text& setText();
+	void setCharacterSize(unsigned int characterSize);
 
 	const sf::Vector2f& getPosition() const;
 	const sf::FloatRect getGlobalBounds() const;
@@ -32,6 +33,7 @@ public:
 	const float getTopPosition(bool pOrM = true, float offset = 0) const;
 	const float getBottomPosition(bool pOrM = true, float offset = 0) const;
 	const bool& getIsVisible() const;
+	const unsigned int& getCharacterSize() const;
 
 private:
 

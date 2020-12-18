@@ -6,6 +6,27 @@ ResourceHud::ResourceHud()
 
 ResourceHud::~ResourceHud()
 {
+	/*for (std::map<HUD_TEXTURE_TYPE_, sf::Texture>::iterator itr = this->hud_Textures_.begin(); itr != this->hud_Textures_.end(); itr++)
+	{
+		delete& itr;
+		this->hud_Textures_.erase(itr);
+	}
+
+	if (this->hud_Textures_.empty())
+	{
+		std::cout << "DEBUG::RESOURCERACE::~RESOURCEHUD() -> Deleted all textures." << std::endl;
+	}
+
+	for (std::map<HUD_SOUND_TYPE_, sf::Sound>::iterator itr = this->hud_Sound_.begin(); itr != this->hud_Sound_.end(); itr++)
+	{
+		delete itr->second.getBuffer();
+		this->hud_Sound_.erase(itr);
+	}
+
+	if (this->hud_Sound_.empty())
+	{
+		std::cout << "DEBUG::RESOURCERACE::~RESOURCEHUD() -> Deleted all sounds." << std::endl;
+	}*/
 }
 
 void ResourceHud::loadAllHudTextures()
@@ -36,6 +57,10 @@ void ResourceHud::loadAllHudSounds()
 	*/
 	this->loadHudSound("button_Click_.wav", HUD_SOUND_TYPE_::BUTTON_CLICK);
 	this->loadHudSound("button_Click_2_.wav", HUD_SOUND_TYPE_::BUTTON_HUD_CLICK);
+
+
+	std::cout << "hud sound: " << this->hud_Sound_.size() << std::endl;
+
 }
 
 const sf::Texture* ResourceHud::getHudTexture(HUD_TEXTURE_TYPE_ hudTextureType) const

@@ -1,7 +1,9 @@
 #include "ShopBox.h"
 
-ShopBox::ShopBox(const ResourceFont& resourceFont)
+ShopBox::ShopBox(const ResourceFont& resourceFont, const ResourceItem& resourceItem, const ResourceNpc& resourceNpc)
 {
+	this->resource_Npc_ = resourceNpc;
+
 	this->x_A_.setSettings(400.f, 500.f, 10.f, 720.f / 2.f - 500.f / 2.f, sf::Color(85, 158, 131), 1.f, sf::Color::White, true);
 	this->x_B_.setSettings(620.f, 500.f, this->x_A_.getRightPosition(true, 10.f), 720.f / 2.f - 500.f / 2.f, sf::Color(85, 158, 131), 1.f, sf::Color::White, true);
 	this->x_C_.setSettings(1280.f, 720.f, 0.f, 0.f, sf::Color(0, 0, 0, 200), 1.f, sf::Color::Transparent, true);
@@ -53,14 +55,14 @@ ShopBox::ShopBox(const ResourceFont& resourceFont)
 	/*
 		USE THIS WAY FOR NOW SO WE CAN TEST ITEMS
 	*/
-	this->shop_Items_[0][0] = new ItemTest(this->x_B_.getLeftPosition(true, 14.f) + 0 * 60.f, this->x_B_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::HELM, "Steel helmet", "Made from scrap steel", resourceFont);
-	this->shop_Items_[1][0] = new ItemTest(this->x_B_.getLeftPosition(true, 14.f) + 1 * 60.f, this->x_B_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::SHOULDER, "Steel helmet", "Made from scrap steel", resourceFont);
-	this->shop_Items_[2][0] = new ItemTest(this->x_B_.getLeftPosition(true, 14.f) + 2 * 60.f, this->x_B_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::CHEST, "Steel helmet", "Made from scrap steel", resourceFont);
-	this->shop_Items_[3][0] = new ItemTest(this->x_B_.getLeftPosition(true, 14.f) + 3 * 60.f, this->x_B_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::GLOVE, "Steel helmet", "Made from scrap steel", resourceFont);
-	this->shop_Items_[4][0] = new ItemTest(this->x_B_.getLeftPosition(true, 14.f) + 4 * 60.f, this->x_B_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::LEG, "Steel helmet", "Made from scrap steel", resourceFont);
-	this->shop_Items_[5][0] = new ItemTest(this->x_B_.getLeftPosition(true, 14.f) + 5 * 60.f, this->x_B_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::FEET, "Steel helmet", "Made from scrap steel", resourceFont);
-	this->shop_Items_[6][0] = new ItemTest(this->x_B_.getLeftPosition(true, 14.f) + 6 * 60.f, this->x_B_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::HELM, "Steel helmet", "Made from scrap steel", resourceFont);
-	this->shop_Items_[7][0] = new ItemTest(this->x_B_.getLeftPosition(true, 14.f) + 7 * 60.f, this->x_B_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::HELM, "Steel helmet", "Made from scrap steel", resourceFont);
+	this->shop_Items_[0][0] = new ItemTest(this->x_B_.getLeftPosition(true, 14.f) + 0 * 60.f, this->x_B_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::HELM, "Steel helmet", "Made from scrap steel", resourceFont, resourceItem);
+	this->shop_Items_[1][0] = new ItemTest(this->x_B_.getLeftPosition(true, 14.f) + 1 * 60.f, this->x_B_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::SHOULDER, "Steel helmet", "Made from scrap steel", resourceFont, resourceItem);
+	this->shop_Items_[2][0] = new ItemTest(this->x_B_.getLeftPosition(true, 14.f) + 2 * 60.f, this->x_B_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::CHEST, "Steel helmet", "Made from scrap steel", resourceFont, resourceItem);
+	this->shop_Items_[3][0] = new ItemTest(this->x_B_.getLeftPosition(true, 14.f) + 3 * 60.f, this->x_B_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::GLOVE, "Steel helmet", "Made from scrap steel", resourceFont, resourceItem);
+	this->shop_Items_[4][0] = new ItemTest(this->x_B_.getLeftPosition(true, 14.f) + 4 * 60.f, this->x_B_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::LEG, "Steel helmet", "Made from scrap steel", resourceFont, resourceItem);
+	this->shop_Items_[5][0] = new ItemTest(this->x_B_.getLeftPosition(true, 14.f) + 5 * 60.f, this->x_B_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::FEET, "Steel helmet", "Made from scrap steel", resourceFont, resourceItem);
+	this->shop_Items_[6][0] = new ItemTest(this->x_B_.getLeftPosition(true, 14.f) + 6 * 60.f, this->x_B_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::HELM, "Steel helmet", "Made from scrap steel", resourceFont, resourceItem);
+	this->shop_Items_[7][0] = new ItemTest(this->x_B_.getLeftPosition(true, 14.f) + 7 * 60.f, this->x_B_.getTopPosition(true, 100.f) + 0 * 60.f, ITEMTYPE::HELM, "Steel helmet", "Made from scrap steel", resourceFont, resourceItem);
 }
 
 ShopBox::~ShopBox()
@@ -82,13 +84,30 @@ void ShopBox::alignPlayerBagItems(std::vector<std::vector<Item*>>& playerBag, co
 	this->player_Max_Bag_Size_X_ = playerBagMaxSizeX;
 	this->player_Max_Bag_Size_Y_ = playerBagMaxSizeY;
 
+	int xx = 6;
+	int xxx = 13;
 	for (int x = 0; x < this->player_Max_Bag_Size_X_; ++x)
 	{
 		for (int y = 0; y < this->player_Max_Bag_Size_Y_; ++y)
 		{
 			if (playerBag[x][y] != NULL)
 			{
-				playerBag[x][y]->setPosition(sf::Vector2f(this->x_A_.getLeftPosition(true, 10.f), this->x_A_.getTopPosition(true, 10.f) + x * 60.f));
+				if (y == 0)
+				{
+					playerBag[x][y]->setPosition(sf::Vector2f(this->x_A_.getLeftPosition(true, 10.f), this->x_A_.getTopPosition(true, 10.f) + x * 60.f));
+				}
+				else if (y == 1)
+				{
+					xx++;
+
+					playerBag[x][y]->setPosition(sf::Vector2f(this->x_A_.getLeftPosition(true, 10.f), this->x_A_.getTopPosition(true, 10.f) + x + 1 + xx * 60.f));
+				}
+				else if (y == 2)
+				{
+					xxx++;
+
+					playerBag[x][y]->setPosition(sf::Vector2f(this->x_A_.getLeftPosition(true, 10.f), this->x_A_.getTopPosition(true, 10.f) + x + 2 + xxx * 60.f));
+				}
 			}
 		}
 	}
@@ -269,6 +288,11 @@ void ShopBox::updatePollEvent(sf::Event& ev, int& playerGold, int& playerSilver,
 
 			if (this->has_Enough_Money_)
 			{
+				if (this->resource_Npc_.getNpcSound(NPC_SOUND_TYPE_::PURCHASE)->getStatus() != sf::Sound::Playing)
+				{
+					this->resource_Npc_.getNpcSound(NPC_SOUND_TYPE_::PURCHASE)->play();
+				}
+
 				for (auto& x : playerBag)
 				{
 					for (auto& y : x)
@@ -308,6 +332,11 @@ void ShopBox::updatePollEvent(sf::Event& ev, int& playerGold, int& playerSilver,
 		{
 			this->handleMoney(false, playerGold, playerSilver, playerCopper, playerBag);
 
+			if (this->resource_Npc_.getNpcSound(NPC_SOUND_TYPE_::PURCHASE)->getStatus() != sf::Sound::Playing)
+			{
+				this->resource_Npc_.getNpcSound(NPC_SOUND_TYPE_::PURCHASE)->play();
+			}
+
 			delete playerBag[this->player_Selected_Item_X_][this->player_Selected_Item_Y_];
 			playerBag[this->player_Selected_Item_X_][this->player_Selected_Item_Y_] = NULL;
 
@@ -328,14 +357,14 @@ void ShopBox::updatePollEvent(sf::Event& ev, int& playerGold, int& playerSilver,
 					{
 						if (ev.mouseWheelScroll.delta == 1)
 						{
-							this->scroll_ = 4;
+							this->scroll_ = 40;
 
 							playerBag[x][y]->setPosition(sf::Vector2f(this->x_A_.getLeftPosition(true, 10.f), playerBag[x][y]->getPosition().y + this->scroll_));
 						}
 
 						if (ev.mouseWheelScroll.delta == -1)
 						{
-							this->scroll_ = -4;
+							this->scroll_ = -40;
 
 							playerBag[x][y]->setPosition(sf::Vector2f(this->x_A_.getLeftPosition(true, 10.f), playerBag[x][y]->getPosition().y +  this->scroll_));
 						}

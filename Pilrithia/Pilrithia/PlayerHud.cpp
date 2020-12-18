@@ -3,6 +3,7 @@
 PlayerHud::PlayerHud(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceRace& resourceRace)
 {
 	this->camera_ = new Camera(0, 0);
+	this->display_Message_ = new DisplayMessage(window, resourceFont);
 	
 	this->resource_Font_ = resourceFont;
 	this->resource_Hud_ = resourceHud;
@@ -98,6 +99,8 @@ PlayerHud::PlayerHud(const sf::RenderWindow* window, const ResourceFont& resourc
 PlayerHud::~PlayerHud()
 {
 	delete this->camera_;
+
+	delete this->display_Message_;
 }
 
 void PlayerHud::intializeHud(const std::string& name, const int& healthMax, const int& health, const int& manaMax, const int& mana, const int& expMax, const int& exp, const sf::Texture& playerRaceIcon)
@@ -403,9 +406,15 @@ void PlayerHud::update(const sf::Vector2i& mousePositionWindow, const Camera& ca
 		}
 
 		//PLAYER COMBAT TIMER 
+		
 		if (this->leave_Combat_Timer_.getElapsedTime().asSeconds() >= 5.f)
 		{
-			playerIsCombat = false;
+			if (playerIsCombat)
+			{
+				playerIsCombat = false;
+
+				this->display_Message_->updateLeftCombat();
+			}
 		}
 		else
 		{
@@ -476,6 +485,8 @@ void PlayerHud::render(sf::RenderTarget& target)
 		}
 
 		this->skill_Dropdown_List_.render(target);
+
+		this->display_Message_->render(target);
 
 		target.setView(this->camera_->getView());
 

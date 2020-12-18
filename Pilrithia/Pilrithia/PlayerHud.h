@@ -9,6 +9,8 @@
 #include "ResourceHud.h"
 #include "ResourceRace.h"
 
+#include "DisplayMessage.h"
+
 #include "Box.h"
 #include "Button.h"
 #include "Text.h"
@@ -57,6 +59,7 @@ private:
 
 private:
 	Camera* camera_;
+	DisplayMessage* display_Message_;
 
 	//MAYBE MAKE GUI FOR THIS LATER (COULD ALSO USE WITH ENEMIES
 	sf::RectangleShape health_Bar_Back_;

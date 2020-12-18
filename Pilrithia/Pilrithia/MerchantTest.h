@@ -8,7 +8,7 @@ class MerchantTest
 {
 public:
 	MerchantTest();
-	MerchantTest(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceNpc& resourceNpc);
+	MerchantTest(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceNpc& resourceNpc, const ResourceItem& resourceItem);
 	virtual ~MerchantTest();
 
 	void updatePollEvent(sf::Event& ev, int& playerGold, int& playerSilver, int& playerCopper, std::vector<std::vector<Item*>>& playerBag, const int& playerBagMaxSizeX, const int& playerBagMaxSizeY) override;

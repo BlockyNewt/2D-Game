@@ -1,21 +1,21 @@
 #include "PlayerBag.h"
 
-PlayerBag::PlayerBag(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceItem& resourceItem)
+PlayerBag::PlayerBag(const sf::RenderWindow* window, ResourceFont* resourceFont, ResourceHud* resourceHud, ResourceItem* resourceItem)
 {
 	this->is_Hiding_Bag_ = true;
 
 	this->resource_Font_ = resourceFont;
 	this->resource_Item_ = resourceItem;
 
-	this->bag_Background_Sprite_.setTexture(*resourceHud.getHudTexture(HUD_TEXTURE_TYPE_::BAG));
+	this->bag_Background_Sprite_.setTexture(*resourceHud->getHudTexture(HUD_TEXTURE_TYPE_::BAG));
 	this->bag_Background_Sprite_.setPosition(sf::Vector2f(window->getSize().x / 2.f - 800.f / 2.f, window->getSize().y / 2.f - 500.f / 2.f));
 
 	this->x_B_.setSettings(window->getSize().x, window->getSize().y, 0.f, 0.f, sf::Color(0, 0, 0, 200), 1.f, sf::Color::Transparent, true);
 
 	this->b_A_.setSettings(34.f, 34.f, this->bag_Background_Sprite_.getGlobalBounds().left + this->bag_Background_Sprite_.getGlobalBounds().width - 38.f, this->bag_Background_Sprite_.getGlobalBounds().top + 4.f, sf::Color::White, 0.f, sf::Color::Transparent, true);
-	this->b_A_.setTexture(resourceHud.getHudTexture(HUD_TEXTURE_TYPE_::CLOSE));
+	this->b_A_.setTexture(resourceHud->getHudTexture(HUD_TEXTURE_TYPE_::CLOSE));
 
-	this->t_B_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 28, "Bag", sf::Vector2f(this->bag_Background_Sprite_.getGlobalBounds().left + 400.f, this->bag_Background_Sprite_.getGlobalBounds().top + 10.f), true);
+	this->t_B_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 28, "Bag", sf::Vector2f(this->bag_Background_Sprite_.getGlobalBounds().left + 400.f, this->bag_Background_Sprite_.getGlobalBounds().top + 10.f), true);
 	
 
 
@@ -30,14 +30,24 @@ PlayerBag::PlayerBag(const sf::RenderWindow* window, const ResourceFont& resourc
 	this->silver_ = 1;
 	this->copper_ = 99;
 
-	this->t_C_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 28, "Gold: " + std::to_string(this->gold_), sf::Vector2f(this->bag_Background_Sprite_.getGlobalBounds().left + 100.f, this->bag_Background_Sprite_.getGlobalBounds().top + this->bag_Background_Sprite_.getGlobalBounds().height - 50.f), true);
-	this->t_D_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 28, "Silver: " + std::to_string(this->silver_), sf::Vector2f(this->t_C_.getLeftPosition(true, 200.f), this->bag_Background_Sprite_.getGlobalBounds().top + this->bag_Background_Sprite_.getGlobalBounds().height - 50.f), true);
-	this->t_E_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 28, "Copper: " + std::to_string(this->copper_), sf::Vector2f(this->t_D_.getLeftPosition(true, 200.f), this->bag_Background_Sprite_.getGlobalBounds().top + this->bag_Background_Sprite_.getGlobalBounds().height - 50.f), true);
+	this->t_C_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 28, "Gold: " + std::to_string(this->gold_), sf::Vector2f(this->bag_Background_Sprite_.getGlobalBounds().left + 100.f, this->bag_Background_Sprite_.getGlobalBounds().top + this->bag_Background_Sprite_.getGlobalBounds().height - 50.f), true);
+	this->t_D_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 28, "Silver: " + std::to_string(this->silver_), sf::Vector2f(this->t_C_.getLeftPosition(true, 200.f), this->bag_Background_Sprite_.getGlobalBounds().top + this->bag_Background_Sprite_.getGlobalBounds().height - 50.f), true);
+	this->t_E_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 28, "Copper: " + std::to_string(this->copper_), sf::Vector2f(this->t_D_.getLeftPosition(true, 200.f), this->bag_Background_Sprite_.getGlobalBounds().top + this->bag_Background_Sprite_.getGlobalBounds().height - 50.f), true);
 }
 
 PlayerBag::~PlayerBag()
 {
-	
+	for (int x = 0; x < this->max_Bag_Size_X_; ++x)
+	{
+		for (int y = 0; y < this->max_Bag_Size_Y_; ++y)
+		{
+			delete this->items_[x][y];
+		}
+	}
+
+	this->items_.clear();
+
+	std::cout << "DEBUG::PLAYERBAG::~PLAYERBAG() -> Deconstructed." << std::endl;
 }
 
 void PlayerBag::initializeBag()

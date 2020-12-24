@@ -1,8 +1,8 @@
 #include "PlayerSkillTree.h"
 
-void PlayerSkillTree::initializeClassOneSelect(const ResourceFont& resourceFont)
+void PlayerSkillTree::initializeClassOneSelect(ResourceFont* resourceFont)
 {
-	this->class_T_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 28, "Select a class", sf::Vector2f(this->x_A_.getLeftPosition(true, 350.f), this->x_A_.getTopPosition(true, 10.f)), true);
+	this->class_T_A_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 28, "Select a class", sf::Vector2f(this->x_A_.getLeftPosition(true, 350.f), this->x_A_.getTopPosition(true, 10.f)), true);
 
 	this->class_B_A_.setSettings(30.f, this->x_A_.getLeftPosition(true, 10.f), this->x_A_.getTopPosition(true, 50.f), sf::Color::White, 1.f, sf::Color::White, true);
 	this->class_B_A_.setTexture(this->classes_Rain_->getClassIcon());
@@ -12,8 +12,8 @@ void PlayerSkillTree::initializeClassOneSelect(const ResourceFont& resourceFont)
 
 	this->class_X_A_.setSettings(600.f, 400.f, this->class_B_C_.getLeftPosition(), this->class_B_B_.getBottomPosition(true, 10.f), sf::Color(195,203,113), 1.f, sf::Color::White, true);
 
-	this->class_T_B_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 28, "Class Summary", sf::Vector2f(this->class_X_A_.getLeftPosition(true, 100.f), this->class_X_A_.getTopPosition(true, 10.f)), true);
-	this->class_T_C_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "class summary goes here", sf::Vector2f(this->class_X_A_.getLeftPosition(true, 20.f), this->class_X_A_.getTopPosition(true, 80.f)), true);
+	this->class_T_B_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 28, "Class Summary", sf::Vector2f(this->class_X_A_.getLeftPosition(true, 100.f), this->class_X_A_.getTopPosition(true, 10.f)), true);
+	this->class_T_C_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 18, "class summary goes here", sf::Vector2f(this->class_X_A_.getLeftPosition(true, 20.f), this->class_X_A_.getTopPosition(true, 80.f)), true);
 
 	this->speccing_Progress_Bar_Max_ = 99;
 	this->speccing_Progress_Bar_Amount_ = 0;
@@ -27,7 +27,7 @@ void PlayerSkillTree::resizeProgressBar()
 	this->speccing_Progress_Bar_Front_.setSize(sf::Vector2f(40, -(progressAmountToFloat / progressMaxToFloat) * 500.f));
 }
 
-PlayerSkillTree::PlayerSkillTree(const sf::RenderWindow* window, const ResourceFont& resourceFont)
+PlayerSkillTree::PlayerSkillTree(const sf::RenderWindow* window, ResourceFont* resourceFont)
 {
 	/*
 	
@@ -74,17 +74,17 @@ PlayerSkillTree::PlayerSkillTree(const sf::RenderWindow* window, const ResourceF
 
 
 
-	this->speccing_T_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "Increase", sf::Vector2f(this->speccing_B_A_.getLeftPosition(true, 10.f), this->speccing_B_A_.getTopPosition(true, 10.f)), true);
-	this->speccing_T_B_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "SP:", sf::Vector2f(this->speccing_Progress_Bar_Back_.getGlobalBounds().left, this->speccing_Progress_Bar_Back_.getGlobalBounds().top - 30.f), true);
+	this->speccing_T_A_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 18, "Increase", sf::Vector2f(this->speccing_B_A_.getLeftPosition(true, 10.f), this->speccing_B_A_.getTopPosition(true, 10.f)), true);
+	this->speccing_T_B_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 18, "SP:", sf::Vector2f(this->speccing_Progress_Bar_Back_.getGlobalBounds().left, this->speccing_Progress_Bar_Back_.getGlobalBounds().top - 30.f), true);
 
 
-	this->t_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "Close", sf::Vector2f(this->b_A_.getLeftPosition(true, 10.f), this->b_A_.getTopPosition(true, 10.f)), true);
+	this->t_A_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 18, "Close", sf::Vector2f(this->b_A_.getLeftPosition(true, 10.f), this->b_A_.getTopPosition(true, 10.f)), true);
 
 	this->b_C_.setSettings(150.f, 40.f, this->class_X_A_.getLeftPosition(true, 100.f), this->class_X_A_.getBottomPosition(true, 10.f), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
-	this->t_C_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "Select", sf::Vector2f(this->b_C_.getLeftPosition(true, 10.f), this->b_C_.getTopPosition(true, 10.f)), true);
+	this->t_C_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 18, "Select", sf::Vector2f(this->b_C_.getLeftPosition(true, 10.f), this->b_C_.getTopPosition(true, 10.f)), true);
 
 
-	this->t_D_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 28, "Skill point allocation", sf::Vector2f(this->x_A_.getLeftPosition(true, 350.f), this->x_A_.getTopPosition(true, 10.f)), true);
+	this->t_D_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 28, "Skill point allocation", sf::Vector2f(this->x_A_.getLeftPosition(true, 350.f), this->x_A_.getTopPosition(true, 10.f)), true);
 
 
 	this->is_Selecting_Class_One_ = true;
@@ -95,6 +95,9 @@ PlayerSkillTree::PlayerSkillTree(const sf::RenderWindow* window, const ResourceF
 
 PlayerSkillTree::~PlayerSkillTree()
 {
+	delete this->classes_Rain_;
+
+	std::cout << "DEBUG::PLAYERSKILLTREE::~PLAYERSKILLTREE() -> Deconstructed." << std::endl;
 }
 
 void PlayerSkillTree::updateClassOneSelectPollEvent(sf::Event& ev, std::map<std::string, int>& stats, int& playerSkillPoints)

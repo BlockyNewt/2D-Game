@@ -30,7 +30,7 @@ class Enemy
 {
 public:
 	Enemy();
-	Enemy(const sf::Vector2f& position, const int& range, const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceEnemy& resourceEnemy, const ResourceItem& resourceItem);
+	Enemy(const sf::Vector2f& position, const int& range, const sf::RenderWindow* window, ResourceFont* resourceFont, ResourceEnemy* resourceEnemy, ResourceItem* resourceItem);
 	virtual ~Enemy();
 
 	virtual void updatePollEvent(sf::Event& ev, std::vector<std::vector<Item*>>& playerBag, const int& maxBagSizeX, const int& maxBagSizeY, const sf::FloatRect playerBoundaries) = 0;
@@ -59,7 +59,7 @@ public:
 
 private:
 	virtual void initializeStats() = 0;
-	virtual void initializeModel(const sf::Vector2f& position, const int& range, const ResourceEnemy& resourceEnemy) = 0;
+	virtual void initializeModel(const sf::Vector2f& position, const int& range, ResourceEnemy* resourceEnemy) = 0;
 	virtual void initializeHealthBar() = 0;
 
 	virtual void updateAutoMovement(const float& dt) = 0;

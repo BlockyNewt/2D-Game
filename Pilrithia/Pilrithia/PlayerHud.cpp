@@ -1,6 +1,6 @@
 #include "PlayerHud.h"
 
-PlayerHud::PlayerHud(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceRace& resourceRace)
+PlayerHud::PlayerHud(const sf::RenderWindow* window, ResourceFont* resourceFont, ResourceHud* resourceHud, ResourceRace* resourceRace)
 {
 	this->camera_ = new Camera(0, 0);
 	this->display_Message_ = new DisplayMessage(window, resourceFont);
@@ -11,7 +11,7 @@ PlayerHud::PlayerHud(const sf::RenderWindow* window, const ResourceFont& resourc
 	this->window_Size_X_ = window->getSize().x;
 	this->window_Size_Y_ = window->getSize().y;
 
-	this->bars_Sprite_.setTexture(*resourceHud.getHudTexture(HUD_TEXTURE_TYPE_::BAR));
+	this->bars_Sprite_.setTexture(*resourceHud->getHudTexture(HUD_TEXTURE_TYPE_::BAR));
 	this->bars_Sprite_.setPosition(sf::Vector2f(10.f, 10.f));
 
 	this->health_Bar_Back_.setPosition(sf::Vector2f(this->bars_Sprite_.getGlobalBounds().left + 115.f, this->bars_Sprite_.getGlobalBounds().top + 22.f));
@@ -52,30 +52,30 @@ PlayerHud::PlayerHud(const sf::RenderWindow* window, const ResourceFont& resourc
 
 
 
-	this->health_T_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 14, "", sf::Vector2f(this->health_Bar_Front_.getGlobalBounds().left + 4.f, this->health_Bar_Front_.getGlobalBounds().top + 15.f), true);
-	this->mana_T_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 14, "", sf::Vector2f(this->mana_Bar_Front_.getGlobalBounds().left + 4.f, this->mana_Bar_Front_.getGlobalBounds().top + 15.f), true);
-	this->experience_T_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 14, "", sf::Vector2f(this->experience_Bar_Front_.getGlobalBounds().left + 4.f, this->experience_Bar_Front_.getGlobalBounds().top + 15.f), true);
+	this->health_T_A_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 14, "", sf::Vector2f(this->health_Bar_Front_.getGlobalBounds().left + 4.f, this->health_Bar_Front_.getGlobalBounds().top + 15.f), true);
+	this->mana_T_A_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 14, "", sf::Vector2f(this->mana_Bar_Front_.getGlobalBounds().left + 4.f, this->mana_Bar_Front_.getGlobalBounds().top + 15.f), true);
+	this->experience_T_A_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 14, "", sf::Vector2f(this->experience_Bar_Front_.getGlobalBounds().left + 4.f, this->experience_Bar_Front_.getGlobalBounds().top + 15.f), true);
 
 
 
 	this->character_B_A_.setSettings(60.f, 60.f, 400.f, 10.f, sf::Color::White, 1.f, sf::Color::Transparent, true);
-	this->character_B_A_.setTexture(resourceHud.getHudTexture(HUD_TEXTURE_TYPE_::INVENTORY_ICON));
+	this->character_B_A_.setTexture(resourceHud->getHudTexture(HUD_TEXTURE_TYPE_::INVENTORY_ICON));
 	this->character_B_B_.setSettings(60.f, 60.f, this->character_B_A_.getRightPosition(true, 10.f), this->character_B_A_.getTopPosition(), sf::Color::White, 1.f, sf::Color::Transparent, true);
-	this->character_B_B_.setTexture(resourceHud.getHudTexture(HUD_TEXTURE_TYPE_::BAG_ICON));
+	this->character_B_B_.setTexture(resourceHud->getHudTexture(HUD_TEXTURE_TYPE_::BAG_ICON));
 	this->character_B_C_.setSettings(60.f, 60.f, this->character_B_B_.getRightPosition(true, 10.f), this->character_B_A_.getTopPosition(), sf::Color::White, 1.f, sf::Color::Transparent, true);
-	this->character_B_C_.setTexture(resourceHud.getHudTexture(HUD_TEXTURE_TYPE_::QUEST_ICON));
+	this->character_B_C_.setTexture(resourceHud->getHudTexture(HUD_TEXTURE_TYPE_::QUEST_ICON));
 	this->character_B_D_.setSettings(60.f, 60.f, this->character_B_C_.getRightPosition(true, 10.f), this->character_B_A_.getTopPosition(), sf::Color::White, 1.f, sf::Color::Transparent, true);
-	this->character_B_D_.setTexture(resourceHud.getHudTexture(HUD_TEXTURE_TYPE_::SKILL_ICON));
+	this->character_B_D_.setTexture(resourceHud->getHudTexture(HUD_TEXTURE_TYPE_::SKILL_ICON));
 	this->character_B_F_.setSettings(60.f, 60.f, this->character_B_D_.getRightPosition(true, 10.f), this->character_B_A_.getTopPosition(), sf::Color(27, 133, 184), 1.f, sf::Color::White, true);
 
-	this->character_T_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 12, "Inventory", sf::Vector2f(this->character_B_A_.getLeftPosition(), this->character_B_A_.getTopPosition()), true);
-	this->character_T_B_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 12, "Bag", sf::Vector2f(this->character_B_B_.getLeftPosition(), this->character_B_B_.getTopPosition()), true);
-	this->character_T_C_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 12, "Quests", sf::Vector2f(this->character_B_C_.getLeftPosition(), this->character_B_C_.getTopPosition()), true);
-	this->character_T_D_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 12, "Skill Tree", sf::Vector2f(this->character_B_D_.getLeftPosition(), this->character_B_D_.getTopPosition()), true);
-	this->character_T_E_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 12, "", sf::Vector2f(0.f, 0.f), true);
-	this->character_T_F_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 12, "Gathering", sf::Vector2f(this->character_B_F_.getLeftPosition(), this->character_B_F_.getTopPosition()), true);
+	this->character_T_A_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 12, "Inventory", sf::Vector2f(this->character_B_A_.getLeftPosition(), this->character_B_A_.getTopPosition()), true);
+	this->character_T_B_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 12, "Bag", sf::Vector2f(this->character_B_B_.getLeftPosition(), this->character_B_B_.getTopPosition()), true);
+	this->character_T_C_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 12, "Quests", sf::Vector2f(this->character_B_C_.getLeftPosition(), this->character_B_C_.getTopPosition()), true);
+	this->character_T_D_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 12, "Skill Tree", sf::Vector2f(this->character_B_D_.getLeftPosition(), this->character_B_D_.getTopPosition()), true);
+	this->character_T_E_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 12, "", sf::Vector2f(0.f, 0.f), true);
+	this->character_T_F_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 12, "Gathering", sf::Vector2f(this->character_B_F_.getLeftPosition(), this->character_B_F_.getTopPosition()), true);
 
-	this->skill_Hotbar_Sprite_.setTexture(*resourceHud.getHudTexture(HUD_TEXTURE_TYPE_::HOTBAR));
+	this->skill_Hotbar_Sprite_.setTexture(*resourceHud->getHudTexture(HUD_TEXTURE_TYPE_::HOTBAR));
 	this->skill_Hotbar_Sprite_.setPosition(sf::Vector2f(400.f, 595.f));
 
 	this->skill_B_A_.setSettings(50.f, 50.f, this->skill_Hotbar_Sprite_.getGlobalBounds().left + 10.f, this->skill_Hotbar_Sprite_.getGlobalBounds().top + 65.f, sf::Color::Transparent, 1.f, sf::Color::Transparent, true);
@@ -84,9 +84,9 @@ PlayerHud::PlayerHud(const sf::RenderWindow* window, const ResourceFont& resourc
 	
 	this->skill_X_A_.setSettings(this->skill_B_A_.getSize().x, 0.f, this->skill_B_A_.getPosition().x, this->skill_B_A_.getBottomPosition(), sf::Color(0, 0, 0, 200), 1.f, sf::Color::Transparent, true);
 
-	this->skill_T_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 12, "Skill 1", sf::Vector2f(this->skill_B_A_.getLeftPosition(), this->skill_B_A_.getTopPosition()), true);
-	this->skill_T_B_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 12, "Skill 2", sf::Vector2f(this->skill_B_B_.getLeftPosition(), this->skill_B_B_.getTopPosition()), true);
-	this->skill_T_C_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 12, "Skill 3", sf::Vector2f(this->skill_B_C_.getLeftPosition(), this->skill_B_C_.getTopPosition()), true);
+	this->skill_T_A_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 12, "Skill 1", sf::Vector2f(this->skill_B_A_.getLeftPosition(), this->skill_B_A_.getTopPosition()), true);
+	this->skill_T_B_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 12, "Skill 2", sf::Vector2f(this->skill_B_B_.getLeftPosition(), this->skill_B_B_.getTopPosition()), true);
+	this->skill_T_C_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 12, "Skill 3", sf::Vector2f(this->skill_B_C_.getLeftPosition(), this->skill_B_C_.getTopPosition()), true);
 
 	this->skill_D_A_.setHoverBoundaries(HOVERPOSITION::TOP, this->skill_B_A_.getGlobalBounds(), this->skill_B_A_.getGlobalBounds());
 	this->skill_D_A_.setTextFont(resourceFont);
@@ -101,6 +101,8 @@ PlayerHud::~PlayerHud()
 	delete this->camera_;
 
 	delete this->display_Message_;
+
+	std::cout << "DEBUG::PLAYERHUD::~PLAYERHUD() -> Deconstructed." << std::endl;
 }
 
 void PlayerHud::intializeHud(const std::string& name, const int& healthMax, const int& health, const int& manaMax, const int& mana, const int& expMax, const int& exp, const sf::Texture& playerRaceIcon)
@@ -125,7 +127,7 @@ bool PlayerHud::updateInventoryPollEvent(sf::Event& ev)
 {
 	if (this->character_B_A_.updatePollEvent(ev))
 	{
-		this->resource_Hud_.getHudSound(HUD_SOUND_TYPE_::BUTTON_HUD_CLICK)->play();
+		this->resource_Hud_->getHudSound(HUD_SOUND_TYPE_::BUTTON_HUD_CLICK)->play();
 
 		return true;
 	}
@@ -139,7 +141,7 @@ bool PlayerHud::updateBagPollEvent(sf::Event& ev)
 {
 	if (this->character_B_B_.updatePollEvent(ev))
 	{
-		this->resource_Hud_.getHudSound(HUD_SOUND_TYPE_::BUTTON_HUD_CLICK)->play();
+		this->resource_Hud_->getHudSound(HUD_SOUND_TYPE_::BUTTON_HUD_CLICK)->play();
 
 		return true;
 	}
@@ -153,7 +155,7 @@ bool PlayerHud::updateQuestPollEvent(sf::Event& ev)
 {
 	if (this->character_B_C_.updatePollEvent(ev))
 	{
-		this->resource_Hud_.getHudSound(HUD_SOUND_TYPE_::BUTTON_HUD_CLICK)->play();
+		this->resource_Hud_->getHudSound(HUD_SOUND_TYPE_::BUTTON_HUD_CLICK)->play();
 
 		return true;
 	}
@@ -168,7 +170,7 @@ bool PlayerHud::updateSkillTreePollEvent(sf::Event& ev)
 	if (this->character_B_D_.updatePollEvent(ev))
 	{
 		//std::cout << "DEBUG::PLAYERHUD::UPDATESKILLTREEPOLLEVENT() -> Showing skill tree" << std::endl;
-		this->resource_Hud_.getHudSound(HUD_SOUND_TYPE_::BUTTON_HUD_CLICK)->play();
+		this->resource_Hud_->getHudSound(HUD_SOUND_TYPE_::BUTTON_HUD_CLICK)->play();
 
 		return true;
 	}
@@ -183,7 +185,7 @@ bool PlayerHud::updateGatherPollEvent(sf::Event& ev)
 	if (this->character_B_F_.updatePollEvent(ev))
 	{
 		//std::cout << "Showing quests" << std::endl;
-		this->resource_Hud_.getHudSound(HUD_SOUND_TYPE_::BUTTON_HUD_CLICK)->play();
+		this->resource_Hud_->getHudSound(HUD_SOUND_TYPE_::BUTTON_HUD_CLICK)->play();
 
 		return true;
 	}

@@ -4,13 +4,13 @@ QuestTest::QuestTest()
 {
 }
 
-QuestTest::QuestTest(const ResourceFont& resourceFont)
+QuestTest::QuestTest(ResourceFont* resourceFont)
 {
 	this->quest_Title_ = "Test";
 	this->quest_Summary_ = "This is the quest box. You can view here what a quest requires and what the reward is. Accept it and then talk to me again to turn it in.";
 	this->quest_Finish_Summary_ = "You have completed your first quest, CONGRATULATIONS!";
 
-	this->t_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, this->quest_Title_ + "\n" + this->quest_Summary_, sf::Vector2f(0.f, 0.f), true);
+	this->t_A_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 18, this->quest_Title_ + "\n" + this->quest_Summary_, sf::Vector2f(0.f, 0.f), true);
 
 	this->max_Kill_Count_ = 0;
 	this->current_Kill_Count_ = 0;
@@ -28,6 +28,7 @@ QuestTest::QuestTest(const ResourceFont& resourceFont)
 
 QuestTest::~QuestTest()
 {
+	std::cout << "DEBUG::QUESTTEST::~QUESTTEST() -> Deconstructed" << std::endl;
 }
 
 void QuestTest::update()

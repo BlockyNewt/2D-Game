@@ -66,9 +66,9 @@ void StateEditor::initializeTilemapSettings()
 	this->tilemap_Settings_T_F_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 25, "Close", sf::Vector2f(this->tilemap_Settings_B_B_.getLeftPosition(true, 10.f), this->tilemap_Settings_B_B_.getTopPosition(true, 10.f)), false);
 	this->tilemap_Settings_T_G_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 25, "Enable grid", sf::Vector2f(this->tilemap_Settings_X_A_.getLeftPosition(true, 10.f), this->tilemap_Settings_T_C_.getTopPosition(true, 50.f)), false);
 
-	this->tilemap_Settings_I_A_.setSettings(75.f, 40.f, this->tilemap_Settings_T_A_.getRightPosition(true, 10.f), this->tilemap_Settings_T_A_.getTopPosition(false, 10), sf::Color::Black, 1.f, sf::Color::Red, false, false, 4, *this->resource_Font_);
-	this->tilemap_Settings_I_B_.setSettings(75.f, 40.f, this->tilemap_Settings_T_B_.getRightPosition(true, 10.f), this->tilemap_Settings_T_B_.getTopPosition(false, 10), sf::Color::Black, 1.f, sf::Color::Red, false, false, 4, *this->resource_Font_);
-	this->tilemap_Settings_I_C_.setSettings(75.f, 40.f, this->tilemap_Settings_I_B_.getLeftPosition(), this->tilemap_Settings_T_C_.getTopPosition(false, 10), sf::Color::Black, 1.f, sf::Color::Red, false, false, 4, *this->resource_Font_);
+	this->tilemap_Settings_I_A_.setSettings(75.f, 40.f, this->tilemap_Settings_T_A_.getRightPosition(true, 10.f), this->tilemap_Settings_T_A_.getTopPosition(false, 10), sf::Color::Black, 1.f, sf::Color::Red, false, false, 4, this->resource_Font_);
+	this->tilemap_Settings_I_B_.setSettings(75.f, 40.f, this->tilemap_Settings_T_B_.getRightPosition(true, 10.f), this->tilemap_Settings_T_B_.getTopPosition(false, 10), sf::Color::Black, 1.f, sf::Color::Red, false, false, 4, this->resource_Font_);
+	this->tilemap_Settings_I_C_.setSettings(75.f, 40.f, this->tilemap_Settings_I_B_.getLeftPosition(), this->tilemap_Settings_T_C_.getTopPosition(false, 10), sf::Color::Black, 1.f, sf::Color::Red, false, false, 4, this->resource_Font_);
 
 	this->tilemap_Settings_C_A_.setSettings(40.f, 40.f, this->tilemap_Settings_I_C_.getLeftPosition(), this->tilemap_Settings_T_G_.getTopPosition(false, 10), sf::Color::Black, 1, sf::Color::Red, false, false);
 }
@@ -89,7 +89,7 @@ void StateEditor::initializeSave()
 	this->save_T_C_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 25, "Save", sf::Vector2f(this->save_B_A_.getLeftPosition(true, 10.f), this->save_B_A_.getTopPosition(true, 10.f)), false);
 	this->save_T_D_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 25, "Close", sf::Vector2f(this->save_B_B_.getLeftPosition(true, 10.f), this->save_B_B_.getTopPosition(true, 10.f)), false);
 
-	this->save_I_A_.setSettings(500.f, 40.f, this->save_T_B_.getRightPosition(true, 10.f), this->save_T_B_.getTopPosition(), sf::Color::Black, 1.f, sf::Color::Red, false, false, 30, *this->resource_Font_);
+	this->save_I_A_.setSettings(500.f, 40.f, this->save_T_B_.getRightPosition(true, 10.f), this->save_T_B_.getTopPosition(), sf::Color::Black, 1.f, sf::Color::Red, false, false, 30, this->resource_Font_);
 }
 
 void StateEditor::initializeLoad()
@@ -109,8 +109,8 @@ void StateEditor::initializeLoad()
 	this->load_T_D_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 25, "Close", sf::Vector2f(this->load_B_B_.getLeftPosition(true, 10.f), this->load_B_B_.getTopPosition(true, 10.f)), false);
 	this->load_T_E_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 25, "Texture:", sf::Vector2f(this->load_X_A_.getLeftPosition(true, 10.f), this->tilemap_Settings_X_A_.getTopPosition(true, 260.f)), false);
 
-	this->load_I_A_.setSettings(500.f, 40.f, this->load_T_B_.getRightPosition(true, 10.f), this->load_T_B_.getTopPosition(), sf::Color::Black, 1.f, sf::Color::Red, false, false, 30, *this->resource_Font_);
-	this->load_I_B_.setSettings(500.f, 40.f, this->load_I_A_.getLeftPosition(), this->load_I_A_.getBottomPosition(true, 10.f), sf::Color::Black, 1.f, sf::Color::Red, false, false, 30, *this->resource_Font_);
+	this->load_I_A_.setSettings(500.f, 40.f, this->load_T_B_.getRightPosition(true, 10.f), this->load_T_B_.getTopPosition(), sf::Color::Black, 1.f, sf::Color::Red, false, false, 30, this->resource_Font_);
+	this->load_I_B_.setSettings(500.f, 40.f, this->load_I_A_.getLeftPosition(), this->load_I_A_.getBottomPosition(true, 10.f), sf::Color::Black, 1.f, sf::Color::Red, false, false, 30, this->resource_Font_);
 }
 
 StateEditor::StateEditor(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont* resourceFont, ResourceHud* resourceHud, ResourceRace* resourceRace, ResourceItem* resourceItem, MenuSetting* menuSetting, MenuPause* menuPause)
@@ -147,6 +147,7 @@ StateEditor::StateEditor(std::stack<State*>* states, sf::RenderWindow* window, R
 
 StateEditor::~StateEditor()
 {
+	std::cout << "DEBUG::STATEEDITOR::~STATEEDITOR() -> Deconstructed." << std::endl;
 }
 
 void StateEditor::instructionsPollEvent(sf::Event& ev)
@@ -832,4 +833,14 @@ void StateEditor::render(sf::RenderTarget& target)
 		MUST RENDER PAUSE MENU LAST
 	*/
 	this->menu_Pause_->render(target);
+}
+
+void StateEditor::setIsEndOfState(bool isEndOfState)
+{
+	this->is_End_Of_State_ = isEndOfState;
+}
+
+const bool& StateEditor::getIsEndOfState() const
+{
+	return this->is_End_Of_State_;
 }

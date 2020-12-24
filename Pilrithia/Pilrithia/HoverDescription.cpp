@@ -4,22 +4,21 @@ HoverDescription::HoverDescription()
 {
 	this->description_Box_.setSettings(200.f, 200.f, 0.f, 0.f, sf::Color(90, 82, 85), 1.f, sf::Color::White, true);
 
-	
-
 	this->is_Visible_ = false;
 }
 
 HoverDescription::~HoverDescription()
 {
+	std::cout << "DEBUG::HOVERDESCRIPTION::~HOVERDESCRIPTION() -> Deconstructed" << std::endl;
 }
 
-void HoverDescription::setTextFont(const ResourceFont& resourceFont)
+void HoverDescription::setTextFont(ResourceFont* resourceFont)
 {
 	/*
 		SET FONT FOR TEXT HERE (MUST CALL THIS OR ELSE IT WONT SHOW AND WONT GIVE AN ERROR) 
 	*/
-	this->title_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 24, "", sf::Vector2f(this->description_Box_.getLeftPosition(), this->description_Box_.getTopPosition()), true);
-	this->description_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "", sf::Vector2f(this->description_Box_.getLeftPosition(), this->description_Box_.getTopPosition()), true);
+	this->title_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 24, "", sf::Vector2f(this->description_Box_.getLeftPosition(), this->description_Box_.getTopPosition()), true);
+	this->description_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 18, "", sf::Vector2f(this->description_Box_.getLeftPosition(), this->description_Box_.getTopPosition()), true);
 }
 
 void HoverDescription::setHoverBoundaries(HOVERPOSITION hoverPosition, const sf::FloatRect itemBoundaries, const sf::FloatRect itemBoundariesOffset)

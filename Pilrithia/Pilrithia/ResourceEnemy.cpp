@@ -6,27 +6,32 @@ ResourceEnemy::ResourceEnemy()
 
 ResourceEnemy::~ResourceEnemy()
 {
-	/*for (std::map<ENEMY_TEXTURE_TYPE_, sf::Texture>::iterator itr = this->enemy_Textures_.begin(); itr != this->enemy_Textures_.end(); itr++)
+	for (std::map<ENEMY_TEXTURE_TYPE_, sf::Texture*>::iterator itr = this->enemy_Textures_.begin(); itr != this->enemy_Textures_.end(); itr++)
 	{
-		delete& itr;
-		this->enemy_Textures_.erase(itr);
+		delete itr->second;
+		//this->enemy_Textures_.erase(itr);
 	}
+
+	this->enemy_Textures_.clear();
 
 	if (this->enemy_Textures_.empty())
 	{
 		std::cout << "DEBUG::RESOURCEENEMY::~RESOURCEENEMY() -> Deleted all textures." << std::endl;
 	}
 
-	for (std::map<ENEMY_SOUND_TYPE_, sf::Sound>::iterator itr = this->enemy_Sounds_.begin(); itr != this->enemy_Sounds_.end(); itr++)
+	for (std::map<ENEMY_SOUND_TYPE_, sf::Sound*>::iterator itr = this->enemy_Sounds_.begin(); itr != this->enemy_Sounds_.end(); itr++)
 	{
-		delete itr->second.getBuffer();
-		this->enemy_Sounds_.erase(itr);
+		delete itr->second->getBuffer();
+		delete itr->second;
+		//this->enemy_Sounds_.erase(itr);
 	}
+
+	this->enemy_Sounds_.clear();
 
 	if (this->enemy_Sounds_.empty())
 	{
 		std::cout << "DEBUG::RESOURCEENEMY::~RESOURCEENEMY() -> Deleted all sounds." << std::endl;
-	}*/
+	}
 
 }
 
@@ -47,8 +52,6 @@ void ResourceEnemy::loadAllEnemySounds()
 		LOAD ALL SOUNDS FOR ENEMIES
 	*/
 	this->loadEnemySound("enemy_Attack_.wav", ENEMY_SOUND_TYPE_::ENEMY_ATTACK);
-	std::cout << "enemy sound: " << this->enemy_Sounds_.size() << std::endl;
-
 }
 
 const sf::Texture* ResourceEnemy::getEnemyTexture(ENEMY_TEXTURE_TYPE_ enemyTextureType) const
@@ -57,7 +60,7 @@ const sf::Texture* ResourceEnemy::getEnemyTexture(ENEMY_TEXTURE_TYPE_ enemyTextu
 
 	if (findPos != this->enemy_Textures_.end())
 	{
-		return &findPos->second;
+		return findPos->second;
 	}
 	else
 	{
@@ -71,7 +74,7 @@ sf::Sound* ResourceEnemy::getEnemySound(ENEMY_SOUND_TYPE_ enemySoundType)
 
 	if (findPos != this->enemy_Sounds_.end())
 	{
-		return &findPos->second;
+		return findPos->second;
 	}
 	else
 	{
@@ -110,13 +113,13 @@ void ResourceEnemy::loadEnemySound(const std::string& enemyTextureFileName, ENEM
 	}
 }
 
-void ResourceEnemy::AddToTextureMap(const sf::Texture* enemyTexture, ENEMY_TEXTURE_TYPE_ enemyTextureType)
+void ResourceEnemy::AddToTextureMap(sf::Texture* enemyTexture, ENEMY_TEXTURE_TYPE_ enemyTextureType)
 {
-	this->enemy_Textures_.insert(std::make_pair(enemyTextureType, *enemyTexture));
+	this->enemy_Textures_.insert(std::make_pair(enemyTextureType, enemyTexture));
 }
 
-void ResourceEnemy::AddToSoundMap(const sf::Sound* enemySound, ENEMY_SOUND_TYPE_ enemySoundType)
+void ResourceEnemy::AddToSoundMap(sf::Sound* enemySound, ENEMY_SOUND_TYPE_ enemySoundType)
 {
-	this->enemy_Sounds_.insert(std::make_pair(enemySoundType, *enemySound));
+	this->enemy_Sounds_.insert(std::make_pair(enemySoundType, enemySound));
 }
 

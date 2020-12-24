@@ -23,7 +23,7 @@ class Npc
 {
 public:
 	Npc();
-	Npc(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceNpc& resourceNpc);
+	Npc(const sf::RenderWindow* window, ResourceFont* resourceFont, ResourceNpc* resourceNpc);
 	virtual ~Npc();
 
 	virtual void setSettings(const sf::Vector2u& windowSize, const ResourceFont& resourceFont) = 0;

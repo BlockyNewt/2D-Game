@@ -10,7 +10,6 @@
 enum class FONT_TYPE
 {
 	ARIAL = 0,
-
 };
 
 class ResourceFont
@@ -25,10 +24,10 @@ public:
 
 private:
 	void loadFont(const std::string& fontFileName, FONT_TYPE fontType);
-	void AddToMap(const sf::Font* font, FONT_TYPE fontType);
+	void AddToMap(sf::Font* font, FONT_TYPE fontType);
 
 private:
-	std::map<FONT_TYPE, sf::Font> fonts_;
+	std::map<FONT_TYPE, sf::Font*> fonts_;
 };
 
 #endif // !RESOURCEFONT_H

@@ -4,7 +4,7 @@ GatherTest::GatherTest()
 {
 }
 
-GatherTest::GatherTest(GATHERTYPE gatherType, const sf::Vector2f& position, const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceItem& resourceItem)
+GatherTest::GatherTest(GATHERTYPE gatherType, const sf::Vector2f& position, ResourceFont* resourceFont, ResourceHud* resourceHud, ResourceItem* resourceItem)
 {
 	this->resource_Item_ = resourceItem;
 
@@ -16,32 +16,34 @@ GatherTest::GatherTest(GATHERTYPE gatherType, const sf::Vector2f& position, cons
 
 	this->item_ = NULL;
 
-	this->t_B_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "", sf::Vector2f(0.f, 0.f), true);
+	this->t_B_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 18, "", sf::Vector2f(0.f, 0.f), true);
 
-	switch (gatherType)
+	switch (this->gather_Type_)
 	{
 	case GATHERTYPE::MINING:
-		//std::cout << "mining created" << std::endl;
-
-		this->item_ = new ItemTest(position.x, position.y, ITEMTYPE::ORE, "Iron Vein", "This is used to craft various armors.", resourceFont, resourceItem);
+		this->item_ = new ItemTest(400.f, 400.f, ITEMTYPE::ORE, "Iron Vein", "This is used to craft various armors.", resourceFont, resourceItem);
 
 		this->t_B_.setString("Mining");
 
+		std::cout << "DEBUG::GATHERTEST::GATHERTEST() -> Item type: Mining" << std::endl;
+
 		break;
 	case GATHERTYPE::HARVESTING:
-		//std::cout << "harvesting created" << std::endl;
-
-		this->item_ = new ItemTest(position.x, position.y, ITEMTYPE::PLANT, "Herb", "This is used to craft various poitions.", resourceFont, resourceItem);
+		this->item_ = new ItemTest(100.f, 600.f, ITEMTYPE::PLANT, "Herb", "This is used to craft various poitions.", resourceFont, resourceItem);
 		
 		this->t_B_.setString("Harvesting");
 
+		this->gather_Sprite_.setPosition(sf::Vector2f(100.f, 600.f));
+
+		std::cout << "DEBUG::GATHERTEST::GATHERTEST() -> Item type: Harvesting" << std::endl;
+
 		break;
 	case GATHERTYPE::FORESTING:
-		//std::cout << "foresting created" << std::endl;
-
-		this->item_ = new ItemTest(position.x, position.y, ITEMTYPE::WOOD, "Wood", "Empty for now.", resourceFont, resourceItem);
+		this->item_ = new ItemTest(850.f, 600.f, ITEMTYPE::WOOD, "Wood", "Empty for now.", resourceFont, resourceItem);
 		
 		this->t_B_.setString("Foresting");
+
+		std::cout << "DEBUG::GATHERTEST::GATHERTEST() -> Item type: Foresting" << std::endl;
 
 		break;
 	default:
@@ -51,9 +53,9 @@ GatherTest::GatherTest(GATHERTYPE gatherType, const sf::Vector2f& position, cons
 
 
 	this->x_A_.setSettings(50.f, 50.f, this->item_->getPosition().x, this->item_->getPosition().y - 55.f, sf::Color::Red, 1.f, sf::Color::White, false);
-	this->t_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "E", sf::Vector2f(this->x_A_.getLeftPosition(true, 10.f), this->x_A_.getTopPosition(true, 10.f)), false);
+	this->t_A_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 18, "E", sf::Vector2f(this->x_A_.getLeftPosition(true, 10.f), this->x_A_.getTopPosition(true, 10.f)), false);
 
-	this->gather_Sprite_.setTexture(*resourceHud.getHudTexture(HUD_TEXTURE_TYPE_::GATHER));
+	this->gather_Sprite_.setTexture(*resourceHud->getHudTexture(HUD_TEXTURE_TYPE_::GATHER));
 	this->gather_Sprite_.setPosition(sf::Vector2f(this->item_->getItemGlobalBoundaries().left - 300.f / 2.f + this->item_->getItemGlobalBoundaries().width / 2.f, this->item_->getItemGlobalBoundaries().top - 120.f));
 
 	this->gather_Bar_Back_.setSize(sf::Vector2f(300.f, 20.f));
@@ -70,8 +72,6 @@ GatherTest::GatherTest(GATHERTYPE gatherType, const sf::Vector2f& position, cons
 
 	this->t_B_.setPosition(this->gather_Sprite_.getGlobalBounds().left + this->gather_Sprite_.getGlobalBounds().width / 2.f - 30.f, this->gather_Sprite_.getGlobalBounds().top + 5.f);
 
-	
-
 	this->is_Within_Range_ = false;
 
 	this->is_Collecting_ = false;
@@ -81,6 +81,8 @@ GatherTest::GatherTest(GATHERTYPE gatherType, const sf::Vector2f& position, cons
 GatherTest::~GatherTest()
 {
 	delete this->item_;
+
+	std::cout << "DEBUG::GATHERTEST::~GATHERTEST() -> Deconstructed" << std::endl;
 }
 
 void GatherTest::updatePollEvent(sf::Event& ev)
@@ -102,26 +104,26 @@ void GatherTest::updatePollEvent(sf::Event& ev)
 
 							if (this->gather_Type_ == GATHERTYPE::MINING)
 							{
-								if (this->resource_Item_.getItemSound(ITEM_SOUND_TYPE_::GATHER_MINE)->getStatus() != sf::Sound::Playing)
+								if (this->resource_Item_->getItemSound(ITEM_SOUND_TYPE_::GATHER_MINE)->getStatus() != sf::Sound::Playing)
 								{
-									this->resource_Item_.getItemSound(ITEM_SOUND_TYPE_::GATHER_MINE)->setLoop(true);
-									this->resource_Item_.getItemSound(ITEM_SOUND_TYPE_::GATHER_MINE)->play();
+									this->resource_Item_->getItemSound(ITEM_SOUND_TYPE_::GATHER_MINE)->setLoop(true);
+									this->resource_Item_->getItemSound(ITEM_SOUND_TYPE_::GATHER_MINE)->play();
 								}
 							}
 							else if (this->gather_Type_ == GATHERTYPE::HARVESTING)
 							{
-								if (this->resource_Item_.getItemSound(ITEM_SOUND_TYPE_::GATHER_PLANT)->getStatus() != sf::Sound::Playing)
+								if (this->resource_Item_->getItemSound(ITEM_SOUND_TYPE_::GATHER_PLANT)->getStatus() != sf::Sound::Playing)
 								{
-									this->resource_Item_.getItemSound(ITEM_SOUND_TYPE_::GATHER_PLANT)->setLoop(true);
-									this->resource_Item_.getItemSound(ITEM_SOUND_TYPE_::GATHER_PLANT)->play();
+									this->resource_Item_->getItemSound(ITEM_SOUND_TYPE_::GATHER_PLANT)->setLoop(true);
+									this->resource_Item_->getItemSound(ITEM_SOUND_TYPE_::GATHER_PLANT)->play();
 								}
 							}
 							else if (this->gather_Type_ == GATHERTYPE::FORESTING)
 							{
-								if (this->resource_Item_.getItemSound(ITEM_SOUND_TYPE_::GATHER_CHOP)->getStatus() != sf::Sound::Playing)
+								if (this->resource_Item_->getItemSound(ITEM_SOUND_TYPE_::GATHER_CHOP)->getStatus() != sf::Sound::Playing)
 								{
-									this->resource_Item_.getItemSound(ITEM_SOUND_TYPE_::GATHER_CHOP)->setLoop(true);
-									this->resource_Item_.getItemSound(ITEM_SOUND_TYPE_::GATHER_CHOP)->play();
+									this->resource_Item_->getItemSound(ITEM_SOUND_TYPE_::GATHER_CHOP)->setLoop(true);
+									this->resource_Item_->getItemSound(ITEM_SOUND_TYPE_::GATHER_CHOP)->play();
 								}
 							}
 							else
@@ -166,7 +168,9 @@ void GatherTest::update(const sf::Vector2i& mousePositionWindow, const sf::Float
 								{
 									i->setQuantity() += this->item_->getQuantity();
 
-									this->resource_Item_.getItemSound(ITEM_SOUND_TYPE_::GATHER_MINE)->stop();
+									this->resource_Item_->getItemSound(ITEM_SOUND_TYPE_::GATHER_MINE)->stop();
+
+									std::cout << "DEBUG::GATHERTEST::UPDATE() -> Mined" << std::endl;
 
 									this->is_Gathered_ = true;
 
@@ -177,7 +181,9 @@ void GatherTest::update(const sf::Vector2i& mousePositionWindow, const sf::Float
 								{
 									i->setQuantity() += this->item_->getQuantity();
 
-									this->resource_Item_.getItemSound(ITEM_SOUND_TYPE_::GATHER_CHOP)->stop();
+									this->resource_Item_->getItemSound(ITEM_SOUND_TYPE_::GATHER_CHOP)->stop();
+
+									std::cout << "DEBUG::GATHERTEST::UPDATE() -> Forested" << std::endl;
 
 									this->is_Gathered_ = true;
 
@@ -188,7 +194,9 @@ void GatherTest::update(const sf::Vector2i& mousePositionWindow, const sf::Float
 								{
 									i->setQuantity() += this->item_->getQuantity();
 
-									this->resource_Item_.getItemSound(ITEM_SOUND_TYPE_::GATHER_PLANT)->stop();
+									this->resource_Item_->getItemSound(ITEM_SOUND_TYPE_::GATHER_PLANT)->stop();
+
+									std::cout << "DEBUG::GATHERTEST::UPDATE() -> Harvested" << std::endl;
 
 									this->is_Gathered_ = true;
 
@@ -196,7 +204,7 @@ void GatherTest::update(const sf::Vector2i& mousePositionWindow, const sf::Float
 								}
 								else
 								{
-									std::cout << "DEBUG::GATHERTEST::UPDATEPOLLEVENT() -> Item type is invalid." << std::endl;
+									std::cout << "DEBUG::GATHERTEST::UPDATEPOLLEVENT() -> Gather type is invalid." << std::endl;
 								}
 							}
 						}
@@ -217,21 +225,21 @@ void GatherTest::update(const sf::Vector2i& mousePositionWindow, const sf::Float
 
 				this->is_Collecting_ = false;
 
-				if (this->resource_Item_.getItemSound(ITEM_SOUND_TYPE_::GATHER_MINE)->getStatus() == sf::Sound::Playing)
+				if (this->resource_Item_->getItemSound(ITEM_SOUND_TYPE_::GATHER_MINE)->getStatus() == sf::Sound::Playing)
 				{
-					this->resource_Item_.getItemSound(ITEM_SOUND_TYPE_::GATHER_MINE)->setLoop(false);
-					this->resource_Item_.getItemSound(ITEM_SOUND_TYPE_::GATHER_MINE)->stop();
+					this->resource_Item_->getItemSound(ITEM_SOUND_TYPE_::GATHER_MINE)->setLoop(false);
+					this->resource_Item_->getItemSound(ITEM_SOUND_TYPE_::GATHER_MINE)->stop();
 
 				}
-				else if (this->resource_Item_.getItemSound(ITEM_SOUND_TYPE_::GATHER_PLANT)->getStatus() == sf::Sound::Playing)
+				else if (this->resource_Item_->getItemSound(ITEM_SOUND_TYPE_::GATHER_PLANT)->getStatus() == sf::Sound::Playing)
 				{
-					this->resource_Item_.getItemSound(ITEM_SOUND_TYPE_::GATHER_PLANT)->setLoop(false);
-					this->resource_Item_.getItemSound(ITEM_SOUND_TYPE_::GATHER_PLANT)->stop();
+					this->resource_Item_->getItemSound(ITEM_SOUND_TYPE_::GATHER_PLANT)->setLoop(false);
+					this->resource_Item_->getItemSound(ITEM_SOUND_TYPE_::GATHER_PLANT)->stop();
 				}
-				else if (this->resource_Item_.getItemSound(ITEM_SOUND_TYPE_::GATHER_CHOP)->getStatus() == sf::Sound::Playing)
+				else if (this->resource_Item_->getItemSound(ITEM_SOUND_TYPE_::GATHER_CHOP)->getStatus() == sf::Sound::Playing)
 				{
-					this->resource_Item_.getItemSound(ITEM_SOUND_TYPE_::GATHER_CHOP)->setLoop(false);
-					this->resource_Item_.getItemSound(ITEM_SOUND_TYPE_::GATHER_CHOP)->stop();
+					this->resource_Item_->getItemSound(ITEM_SOUND_TYPE_::GATHER_CHOP)->setLoop(false);
+					this->resource_Item_->getItemSound(ITEM_SOUND_TYPE_::GATHER_CHOP)->stop();
 				}
 			}
 		}

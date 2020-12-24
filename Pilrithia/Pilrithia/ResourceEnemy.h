@@ -36,14 +36,14 @@ public:
 
 private:
 	void loadEnemyTexture(const std::string& enemyTextureFileName, ENEMY_TEXTURE_TYPE_ enemyTextureType);
-	void AddToTextureMap(const sf::Texture* enemyTexture, ENEMY_TEXTURE_TYPE_ enemyTextureType);
+	void AddToTextureMap(sf::Texture* enemyTexture, ENEMY_TEXTURE_TYPE_ enemyTextureType);
 
 	void loadEnemySound(const std::string& enemyTextureFileName, ENEMY_SOUND_TYPE_ enemySoundType);
-	void AddToSoundMap(const sf::Sound* enemySound, ENEMY_SOUND_TYPE_ enemySoundType);
+	void AddToSoundMap(sf::Sound* enemySound, ENEMY_SOUND_TYPE_ enemySoundType);
 
 private:
-	std::map<ENEMY_TEXTURE_TYPE_, sf::Texture> enemy_Textures_;
-	std::map<ENEMY_SOUND_TYPE_, sf::Sound> enemy_Sounds_;
+	std::map<ENEMY_TEXTURE_TYPE_, sf::Texture*> enemy_Textures_;
+	std::map<ENEMY_SOUND_TYPE_, sf::Sound*> enemy_Sounds_;
 
 };
 

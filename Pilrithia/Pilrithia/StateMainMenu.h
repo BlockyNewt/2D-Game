@@ -15,10 +15,15 @@ public:
 	void update() override;
 	void render(sf::RenderTarget& target) override;
 
+	void setIsEndOfState(bool isEndOfState) override;
+	const bool& getIsEndOfState() const override;
+
 private:
 	void setPositionOnResize();
 
 private:
+	bool is_End_Of_State_;
+
 	Button b_B_; 
 	Button b_C_;
 	Button b_D_;

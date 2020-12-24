@@ -6,27 +6,32 @@ ResourceNpc::ResourceNpc()
 
 ResourceNpc::~ResourceNpc()
 {
-	//for (std::map<NPC_TEXTURE_TYPE_, sf::Texture>::iterator itr = this->npc_Textures_.begin(); itr != this->npc_Textures_.end(); itr++)
-	//{
-	//	delete& itr;
-	//	this->npc_Textures_.erase(itr);
-	//}
+	for (std::map<NPC_TEXTURE_TYPE_, sf::Texture*>::iterator itr = this->npc_Textures_.begin(); itr != this->npc_Textures_.end(); itr++)
+	{
+		delete itr->second;
+		//this->npc_Textures_.erase(itr);
+	}
 
-	//if (this->npc_Textures_.empty())
-	//{
-	//	std::cout << "DEBUG::RESOURCENPC::~RESOURCENPC() -> Deleted all textures." << std::endl;
-	//}
+	this->npc_Textures_.clear();
 
-	//for (std::map<NPC_SOUND_TYPE_, sf::Sound>::iterator itr = this->npc_Sounds_.begin(); itr != this->npc_Sounds_.end(); itr++)
-	//{
-	//	delete itr->second.getBuffer();
-	//	this->npc_Sounds_.erase(itr);
-	//}
+	if (this->npc_Textures_.empty())
+	{
+		std::cout << "DEBUG::RESOURCENPC::~RESOURCENPC() -> Deleted all textures." << std::endl;
+	}
 
-	//if (this->npc_Sounds_.empty())
-	//{
-	//	std::cout << "DEBUG::RESOURCERACE::~RESOURCERACE() -> Deleted all sounds." << std::endl;
-	//}
+	for (std::map<NPC_SOUND_TYPE_, sf::Sound*>::iterator itr = this->npc_Sounds_.begin(); itr != this->npc_Sounds_.end(); itr++)
+	{
+		delete itr->second->getBuffer();
+		delete itr->second;
+		//this->npc_Sounds_.erase(itr);
+	}
+
+	this->npc_Sounds_.clear();
+
+	if (this->npc_Sounds_.empty())
+	{
+		std::cout << "DEBUG::RESOURCERACE::~RESOURCERACE() -> Deleted all sounds." << std::endl;
+	}
 }
 
 void ResourceNpc::loadAllNpcTextures()
@@ -36,8 +41,6 @@ void ResourceNpc::loadAllNpcTextures()
 	*/
 	this->loadNpcTexture("quest_Npc_.png", NPC_TEXTURE_TYPE_::TEST_QUEST_NPC_TEXTURE);
 	this->loadNpcTexture("merchant_Npc_.png", NPC_TEXTURE_TYPE_::TEST_MERCHANT_NPC_TEXTURE);
-
-	std::cout << "npc sound: " << this->npc_Sounds_.size() << std::endl;
 }
 
 void ResourceNpc::loadAllNpcSounds()
@@ -51,7 +54,7 @@ const sf::Texture* ResourceNpc::getNpcTexture(NPC_TEXTURE_TYPE_ npcTextureType) 
 
 	if (findPos != this->npc_Textures_.end())
 	{
-		return &findPos->second;
+		return findPos->second;
 	}
 	else
 	{
@@ -65,7 +68,7 @@ sf::Sound* ResourceNpc::getNpcSound(NPC_SOUND_TYPE_ npcSoundType)
 
 	if (findPos != this->npc_Sounds_.end())
 	{
-		return &findPos->second;
+		return findPos->second;
 	}
 	else
 	{
@@ -104,12 +107,12 @@ void ResourceNpc::loadNpcSound(const std::string& npcTextureFileName, NPC_SOUND_
 	}
 }
 
-void ResourceNpc::AddToMap(const sf::Texture* npcTexture, NPC_TEXTURE_TYPE_ npcTextureType)
+void ResourceNpc::AddToMap(sf::Texture* npcTexture, NPC_TEXTURE_TYPE_ npcTextureType)
 {
-	this->npc_Textures_.insert(std::make_pair(npcTextureType, *npcTexture));
+	this->npc_Textures_.insert(std::make_pair(npcTextureType, npcTexture));
 }
 
-void ResourceNpc::AddToSoundMap(const sf::Sound* npcSound, NPC_SOUND_TYPE_ npcSoundType)
+void ResourceNpc::AddToSoundMap(sf::Sound* npcSound, NPC_SOUND_TYPE_ npcSoundType)
 {
-	this->npc_Sounds_.insert(std::make_pair(npcSoundType, *npcSound));
+	this->npc_Sounds_.insert(std::make_pair(npcSoundType, npcSound));
 }

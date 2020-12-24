@@ -36,6 +36,7 @@ SkillPoisonRain::SkillPoisonRain()
 
 SkillPoisonRain::~SkillPoisonRain()
 {
+	std::cout << "DEBUG::SKILLPOISONRAIN::~SKILLPOISONRAIN() -> Deconstructed" << std::endl;
 }
 
 void SkillPoisonRain::update(const sf::Vector2f& playerPosition, const sf::FloatRect playerBoundaries)

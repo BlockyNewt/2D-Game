@@ -6,27 +6,32 @@ ResourceItem::ResourceItem()
 
 ResourceItem::~ResourceItem()
 {
-	//for (std::map<ITEM_TEXTURE_TYPE_, sf::Texture>::iterator itr = this->item_Textures_.begin(); itr != this->item_Textures_.end(); itr++)
-	//{
-	//	delete &itr;
-	//	this->item_Textures_.erase(itr);
-	//}
+	for (std::map<ITEM_TEXTURE_TYPE_, sf::Texture*>::iterator itr = this->item_Textures_.begin(); itr != this->item_Textures_.end(); itr++)
+	{
+		delete itr->second;
+		//this->item_Textures_.erase(itr);
+	}
 
-	//if (this->item_Textures_.empty())
-	//{
-	//	std::cout << "DEBUG::RESOURCEITEM::~RESOURCEITEM() -> Deleted all textures." << std::endl;
-	//}
+	this->item_Textures_.clear();
 
-	//for (std::map<ITEM_SOUND_TYPE_, sf::Sound>::iterator itr = this->item_Sounds_.begin(); itr != this->item_Sounds_.end(); itr++)
-	//{
-	//	delete itr->second.getBuffer();
-	//	this->item_Sounds_.erase(itr);
-	//}
-	//
-	//if (this->item_Sounds_.empty())
-	//{
-	//	std::cout << "DEBUG::RESOURCEITEM::~RESOURCEITEM() -> Deleted all sounds." << std::endl;
-	//}
+	if (this->item_Textures_.empty())
+	{
+		std::cout << "DEBUG::RESOURCEITEM::~RESOURCEITEM() -> Deleted all textures." << std::endl;
+	}
+
+	for (std::map<ITEM_SOUND_TYPE_, sf::Sound*>::iterator itr = this->item_Sounds_.begin(); itr != this->item_Sounds_.end(); itr++)
+	{
+		delete itr->second->getBuffer();
+		delete itr->second;
+		//this->item_Sounds_.erase(itr);
+	}
+	
+	this->item_Sounds_.clear();
+
+	if (this->item_Sounds_.empty())
+	{
+		std::cout << "DEBUG::RESOURCEITEM::~RESOURCEITEM() -> Deleted all sounds." << std::endl;
+	}
 }
 
 void ResourceItem::loadAllItemTextures()
@@ -39,8 +44,8 @@ void ResourceItem::loadAllItemSounds()
 	this->loadItemSound("mining_.wav", ITEM_SOUND_TYPE_::GATHER_MINE);
 	this->loadItemSound("plant_Rustle_.wav", ITEM_SOUND_TYPE_::GATHER_PLANT);
 	this->loadItemSound("chopping_Wood_.wav", ITEM_SOUND_TYPE_::GATHER_CHOP);
-	
-	std::cout << "Item sound: " << this->item_Sounds_.size() << std::endl;
+
+	std::cout << "DEBUG::RESOURCEITEM::LOADALLITEMSOUNDS() -> Size: " << this->item_Sounds_.size() << std::endl;
 }
 
 const sf::Texture* ResourceItem::getItemTexture(ITEM_TEXTURE_TYPE_ itemTextureType) const
@@ -49,7 +54,7 @@ const sf::Texture* ResourceItem::getItemTexture(ITEM_TEXTURE_TYPE_ itemTextureTy
 
 	if (findPos != this->item_Textures_.end())
 	{
-		return &findPos->second;
+		return findPos->second;
 	}
 	else
 	{
@@ -94,7 +99,7 @@ sf::Sound* ResourceItem::getItemSound(ITEM_SOUND_TYPE_ itemSoundType)
 
 	if (findPos != this->item_Sounds_.end())
 	{
-		return &findPos->second;
+		return findPos->second;
 	}
 	else
 	{
@@ -102,12 +107,12 @@ sf::Sound* ResourceItem::getItemSound(ITEM_SOUND_TYPE_ itemSoundType)
 	}
 }
 
-void ResourceItem::AddToTextureMap(const sf::Texture* itemTexture, ITEM_TEXTURE_TYPE_ itemTextureType)
+void ResourceItem::AddToTextureMap(sf::Texture* itemTexture, ITEM_TEXTURE_TYPE_ itemTextureType)
 {
-	this->item_Textures_.insert(std::make_pair(itemTextureType, *itemTexture));
+	this->item_Textures_.insert(std::make_pair(itemTextureType, itemTexture));
 }
 
-void ResourceItem::AddToSoundMap(const sf::Sound* itemSound, ITEM_SOUND_TYPE_ itemSoundType)
+void ResourceItem::AddToSoundMap(sf::Sound* itemSound, ITEM_SOUND_TYPE_ itemSoundType)
 {
-	this->item_Sounds_.insert(std::make_pair(itemSoundType, *itemSound));
+	this->item_Sounds_.insert(std::make_pair(itemSoundType, itemSound));
 }

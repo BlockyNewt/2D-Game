@@ -11,7 +11,7 @@
 class DisplayMessage
 {
 public:
-	DisplayMessage(const sf::Window* window, const ResourceFont& resourceFont);
+	DisplayMessage(const sf::Window* window, ResourceFont* resourceFont);
 	~DisplayMessage();
 
 	void updateLevelUp(const std::string& playerLevel);

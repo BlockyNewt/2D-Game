@@ -1,14 +1,14 @@
 #include "LootWindow.h"
 
-LootWindow::LootWindow(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceItem& resourceItem)
+LootWindow::LootWindow(const sf::RenderWindow* window, ResourceFont* resourceFont, ResourceItem* resourceItem)
 {
 	this->display_Message_ = new DisplayMessage(window, resourceFont);
 
 	this->x_A_.setSettings(400.f, 500.f, 420.f, 100.f, sf::Color(90, 82, 85), 1.f, sf::Color::White, true);
-	this->t_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 28, "Loot", sf::Vector2f(this->x_A_.getLeftPosition(true, 100.f), this->x_A_.getTopPosition(true, 10.f)), true);
+	this->t_A_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 28, "Loot", sf::Vector2f(this->x_A_.getLeftPosition(true, 100.f), this->x_A_.getTopPosition(true, 10.f)), true);
 
 	this->b_B_.setSettings(50.f, 50.f, this->x_A_.getRightPosition(false, 50.f), this->x_A_.getTopPosition(), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
-	this->t_B_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "Close", sf::Vector2f(this->b_B_.getLeftPosition(true, 10.f), this->b_B_.getTopPosition(true, 10.f)), true);
+	this->t_B_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 18, "Close", sf::Vector2f(this->b_B_.getLeftPosition(true, 10.f), this->b_B_.getTopPosition(true, 10.f)), true);
 
 	this->is_Visible_ = false;
 
@@ -24,19 +24,14 @@ LootWindow::~LootWindow()
 	{
 		for (int i = 0; i < this->loot_.size(); ++i)
 		{
-			if (this->loot_[i] != NULL)
-			{
-				delete this->loot_[i];
-			}
-			else
-			{
-				std::cout << "DEBUG::LOOTWINDOW::~LOOTWINDOW() -> It was null." << std::endl;
-			}
+			delete this->loot_[i];
+			this->loot_.erase(this->loot_.begin() + i);
 		}
 	}
 	
-
 	delete this->display_Message_;
+
+	std::cout << "DEBUG::LOOTWINDOW::~LOOTWINDOW() -> Deconstructed" << std::endl;
 }
 
 void LootWindow::addEnemyItems(std::vector<Item*>& enemyItems)
@@ -48,11 +43,6 @@ void LootWindow::addEnemyItems(std::vector<Item*>& enemyItems)
 	{
 		this->loot_.push_back(enemyItems[i]);
 		this->loot_[i]->setPosition(sf::Vector2f(this->x_A_.getLeftPosition(true, 5.f), this->x_A_.getTopPosition(true, 100.f) + i * 60.f));
-	}
-
-	for (int i = 0; i < this->loot_.size(); ++i)
-	{
-		std::cout << this->loot_[i]->getName() << std::endl;
 	}
 }
 
@@ -96,13 +86,7 @@ void LootWindow::updatePollEvent(sf::Event& ev, std::vector<std::vector<Item*>>&
 					{
 						playerBag[x][y] = this->loot_[this->selected_Item_X_]->getNewItem();
 
-						std::cout << "zb" << std::endl;
-						//delete this->loot_[this->selected_Item_X_];
-						//this->loot_.erase(this->loot_.begin() + y);
-						std::cout << "zx" << std::endl;
-
-						this->loot_[this->selected_Item_X_] = NULL;
-
+						delete this->loot_[this->selected_Item_X_];
 						this->loot_.erase(this->loot_.begin() + this->selected_Item_X_);
 
 						isBreaking = true;

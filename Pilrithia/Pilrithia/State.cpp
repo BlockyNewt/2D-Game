@@ -3,7 +3,7 @@
 State::State(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont* resourceFont, ResourceHud* resourceHud, ResourceRace* resourceRace, ResourceItem* resourceItem, MenuSetting* menuSetting, MenuPause* menuPause)
 	: states_(states), window_(window)
 {
-	if (resourceFont == nullptr)
+	if (this->resource_Font_ == nullptr)
 	{
 		this->resource_Font_ = new ResourceFont();
 		this->resource_Font_->loadAllFonts();
@@ -13,7 +13,7 @@ State::State(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont*
 		this->resource_Font_ = resourceFont;
 	}
 
-	if (resourceHud == nullptr)
+	if (this->resource_Hud_ == nullptr)
 	{
 		this->resource_Hud_ = new ResourceHud();
 		this->resource_Hud_->loadAllHudTextures();
@@ -24,7 +24,7 @@ State::State(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont*
 		this->resource_Hud_ = resourceHud;
 	}
 
-	if (resourceRace == nullptr)
+	if (this->resource_Race_ == nullptr)
 	{
 		this->resource_Race_ = new ResourceRace();
 		this->resource_Race_->loadAllRaceTextures();
@@ -35,7 +35,7 @@ State::State(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont*
 		this->resource_Race_ = resourceRace;
 	}
 
-	if (resourceItem == nullptr)
+	if (this->resource_Item_ == nullptr)
 	{
 		this->resource_Item_ = new ResourceItem();
 		this->resource_Item_->loadAllItemTextures();
@@ -86,34 +86,27 @@ State::State(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont*
 	{
 		this->menu_Pause_ = menuPause;
 	}
+
 }
 
 State::~State()
 {
-	delete this->menu_Pause_;
-
-	delete this->resource_Font_;
-	delete this->resource_Hud_;
-	delete this->resource_Race_;
-	delete this->resource_Item_;
-	/*delete this->resource_Enemy_;
-	delete this->resource_Npc_;*/
-
-	/*if (this->resource_Font_ != NULL)
+	if (this->states_->size() == 1)
 	{
+		//MUST DELETE THESE WHEN CLOSING THE APPLICATION. IF THESE ARE DELETED BEFORE THEN, THEN 
+		//YOU WILL GET SOME MEMORY ACCESS VIOLATION ERRORS
+		delete this->menu_Pause_;
+
+		delete this->resource_Font_;
+
+		delete this->resource_Hud_;
+
+		delete this->resource_Race_;
+
+		delete this->resource_Item_;
+
+		std::cout << "DEBUG::STATE::~STATE() -> State deconstructed." << std::endl;
 	}
-
-	if (this->resource_Hud_ != NULL)
-	{
-	}
-
-	if (this->resource_Race_ != NULL)
-	{
-	}
-
-	if (this->resource_Item_ != NULL)
-	{
-	}*/
 }
 
 void State::updateMousePosition(const sf::View* view, float tileSizeXY)
@@ -135,6 +128,7 @@ void State::updateMousePosition(const sf::View* view, float tileSizeXY)
 
 	//std::cout << "X: " << this->mouse_Position_Window_.x << " Y: " << this->mouse_Position_Window_.y << std::endl;
 	//std::cout << "X: " << this->mouse_Position_View_.x << " Y: " << this->mouse_Position_View_.y << std::endl;
+
 }
 
 void State::updateTextureMousePosition(const sf::View* view, const float tileSizeXY)
@@ -160,7 +154,6 @@ void State::updateDeltaClock()
 	std::cout << frameRate << std::endl;*/
 
 	this->dt_ = this->dt_Clock_.restart().asSeconds();
-
 
 	//std::cout << "DEBUG::STATE::UPDATEDELTACLOCK() -> SECONDS: " << this->dt_ << std::endl;
 }

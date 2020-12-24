@@ -17,7 +17,7 @@ public:
 	SkillButton();
 	~SkillButton();
 
-	void setSettings(float radius, float x, float y, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, int maxAllocation, const ResourceFont& resourceFont);
+	void setSettings(float radius, float x, float y, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, int maxAllocation, ResourceFont* resourceFont);
 	void setHoverDescription(const std::string& skillName, const std::string& skillSummary);
 
 	void updatePollEvent(sf::Event& ev, int& playerSkillPoints, Skill* skill);

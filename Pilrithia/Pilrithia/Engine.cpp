@@ -32,15 +32,24 @@ Engine::~Engine()
 		for (int i = 0; i < this->states_.size(); ++i)
 		{
 			delete this->states_.top();
+			this->states_.pop();
 		}
 	}
 }
 
 void Engine::run()
 {
-	
 	while (this->window_->isOpen())
 	{
+		if (!this->states_.empty())
+		{
+			if (this->states_.top()->getIsEndOfState())
+			{
+				delete this->states_.top();
+				this->states_.pop();
+			}
+		}
+
 		this->updatePollEvent();
 		this->update();
 		this->render();
@@ -57,6 +66,15 @@ void Engine::updatePollEvent()
 		if (this->ev_.type == sf::Event::Closed)
 		{
 			this->window_->close();
+		}
+
+		if (this->ev_.type == sf::Event::KeyPressed)
+		{
+			if (this->ev_.key.code == sf::Keyboard::F11)
+			{
+				delete this->states_.top();
+				this->states_.pop();
+			}
 		}
 
 		/*

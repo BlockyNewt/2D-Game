@@ -19,7 +19,7 @@
 class PlayerGather
 {
 public:
-	PlayerGather(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceItem& resourceItem);
+	PlayerGather(const sf::RenderWindow* window, ResourceFont* resourceFont, ResourceHud* resourceHud, ResourceItem* resourceItem);
 	~PlayerGather();
 
 	void updatePollEvent(sf::Event& ev);

@@ -14,22 +14,28 @@ StateMainMenu::StateMainMenu(std::stack<State*>* states, sf::RenderWindow* windo
 	/*
 		PERCENT TO PIXEL EXAMPLE with b_B_ & t_B_
 	*/
-	this->b_B_.setSettings(150.f, 40.f, 10.f, 10.f, sf::Color(174, 90, 65), 1, sf::Color::Red, true);
+	this->b_B_.setSettings(150.f, 50.f, this->window_->getSize().x / 2.f - 150.f / 2.f, 150.f, sf::Color::White, 1, sf::Color::Transparent, true);
+	this->b_B_.setTexture(this->resource_Hud_->getHudTexture(HUD_TEXTURE_TYPE_::MAIN_MENU_BUTTON));
 	this->t_B_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), this->percentToPixelX(18.f), "Play", sf::Vector2f(this->b_B_.getLeftPosition(true, 10.f), this->b_B_.getTopPosition(true, 10.f)), true);
 
-	this->b_C_.setSettings(150.f, 40.f, this->b_B_.getLeftPosition(), this->b_B_.getBottomPosition(true, 10.f), sf::Color(174, 90, 65), 1, sf::Color::Red, true);
+	this->b_C_.setSettings(150.f, 50.f, this->b_B_.getLeftPosition(), this->b_B_.getBottomPosition(true, 10.f), sf::Color::White, 1, sf::Color::Transparent, true);
+	this->b_C_.setTexture(this->resource_Hud_->getHudTexture(HUD_TEXTURE_TYPE_::MAIN_MENU_BUTTON));
 	this->t_C_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 18, "Load", sf::Vector2f(this->b_C_.getLeftPosition(true, 10.f), this->b_C_.getTopPosition(true, 10.f)), true);
 	
-	this->b_D_.setSettings(150.f, 40.f, this->b_C_.getLeftPosition(), this->b_C_.getBottomPosition(true, 10.f), sf::Color(174, 90, 65), 1, sf::Color::Red, true);
+	this->b_D_.setSettings(150.f, 50.f, this->b_C_.getLeftPosition(), this->b_C_.getBottomPosition(true, 10.f), sf::Color::White, 1, sf::Color::Transparent, true);
+	this->b_D_.setTexture(this->resource_Hud_->getHudTexture(HUD_TEXTURE_TYPE_::MAIN_MENU_BUTTON));
 	this->t_D_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 18, "Settings", sf::Vector2f(this->b_D_.getLeftPosition(true, 10.f), this->b_D_.getTopPosition(true, 10.f)), true);
 	
-	this->b_E_.setSettings(150.f, 40.f, this->b_D_.getLeftPosition(), this->b_D_.getBottomPosition(true, 10.f), sf::Color(174, 90, 65), 1, sf::Color::Red, true);
+	this->b_E_.setSettings(150.f, 50.f, this->b_D_.getLeftPosition(), this->b_D_.getBottomPosition(true, 10.f), sf::Color::White, 1, sf::Color::Transparent, true);
+	this->b_E_.setTexture(this->resource_Hud_->getHudTexture(HUD_TEXTURE_TYPE_::MAIN_MENU_BUTTON));
 	this->t_E_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 18, "Exit", sf::Vector2f(this->b_E_.getLeftPosition(true, 10.f), this->b_E_.getTopPosition(true, 10.f)), true);
 
-	this->b_F_.setSettings(150.f, 40.f, this->b_E_.getLeftPosition(), this->b_E_.getBottomPosition(true, 10.f), sf::Color(174, 90, 65), 1, sf::Color::Red, true);
+	this->b_F_.setSettings(150.f, 50.f, this->b_E_.getLeftPosition(), this->b_E_.getBottomPosition(true, 10.f), sf::Color::White, 1, sf::Color::Transparent, true);
+	this->b_F_.setTexture(this->resource_Hud_->getHudTexture(HUD_TEXTURE_TYPE_::MAIN_MENU_BUTTON));
 	this->t_F_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 18, "Editor", sf::Vector2f(this->b_F_.getLeftPosition(true, 10.f), this->b_F_.getTopPosition(true, 10.f)), true);
 
-	this->b_G_.setSettings(150.f, 40.f, this->b_F_.getLeftPosition(), this->b_F_.getBottomPosition(true, 10.f), sf::Color(174, 90, 65), 1, sf::Color::Red, true);
+	this->b_G_.setSettings(150.f, 50.f, this->b_F_.getLeftPosition(), this->b_F_.getBottomPosition(true, 10.f), sf::Color::White, 1, sf::Color::Transparent, true);
+	this->b_G_.setTexture(this->resource_Hud_->getHudTexture(HUD_TEXTURE_TYPE_::MAIN_MENU_BUTTON));
 	this->t_G_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 18, "Test zone", sf::Vector2f(this->b_G_.getLeftPosition(true, 10.f), this->b_G_.getTopPosition(true, 10.f)), true);
 
 	this->buttons_.push_back(this->b_B_);
@@ -46,11 +52,11 @@ StateMainMenu::StateMainMenu(std::stack<State*>* states, sf::RenderWindow* windo
 	this->texts_.push_back(this->t_E_);
 	this->texts_.push_back(this->t_F_);
 	this->texts_.push_back(this->t_G_);
-
 }
 
 StateMainMenu::~StateMainMenu()
 {
+	std::cout << "DEBUG::STATEMAINMENU::~STATEMAINMENU() -> Deconstructed." << std::endl;
 }
 
 void StateMainMenu::updatePollEvent(sf::Event& ev)
@@ -80,14 +86,17 @@ void StateMainMenu::updatePollEvent(sf::Event& ev)
 		if (this->buttons_[0].updatePollEvent(ev))
 		{
 			//NOTHING FOR NOW
+			//this->resource_Hud_->getHudSound(HUD_SOUND_TYPE_::BUTTON_CLICK)->play();
 		}
 		else if (this->buttons_[1].updatePollEvent(ev))
 		{
 			//NOTHING FOR NOW
-			this->resource_Hud_->getHudSound(HUD_SOUND_TYPE_::BUTTON_CLICK)->play();
+			//this->resource_Hud_->getHudSound(HUD_SOUND_TYPE_::BUTTON_CLICK)->play();
 		}
 		else if (this->buttons_[2].updatePollEvent(ev))
 		{
+			this->resource_Hud_->getHudSound(HUD_SOUND_TYPE_::BUTTON_CLICK)->play();
+
 			if (!this->menu_Setting_->getIsInSettings())
 			{
 				this->menu_Setting_->makeAllVisible(true);
@@ -101,7 +110,8 @@ void StateMainMenu::updatePollEvent(sf::Event& ev)
 		{
 			this->resource_Hud_->getHudSound(HUD_SOUND_TYPE_::BUTTON_CLICK)->play();
 
-			this->states_->pop();
+			//this->states_->pop();
+			this->setIsEndOfState(true);
 		}
 
 		/*
@@ -172,10 +182,20 @@ void StateMainMenu::render(sf::RenderTarget& target)
 	this->menu_Setting_->render(target);
 }
 
+void StateMainMenu::setIsEndOfState(bool isEndOfState)
+{
+	this->is_End_Of_State_ = isEndOfState;
+}
+
+const bool& StateMainMenu::getIsEndOfState() const
+{
+	return this->is_End_Of_State_;
+}
+
 void StateMainMenu::setPositionOnResize()
 {
 	//UPDATE ALL GUI RESOLUTIONS HERE IF SIZE OF SCREEN CHANGES IN ANOTHER STATE
-	this->buttons_[0].setPosition(sf::Vector2f(10.f, 10.f));
+	this->buttons_[0].setPosition(sf::Vector2f(this->window_->getSize().x / 2.f - 150.f / 2.f, 150.f));
 	this->buttons_[1].setPosition(sf::Vector2f(this->buttons_[0].getLeftPosition(), this->buttons_[0].getBottomPosition(true, 10.f)));
 	this->buttons_[2].setPosition(sf::Vector2f(this->buttons_[0].getLeftPosition(), this->buttons_[1].getBottomPosition(true, 10.f)));
 	this->buttons_[3].setPosition(sf::Vector2f(this->buttons_[0].getLeftPosition(), this->buttons_[2].getBottomPosition(true, 10.f)));

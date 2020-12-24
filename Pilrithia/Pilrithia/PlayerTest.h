@@ -21,7 +21,7 @@
 class PlayerTest
 {	
 public:
-	PlayerTest(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceRace& resourceRace, const ResourceItem& resourceItem);
+	PlayerTest(const sf::RenderWindow* window, ResourceFont* resourceFont, ResourceHud* resourceHud, ResourceRace* resourceRace, ResourceItem* resourceItem);
 	~PlayerTest();
 
 	void initializeCharacter(Race* race, const std::string& name);
@@ -133,7 +133,7 @@ private:
 	bool is_Run_;
 	bool is_Attack_;
 
-	ResourceRace resource_Race_;
+	ResourceRace* resource_Race_;
 
 	bool is_Leveling_;
 };

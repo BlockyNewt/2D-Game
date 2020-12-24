@@ -4,7 +4,7 @@ MerchantTest::MerchantTest()
 {
 }
 
-MerchantTest::MerchantTest(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceNpc& resourceNpc, const ResourceItem& resourceItem)
+MerchantTest::MerchantTest(const sf::RenderWindow* window, ResourceFont* resourceFont, ResourceNpc* resourceNpc, ResourceItem* resourceItem)
 {
 	this->idle_Rect_ = sf::IntRect(0, 0, 64, 64);
 	this->idle_Sheet_Width_ = 640;
@@ -12,7 +12,7 @@ MerchantTest::MerchantTest(const sf::RenderWindow* window, const ResourceFont& r
 	this->merchant_Model_.setSize(sf::Vector2f(64.f, 64.f));
 	this->merchant_Model_.setPosition(sf::Vector2f(1300.f, 636.f));
 	this->merchant_Model_.setFillColor(sf::Color::White);
-	this->merchant_Model_.setTexture(resourceNpc.getNpcTexture(NPC_TEXTURE_TYPE_::TEST_MERCHANT_NPC_TEXTURE));
+	this->merchant_Model_.setTexture(resourceNpc->getNpcTexture(NPC_TEXTURE_TYPE_::TEST_MERCHANT_NPC_TEXTURE));
 	this->merchant_Model_.setTextureRect(this->idle_Rect_);
 	this->merchant_Model_.setScale(sf::Vector2f(-1.f, 1.f));
 	this->merchant_Model_.setOrigin(sf::Vector2f(this->merchant_Model_.getGlobalBounds().width, 0.f));
@@ -24,7 +24,7 @@ MerchantTest::MerchantTest(const sf::RenderWindow* window, const ResourceFont& r
 	this->merchant_Range_.setOutlineColor(sf::Color::Red);
 
 	this->merchant_Name_ = "Test Merchant";
-	this->t_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, this->merchant_Name_, sf::Vector2f(this->merchant_Model_.getGlobalBounds().left - 25.f, this->merchant_Model_.getGlobalBounds().top - 25.f), true);
+	this->t_A_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 18, this->merchant_Name_, sf::Vector2f(this->merchant_Model_.getGlobalBounds().left - 25.f, this->merchant_Model_.getGlobalBounds().top - 25.f), true);
 
 	this->is_Within_Range_ = false;
 

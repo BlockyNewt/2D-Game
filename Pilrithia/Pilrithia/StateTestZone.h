@@ -33,6 +33,9 @@ public:
 	void update() override;
 	void render(sf::RenderTarget& target) override;
 
+	void setIsEndOfState(bool isEndOfState) override;
+	const bool& getIsEndOfState() const override;
+
 private:
 	void updateLoadPollEvent(sf::Event& ev);
 	void updateCharacterCreationPollEvent(sf::Event& ev);
@@ -44,6 +47,8 @@ private:
 
 
 private:
+	bool is_End_Of_State_;
+
 	/*
 		LOAD BOX
 	*/
@@ -75,10 +80,11 @@ private:
 	EnemyTest* enemy_Test_;
 	Merchant* merchant_Test_;
 
-	Gather* gather_Test_;
+	/*Gather* gather_Test_;
 	Gather* gather_Test_One_;
-	Gather* gather_Test_Two_;
+	Gather* gather_Test_Two_;*/
 	std::vector<Gather*> gathers_;
+	int gather_Type_Increment_;
 
 	int max_Enemies_;
 	std::vector<Enemy*> enemies_;

@@ -11,7 +11,7 @@ class NpcTest
 {
 public:
 	NpcTest();
-	NpcTest(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceNpc& resourceNpc);
+	NpcTest(const sf::RenderWindow* window, ResourceFont* resourceFont, ResourceNpc* resourceNpc);
 	virtual ~NpcTest();
 
 	void setSettings(const sf::Vector2u& windowSize, const ResourceFont& resourceFont);

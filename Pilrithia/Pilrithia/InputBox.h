@@ -16,7 +16,7 @@ public:
 	InputBox();
 	~InputBox();
 
-	void setSettings(float sizeX, float sizeY, float posX, float posY, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, bool isVisible, bool isInputting, int inputStringMaxSize, const ResourceFont& resourceFont);
+	void setSettings(float sizeX, float sizeY, float posX, float posY, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, bool isVisible, bool isInputting, int inputStringMaxSize, ResourceFont* resourceFont);
 
 	void updatePollEvent(sf::Event& ev);
 	void update(const sf::Vector2i& mousePositionWindow);

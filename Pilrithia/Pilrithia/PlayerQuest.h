@@ -18,7 +18,7 @@
 class PlayerQuest
 {
 public:
-	PlayerQuest(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceHud& resourceHud);
+	PlayerQuest(const sf::RenderWindow* window, ResourceFont* resourceFont, ResourceHud* resourceHud);
 	~PlayerQuest();
 
 

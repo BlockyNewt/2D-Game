@@ -33,7 +33,7 @@ void EnemyTest::initializeStats()
 	this->exp_Tick_ = 0;
 }
 
-void EnemyTest::initializeModel(const sf::Vector2f& position, const int& range, const ResourceEnemy& resourceEnemy)
+void EnemyTest::initializeModel(const sf::Vector2f& position, const int& range, ResourceEnemy* resourceEnemy)
 {
 	/*
 		SET SIZE AND POSITION OF MODEL, NEXT POSITION, AND ATTACK RANGE 
@@ -43,7 +43,7 @@ void EnemyTest::initializeModel(const sf::Vector2f& position, const int& range, 
 	this->enemy_Model_.setFillColor(sf::Color::White);
 	this->enemy_Model_.setOutlineThickness(1.f);
 	this->enemy_Model_.setOutlineColor(sf::Color::Transparent);
-	this->enemy_Model_.setTexture(resourceEnemy.getEnemyTexture(ENEMY_TEXTURE_TYPE_::SKELETON_WALK_TEXTURE));
+	this->enemy_Model_.setTexture(resourceEnemy->getEnemyTexture(ENEMY_TEXTURE_TYPE_::SKELETON_WALK_TEXTURE));
 	this->enemy_Model_.setTextureRect(sf::IntRect(0, 0, 43, 37));
 
 	this->next_Position_.setSize(sf::Vector2f(this->enemy_Model_.getSize().x, this->enemy_Model_.getSize().y));
@@ -82,16 +82,22 @@ void EnemyTest::initializeHealthBar()
 
 EnemyTest::EnemyTest()
 {
-	
+	for (int x = 0; x < this->items_.size(); ++x)
+	{
+		delete this->items_[x];
+		this->items_.erase(this->items_.begin() + x);
+	}
+
+	std::cout << "DEBUG::ENEMYTEST::~ENEMYTEST() -> Deconstructed" << std::endl;
 }
 
-EnemyTest::EnemyTest(const sf::Vector2f& position, const int& range, const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceEnemy& resourceEnemy, const ResourceItem& resourceItem)
+EnemyTest::EnemyTest(const sf::Vector2f& position, const int& range, const sf::RenderWindow* window, ResourceFont* resourceFont, ResourceEnemy* resourceEnemy, ResourceItem* resourceItem)
 {
 	this->initializeStats();
 	this->initializeModel(position, range, resourceEnemy);
 	this->initializeHealthBar();
 
-	this->t_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, this->name_, sf::Vector2f(this->enemy_Model_.getPosition().x, this->enemy_Model_.getPosition().y), true);
+	this->t_A_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 18, this->name_, sf::Vector2f(this->enemy_Model_.getPosition().x, this->enemy_Model_.getPosition().y), true);
 
 	this->direction_ = DIRECTION::RIGHT;
 
@@ -114,16 +120,16 @@ EnemyTest::EnemyTest(const sf::Vector2f& position, const int& range, const sf::R
 	this->loot_Window_->addEnemyItems(this->items_);
 
 	this->loot_X_A_.setSettings(50.f, 50.f, 0.f, 0.f, sf::Color::Red, 1.f, sf::Color::White, true);
-	this->loot_T_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "E", sf::Vector2f(0.f, 0.f), true);
+	this->loot_T_A_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 18, "E", sf::Vector2f(0.f, 0.f), true);
 
 	this->walk_Texture_ = new sf::Texture();
-	*this->walk_Texture_ = *resourceEnemy.getEnemyTexture(ENEMY_TEXTURE_TYPE_::SKELETON_WALK_TEXTURE);
+	*this->walk_Texture_ = *resourceEnemy->getEnemyTexture(ENEMY_TEXTURE_TYPE_::SKELETON_WALK_TEXTURE);
 
 	this->attack_Texture_ = new sf::Texture();
-	*this->attack_Texture_ = *resourceEnemy.getEnemyTexture(ENEMY_TEXTURE_TYPE_::SKELETON_ATTACK_TEXTURE);
+	*this->attack_Texture_ = *resourceEnemy->getEnemyTexture(ENEMY_TEXTURE_TYPE_::SKELETON_ATTACK_TEXTURE);
 
 	this->death_Texture_ = new sf::Texture();
-	*this->death_Texture_ = *resourceEnemy.getEnemyTexture(ENEMY_TEXTURE_TYPE_::SKELETON_DEATH_TEXTURE);
+	*this->death_Texture_ = *resourceEnemy->getEnemyTexture(ENEMY_TEXTURE_TYPE_::SKELETON_DEATH_TEXTURE);
 
 	this->walk_Rect_ = sf::IntRect(0, 0, 43, 37);
 	this->attack_Rect_ = sf::IntRect(0, 0, 43, 37);
@@ -147,6 +153,8 @@ EnemyTest::~EnemyTest()
 	delete this->walk_Texture_;
 	delete this->attack_Texture_;
 	delete this->death_Texture_;
+
+	std::cout << "DEBUG::ENEMYTEST::~ENEMYTEST() -> Deconstructed" << std::endl;
 }
 
 void EnemyTest::updatePollEvent(sf::Event& ev, std::vector<std::vector<Item*>>& playerBag, const int& maxBagSizeX, const int& maxBagSizeY, const sf::FloatRect playerBoundaries)
@@ -288,9 +296,9 @@ void EnemyTest::update(const sf::Vector2i& mousePositionWindow, Camera** camera,
 		{
 			this->updateAutoMovement(dt);
 
-			if (this->resource_Enemy_.getEnemySound(ENEMY_SOUND_TYPE_::ENEMY_ATTACK)->getStatus() == sf::Sound::Playing)
+			if (this->resource_Enemy_->getEnemySound(ENEMY_SOUND_TYPE_::ENEMY_ATTACK)->getStatus() == sf::Sound::Playing)
 			{
-				this->resource_Enemy_.getEnemySound(ENEMY_SOUND_TYPE_::ENEMY_ATTACK)->stop();
+				this->resource_Enemy_->getEnemySound(ENEMY_SOUND_TYPE_::ENEMY_ATTACK)->stop();
 			}
 		}
 		else if(this->attack_Range_.getGlobalBounds().intersects(playerBounds))
@@ -304,9 +312,9 @@ void EnemyTest::update(const sf::Vector2i& mousePositionWindow, Camera** camera,
 				this->is_Attack_Texture_Set_ = true;
 			}
 
-			if (this->resource_Enemy_.getEnemySound(ENEMY_SOUND_TYPE_::ENEMY_ATTACK)->getStatus() != sf::Sound::Playing)
+			if (this->resource_Enemy_->getEnemySound(ENEMY_SOUND_TYPE_::ENEMY_ATTACK)->getStatus() != sf::Sound::Playing)
 			{
-				this->resource_Enemy_.getEnemySound(ENEMY_SOUND_TYPE_::ENEMY_ATTACK)->play();
+				this->resource_Enemy_->getEnemySound(ENEMY_SOUND_TYPE_::ENEMY_ATTACK)->play();
 			}
 
 			this->animation_.update(this->enemy_Model_, this->attack_Rect_, this->attack_Sheet_Width_, 55.55f);
@@ -334,9 +342,9 @@ void EnemyTest::update(const sf::Vector2i& mousePositionWindow, Camera** camera,
 	}
 	else
 	{
-		if (this->resource_Enemy_.getEnemySound(ENEMY_SOUND_TYPE_::ENEMY_ATTACK)->getStatus() == sf::Sound::Playing)
+		if (this->resource_Enemy_->getEnemySound(ENEMY_SOUND_TYPE_::ENEMY_ATTACK)->getStatus() == sf::Sound::Playing)
 		{
-			this->resource_Enemy_.getEnemySound(ENEMY_SOUND_TYPE_::ENEMY_ATTACK)->stop();
+			this->resource_Enemy_->getEnemySound(ENEMY_SOUND_TYPE_::ENEMY_ATTACK)->stop();
 		}
 
 		if (!this->is_Death_Texture_Set_)

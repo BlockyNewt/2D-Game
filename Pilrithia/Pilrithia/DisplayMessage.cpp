@@ -1,10 +1,10 @@
 #include "DisplayMessage.h"
 
-DisplayMessage::DisplayMessage(const sf::Window* window, const ResourceFont& resourceFont)
+DisplayMessage::DisplayMessage(const sf::Window* window, ResourceFont* resourceFont)
 {
-	this->level_Up_Text_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 50, "", sf::Vector2f(window->getSize().x / 2.f - 300.f, window->getSize().y / 2.f - 200.f), true);
-	this->adding_Item_To_Bag_Text_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 50, "Bag is full", sf::Vector2f(window->getSize().x / 2.f - 300.f, window->getSize().y / 2.f - 200.f), true);
-	this->left_Combat_Text_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 50, "You have left combat", sf::Vector2f(window->getSize().x / 2.f - 300.f, window->getSize().y / 2.f - 200.f), true);
+	this->level_Up_Text_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 50, "", sf::Vector2f(window->getSize().x / 2.f - 300.f, window->getSize().y / 2.f - 200.f), true);
+	this->adding_Item_To_Bag_Text_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 50, "Bag is full", sf::Vector2f(window->getSize().x / 2.f - 300.f, window->getSize().y / 2.f - 200.f), true);
+	this->left_Combat_Text_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 50, "You have left combat", sf::Vector2f(window->getSize().x / 2.f - 300.f, window->getSize().y / 2.f - 200.f), true);
 
 	this->is_Leveling_Up_ = false;
 	this->is_Adding_Item_To_Bag_ = false;
@@ -15,6 +15,7 @@ DisplayMessage::DisplayMessage(const sf::Window* window, const ResourceFont& res
 
 DisplayMessage::~DisplayMessage()
 {
+	std::cout << "DEBUG::DISPLAYMESSAGE::~DISPLAYMESSAGE() -> Deconstructed. " << std::endl;
 }
 
 void DisplayMessage::updateLevelUp(const std::string& playerLevel)

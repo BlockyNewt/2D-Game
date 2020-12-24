@@ -6,27 +6,32 @@ ResourceHud::ResourceHud()
 
 ResourceHud::~ResourceHud()
 {
-	/*for (std::map<HUD_TEXTURE_TYPE_, sf::Texture>::iterator itr = this->hud_Textures_.begin(); itr != this->hud_Textures_.end(); itr++)
+	for (std::map<HUD_TEXTURE_TYPE_, sf::Texture*>::iterator itr = this->hud_Textures_.begin(); itr != this->hud_Textures_.end(); itr++)
 	{
-		delete& itr;
-		this->hud_Textures_.erase(itr);
+		delete itr->second;
+		//this->hud_Textures_.erase(itr);
 	}
+
+	this->hud_Textures_.clear();
 
 	if (this->hud_Textures_.empty())
 	{
 		std::cout << "DEBUG::RESOURCERACE::~RESOURCEHUD() -> Deleted all textures." << std::endl;
 	}
 
-	for (std::map<HUD_SOUND_TYPE_, sf::Sound>::iterator itr = this->hud_Sound_.begin(); itr != this->hud_Sound_.end(); itr++)
+	for (std::map<HUD_SOUND_TYPE_, sf::Sound*>::iterator itr = this->hud_Sound_.begin(); itr != this->hud_Sound_.end(); itr++)
 	{
-		delete itr->second.getBuffer();
-		this->hud_Sound_.erase(itr);
+		delete itr->second->getBuffer();
+		delete itr->second;
+		//this->hud_Sound_.erase(itr);
 	}
+
+	this->hud_Sound_.clear();
 
 	if (this->hud_Sound_.empty())
 	{
 		std::cout << "DEBUG::RESOURCERACE::~RESOURCEHUD() -> Deleted all sounds." << std::endl;
-	}*/
+	}
 }
 
 void ResourceHud::loadAllHudTextures()
@@ -34,6 +39,8 @@ void ResourceHud::loadAllHudTextures()
 	/*
 		LOAD ALL HUD TEXTURES
 	*/
+	this->loadHudTexture("main_Menu_Button_.png", HUD_TEXTURE_TYPE_::MAIN_MENU_BUTTON);
+
 	this->loadHudTexture("Bars_2.png", HUD_TEXTURE_TYPE_::BAR);
 	this->loadHudTexture("bag_.png", HUD_TEXTURE_TYPE_::BAG);
 	this->loadHudTexture("x_Button_.png", HUD_TEXTURE_TYPE_::CLOSE);
@@ -57,10 +64,6 @@ void ResourceHud::loadAllHudSounds()
 	*/
 	this->loadHudSound("button_Click_.wav", HUD_SOUND_TYPE_::BUTTON_CLICK);
 	this->loadHudSound("button_Click_2_.wav", HUD_SOUND_TYPE_::BUTTON_HUD_CLICK);
-
-
-	std::cout << "hud sound: " << this->hud_Sound_.size() << std::endl;
-
 }
 
 const sf::Texture* ResourceHud::getHudTexture(HUD_TEXTURE_TYPE_ hudTextureType) const
@@ -69,7 +72,7 @@ const sf::Texture* ResourceHud::getHudTexture(HUD_TEXTURE_TYPE_ hudTextureType) 
 
 	if (findPos != this->hud_Textures_.end())
 	{
-		return &findPos->second;
+		return findPos->second;
 	}
 	else
 	{
@@ -83,7 +86,7 @@ sf::Sound* ResourceHud::getHudSound(HUD_SOUND_TYPE_ hudSoundType)
 
 	if (findPos != this->hud_Sound_.end())
 	{
-		return &findPos->second;
+		return findPos->second;
 	}
 	else
 	{
@@ -122,13 +125,13 @@ void ResourceHud::loadHudSound(const std::string& hudSoundFileName, HUD_SOUND_TY
 	}
 }
 
-void ResourceHud::AddToTextureMap(const sf::Texture* hudTexture, HUD_TEXTURE_TYPE_ hudTextureType)
+void ResourceHud::AddToTextureMap(sf::Texture* hudTexture, HUD_TEXTURE_TYPE_ hudTextureType)
 {
-	this->hud_Textures_.insert(std::make_pair(hudTextureType, *hudTexture));
+	this->hud_Textures_.insert(std::make_pair(hudTextureType, hudTexture));
 }
 
 
-void ResourceHud::AddToSoundMap(const sf::Sound* hudSound, HUD_SOUND_TYPE_ hudSoundType)
+void ResourceHud::AddToSoundMap(sf::Sound* hudSound, HUD_SOUND_TYPE_ hudSoundType)
 {
-	this->hud_Sound_.insert(std::make_pair(hudSoundType, *hudSound));
+	this->hud_Sound_.insert(std::make_pair(hudSoundType, hudSound));
 }

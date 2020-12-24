@@ -7,21 +7,17 @@ ItemTest::ItemTest()
 	*/
 }
 
-ItemTest::ItemTest(float posX, float posY, ITEMTYPE itemType, const std::string& name, const std::string& description, const ResourceFont& resourceFont, const ResourceItem& resourceItem)
+ItemTest::ItemTest(float posX, float posY, ITEMTYPE itemType, const std::string& name, const std::string& description, ResourceFont* resourceFont, ResourceItem* resourceItem)
 {
-	std::cout << "A" << std::endl;	
 	this->resource_Font_ = resourceFont;
 	this->resource_Item_ = resourceItem;
-	std::cout << "B" << std::endl;
 
 	this->b_A_.setSettings(50.f, 50.f, posX, posY, sf::Color::White, 0.f, sf::Color::Transparent, true);
-	this->b_A_.setTexture(this->resource_Item_.getItemTexture(ITEM_TEXTURE_TYPE_::ITEM_TEST));
-	std::cout << "C" << std::endl;
+	this->b_A_.setTexture(this->resource_Item_->getItemTexture(ITEM_TEXTURE_TYPE_::ITEM_TEST));
 
 
-	this->t_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "", sf::Vector2f(this->b_A_.getLeftPosition(true, 10.f), this->b_A_.getTopPosition(true, 10.f)), true);
-	this->t_B_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "", sf::Vector2f(this->b_A_.getRightPosition(false, 10.f), this->b_A_.getBottomPosition(false, 20.f)), true);
-	std::cout << "D" << std::endl;
+	this->t_A_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 18, "", sf::Vector2f(this->b_A_.getLeftPosition(true, 10.f), this->b_A_.getTopPosition(true, 10.f)), true);
+	this->t_B_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 18, "", sf::Vector2f(this->b_A_.getRightPosition(false, 10.f), this->b_A_.getBottomPosition(false, 20.f)), true);
 
 	this->item_Type_ = itemType;
 
@@ -122,6 +118,7 @@ ItemTest::ItemTest(float posX, float posY, ITEMTYPE itemType, const std::string&
 
 ItemTest::~ItemTest()
 {
+	std::cout << "DEBUG::ITEMTEST::~ITEMTEST() -> Deconstructed." << std::endl;
 }
 
 void ItemTest::setItemHoverDescriptionSettings(HOVERPOSITION hoverPosition, const sf::FloatRect boundaries, const sf::FloatRect boundariesOffset, DESCRIPTIONTYPE descriptionType, const std::string& title, const std::string& description)

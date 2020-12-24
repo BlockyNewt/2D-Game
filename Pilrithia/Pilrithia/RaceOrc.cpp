@@ -46,6 +46,8 @@ RaceOrc::~RaceOrc()
 	delete this->idle_Texture_;
 	delete this->attack_Texture_;
 	delete this->jump_Texture_;
+
+	std::cout << "DEBUG::RACEORC::~RACEORC() -> Deconstructed" << std::endl;
 }
 
 void RaceOrc::initializeRace(const float& posX, const float& posY)

@@ -27,7 +27,7 @@
 class PlayerHud
 {
 public:
-	PlayerHud(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceRace& resourceRace);
+	PlayerHud(const sf::RenderWindow* window, ResourceFont* resourceFont, ResourceHud* resourceHud, ResourceRace* resourceRace);
 	~PlayerHud();
 
 
@@ -118,8 +118,8 @@ private:
 	sf::Clock leave_Combat_Timer_;
 	
 
-	ResourceFont resource_Font_;
-	ResourceHud resource_Hud_;
+	ResourceFont* resource_Font_;
+	ResourceHud* resource_Hud_;
 
 	//TESTING
 	sf::Sprite race_Icon_Sprite_;

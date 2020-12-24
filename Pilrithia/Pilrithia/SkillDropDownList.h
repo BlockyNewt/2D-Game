@@ -21,7 +21,7 @@ public:
 	SkillDropDownList();
 	~SkillDropDownList();
 
-	void setSettings(const sf::FloatRect itemBoundaries, Classes* playerClasses, const ResourceFont& resourceFont);
+	void setSettings(const sf::FloatRect itemBoundaries, Classes* playerClasses, ResourceFont* resourceFont);
 
 	void updatePollEvent(sf::Event& ev, Classes* playerClasses, Skill** hudSkillSlot);
 	void update(const sf::Vector2i& mousePositionWindow, const sf::FloatRect itemBoundaries);

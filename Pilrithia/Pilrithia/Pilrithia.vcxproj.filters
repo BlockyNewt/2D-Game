@@ -273,11 +273,11 @@
     <ClCompile Include="PlayerGather.cpp">
       <Filter>Source Files\Player</Filter>
     </ClCompile>
-    <ClCompile Include="DisplayMessage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ResourceItem.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="DisplayMessage.cpp">
+      <Filter>Source Files\Gui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -452,11 +452,11 @@
     <ClInclude Include="Gather.h">
       <Filter>Header Files\Gather</Filter>
     </ClInclude>
-    <ClInclude Include="DisplayMessage.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ResourceItem.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="DisplayMessage.h">
+      <Filter>Header Files\Gui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

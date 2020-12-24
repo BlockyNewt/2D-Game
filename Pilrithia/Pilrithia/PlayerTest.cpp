@@ -1,6 +1,6 @@
 #include "PlayerTest.h"
 
-PlayerTest::PlayerTest(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceRace& resourceRace, const ResourceItem& resourceItem)
+PlayerTest::PlayerTest(const sf::RenderWindow* window, ResourceFont* resourceFont, ResourceHud* resourceHud, ResourceRace* resourceRace, ResourceItem* resourceItem)
 {
 	this->player_Bag_ = new PlayerBag(window, resourceFont, resourceHud, resourceItem);
 	this->player_Hud_ = new PlayerHud(window, resourceFont, resourceHud, resourceRace);
@@ -11,8 +11,8 @@ PlayerTest::PlayerTest(const sf::RenderWindow* window, const ResourceFont& resou
 
 	this->resource_Race_ = resourceRace;
 
-	this->race_ = new RaceOrc();
-	this->race_->initializeRace(0.f, 0.f);
+	this->race_ = NULL;
+	//this->race_->initializeRace(0.f, 0.f);
 	//this->race_->setPlayerClasses(this->race_->getClassesOne());
 
 	this->display_Message_ = new DisplayMessage(window, resourceFont);
@@ -94,6 +94,8 @@ PlayerTest::~PlayerTest()
 	delete this->player_Gather_;
 
 	delete this->display_Message_;
+
+	std::cout << "DEBUG::PLAYERTEST::~PLAYERTEST() -> Deconstructed" << std::endl;
 }
 
 void PlayerTest::initializeCharacter(Race* race, const std::string& name)
@@ -310,9 +312,9 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 			this->player_Model_.setScale(sf::Vector2f(-1.f, 1.f));
 			this->player_Model_.setOrigin(sf::Vector2f(this->player_Model_.getGlobalBounds().width, 0.f));
 
-			if (this->resource_Race_.getRaceSound(RACE_SOUND_TYPE_::FOOTSTEP)->getStatus() != sf::Sound::Playing)
+			if (this->resource_Race_->getRaceSound(RACE_SOUND_TYPE_::FOOTSTEP)->getStatus() != sf::Sound::Playing)
 			{
-				this->resource_Race_.getRaceSound(RACE_SOUND_TYPE_::FOOTSTEP)->play();
+				this->resource_Race_->getRaceSound(RACE_SOUND_TYPE_::FOOTSTEP)->play();
 			}
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) &&
@@ -328,14 +330,14 @@ void PlayerTest::updatePollEvent(sf::Event& ev, const float& dt)
 			this->player_Model_.setScale(sf::Vector2f(1.f, 1.f));
 			this->player_Model_.setOrigin(sf::Vector2f(0.f, 0.f));
 
-			if (this->resource_Race_.getRaceSound(RACE_SOUND_TYPE_::FOOTSTEP)->getStatus() != sf::Sound::Playing)
+			if (this->resource_Race_->getRaceSound(RACE_SOUND_TYPE_::FOOTSTEP)->getStatus() != sf::Sound::Playing)
 			{
-				this->resource_Race_.getRaceSound(RACE_SOUND_TYPE_::FOOTSTEP)->play();
+				this->resource_Race_->getRaceSound(RACE_SOUND_TYPE_::FOOTSTEP)->play();
 			}
 		}
 		else
 		{
-			this->resource_Race_.getRaceSound(RACE_SOUND_TYPE_::FOOTSTEP)->stop();
+			this->resource_Race_->getRaceSound(RACE_SOUND_TYPE_::FOOTSTEP)->stop();
 		}
 
 
@@ -449,16 +451,16 @@ void PlayerTest::update(const sf::Vector2i& mousePositionWindow, const Camera& c
 				this->is_Idle_Texture_Set_ = false;
 			}
 
-			if (this->resource_Race_.getRaceSound(RACE_SOUND_TYPE_::AUTO_ATTACK)->getStatus() != sf::Sound::Playing)
+			if (this->resource_Race_->getRaceSound(RACE_SOUND_TYPE_::AUTO_ATTACK)->getStatus() != sf::Sound::Playing)
 			{
-				this->resource_Race_.getRaceSound(RACE_SOUND_TYPE_::AUTO_ATTACK)->play();
+				this->resource_Race_->getRaceSound(RACE_SOUND_TYPE_::AUTO_ATTACK)->play();
 			}
 
 			this->animation_.update(this->player_Model_, this->race_->getAttackRect(), this->race_->getAttackSheetWidth(), 166.67f);
 		}
 		else
 		{
-			this->resource_Race_.getRaceSound(RACE_SOUND_TYPE_::AUTO_ATTACK)->stop();
+			this->resource_Race_->getRaceSound(RACE_SOUND_TYPE_::AUTO_ATTACK)->stop();
 		}
 
 		
@@ -698,7 +700,7 @@ void PlayerTest::levelUp()
 		}
 
 		this->display_Message_->updateLevelUp(std::to_string(this->level_));
-		this->resource_Race_.getRaceSound(RACE_SOUND_TYPE_::LEVEL_UP)->play();
+		this->resource_Race_->getRaceSound(RACE_SOUND_TYPE_::LEVEL_UP)->play();
 
 		this->setStat("healthMax", std::floor(2.0 * 1.2 + (std::pow(this->level_, 1.2))));
 		this->getStatForChange("health") = this->getStat("healthMax");

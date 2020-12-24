@@ -8,7 +8,7 @@ class ItemTest
 {
 public:
 	ItemTest();
-	ItemTest(float posX, float posY, ITEMTYPE itemType, const std::string& name, const std::string& description, const ResourceFont& resourceFont, const ResourceItem& resourceItem);
+	ItemTest(float posX, float posY, ITEMTYPE itemType, const std::string& name, const std::string& description, ResourceFont* resourceFont, ResourceItem* resourceItem);
 	virtual ~ItemTest();
 
 	void setItemHoverDescriptionSettings(HOVERPOSITION hoverPosition, const sf::FloatRect boundaries, const sf::FloatRect boundariesOffset, DESCRIPTIONTYPE descriptionType, const std::string& title, const std::string& description) override;
@@ -79,8 +79,8 @@ private:
 	int quantity_;
 	bool is_Gather_Box_;
 	
-	ResourceFont resource_Font_;
-	ResourceItem resource_Item_;
+	ResourceFont* resource_Font_;
+	ResourceItem* resource_Item_;
 };
 
 #endif // !ITEMTEST_H

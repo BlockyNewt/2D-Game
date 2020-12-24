@@ -1,9 +1,9 @@
 ﻿  StateTestZone.cpp
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\StateTestZone.cpp(77,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\StateTestZone.cpp(266,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\StateTestZone.cpp(282,28): warning C4018: '<': signed/unsigned mismatch
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\StateTestZone.cpp(290,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\StateTestZone.cpp(395,96): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+C:\Users\thoma\source\repos\Pilrithia\Pilrithia\Pilrithia\StateTestZone.cpp(81,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\Pilrithia\Pilrithia\Pilrithia\StateTestZone.cpp(277,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\Pilrithia\Pilrithia\Pilrithia\StateTestZone.cpp(293,28): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\Pilrithia\Pilrithia\Pilrithia\StateTestZone.cpp(301,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thoma\source\repos\Pilrithia\Pilrithia\Pilrithia\StateTestZone.cpp(428,96): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
           with
           [
               T=unsigned int
@@ -12,7 +12,7 @@ C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\StateTestZo
           [
               T=float
           ]
-C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\StateTestZone.cpp(395,68): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+C:\Users\thoma\source\repos\Pilrithia\Pilrithia\Pilrithia\StateTestZone.cpp(428,68): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
           with
           [
               T=unsigned int
@@ -21,4 +21,4 @@ C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Pilrithia\StateTestZo
           [
               T=float
           ]
-  Pilrithia.vcxproj -> C:\Users\thoma\source\repos\BlockyNewt\Pilrithia\Pilrithia\Debug\Pilrithia.exe
+  Pilrithia.vcxproj -> C:\Users\thoma\Source\Repos\Pilrithia\Pilrithia\Debug\Pilrithia.exe

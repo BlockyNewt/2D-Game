@@ -20,7 +20,7 @@
 class PlayerSkillTree
 {
 public:
-	PlayerSkillTree(const sf::RenderWindow* window, const ResourceFont& resourceFont);
+	PlayerSkillTree(const sf::RenderWindow* window, ResourceFont* resourceFont);
 	~PlayerSkillTree();
 
 	void updateClassOneSelectPollEvent(sf::Event& ev, std::map<std::string, int>& stats, int& playerSkillPoints);
@@ -40,7 +40,7 @@ public:
 	const Classes* getClassesTwo() const;
 
 private:
-	void initializeClassOneSelect(const ResourceFont& resourceFont);
+	void initializeClassOneSelect(ResourceFont* resourceFont);
 
 	void resizeProgressBar();
 private:

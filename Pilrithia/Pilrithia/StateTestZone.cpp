@@ -3,7 +3,6 @@
 StateTestZone::StateTestZone(std::stack<State*>* states, sf::RenderWindow* window, ResourceFont* resourceFont, ResourceHud* resourceHud, ResourceRace* resourceRace, ResourceItem* resourceItem, MenuSetting* menuSetting, MenuPause* menuPause)
 	: State(states, window, resourceFont, resourceHud, resourceRace, resourceItem, menuSetting, menuPause)
 {
-
 	this->resource_Enemy_ = new ResourceEnemy();
 	this->resource_Enemy_->loadAllEnemyTextures();
 	this->resource_Enemy_->loadAllEnemySounds();
@@ -12,35 +11,36 @@ StateTestZone::StateTestZone(std::stack<State*>* states, sf::RenderWindow* windo
 	this->resource_Npc_->loadAllNpcTextures();
 	this->resource_Npc_->loadAllNpcSounds();
 
-	this->player_Test_ = new PlayerTest(this->window_, *this->resource_Font_, *this->resource_Hud_, *this->resource_Race_, *this->resource_Item_);
+	this->player_Test_ = new PlayerTest(this->window_, this->resource_Font_, this->resource_Hud_, this->resource_Race_, this->resource_Item_);
 
-	this->menu_Character_Creation_ = new MenuCharacterCreation(this->window_->getSize(), *this->resource_Font_, *this->resource_Hud_, *this->resource_Race_);
+	this->menu_Character_Creation_ = new MenuCharacterCreation(this->window_->getSize(), this->resource_Font_, this->resource_Hud_, this->resource_Race_);
 
 	this->camera_ = new Camera(this->window_->getSize().x, this->window_->getSize().y);
 
 	this->tilemap_ = new Tilemap(20, 20, 50 , 2);
 
 
-	this->npc_Test_ = new NpcTest(this->window_, *this->resource_Font_, *this->resource_Npc_);
+	this->npc_Test_ = new NpcTest(this->window_, this->resource_Font_, this->resource_Npc_);
 	this->npc_Test_->setSettings(this->window_->getSize(), *this->resource_Font_);
 
 	this->max_Enemies_ = 1;
-	this->enemy_Test_ = new EnemyTest(sf::Vector2f(600.f, 120.f), 3, this->window_, *this->resource_Font_, *this->resource_Enemy_, *this->resource_Item_);
+	this->enemy_Test_ = new EnemyTest(sf::Vector2f(600.f, 120.f), 3, this->window_, this->resource_Font_, this->resource_Enemy_, this->resource_Item_);
 
 	this->enemies_.push_back(this->enemy_Test_);
 	//this->enemies_.push_back(this->enemy_Test_One_);
 
 
-	this->merchant_Test_ = new MerchantTest(this->window_, *this->resource_Font_, *this->resource_Npc_, *this->resource_Item_);
+	this->merchant_Test_ = new MerchantTest(this->window_, this->resource_Font_, this->resource_Npc_, this->resource_Item_);
 
 
-	this->gather_Test_ = new GatherTest(GATHERTYPE::MINING, sf::Vector2f(400.f, 400.f), *this->resource_Font_, *this->resource_Hud_, *this->resource_Item_);
-	this->gather_Test_One_ = new GatherTest(GATHERTYPE::HARVESTING, sf::Vector2f(100.f, 600.f), *this->resource_Font_, *this->resource_Hud_, *this->resource_Item_);
-	this->gather_Test_Two_ = new GatherTest(GATHERTYPE::FORESTING, sf::Vector2f(850.f, 600.f), *this->resource_Font_, *this->resource_Hud_, *this->resource_Item_);
+	/*this->gather_Test_ = new GatherTest(GATHERTYPE::MINING, sf::Vector2f(400.f, 400.f), this->resource_Font_, this->resource_Hud_, this->resource_Item_);
+	this->gather_Test_One_ = new GatherTest(GATHERTYPE::HARVESTING, sf::Vector2f(100.f, 600.f), this->resource_Font_, this->resource_Hud_, this->resource_Item_);
+	this->gather_Test_Two_ = new GatherTest(GATHERTYPE::FORESTING, sf::Vector2f(850.f, 600.f), this->resource_Font_, this->resource_Hud_, this->resource_Item_);
 
 	this->gathers_.push_back(this->gather_Test_);
 	this->gathers_.push_back(this->gather_Test_One_);
-	this->gathers_.push_back(this->gather_Test_Two_);
+	this->gathers_.push_back(this->gather_Test_Two_);*/
+	this->gather_Type_Increment_ = 0;
 
 
 	this->load_X_A_.setSettings(800.f, 400.f, this->window_->getSize().x / 2.f - 800.f / 2.f, this->window_->getSize().y / 2.f - 600.f / 2.f, sf::Color(85, 158, 131), 1.f, sf::Color::Red, true);
@@ -53,9 +53,7 @@ StateTestZone::StateTestZone(std::stack<State*>* states, sf::RenderWindow* windo
 	this->load_T_C_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 25, "Load", sf::Vector2f(this->load_B_A_.getLeftPosition(true, 10.f), this->load_B_A_.getTopPosition(true, 10.f)), true);
 	this->load_T_D_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 25, "Close", sf::Vector2f(this->load_B_B_.getLeftPosition(true, 10.f), this->load_B_B_.getTopPosition(true, 10.f)), true);
 
-	this->load_I_A_.setSettings(500.f, 40.f, this->load_T_B_.getRightPosition(true, 10.f), this->load_T_B_.getTopPosition(), sf::Color::Black, 1.f, sf::Color::Red, true, false, 30, *this->resource_Font_);
-
-		  
+	this->load_I_A_.setSettings(500.f, 40.f, this->load_T_B_.getRightPosition(true, 10.f), this->load_T_B_.getTopPosition(), sf::Color::Black, 1.f, sf::Color::Red, true, false, 30, this->resource_Font_);
 }
 
 StateTestZone::~StateTestZone()
@@ -63,22 +61,34 @@ StateTestZone::~StateTestZone()
 	delete this->player_Test_;
 
 	delete this->npc_Test_;
-
+	
 	delete this->menu_Character_Creation_;
-	
+
 	delete this->camera_;
-	
+
 	delete this->tilemap_;
 
-	delete this->resource_Enemy_;
-
-	delete this->resource_Npc_;
+	for (int i = 0; i < this->max_Enemies_; i++)
+	{
+		if (this->enemies_[i] != NULL)
+		{
+			delete this->enemies_[i];
+			this->enemies_[i] = NULL;
+			this->enemies_.erase(this->enemies_.begin() + i);
+		}
+	}
 
 	for (int i = 0; i < this->gathers_.size(); ++i)
 	{
 		delete this->gathers_[i];
 		this->gathers_.erase(this->gathers_.begin() + i);
 	}
+
+	delete this->resource_Enemy_;
+	
+	delete this->resource_Npc_;
+
+	std::cout << "DEBUG::STATETESTZONE::~STATETESTZONE() -> Deconstructed." << std::endl;
 }
 
 void StateTestZone::updateLoadPollEvent(sf::Event& ev)
@@ -189,7 +199,8 @@ void StateTestZone::updatePollEvent(sf::Event& ev)
 	*/
 	if (this->menu_Pause_->updatePollEvent(ev))
 	{
-		this->states_->pop();
+		//this->states_->pop();
+		this->setIsEndOfState(true);
 	}
 
 	if (ev.type == sf::Event::Resized)
@@ -281,7 +292,7 @@ void StateTestZone::updateEnemy()
 
 	if (this->enemies_.size() < this->max_Enemies_)
 	{
-		this->enemies_.push_back(new EnemyTest(sf::Vector2f(600.f, 120.f), 3, this->window_, *this->resource_Font_, *this->resource_Enemy_, *this->resource_Item_));
+		this->enemies_.push_back(new EnemyTest(sf::Vector2f(600.f, 120.f), 3, this->window_, this->resource_Font_, this->resource_Enemy_, this->resource_Item_));
 	}
 }
 
@@ -298,9 +309,31 @@ void StateTestZone::updateGather()
 		}
 	}
 
-	if (this->gathers_.size() < 3)
+	if (this->gathers_.size() < 1)
 	{
-		this->gathers_.push_back(new GatherTest(GATHERTYPE::FORESTING, sf::Vector2f(400.f, 400.f), *this->resource_Font_, *this->resource_Hud_, *this->resource_Item_));
+		switch (this->gather_Type_Increment_)
+		{
+		case 1:
+			this->gathers_.push_back(new GatherTest(GATHERTYPE::MINING, sf::Vector2f(400.f, 400.f), this->resource_Font_, this->resource_Hud_, this->resource_Item_));
+			break;
+		case 2:
+			this->gathers_.push_back(new GatherTest(GATHERTYPE::HARVESTING, sf::Vector2f(100.f, 600.f), this->resource_Font_, this->resource_Hud_, this->resource_Item_));
+			break;
+		case 3:
+			this->gathers_.push_back(new GatherTest(GATHERTYPE::FORESTING, sf::Vector2f(850.f, 600.f), this->resource_Font_, this->resource_Hud_, this->resource_Item_));
+			break;
+		default:
+			break;
+		}
+
+		if (this->gather_Type_Increment_ == 3)
+		{
+			this->gather_Type_Increment_ = 0;
+		}
+		else
+		{
+			this->gather_Type_Increment_++;
+		}
 	}
 }
 
@@ -415,4 +448,14 @@ void StateTestZone::render(sf::RenderTarget& target)
 
 
 	this->menu_Pause_->render(target);
+}
+
+void StateTestZone::setIsEndOfState(bool isEndOfState)
+{
+	this->is_End_Of_State_ = isEndOfState;
+}
+
+const bool& StateTestZone::getIsEndOfState() const
+{
+	return this->is_End_Of_State_;
 }

@@ -33,14 +33,14 @@ public:
 
 private:
 	void loadNpcTexture(const std::string& npcTextureFileName, NPC_TEXTURE_TYPE_ npcTextureType);
-	void AddToMap(const sf::Texture* npcTexture, NPC_TEXTURE_TYPE_ npcTextureType);
+	void AddToMap(sf::Texture* npcTexture, NPC_TEXTURE_TYPE_ npcTextureType);
 
 	void loadNpcSound(const std::string& npcTextureFileName, NPC_SOUND_TYPE_ npcSoundType);
-	void AddToSoundMap(const sf::Sound* npcSound, NPC_SOUND_TYPE_ npcSoundType);
+	void AddToSoundMap(sf::Sound* npcSound, NPC_SOUND_TYPE_ npcSoundType);
 
 private:
-	std::map<NPC_TEXTURE_TYPE_, sf::Texture> npc_Textures_;
-	std::map<NPC_SOUND_TYPE_, sf::Sound> npc_Sounds_;
+	std::map<NPC_TEXTURE_TYPE_, sf::Texture*> npc_Textures_;
+	std::map<NPC_SOUND_TYPE_, sf::Sound*> npc_Sounds_;
 
 };
 

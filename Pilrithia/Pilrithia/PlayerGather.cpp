@@ -1,14 +1,14 @@
 #include "PlayerGather.h"
 
-PlayerGather::PlayerGather(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceItem& resourceItem)
+PlayerGather::PlayerGather(const sf::RenderWindow* window, ResourceFont* resourceFont, ResourceHud* resourceHud, ResourceItem* resourceItem)
 {
 	this->x_A_.setSettings(800.f, 500.f, window->getSize().x / 2.f - 800 / 2.f, window->getSize().y / 2.f - 500.f / 2.f, sf::Color::White, 1.f, sf::Color::Transparent, true);
-	this->x_A_.setTexture(resourceHud.getHudTexture(HUD_TEXTURE_TYPE_::WINDOW));
+	this->x_A_.setTexture(resourceHud->getHudTexture(HUD_TEXTURE_TYPE_::WINDOW));
 	this->x_B_.setSettings(window->getSize().x, window->getSize().y, 0.f, 0.f, sf::Color(0,0,0,200), 1.f, sf::Color::Transparent, true);
-	this->t_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 28, "Resources", sf::Vector2f(this->x_A_.getLeftPosition(true, 350.f), this->x_A_.getTopPosition(true, 10.f)), true);
+	this->t_A_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 28, "Resources", sf::Vector2f(this->x_A_.getLeftPosition(true, 350.f), this->x_A_.getTopPosition(true, 10.f)), true);
 
 	this->b_B_.setSettings(35.f, 35.f, this->x_A_.getRightPosition(false, 39.f), this->x_A_.getTopPosition(true, 4.f), sf::Color::White, 1.f, sf::Color::Transparent, true);
-	this->b_B_.setTexture(resourceHud.getHudTexture(HUD_TEXTURE_TYPE_::CLOSE));
+	this->b_B_.setTexture(resourceHud->getHudTexture(HUD_TEXTURE_TYPE_::CLOSE));
 
 	this->is_Visible_ = false;
 
@@ -33,6 +33,16 @@ PlayerGather::PlayerGather(const sf::RenderWindow* window, const ResourceFont& r
 
 PlayerGather::~PlayerGather()
 {
+	if (!this->gathered_Items_.empty())
+	{
+		for (int x = 0; x < this->gathered_Items_.size(); ++x)
+		{
+			delete this->gathered_Items_[x];
+			this->gathered_Items_.erase(this->gathered_Items_.begin() + x);
+		}
+	}
+
+	std::cout << "DEBUG::PLAYERGATHER::~PLAYERGATHER() -> Deconstructed." << std::endl;
 }
 
 void PlayerGather::updatePollEvent(sf::Event& ev)

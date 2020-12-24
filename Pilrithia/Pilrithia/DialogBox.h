@@ -17,7 +17,7 @@ public:
 	DialogBox();
 	~DialogBox();
 
-	void setSettings(float sizeX, float sizeY, float posX, float posY, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, const std::string& dialogText, const ResourceFont& resourceFont, bool isVisible);
+	void setSettings(float sizeX, float sizeY, float posX, float posY, const sf::Color& fillColor, float outlineThickness, const sf::Color& outlineColor, const std::string& dialogText, ResourceFont* resourceFont, bool isVisible);
 
 	bool updatePollEvent(sf::Event& ev);
 	void update(const sf::Vector2f& mousePositionView);

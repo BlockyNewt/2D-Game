@@ -7,6 +7,7 @@ Animation::Animation()
 
 Animation::~Animation()
 {
+	std::cout << "DEBUG::ANIMATION::~ANIMATION() -> Deconstructed" << std::endl;
 }
 
 void Animation::update(sf::RectangleShape& sprite, const sf::IntRect& textureRect, const int& sheetWidth, float time)

@@ -21,7 +21,7 @@
 class MenuCharacterCreation
 {
 public:
-	MenuCharacterCreation(sf::Vector2u windowSize, const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceRace& resourceRace);
+	MenuCharacterCreation(sf::Vector2u windowSize, ResourceFont* resourceFont, ResourceHud* resourceHud, ResourceRace* resourceRace);
 	~MenuCharacterCreation();
 
 	void updateRacePollEvent(sf::Event& ev);
@@ -40,8 +40,8 @@ public:
 
 
 private:
-	void initializeNameGui(const ResourceFont& resourceFont, const ResourceHud& resourceHud);
-	void initializeRaceGui(const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceRace& resourceRace);
+	void initializeNameGui(ResourceFont* resourceFont, ResourceHud* resourceHud);
+	void initializeRaceGui(ResourceFont* resourceFont, ResourceHud* resourceHud, ResourceRace* resourceRace);
 
 private:
 	//TESTING 
@@ -89,7 +89,7 @@ private:
 	Text race_T_G_;
 
 
-	ResourceRace resource_Race_;
+	ResourceRace* resource_Race_;
 
 	bool is_Creating_Character_;
 };

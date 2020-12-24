@@ -19,7 +19,7 @@ class Gather
 {
 public:
 	Gather();
-	Gather(GATHERTYPE gatherType, const sf::Vector2f& position, const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceItem& resourceItem);
+	Gather(GATHERTYPE gatherType, const sf::Vector2f& position, ResourceFont* resourceFont, ResourceHud* resourceHud, ResourceItem* resourceItem);
 	virtual ~Gather();
 
 	virtual void updatePollEvent(sf::Event& ev) = 0;

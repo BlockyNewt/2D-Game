@@ -4,14 +4,14 @@ NpcTest::NpcTest()
 {
 }
 
-NpcTest::NpcTest(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceNpc& resourceNpc)
+NpcTest::NpcTest(const sf::RenderWindow* window, ResourceFont* resourceFont, ResourceNpc* resourceNpc)
 {
 	this->dialog_Box_Str_ = "This is the first quest. Click the expand button to see more of what this quest has to offer.";
 	
 	this->npc_Model_.setSize(sf::Vector2f(128.f, 128.f));
 	this->npc_Model_.setPosition(sf::Vector2f(10.f, 74.f));
 	this->npc_Model_.setFillColor(sf::Color::White);
-	this->npc_Model_.setTexture(resourceNpc.getNpcTexture(NPC_TEXTURE_TYPE_::TEST_QUEST_NPC_TEXTURE));
+	this->npc_Model_.setTexture(resourceNpc->getNpcTexture(NPC_TEXTURE_TYPE_::TEST_QUEST_NPC_TEXTURE));
 	this->npc_Model_.setTextureRect(sf::IntRect(0, 0, 128, 128));
 
 	this->npc_Range_.setSize(sf::Vector2f(150.f, 128.f));
@@ -27,7 +27,7 @@ NpcTest::NpcTest(const sf::RenderWindow* window, const ResourceFont& resourceFon
 	this->dialog_Box_.setString(this->dialog_Box_Str_);
 
 	this->npc_Name_ = "N.P.C One";
-	this->name_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, this->npc_Name_, sf::Vector2f(this->npc_Model_.getGlobalBounds().left - 25.f, this->npc_Model_.getGlobalBounds().top - 25.f), true);
+	this->name_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 18, this->npc_Name_, sf::Vector2f(this->npc_Model_.getGlobalBounds().left - 25.f, this->npc_Model_.getGlobalBounds().top - 25.f), true);
 
 	this->is_Within_Range_ = false;
 	

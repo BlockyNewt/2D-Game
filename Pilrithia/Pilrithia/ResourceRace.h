@@ -38,14 +38,14 @@ public:
 
 private:
 	void loadRaceTexture(const std::string& raceTextureFileName, RACE_TEXTURE_TYPE_ raceTextureType);
-	void AddToTextureMap(const sf::Texture* raceTexture, RACE_TEXTURE_TYPE_ raceTextureType);
+	void AddToTextureMap(sf::Texture* raceTexture, RACE_TEXTURE_TYPE_ raceTextureType);
 
 	void loadRaceSound(const std::string& raceSoundFileName, RACE_SOUND_TYPE_ raceSoundType);
-	void AddToSoundMap(const sf::Sound* raceSound, RACE_SOUND_TYPE_ raceSoundType);
+	void AddToSoundMap(sf::Sound* raceSound, RACE_SOUND_TYPE_ raceSoundType);
 
 private:
-	std::map<RACE_TEXTURE_TYPE_, sf::Texture> race_Textures_;
-	std::map<RACE_SOUND_TYPE_, sf::Sound> race_Sounds_;
+	std::map<RACE_TEXTURE_TYPE_, sf::Texture*> race_Textures_;
+	std::map<RACE_SOUND_TYPE_, sf::Sound*> race_Sounds_;
 
 };
 

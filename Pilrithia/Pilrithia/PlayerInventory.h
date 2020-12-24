@@ -24,7 +24,7 @@
 class PlayerInventory
 {
 public:
-	PlayerInventory(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceHud& resourceHud, const ResourceRace& resourceRace);
+	PlayerInventory(const sf::RenderWindow* window, ResourceFont* resourceFont, ResourceHud* resourceHud, ResourceRace* resourceRace);
 	~PlayerInventory();
 
 	void initializeInventory(const std::string& name, const std::string& raceName, const std::string& className, const int& level, const std::map<std::string, int>& stats, const std::map<std::string, int>& resistances);
@@ -46,9 +46,9 @@ public:
 	
 
 private:
-	void initializeStats(const ResourceFont& resourceFont);
-	void initializeResistances(const ResourceFont& resourceFont);
-	void initializeIcons(const ResourceFont& resourceFont);
+	void initializeStats(ResourceFont* resourceFont);
+	void initializeResistances(ResourceFont* resourceFont);
+	void initializeIcons(ResourceFont* resourceFont);
 
 private:
 	Box x_C_;
@@ -122,7 +122,7 @@ private:
 	HoverDescription d_A_;
 	ItemDropDownList l_A_;
 
-	ResourceFont resource_Font_;
+	ResourceFont* resource_Font_;
 
 	bool is_Stats_Visible_;
 	bool is_Resistances_Visible_;

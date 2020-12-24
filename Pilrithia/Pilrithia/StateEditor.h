@@ -18,6 +18,9 @@ public:
 	void update() override;
 	void render(sf::RenderTarget& target) override;
 
+	void setIsEndOfState(bool isEndOfState) override;
+	const bool& getIsEndOfState() const override;
+
 private:
 	void initializeInstructionsPanel();
 	void initializeRightSidePanel();
@@ -31,6 +34,8 @@ private:
 	void savePollEvent(sf::Event& ev);
 	void loadPollEvent(sf::Event& ev);
 
+
+
 private:
 	/*
 		OTHER
@@ -38,6 +43,7 @@ private:
 	Camera* camera_;
 	Tilemap* tilemap_;
 	Box tile_Box_;
+	bool is_End_Of_State_;
 
 
 	/*

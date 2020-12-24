@@ -9,6 +9,7 @@ Camera::Camera(const unsigned sizeX, const unsigned sizeY)
 
 Camera::~Camera()
 {
+	std::cout << "DEBUG::CAMERA::~CAMERA() -> Deconstructed" << std::endl;
 }
 
 void Camera::updatePollEvent(sf::Event& ev)

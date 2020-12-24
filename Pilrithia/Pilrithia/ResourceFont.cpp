@@ -6,6 +6,18 @@ ResourceFont::ResourceFont()
 
 ResourceFont::~ResourceFont()
 {
+	for (std::map<FONT_TYPE, sf::Font*>::iterator itr = this->fonts_.begin(); itr != this->fonts_.end(); itr++)
+	{
+		delete itr->second;
+		//this->fonts_.erase(itr);
+	}
+
+	this->fonts_.clear();
+
+	if (this->fonts_.empty())
+	{
+		std::cout << "DEBUG::RESOURCEFONT::~RESOURCEFONT() -> Deleted all fonts" << std::endl;
+	}
 }
 
 void ResourceFont::loadAllFonts()
@@ -19,7 +31,7 @@ const sf::Font& ResourceFont::getFont(FONT_TYPE fontType) const
 
 	if (findPos != this->fonts_.end())
 	{
-		return findPos->second;
+		return *findPos->second;
 	}
 	else
 	{
@@ -41,7 +53,7 @@ void ResourceFont::loadFont(const std::string& fontFileName, FONT_TYPE fontType)
 	}
 }
 
-void ResourceFont::AddToMap(const sf::Font* font, FONT_TYPE fontType)
+void ResourceFont::AddToMap(sf::Font* font, FONT_TYPE fontType)
 {
-	this->fonts_.insert(std::make_pair(fontType, *font));
+	this->fonts_.insert(std::make_pair(fontType, font));
 }

@@ -28,7 +28,7 @@ public:
 	ItemDropDownList();
 	~ItemDropDownList();
 
-	void setSettings(LISTUSE listUse, const sf::FloatRect itemBoundaries, const ResourceFont& resourceFont);
+	void setSettings(LISTUSE listUse, const sf::FloatRect itemBoundaries, ResourceFont* resourceFont);
 
 	bool updateEquipPollEvent(sf::Event& ev);
 	bool updateUnequipPollEvent(sf::Event& ev);

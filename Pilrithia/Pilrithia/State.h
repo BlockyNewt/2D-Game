@@ -31,6 +31,9 @@ public:
 	const float percentToPixelX(const float sizeX);
 	const float percentToPixelY(const float sizeY);
 
+	virtual void setIsEndOfState(bool isEndOfState) = 0;
+	virtual const bool& getIsEndOfState() const = 0;
+
 protected:
 	std::stack<State*>* states_;
 	
@@ -50,8 +53,8 @@ protected:
 	ResourceHud* resource_Hud_;
 	ResourceRace* resource_Race_;
 	ResourceItem* resource_Item_;
-	ResourceEnemy* resource_Enemy_;
-	ResourceNpc* resource_Npc_;
+	/*ResourceEnemy* resource_Enemy_;
+	ResourceNpc* resource_Npc_;*/
 
 private:
 

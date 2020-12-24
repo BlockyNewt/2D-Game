@@ -19,7 +19,7 @@
 class ShopBox
 {
 public:
-	ShopBox(const ResourceFont& resourceFont, const ResourceItem& resourceItem, const ResourceNpc& resourceNpc);
+	ShopBox(ResourceFont* resourceFont, ResourceItem* resourceItem, ResourceNpc* resourceNpc);
 	~ShopBox();
 
 	void alignPlayerBagItems(std::vector<std::vector<Item*>>& playerBag, const int& playerBagMaxSizeX, const int& playerBagMaxSizeY);
@@ -36,7 +36,7 @@ public:
 private:
 
 private:
-	ResourceNpc resource_Npc_;
+	ResourceNpc* resource_Npc_;
 
 	Box x_A_;
 	Box x_B_;
@@ -70,7 +70,7 @@ private:
 
 	bool is_Visible_;
 
-	ResourceFont resource_Font_;
+	ResourceFont* resource_Font_;
 };
 
 #endif // !SHOPBOX_H

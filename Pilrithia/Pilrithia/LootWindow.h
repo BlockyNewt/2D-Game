@@ -18,7 +18,7 @@
 class LootWindow
 {
 public:
-	LootWindow(const sf::RenderWindow* window, const ResourceFont& resourceFont, const ResourceItem& resourceItem);
+	LootWindow(const sf::RenderWindow* window, ResourceFont* resourceFont, ResourceItem* resourceItem);
 	~LootWindow();
 
 	void addEnemyItems(std::vector<Item*>& enemyItems);
@@ -49,7 +49,7 @@ private:
 	ItemDropDownList l_A_;
 	int selected_Item_X_;
 
-	ResourceFont resource_Font_;
+	ResourceFont* resource_Font_;
 
 };
 

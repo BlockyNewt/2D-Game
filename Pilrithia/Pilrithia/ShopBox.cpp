@@ -1,6 +1,6 @@
 #include "ShopBox.h"
 
-ShopBox::ShopBox(const ResourceFont& resourceFont, const ResourceItem& resourceItem, const ResourceNpc& resourceNpc)
+ShopBox::ShopBox(ResourceFont* resourceFont, ResourceItem* resourceItem, ResourceNpc* resourceNpc)
 {
 	this->resource_Npc_ = resourceNpc;
 
@@ -10,8 +10,8 @@ ShopBox::ShopBox(const ResourceFont& resourceFont, const ResourceItem& resourceI
 
 	this->b_A_.setSettings(50.f, 50.f, this->x_B_.getRightPosition(false, 50.f), this->x_B_.getTopPosition(), sf::Color(174, 90, 65), 1.f, sf::Color::White, true);
 
-	this->t_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "Shop", sf::Vector2f(this->x_B_.getLeftPosition(true, 100.f), this->x_B_.getTopPosition(true, 10.f)), true);
-	this->t_A_.setSettings(resourceFont.getFont(FONT_TYPE::ARIAL), 18, "Close", sf::Vector2f(this->b_A_.getLeftPosition(true, 10.f), this->b_A_.getTopPosition(true, 10.f)), true);
+	this->t_A_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 18, "Shop", sf::Vector2f(this->x_B_.getLeftPosition(true, 100.f), this->x_B_.getTopPosition(true, 10.f)), true);
+	this->t_A_.setSettings(resourceFont->getFont(FONT_TYPE::ARIAL), 18, "Close", sf::Vector2f(this->b_A_.getLeftPosition(true, 10.f), this->b_A_.getTopPosition(true, 10.f)), true);
 
 	this->is_Visible_ = false;
 
@@ -67,16 +67,16 @@ ShopBox::ShopBox(const ResourceFont& resourceFont, const ResourceItem& resourceI
 
 ShopBox::~ShopBox()
 {
-	for (auto& x : this->shop_Items_)
+	for (int x = 0; x < this->max_Bag_Size_X_; ++x)
 	{
-		for (auto& y : x)
+		for (int y = 0; y < this->max_Bag_Size_Y_; ++y)
 		{
-			if (y != NULL)
-			{
-				delete y;
-			}
+			delete this->shop_Items_[x][y];
+			this->shop_Items_[x].erase(this->shop_Items_[x].begin() + y);
 		}
 	}
+
+	std::cout << "DEBUG::SHOPBOX::~SHOPBOX() -> Deconstructed" << std::endl;
 }
 
 void ShopBox::alignPlayerBagItems(std::vector<std::vector<Item*>>& playerBag, const int& playerBagMaxSizeX, const int& playerBagMaxSizeY)
@@ -288,9 +288,9 @@ void ShopBox::updatePollEvent(sf::Event& ev, int& playerGold, int& playerSilver,
 
 			if (this->has_Enough_Money_)
 			{
-				if (this->resource_Npc_.getNpcSound(NPC_SOUND_TYPE_::PURCHASE)->getStatus() != sf::Sound::Playing)
+				if (this->resource_Npc_->getNpcSound(NPC_SOUND_TYPE_::PURCHASE)->getStatus() != sf::Sound::Playing)
 				{
-					this->resource_Npc_.getNpcSound(NPC_SOUND_TYPE_::PURCHASE)->play();
+					this->resource_Npc_->getNpcSound(NPC_SOUND_TYPE_::PURCHASE)->play();
 				}
 
 				for (auto& x : playerBag)
@@ -332,9 +332,9 @@ void ShopBox::updatePollEvent(sf::Event& ev, int& playerGold, int& playerSilver,
 		{
 			this->handleMoney(false, playerGold, playerSilver, playerCopper, playerBag);
 
-			if (this->resource_Npc_.getNpcSound(NPC_SOUND_TYPE_::PURCHASE)->getStatus() != sf::Sound::Playing)
+			if (this->resource_Npc_->getNpcSound(NPC_SOUND_TYPE_::PURCHASE)->getStatus() != sf::Sound::Playing)
 			{
-				this->resource_Npc_.getNpcSound(NPC_SOUND_TYPE_::PURCHASE)->play();
+				this->resource_Npc_->getNpcSound(NPC_SOUND_TYPE_::PURCHASE)->play();
 			}
 
 			delete playerBag[this->player_Selected_Item_X_][this->player_Selected_Item_Y_];

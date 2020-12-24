@@ -23,6 +23,7 @@ MenuPause::MenuPause(sf::RenderWindow* window, const ResourceFont& resourceFont)
 
 MenuPause::~MenuPause()
 {
+	std::cout << "DEBUG::MENUPAUSE::~MENUPAUSE() -> Deconstructed." << std::endl;
 }
 
 bool MenuPause::updatePollEvent(sf::Event& ev)

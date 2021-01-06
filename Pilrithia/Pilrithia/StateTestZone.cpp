@@ -54,6 +54,10 @@ StateTestZone::StateTestZone(std::stack<State*>* states, sf::RenderWindow* windo
 	this->load_T_D_.setSettings(this->resource_Font_->getFont(FONT_TYPE::ARIAL), 25, "Close", sf::Vector2f(this->load_B_B_.getLeftPosition(true, 10.f), this->load_B_B_.getTopPosition(true, 10.f)), true);
 
 	this->load_I_A_.setSettings(500.f, 40.f, this->load_T_B_.getRightPosition(true, 10.f), this->load_T_B_.getTopPosition(), sf::Color::Black, 1.f, sf::Color::Red, true, false, 30, this->resource_Font_);
+
+	this->teleporter_Rec_.setPosition(sf::Vector2f(1400.f, 650.f));
+	this->teleporter_Rec_.setSize(sf::Vector2f(50.f, 50.f));
+	this->teleporter_Rec_.setFillColor(sf::Color::Red);
 }
 
 StateTestZone::~StateTestZone()
@@ -386,6 +390,10 @@ void StateTestZone::update()
 		this->merchant_Test_->update(this->mouse_Position_View_, this->mouse_Position_Window_, this->player_Test_->getPlayerGlobalBounds(), *this->camera_, this->player_Test_->getPlayerInventory().getEquipment(), this->player_Test_->setPlayerBag().setItem());
 
 
+		if (this->teleporter_Rec_.getGlobalBounds().intersects(this->player_Test_->getPlayerModel().getGlobalBounds()))
+		{
+			this->player_Test_->getPlayerModel().setPosition(sf::Vector2f(1600.f, this->player_Test_->getPlayerModel().getPosition().y));
+		}
 
 		//TESTING - SHOULD PUT INTO A VECTOR LATER
 		this->updateGather();
@@ -402,6 +410,8 @@ void StateTestZone::render(sf::RenderTarget& target)
 
 	this->tilemap_->render(target);
 	
+	target.draw(this->teleporter_Rec_);
+
 	this->player_Test_->renderPlayerModel(target);
 
 	this->npc_Test_->render(target);

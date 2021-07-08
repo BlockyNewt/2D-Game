@@ -52,10 +52,14 @@ StateMainMenu::StateMainMenu(std::stack<State*>* states, sf::RenderWindow* windo
 	this->texts_.push_back(this->t_E_);
 	this->texts_.push_back(this->t_F_);
 	this->texts_.push_back(this->t_G_);
+
+	this->view_ = new sf::View(sf::FloatRect(0, 0, this->window_->getSize().x, this->window_->getSize().y));
 }
 
 StateMainMenu::~StateMainMenu()
 {
+	delete this->view_;
+
 	std::cout << "DEBUG::STATEMAINMENU::~STATEMAINMENU() -> Deconstructed." << std::endl;
 }
 
@@ -143,7 +147,7 @@ void StateMainMenu::update()
 	/*
 		UPDATE MOUSE POSITION
 	*/
-	this->updateMousePosition(&sf::View(sf::FloatRect(0,0,this->window_->getSize().x, this->window_->getSize().y)));
+	this->updateMousePosition(this->view_);
 	//this->updateMousePosition(&this->window_->getDefaultView());
 
 	if (!this->menu_Setting_->getIsInSettings())

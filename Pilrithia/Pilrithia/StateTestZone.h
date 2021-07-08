@@ -92,8 +92,6 @@ private:
 	ResourceEnemy* resource_Enemy_;
 	ResourceNpc* resource_Npc_;
 
-	sf::RectangleShape teleporter_Rec_;
-
 };
 
 #endif // !STATETESTZONE_H

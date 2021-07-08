@@ -41,8 +41,6 @@ private:
 	Text t_G_;
 	std::vector<Text> texts_;
 
-	sf::View* view_;
-
 	
 };
 

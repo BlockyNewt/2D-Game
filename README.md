@@ -9,7 +9,12 @@ In game Mechanis include...
 5. Combat
 6. Progression
 7. Looting of dead bodies
-8. Mining, herbalism, 
+8. Mining, herbalism, and Harvesting
 9. Character selection and naming
 10. Load levels you created in the level creation and test it in "Test Zone"
-11. 
+11. Sounds for everything
+12. Levels and stat increases on level up
+13. Equipping and unequipping of items on character
+14. Item shop
+15. Money
+16. 3 different resolutions

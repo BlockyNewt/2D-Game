@@ -16,4 +16,4 @@ In game Mechanis include...
 12. Equipping and unequipping of items on character
 13. Item shop
 14. Money
-15. 3 different resolutions
+15. Three different resolutions

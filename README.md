@@ -1,4 +1,4 @@
-# Pilrithia
+# 2D Game
 Was messing around with a new C++ library call SFML (Simple and Fast Multimedia Library) and just made a simple 2D game. Had to stop working on it due to work getting busy, but all the mechanics in the game work. 
 
 In game Mechanis include...
